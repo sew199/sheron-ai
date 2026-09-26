@@ -1,564 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sheron AI — Personal AI Assistant</title>
+<title>Sheron AI</title>
 
-    <meta
-        name="description"
-        content="Sheron AI — A modular personal AI assistant built with Python."
-    >
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, #152238, transparent 40%),
+        radial-gradient(circle at bottom right, #111827, transparent 40%),
+        #05070d;
+    color: white;
+    min-height: 100vh;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* NAVBAR */
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at top left, #172554, transparent 35%),
-                radial-gradient(circle at bottom right, #312e81, transparent 35%),
-                #050816;
-            color: #ffffff;
-            min-height: 100vh;
-        }
+nav {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(5,7,13,0.75);
+    backdrop-filter: blur(15px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
 
-        nav {
-            width: 100%;
-            padding: 22px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(5,8,22,0.75);
-        }
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
+.logo span {
+    color: #00d9ff;
+}
 
-        .logo span {
-            color: #60a5fa;
-        }
+nav a {
+    color: #aaa;
+    text-decoration: none;
+    margin-left: 25px;
+}
 
-        nav a {
-            color: #cbd5e1;
-            text-decoration: none;
-            margin-left: 25px;
-            font-size: 14px;
-        }
+nav a:hover {
+    color: white;
+}
 
-        nav a:hover {
-            color: #ffffff;
-        }
+/* HERO */
 
-        .hero {
-            min-height: 88vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 80px 20px;
-        }
+.hero {
+    text-align: center;
+    padding: 90px 20px 60px;
+}
 
-        .hero-content {
-            max-width: 900px;
-        }
+.hero h1 {
+    font-size: clamp(45px, 9vw, 90px);
+    letter-spacing: 8px;
+    background: linear-gradient(90deg,#00d9ff,#ffffff,#7c3aed);
+    -webkit-background-clip: text;
+    color: transparent;
+}
 
-        .badge {
-            display: inline-block;
-            padding: 9px 16px;
-            border: 1px solid rgba(96,165,250,0.4);
-            border-radius: 50px;
-            background: rgba(37,99,235,0.12);
-            color: #93c5fd;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
+.hero p {
+    color: #aaa;
+    font-size: 18px;
+    margin-top: 15px;
+}
 
-        h1 {
-            font-size: clamp(55px, 10vw, 110px);
-            line-height: 0.95;
-            font-weight: 900;
-            letter-spacing: -5px;
-        }
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid rgba(0,217,255,0.3);
+    border-radius: 30px;
+    color: #00d9ff;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
 
-        .gradient {
-            background: linear-gradient(
-                90deg,
-                #60a5fa,
-                #a78bfa,
-                #22d3ee
-            );
+/* CHAT */
 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.chat-section {
+    width: min(900px, 92%);
+    margin: 20px auto 100px;
+}
 
-        .hero h2 {
-            margin-top: 25px;
-            font-size: clamp(22px, 4vw, 38px);
-            color: #e2e8f0;
-        }
+.chat-box {
+    background: rgba(10,15,25,0.9);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+}
 
-        .hero p {
-            margin: 25px auto;
-            max-width: 700px;
-            color: #94a3b8;
-            font-size: 18px;
-            line-height: 1.7;
-        }
+/* CHAT HEADER */
 
-        .buttons {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+.chat-header {
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-        .btn {
-            padding: 14px 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.25s;
-        }
+.status {
+    width: 10px;
+    height: 10px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00ff88;
+}
 
-        .primary {
-            background: #2563eb;
-            color: white;
-            box-shadow: 0 10px 35px rgba(37,99,235,0.35);
-        }
+.chat-title {
+    font-weight: bold;
+}
 
-        .primary:hover {
-            transform: translateY(-3px);
-            background: #3b82f6;
-        }
+.chat-status {
+    color: #777;
+    font-size: 12px;
+}
 
-        .secondary {
-            border: 1px solid rgba(255,255,255,0.15);
-            color: #e2e8f0;
-            background: rgba(255,255,255,0.04);
-        }
+/* MESSAGES */
 
-        .secondary:hover {
-            background: rgba(255,255,255,0.09);
-        }
+.messages {
+    height: 430px;
+    overflow-y: auto;
+    padding: 25px;
+}
 
-        section {
-            padding: 90px 7%;
-        }
+.message {
+    margin-bottom: 20px;
+    max-width: 80%;
+    animation: messageIn 0.3s ease;
+}
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+@keyframes messageIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
 
-        .section-title h2 {
-            font-size: 40px;
-            margin-bottom: 12px;
-        }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .section-title p {
-            color: #94a3b8;
-        }
+.message-name {
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #00d9ff;
+    font-weight: bold;
+}
 
-        .features {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(220px, 1fr)
-            );
-            gap: 20px;
-        }
+.message-content {
+    background: #111827;
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 12px 15px;
+    border-radius: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
 
-        .card {
-            padding: 28px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.09);
-            background: rgba(255,255,255,0.045);
-            backdrop-filter: blur(12px);
-            transition: 0.3s;
-        }
+.user-message {
+    margin-left: auto;
+}
 
-        .card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(96,165,250,0.35);
-            background: rgba(255,255,255,0.07);
-        }
+.user-message .message-name {
+    color: #a78bfa;
+    text-align: right;
+}
 
-        .icon {
-            font-size: 35px;
-            margin-bottom: 18px;
-        }
+.user-message .message-content {
+    background: #211b3a;
+}
 
-        .card h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
+/* TYPING */
 
-        .card p {
-            color: #94a3b8;
-            line-height: 1.6;
-        }
+.typing {
+    display: flex;
+    gap: 5px;
+    padding: 14px;
+    width: 65px;
+}
 
-        .terminal {
-            max-width: 900px;
-            margin: auto;
-            border-radius: 18px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #020617;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-        }
+.typing span {
+    width: 7px;
+    height: 7px;
+    background: #777;
+    border-radius: 50%;
+    animation: typing 1s infinite;
+}
 
-        .terminal-bar {
-            padding: 13px 18px;
-            background: #111827;
-            color: #64748b;
-        }
+.typing span:nth-child(2) {
+    animation-delay: 0.15s;
+}
 
-        .terminal-body {
-            padding: 30px;
-            font-family: monospace;
-            color: #94a3b8;
-            line-height: 2;
-            overflow-x: auto;
-        }
+.typing span:nth-child(3) {
+    animation-delay: 0.3s;
+}
 
-        .green {
-            color: #4ade80;
-        }
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
 
-        .blue {
-            color: #60a5fa;
-        }
+    30% {
+        transform: translateY(-5px);
+    }
+}
 
-        .purple {
-            color: #c084fc;
-        }
+/* INPUT */
 
-        .creator {
-            text-align: center;
-        }
+.input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    gap: 10px;
+}
 
-        .creator-box {
-            max-width: 700px;
-            margin: auto;
-            padding: 45px;
-            border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.045);
-        }
+.input-area input {
+    flex: 1;
+    background: #080c14;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 14px 16px;
+    border-radius: 12px;
+    outline: none;
+    font-size: 15px;
+}
 
-        .avatar {
-            width: 120px;
-            height: 120px;
-            margin: auto auto 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 45px;
-            background: linear-gradient(
-                135deg,
-                #2563eb,
-                #7c3aed
-            );
-            box-shadow: 0 15px 45px rgba(37,99,235,0.3);
-        }
+.input-area input:focus {
+    border-color: #00d9ff;
+}
 
-        .creator-box h2 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
+.send-btn {
+    border: none;
+    background: linear-gradient(135deg,#00d9ff,#7c3aed);
+    color: white;
+    padding: 0 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        .creator-box p {
-            color: #94a3b8;
-            line-height: 1.7;
-        }
+.send-btn:hover {
+    opacity: 0.85;
+}
 
-        footer {
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            color: #64748b;
-        }
+/* FEATURES */
 
-        footer strong {
-            color: #cbd5e1;
-        }
+.features {
+    width: min(1100px, 90%);
+    margin: auto;
+    padding-bottom: 100px;
+}
 
-        @media (max-width: 600px) {
+.features h2 {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 40px;
+}
 
-            nav {
-                padding: 18px 5%;
-            }
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
 
-            nav div:last-child {
-                display: none;
-            }
+.card {
+    padding: 30px;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+}
 
-            h1 {
-                letter-spacing: -3px;
-            }
+.card h3 {
+    margin-bottom: 12px;
+}
 
-            section {
-                padding: 65px 5%;
-            }
+.card p {
+    color: #999;
+    line-height: 1.6;
+}
 
-            .terminal-body {
-                padding: 20px;
-                font-size: 13px;
-            }
-        }
-    </style>
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: #777;
+}
+
+footer strong {
+    color: white;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    nav {
+        padding: 0 5%;
+    }
+
+    nav div:last-child {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 60px;
+    }
+
+    .messages {
+        height: 380px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .input-area {
+        padding: 10px;
+    }
+
+    .send-btn {
+        padding: 0 16px;
+    }
+}
+</style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
+
 <nav>
 
     <div class="logo">
-        🧠 SHERON<span>AI</span>
+        SHERON<span>AI</span>
     </div>
 
     <div>
+        <a href="#chat">Chat</a>
         <a href="#features">Features</a>
-        <a href="#terminal">Interface</a>
-        <a href="#creator">Creator</a>
-        <a
-            href="https://github.com/sew199/sheron-ai"
-            target="_blank"
-        >
-            GitHub
-        </a>
+        <a href="#about">About</a>
     </div>
 
 </nav>
 
 
+<!-- HERO -->
+
 <section class="hero">
 
-    <div class="hero-content">
-
-        <div class="badge">
-            🚀 Personal AI Assistant
-        </div>
-
-        <h1>
-            SHERON<br>
-            <span class="gradient">AI</span>
-        </h1>
-
-        <h2>
-            Your Personal AI Assistant
-        </h2>
-
-        <p>
-            A modular personal AI assistant built with Python,
-            featuring memory, local knowledge, smart routing,
-            calculations and an extensible architecture.
-        </p>
-
-        <div class="buttons">
-
-            <a
-                class="btn primary"
-                href="https://github.com/sew199/sheron-ai"
-                target="_blank"
-            >
-                ⭐ View on GitHub
-            </a>
-
-            <a
-                class="btn secondary"
-                href="#features"
-            >
-                Explore Sheron AI
-            </a>
-
-        </div>
-
+    <div class="badge">
+        PERSONAL AI ASSISTANT
     </div>
+
+    <h1>SHERON AI</h1>
+
+    <p>
+        Your personal intelligent assistant.
+    </p>
 
 </section>
 
 
-<section id="features">
+<!-- CHAT -->
 
-    <div class="section-title">
+<section class="chat-section" id="chat">
 
-        <h2>Powerful Core</h2>
+    <div class="chat-box">
 
-        <p>
-            Built to grow into a complete personal AI ecosystem.
-        </p>
+        <div class="chat-header">
 
-    </div>
-
-
-    <div class="features">
-
-        <div class="card">
-
-            <div class="icon">🧠</div>
-
-            <h3>AI Brain</h3>
-
-            <p>
-                Central processing system that handles
-                conversations and responses.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">💾</div>
-
-            <h3>Memory</h3>
-
-            <p>
-                Stores useful profile information,
-                preferences, facts and conversation history.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">📚</div>
-
-            <h3>Knowledge</h3>
-
-            <p>
-                Local knowledge system organized into
-                different technical topics.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">🧭</div>
-
-            <h3>Smart Router</h3>
-
-            <p>
-                Detects the topic of a question and
-                routes it to the appropriate system.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">🧮</div>
-
-            <h3>Calculator</h3>
-
-            <p>
-                Safely handles mathematical expressions
-                directly inside Sheron AI.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="icon">🚀</div>
-
-            <h3>Extensible</h3>
-
-            <p>
-                Designed for future APIs, tools,
-                AI models and external services.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section id="terminal">
-
-    <div class="section-title">
-
-        <h2>Terminal Interface</h2>
-
-        <p>
-            Simple. Fast. Built for Termux.
-        </p>
-
-    </div>
-
-
-    <div class="terminal">
-
-        <div class="terminal-bar">
-            ● ● ●
-        </div>
-
-        <div class="terminal-body">
-
-            <div class="blue">
-                $ sheron
-            </div>
-
-            <br>
-
-            <div class="purple">
-                🧠 SHERON AI
-            </div>
-
-            <div class="green">
-                System initialized successfully. ✓
-            </div>
-
-            <div class="green">
-                Memory system loaded. ✓
-            </div>
-
-            <div class="green">
-                Knowledge system loaded. ✓
-            </div>
-
-            <br>
+            <div class="status"></div>
 
             <div>
-                You: what is an IP address?
+                <div class="chat-title">
+                    Sheron AI
+                </div>
+
+                <div class="chat-status">
+                    Online • Ready
+                </div>
             </div>
 
-            <div class="blue">
-                Sheron AI: An IP address identifies a
-                device on a network...
+        </div>
+
+
+        <div class="messages" id="messages">
+
+            <div class="message">
+
+                <div class="message-name">
+                    SHERON AI
+                </div>
+
+                <div class="message-content">
+                    Hey bro! 👋
+                    I'm Sheron AI.
+
+                    Type something below and let's chat.
+                </div>
+
             </div>
+
+        </div>
+
+
+        <div class="input-area">
+
+            <input
+                id="userInput"
+                type="text"
+                placeholder="Type your message..."
+                autocomplete="off"
+            >
+
+            <button
+                class="send-btn"
+                onclick="sendMessage()"
+            >
+                Send
+            </button>
 
         </div>
 
@@ -567,45 +450,118 @@
 </section>
 
 
-<section id="creator" class="creator">
+<!-- FEATURES -->
 
-    <div class="section-title">
+<section class="features" id="features">
 
-        <h2>Meet the Creator</h2>
+    <h2>What Sheron AI Can Do</h2>
+
+    <div class="feature-grid">
+
+        <div class="card">
+
+            <h3>🧠 Memory</h3>
+
+            <p>
+                Remember important information
+                and personalize conversations.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>📚 Knowledge</h3>
+
+            <p>
+                Modular local knowledge system
+                for different technology topics.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🧮 Calculator</h3>
+
+            <p>
+                Perform mathematical calculations
+                directly through the assistant.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🌐 APIs</h3>
+
+            <p>
+                Designed to support future APIs,
+                web tools and external services.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>💻 Cybersecurity</h3>
+
+            <p>
+                Built with a modular architecture
+                for ethical cybersecurity learning.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>⚡ Smart Router</h3>
+
+            <p>
+                Route different questions to the
+                appropriate knowledge or tool.
+            </p>
+
+        </div>
 
     </div>
 
+</section>
 
-    <div class="creator-box">
 
-        <div class="avatar">
-            🧑‍💻
-        </div>
+<!-- ABOUT -->
 
-        <h2>Sheron Elijah</h2>
+<section class="features" id="about">
+
+    <h2>About Sheron AI</h2>
+
+    <div class="card">
 
         <p>
-            🇱🇰 Sri Lanka
+            Sheron AI is a modular personal AI assistant
+            built with Python. The project combines memory,
+            local knowledge, calculations and smart routing
+            into an extensible architecture designed for
+            future AI tools and APIs.
         </p>
 
         <br>
 
         <p>
-            Creator and developer of
-            <strong>SHERON AI</strong>.
-        </p>
-
-        <br>
-
-        <p>
-            Development assistance provided by
-            <strong>ChatGPT</strong>.
+            Created by <strong>Sheron Elijah</strong>.
         </p>
 
     </div>
 
 </section>
 
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -614,16 +570,265 @@
     </p>
 
     <p>
-        All Rights Reserved.
-    </p>
-
-    <br>
-
-    <p>
-        🧠 SHERON AI — Build. Learn. Create. 🚀
+        Sheron AI • Personal AI Assistant
     </p>
 
 </footer>
+
+
+<script>
+
+const input = document.getElementById("userInput");
+const messages = document.getElementById("messages");
+
+
+/* ENTER KEY */
+
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        sendMessage();
+
+    }
+
+});
+
+
+/* ADD USER MESSAGE */
+
+function addUserMessage(text) {
+
+    const message = document.createElement("div");
+
+    message.className =
+        "message user-message";
+
+    message.innerHTML = `
+
+        <div class="message-name">
+            YOU
+        </div>
+
+        <div class="message-content">
+            ${escapeHTML(text)}
+        </div>
+
+    `;
+
+    messages.appendChild(message);
+
+    scrollChat();
+
+}
+
+
+/* ADD AI MESSAGE */
+
+function addAIMessage(text) {
+
+    const message = document.createElement("div");
+
+    message.className = "message";
+
+    message.innerHTML = `
+
+        <div class="message-name">
+            SHERON AI
+        </div>
+
+        <div class="message-content">
+            ${escapeHTML(text)}
+        </div>
+
+    `;
+
+    messages.appendChild(message);
+
+    scrollChat();
+
+}
+
+
+/* TYPING INDICATOR */
+
+function showTyping() {
+
+    const message = document.createElement("div");
+
+    message.className = "message";
+    message.id = "typingMessage";
+
+    message.innerHTML = `
+
+        <div class="message-name">
+            SHERON AI
+        </div>
+
+        <div class="message-content typing">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    `;
+
+    messages.appendChild(message);
+
+    scrollChat();
+
+}
+
+
+/* REMOVE TYPING */
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("typingMessage");
+
+    if (typing) {
+
+        typing.remove();
+
+    }
+
+}
+
+
+/* CHAT RESPONSE */
+
+function generateResponse(text) {
+
+    const lower = text.toLowerCase().trim();
+
+
+    if (lower === "hi" ||
+        lower === "hello" ||
+        lower === "hey") {
+
+        return "Hey bro! 👋 Welcome to Sheron AI.";
+
+    }
+
+
+    if (lower === "/help") {
+
+        return "Available commands:\n\n/help\n/clear\n/about\n\nYou can also just type a normal message.";
+
+    }
+
+
+    if (lower === "/about") {
+
+        return "I'm Sheron AI — a modular personal AI assistant built by Sheron Elijah.";
+
+    }
+
+
+    if (lower === "/clear") {
+
+        messages.innerHTML = "";
+
+        return "Chat cleared. 🧹";
+
+    }
+
+
+    if (lower.includes("your name")) {
+
+        return "I'm Sheron AI. 🧠";
+
+    }
+
+
+    if (lower.includes("who are you")) {
+
+        return "I'm Sheron AI, a modular personal AI assistant.";
+
+    }
+
+
+    if (lower.includes("calculator")) {
+
+        return "The full Python calculator is part of the Sheron AI backend. 🧮";
+
+    }
+
+
+    if (lower.includes("cybersecurity")) {
+
+        return "Sheron AI is designed to support ethical cybersecurity learning and defensive knowledge.";
+
+    }
+
+
+    return "I received your message. 🤖\n\nThe website chat is working, but the real Python AI backend has not been connected yet.";
+
+}
+
+
+/* SEND MESSAGE */
+
+function sendMessage() {
+
+    const text = input.value.trim();
+
+
+    if (!text) {
+
+        return;
+
+    }
+
+
+    addUserMessage(text);
+
+    input.value = "";
+
+    showTyping();
+
+
+    setTimeout(function() {
+
+        removeTyping();
+
+        const response =
+            generateResponse(text);
+
+        addAIMessage(response);
+
+    }, 800);
+
+}
+
+
+/* AUTO SCROLL */
+
+function scrollChat() {
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+}
+
+
+/* HTML SECURITY */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+</script>
 
 </body>
 </html>
