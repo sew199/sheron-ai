@@ -1,0 +1,15 @@
+Cybersecurity is the practice of protecting computers, networks, applications, and data.
+
+Ethical hacking means testing systems with permission to identify security weaknesses.
+
+A firewall controls network traffic based on security rules.
+
+Encryption converts readable data into protected data.
+
+Authentication verifies who a user is.
+
+Authorization determines what an authenticated user is allowed to access.
+
+OWASP provides information about common web application security risks.
+
+Linux security includes strong passwords, permissions, updates, logging, and secure configuration.

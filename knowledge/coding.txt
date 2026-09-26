@@ -1,0 +1,19 @@
+Python is a programming language used for automation, web development, data analysis, AI, and scripting.
+
+A variable stores a value.
+Example:
+name = "Sheron"
+
+A function is a reusable block of code.
+Example:
+def hello():
+    print("Hello")
+
+A list stores multiple values.
+Example:
+numbers = [1, 2, 3]
+
+An if statement is used for conditions.
+Example:
+if age >= 18:
+    print("Adult")

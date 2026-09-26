@@ -1,0 +1,77 @@
+NETWORKING FUNDAMENTALS
+
+A computer network is a group of connected devices that communicate and share resources.
+
+An IP address identifies a device on a network.
+
+IPv4 uses 32-bit addresses, such as 192.168.1.10.
+
+IPv6 uses 128-bit addresses and was designed to provide a much larger address space.
+
+A MAC address is a hardware-level network identifier associated with a network interface.
+
+A router connects different networks and forwards packets between them.
+
+A switch connects devices within a local network and forwards Ethernet frames to the appropriate device.
+
+A modem connects a local network to an internet service provider.
+
+DNS translates domain names such as example.com into IP addresses.
+
+DHCP automatically provides network configuration such as IP address, subnet mask, gateway, and DNS server.
+
+A subnet mask determines which part of an IPv4 address represents the network and which part represents the host.
+
+A default gateway is the device used to reach networks outside the local network.
+
+LAN means Local Area Network.
+
+WAN means Wide Area Network.
+
+WLAN means Wireless Local Area Network.
+
+Ethernet is a common wired networking technology.
+
+Wi-Fi is a wireless networking technology based on IEEE 802.11 standards.
+
+TCP is a connection-oriented transport protocol that provides reliable ordered delivery.
+
+UDP is a connectionless transport protocol with lower overhead than TCP.
+
+A port identifies a network service or application endpoint.
+
+HTTP is a protocol commonly used for web communication.
+
+HTTPS is HTTP protected using TLS encryption.
+
+A firewall filters network traffic according to security rules.
+
+A VPN creates an encrypted connection between a device and a VPN endpoint.
+
+Ping is commonly used to test basic network reachability.
+
+Traceroute shows the network path packets take toward a destination.
+
+Bandwidth describes the capacity of a network connection.
+
+Latency describes the time it takes for data to travel between endpoints.
+
+Packet loss occurs when network packets fail to reach their destination.
+
+NAT translates private network addresses to public addresses and is commonly used by home routers.
+
+Private IPv4 address ranges include 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16.
+
+The OSI model has seven layers: Physical, Data Link, Network, Transport, Session, Presentation, and Application.
+
+The TCP/IP model commonly uses Link, Internet, Transport, and Application layers.
+
+A network protocol is a set of rules that devices use to communicate.
+
+A subnet divides a larger network into smaller logical networks.
+
+A DNS server answers domain-name resolution queries.
+
+A DHCP server assigns network configuration to clients.
+
+A network interface is the hardware or virtual interface used by a device to connect to a network.

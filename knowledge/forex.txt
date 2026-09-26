@@ -1,0 +1,21 @@
+Forex is the foreign exchange market where currencies are traded.
+
+A currency pair contains a base currency and a quote currency.
+
+EUR/USD means the euro is the base currency and the US dollar is the quote currency.
+
+A pip is a commonly used unit for measuring price movement in forex.
+
+Spread is the difference between the bid price and ask price.
+
+Leverage increases both potential gains and potential losses.
+
+Risk management is important when learning forex.
+
+London and New York are major forex trading sessions.
+
+CPI, NFP and FOMC events can cause significant market volatility.
+
+Technical analysis studies price and market data.
+
+Fundamental analysis studies economic and financial factors.
