@@ -22,6 +22,58 @@ That's it. 🧠
 
 ---
 
+⚡ Quick Install
+
+Install Sheron AI on Termux with one command:
+
+curl -fsSL https://raw.githubusercontent.com/sew199/sheron-ai/main/install.sh | bash
+
+The installer automatically:
+
+- 📦 Installs required packages
+- 🐍 Installs Python
+- 📥 Downloads Sheron AI
+- 🔍 Checks the Python files
+- ⚙️ Creates the "sheron" command
+- 🚀 Starts Sheron AI automatically
+
+▶️ Start Sheron AI
+
+After installation, simply type:
+
+sheron
+
+«Note: Sheron AI is installed inside "~/sheron-ai/".
+You do not need to run "python chatbot.py" from your home directory.»
+
+📁 Run Manually
+
+If you want to run the project manually:
+
+cd ~/sheron-ai
+python chatbot.py
+
+❌ Common Mistake
+
+Don't run:
+
+python chatbot.py
+
+directly from:
+
+~
+
+because "chatbot.py" is inside:
+
+~/sheron-ai/
+
+Use:
+
+sheron
+
+instead. 🧠
+
+
 🧠 What is Sheron AI?
 
 Sheron AI is a personal AI assistant project designed to combine:
