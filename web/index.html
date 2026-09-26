@@ -4,149 +4,899 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sheron AI</title>
+<title>Yield Technologies</title>
 
 <style>
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background:
-        radial-gradient(circle at top left, #152238, transparent 40%),
-        radial-gradient(circle at bottom right, #111827, transparent 40%),
-        #05070d;
-    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020409;
+    color: #fff;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* =========================
+   BACKGROUND
+========================= */
 
-nav {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 7%;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    background: rgba(5,7,13,0.75);
-    backdrop-filter: blur(15px);
+body::before {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    left: -250px;
+    top: -250px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 220, 255, .14),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    right: -300px;
+    bottom: -300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(105, 60, 255, .15),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+/* =========================
+   GRID BACKGROUND
+========================= */
+
+.grid-bg {
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+
+    pointer-events: none;
+    z-index: -4;
+}
+
+/* =========================
+   FLOATING BUBBLES
+========================= */
+
+.bubble {
+    position: fixed;
+    border-radius: 50%;
+
+    background: rgba(0, 210, 255, .025);
+
+    border: 1px solid rgba(0, 220, 255, .10);
+
+    box-shadow:
+        inset 0 0 20px rgba(0,220,255,.03),
+        0 0 30px rgba(0,220,255,.03);
+
+    backdrop-filter: blur(4px);
+
+    animation: floating 9s infinite ease-in-out;
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+.b1 {
+    width: 110px;
+    height: 110px;
+    top: 15%;
+    left: 5%;
+}
+
+.b2 {
+    width: 45px;
+    height: 45px;
+    top: 60%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+.b3 {
+    width: 140px;
+    height: 140px;
+    top: 25%;
+    right: 5%;
+    animation-delay: 1s;
+}
+
+.b4 {
+    width: 60px;
+    height: 60px;
+    bottom: 15%;
+    right: 17%;
+    animation-delay: 3s;
+}
+
+.b5 {
+    width: 30px;
+    height: 30px;
+    top: 45%;
+    right: 30%;
+    animation-delay: 4s;
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
     position: sticky;
     top: 0;
-    z-index: 10;
+
+    width: 100%;
+
+    padding: 18px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(2,4,9,.72);
+
+    backdrop-filter: blur(25px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    z-index: 100;
+}
+
+/* LOGO */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    cursor: pointer;
 }
 
 .logo {
-    font-size: 22px;
-    font-weight: bold;
+    width: 43px;
+    height: 43px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.30);
+}
+
+.brand-text {
+    font-size: 15px;
+
+    font-weight: 900;
+
     letter-spacing: 2px;
 }
 
-.logo span {
-    color: #00d9ff;
+.brand-text span {
+    color: #00dcff;
+}
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 28px;
 }
 
 nav a {
-    color: #aaa;
+    position: relative;
+
+    color: #8f9aaa;
+
     text-decoration: none;
-    margin-left: 25px;
+
+    font-size: 14px;
+
+    transition: .3s;
 }
 
 nav a:hover {
-    color: white;
+    color: #fff;
 }
 
-/* HERO */
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: #00dcff;
+
+    transition: .3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero {
+
+    min-height: 86vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     text-align: center;
-    padding: 90px 20px 60px;
+
+    padding: 80px 20px;
+
+    position: relative;
 }
 
-.hero h1 {
-    font-size: clamp(45px, 9vw, 90px);
-    letter-spacing: 8px;
-    background: linear-gradient(90deg,#00d9ff,#ffffff,#7c3aed);
-    -webkit-background-clip: text;
-    color: transparent;
+.hero-content {
+    max-width: 900px;
 }
 
-.hero p {
-    color: #aaa;
-    font-size: 18px;
-    margin-top: 15px;
-}
+/* BADGE */
 
 .badge {
-    display: inline-block;
-    padding: 8px 15px;
-    border: 1px solid rgba(0,217,255,0.3);
-    border-radius: 30px;
-    color: #00d9ff;
-    margin-bottom: 20px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 18px;
+
+    border:
+        1px solid rgba(0,220,255,.20);
+
+    border-radius: 50px;
+
+    background:
+        rgba(0,220,255,.04);
+
+    color: #66eaff;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 28px;
+}
+
+.badge-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #00eaff;
+
+    box-shadow:
+        0 0 12px #00eaff;
+
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+}
+
+/* TITLE */
+
+h1 {
+
+    font-size:
+        clamp(50px, 10vw, 110px);
+
+    line-height: .90;
+
+    font-weight: 900;
+
+    letter-spacing: -6px;
+}
+
+.gradient {
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #00eaff,
+            #7d63ff
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+/* SUBTITLE */
+
+.subtitle {
+
+    max-width: 680px;
+
+    margin:
+        32px auto;
+
+    color: #8490a1;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+/* BUTTONS */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+
+    border: none;
+
+    padding:
+        15px 25px;
+
+    border-radius: 13px;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.primary {
+
+    color: #001016;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #73f4ff
+        );
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.18);
+}
+
+.secondary {
+
+    color: white;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+.btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.35);
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+
+    padding:
+        40px 7% 100px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+.section-title p {
+
+    color: #707b8b;
+
+    font-size: 14px;
+}
+
+.cards {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 20px;
+}
+
+.card {
+
+    padding: 30px;
+
+    min-height: 220px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.012)
+        );
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -60px;
+    right: -60px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,220,255,.15),
+            transparent 70%
+        );
+}
+
+.card:hover {
+
+    transform:
+        translateY(-9px);
+
+    border-color:
+        rgba(0,220,255,.28);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.icon {
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    color: #00eaff;
+
+    background:
+        rgba(0,220,255,.07);
+
+    border:
+        1px solid rgba(0,220,255,.13);
+
+    margin-bottom: 22px;
+}
+
+.card h3 {
+
+    font-size: 19px;
+
+    margin-bottom: 12px;
+}
+
+.card p {
+
+    color: #798596;
+
     font-size: 13px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   AI SECTION
+========================= */
+
+#aiSection {
+
+    display: none;
+
+    min-height: 100vh;
+
+    padding:
+        40px 6% 80px;
+
+    position: relative;
+}
+
+.ai-container {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.ai-header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.ai-logo {
+
+    width: 70px;
+    height: 70px;
+
+    margin: auto auto 18px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #754dff
+        );
+
+    color: #020409;
+
+    box-shadow:
+        0 0 40px rgba(0,220,255,.25);
+}
+
+.ai-header h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.ai-header p {
+
+    color: #778293;
+
+    font-size: 14px;
+}
+
+/* STATUS */
+
+.ai-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 13px;
+
+    color: #68eaff;
+
+    font-size: 11px;
+}
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    background: #00eaff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px #00eaff;
 }
 
 /* CHAT */
 
-.chat-section {
-    width: min(900px, 92%);
-    margin: 20px auto 100px;
-}
-
 .chat-box {
-    background: rgba(10,15,25,0.9);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 80px rgba(0,0,0,0.5);
-}
 
-/* CHAT HEADER */
+    height: 560px;
 
-.chat-header {
-    padding: 18px 22px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 25px;
+
+    background:
+        rgba(7,10,17,.72);
+
+    backdrop-filter:
+        blur(25px);
+
     display: flex;
-    align-items: center;
-    gap: 12px;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
 }
 
-.status {
-    width: 10px;
-    height: 10px;
-    background: #00ff88;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #00ff88;
+.chat-top {
+
+    padding: 18px 22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
 }
 
 .chat-title {
-    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
 }
 
-.chat-status {
-    color: #777;
-    font-size: 12px;
+.mini-logo {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 900;
+}
+
+.chat-name {
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.chat-online {
+
+    color: #5f6b7b;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+.close-ai {
+
+    border: none;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #9ba6b5;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: .2s;
+}
+
+.close-ai:hover {
+
+    background:
+        rgba(255,255,255,.10);
+
+    color: white;
 }
 
 /* MESSAGES */
 
 .messages {
-    height: 430px;
-    overflow-y: auto;
+
+    flex: 1;
+
     padding: 25px;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
 }
 
 .message {
-    margin-bottom: 20px;
-    max-width: 80%;
-    animation: messageIn 0.3s ease;
+
+    max-width: 78%;
+
+    padding:
+        13px 16px;
+
+    border-radius: 17px;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    animation:
+        messageIn .25s ease;
 }
 
 @keyframes messageIn {
+
     from {
         opacity: 0;
         transform: translateY(8px);
@@ -158,289 +908,448 @@ nav a:hover {
     }
 }
 
-.message-name {
-    font-size: 12px;
-    margin-bottom: 6px;
-    color: #00d9ff;
-    font-weight: bold;
-}
+.ai-message {
 
-.message-content {
-    background: #111827;
-    border: 1px solid rgba(255,255,255,0.07);
-    padding: 12px 15px;
-    border-radius: 12px;
-    line-height: 1.6;
-    white-space: pre-wrap;
+    align-self: flex-start;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    color: #d8dee8;
+
+    border-bottom-left-radius: 5px;
 }
 
 .user-message {
-    margin-left: auto;
-}
 
-.user-message .message-name {
-    color: #a78bfa;
-    text-align: right;
-}
+    align-self: flex-end;
 
-.user-message .message-content {
-    background: #211b3a;
+    background:
+        linear-gradient(
+            135deg,
+            #00cfe8,
+            #6450e8
+        );
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
 }
 
 /* TYPING */
 
 .typing {
+
     display: flex;
-    gap: 5px;
-    padding: 14px;
-    width: 65px;
+
+    gap: 4px;
+
+    padding: 4px;
 }
 
 .typing span {
-    width: 7px;
-    height: 7px;
-    background: #777;
+
+    width: 6px;
+    height: 6px;
+
     border-radius: 50%;
-    animation: typing 1s infinite;
+
+    background: #00dcff;
+
+    animation:
+        typing 1s infinite;
 }
 
 .typing span:nth-child(2) {
-    animation-delay: 0.15s;
+    animation-delay: .15s;
 }
 
 .typing span:nth-child(3) {
-    animation-delay: 0.3s;
+    animation-delay: .3s;
 }
 
 @keyframes typing {
-    0%, 60%, 100% {
-        transform: translateY(0);
+
+    0%,100% {
+        opacity: .25;
     }
 
-    30% {
-        transform: translateY(-5px);
+    50% {
+        opacity: 1;
     }
 }
 
-/* INPUT */
+/* CHAT INPUT */
 
-.input-area {
-    display: flex;
+.chat-input-area {
+
     padding: 15px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
     gap: 10px;
 }
 
-.input-area input {
+.chat-input {
+
     flex: 1;
-    background: #080c14;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-    padding: 14px 16px;
-    border-radius: 12px;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
     outline: none;
-    font-size: 15px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    padding:
+        14px 16px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
 }
 
-.input-area input:focus {
-    border-color: #00d9ff;
+.chat-input::placeholder {
+    color: #596576;
 }
 
 .send-btn {
+
+    width: 50px;
+
     border: none;
-    background: linear-gradient(135deg,#00d9ff,#7c3aed);
-    color: white;
-    padding: 0 22px;
-    border-radius: 12px;
+
+    border-radius: 13px;
+
     cursor: pointer;
-    font-weight: bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #7354ff
+        );
+
+    color: #020409;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    transition: .2s;
 }
 
 .send-btn:hover {
-    opacity: 0.85;
+    transform: scale(1.05);
 }
 
-/* FEATURES */
+/* =========================
+   TECHNOLOGY
+========================= */
 
-.features {
-    width: min(1100px, 90%);
-    margin: auto;
-    padding-bottom: 100px;
-}
+#technology {
 
-.features h2 {
+    padding:
+        80px 7%;
+
     text-align: center;
-    font-size: 35px;
-    margin-bottom: 40px;
 }
 
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 20px;
+.tech-content {
+
+    max-width: 900px;
+
+    margin: auto;
 }
 
-.card {
-    padding: 30px;
-    background: rgba(255,255,255,0.035);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
+.tech-content h2 {
+
+    font-size: 40px;
+
+    margin-bottom: 15px;
 }
 
-.card h3 {
-    margin-bottom: 12px;
+.tech-content p {
+
+    color: #7b8798;
+
+    line-height: 1.8;
+
+    font-size: 15px;
 }
 
-.card p {
-    color: #999;
-    line-height: 1.6;
+/* =========================
+   ABOUT
+========================= */
+
+#about {
+
+    padding:
+        80px 7%;
+
+    text-align: center;
 }
 
-/* FOOTER */
+.about-box {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    backdrop-filter: blur(15px);
+}
+
+.about-box h2 {
+
+    font-size: 36px;
+
+    margin-bottom: 18px;
+}
+
+.about-box p {
+
+    color: #7d8999;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
 
 footer {
+
     text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    color: #777;
+
+    padding: 45px 20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    color: #515c6b;
+
+    font-size: 12px;
 }
 
-footer strong {
-    color: white;
+.footer-brand {
+
+    color: #00dcff;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
 }
 
-/* MOBILE */
+.creator {
 
-@media(max-width:700px) {
+    margin-top: 9px;
 
-    nav {
-        padding: 0 5%;
+    color: #46515f;
+}
+
+.creator span {
+
+    color: #8b96a5;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 750px) {
+
+    header {
+
+        padding:
+            16px 5%;
     }
 
-    nav div:last-child {
+    nav {
         display: none;
     }
 
+    h1 {
+
+        font-size:
+            clamp(48px, 16vw, 80px);
+
+        letter-spacing:
+            -4px;
+    }
+
+    .subtitle {
+
+        font-size: 14px;
+    }
+
+    .cards {
+
+        grid-template-columns:
+            1fr;
+    }
+
     .hero {
-        padding-top: 60px;
+
+        min-height: 78vh;
+
+        padding:
+            60px 20px;
     }
 
-    .messages {
-        height: 380px;
-    }
+    .chat-box {
 
-    .feature-grid {
-        grid-template-columns: 1fr;
+        height: 600px;
     }
 
     .message {
-        max-width: 90%;
+
+        max-width: 88%;
     }
 
-    .input-area {
-        padding: 10px;
+    .ai-header h2 {
+
+        font-size: 32px;
     }
 
-    .send-btn {
-        padding: 0 16px;
+    .about-box {
+
+        padding: 30px 20px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<div class="grid-bg"></div>
 
-<nav>
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+<div class="bubble b4"></div>
+<div class="bubble b5"></div>
 
-    <div class="logo">
-        SHERON<span>AI</span>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="brand" onclick="showHome()">
+
+        <div class="logo">
+            Y
+        </div>
+
+        <div class="brand-text">
+            YIELD <span>TECHNOLOGIES</span>
+        </div>
+
     </div>
 
-    <div>
-        <a href="#chat">Chat</a>
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
-    </div>
 
-</nav>
+    <nav>
+
+        <a href="#home" onclick="showHome()">
+            Home
+        </a>
+
+        <a href="#aiSection" onclick="openAI()">
+            AI
+        </a>
+
+        <a href="#technology">
+            Technology
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+    </nav>
+
+</header>
 
 
-<!-- HERO -->
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="home">
 
 <section class="hero">
 
-    <div class="badge">
-        PERSONAL AI ASSISTANT
-    </div>
+    <div class="hero-content">
 
-    <h1>SHERON AI</h1>
+        <div class="badge">
 
-    <p>
-        Your personal intelligent assistant.
-    </p>
+            <span class="badge-dot"></span>
 
-</section>
-
-
-<!-- CHAT -->
-
-<section class="chat-section" id="chat">
-
-    <div class="chat-box">
-
-        <div class="chat-header">
-
-            <div class="status"></div>
-
-            <div>
-                <div class="chat-title">
-                    Sheron AI
-                </div>
-
-                <div class="chat-status">
-                    Online • Ready
-                </div>
-            </div>
+            NEXT GENERATION TECHNOLOGY
 
         </div>
 
 
-        <div class="messages" id="messages">
+        <h1>
 
-            <div class="message">
+            BUILD THE<br>
 
-                <div class="message-name">
-                    SHERON AI
-                </div>
+            <span class="gradient">
+                FUTURE.
+            </span>
 
-                <div class="message-content">
-                    Hey bro! 👋
-                    I'm Sheron AI.
-
-                    Type something below and let's chat.
-                </div>
-
-            </div>
-
-        </div>
+        </h1>
 
 
-        <div class="input-area">
+        <p class="subtitle">
 
-            <input
-                id="userInput"
-                type="text"
-                placeholder="Type your message..."
-                autocomplete="off"
+            Intelligent technology, artificial intelligence
+            and next-generation digital solutions — built
+            for a world that never stops evolving.
+
+        </p>
+
+
+        <div class="buttons">
+
+            <a
+                href="#technology"
+                class="btn primary"
             >
+                Explore Technology
+            </a>
+
 
             <button
-                class="send-btn"
-                onclick="sendMessage()"
+                class="btn secondary"
+                onclick="openAI()"
             >
-                Send
+                Meet Yield AI
             </button>
 
         </div>
@@ -450,21 +1359,39 @@ footer strong {
 </section>
 
 
-<!-- FEATURES -->
+<!-- SERVICES -->
 
-<section class="features" id="features">
+<section class="services">
 
-    <h2>What Sheron AI Can Do</h2>
+    <div class="section-title">
 
-    <div class="feature-grid">
+        <h2>
+            Our Technology
+        </h2>
+
+        <p>
+            Building intelligent solutions for tomorrow.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
 
         <div class="card">
 
-            <h3>🧠 Memory</h3>
+            <div class="icon">
+                ◈
+            </div>
+
+            <h3>
+                Artificial Intelligence
+            </h3>
 
             <p>
-                Remember important information
-                and personalize conversations.
+                Intelligent systems designed to transform
+                ideas into powerful digital experiences.
             </p>
 
         </div>
@@ -472,11 +1399,17 @@ footer strong {
 
         <div class="card">
 
-            <h3>📚 Knowledge</h3>
+            <div class="icon">
+                ⌬
+            </div>
+
+            <h3>
+                Cyber Technology
+            </h3>
 
             <p>
-                Modular local knowledge system
-                for different technology topics.
+                Modern security and infrastructure
+                technologies for the connected world.
             </p>
 
         </div>
@@ -484,11 +1417,17 @@ footer strong {
 
         <div class="card">
 
-            <h3>🧮 Calculator</h3>
+            <div class="icon">
+                ◉
+            </div>
+
+            <h3>
+                Cloud & Network
+            </h3>
 
             <p>
-                Perform mathematical calculations
-                directly through the assistant.
+                Scalable cloud and networking solutions
+                designed for modern businesses.
             </p>
 
         </div>
@@ -496,11 +1435,17 @@ footer strong {
 
         <div class="card">
 
-            <h3>🌐 APIs</h3>
+            <div class="icon">
+                ⚡
+            </div>
+
+            <h3>
+                Digital Systems
+            </h3>
 
             <p>
-                Designed to support future APIs,
-                web tools and external services.
+                Modern software systems designed to
+                connect people, data and technology.
             </p>
 
         </div>
@@ -508,11 +1453,17 @@ footer strong {
 
         <div class="card">
 
-            <h3>💻 Cybersecurity</h3>
+            <div class="icon">
+                ◇
+            </div>
+
+            <h3>
+                Future Computing
+            </h3>
 
             <p>
-                Built with a modular architecture
-                for ethical cybersecurity learning.
+                Exploring emerging computing technologies
+                and intelligent digital infrastructure.
             </p>
 
         </div>
@@ -520,14 +1471,44 @@ footer strong {
 
         <div class="card">
 
-            <h3>⚡ Smart Router</h3>
+            <div class="icon">
+                ∞
+            </div>
+
+            <h3>
+                Innovation
+            </h3>
 
             <p>
-                Route different questions to the
-                appropriate knowledge or tool.
+                Turning ambitious ideas into technology
+                built for the next generation.
             </p>
 
         </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- TECHNOLOGY -->
+
+<section id="technology">
+
+    <div class="tech-content">
+
+        <h2>
+            Technology Without Limits.
+        </h2>
+
+        <p>
+            Yield Technologies focuses on artificial intelligence,
+            cybersecurity, cloud infrastructure, networking and
+            next-generation digital systems.
+            Our vision is to build technology that makes complex
+            things simpler, faster and smarter.
+        </p>
 
     </div>
 
@@ -536,297 +1517,475 @@ footer strong {
 
 <!-- ABOUT -->
 
-<section class="features" id="about">
+<section id="about">
 
-    <h2>About Sheron AI</h2>
+    <div class="about-box">
 
-    <div class="card">
-
-        <p>
-            Sheron AI is a modular personal AI assistant
-            built with Python. The project combines memory,
-            local knowledge, calculations and smart routing
-            into an extensible architecture designed for
-            future AI tools and APIs.
-        </p>
-
-        <br>
+        <h2>
+            About Yield Technologies
+        </h2>
 
         <p>
-            Created by <strong>Sheron Elijah</strong>.
+            Yield Technologies is a technology concept focused on
+            creating intelligent digital products and services.
+            From AI assistants to cloud systems and cybersecurity,
+            the mission is simple — build useful technology for
+            the future.
         </p>
 
     </div>
 
 </section>
 
+</main>
 
-<!-- FOOTER -->
+
+<!-- =========================
+     YIELD AI
+========================= -->
+
+<section id="aiSection">
+
+    <div class="ai-container">
+
+
+        <div class="ai-header">
+
+            <div class="ai-logo">
+                Y
+            </div>
+
+            <h2>
+                Yield AI
+            </h2>
+
+            <p>
+                Your intelligent technology assistant.
+            </p>
+
+            <div class="ai-status">
+
+                <span class="status-dot"></span>
+
+                ONLINE
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-box">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-top">
+
+                <div class="chat-title">
+
+                    <div class="mini-logo">
+                        Y
+                    </div>
+
+                    <div>
+
+                        <div class="chat-name">
+                            Yield AI
+                        </div>
+
+                        <div class="chat-online">
+                            AI Assistant
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="close-ai"
+                    onclick="closeAI()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="message ai-message">
+
+                    Hello 👋 I'm <b>Yield AI</b>.
+
+                    <br><br>
+
+                    I'm the AI assistant of
+                    <b>Yield Technologies</b>.
+                    Ask me anything about technology,
+                    AI, cybersecurity, cloud,
+                    networking or programming.
+
+                </div>
+
+            </div>
+
+
+            <!-- INPUT -->
+
+            <div class="chat-input-area">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    class="chat-input"
+                    placeholder="Message Yield AI..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="send-btn"
+                    onclick="sendMessage()"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-    <p>
-        © 2026 <strong>Sheron Elijah</strong>
-    </p>
+    <div class="footer-brand">
+        YIELD TECHNOLOGIES
+    </div>
 
-    <p>
-        Sheron AI • Personal AI Assistant
-    </p>
+    <div>
+        © 2026 Yield Technologies.
+        All rights reserved.
+    </div>
+
+    <div class="creator">
+        Founded & Built by
+        <span>Sheron Elijah</span>
+    </div>
 
 </footer>
 
 
 <script>
 
-const input = document.getElementById("userInput");
-const messages = document.getElementById("messages");
+/* =========================
+   OPEN YIELD AI
+========================= */
+
+function openAI() {
+
+    document.getElementById("home").style.display = "none";
+
+    document.getElementById("aiSection").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    setTimeout(() => {
+
+        document.getElementById("chatInput").focus();
+
+    }, 400);
+}
 
 
-/* ENTER KEY */
+/* =========================
+   CLOSE AI
+========================= */
 
-input.addEventListener("keydown", function(event) {
+function closeAI() {
 
-    if (event.key === "Enter") {
+    document.getElementById("aiSection").style.display = "none";
 
-        sendMessage();
+    document.getElementById("home").style.display = "block";
 
-    }
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
-});
 
+/* =========================
+   HOME
+========================= */
 
-/* ADD USER MESSAGE */
+function showHome() {
 
-function addUserMessage(text) {
+    document.getElementById("aiSection").style.display = "none";
 
-    const message = document.createElement("div");
-
-    message.className =
-        "message user-message";
-
-    message.innerHTML = `
-
-        <div class="message-name">
-            YOU
-        </div>
-
-        <div class="message-content">
-            ${escapeHTML(text)}
-        </div>
-
-    `;
-
-    messages.appendChild(message);
-
-    scrollChat();
+    document.getElementById("home").style.display = "block";
 
 }
 
 
-/* ADD AI MESSAGE */
-
-function addAIMessage(text) {
-
-    const message = document.createElement("div");
-
-    message.className = "message";
-
-    message.innerHTML = `
-
-        <div class="message-name">
-            SHERON AI
-        </div>
-
-        <div class="message-content">
-            ${escapeHTML(text)}
-        </div>
-
-    `;
-
-    messages.appendChild(message);
-
-    scrollChat();
-
-}
-
-
-/* TYPING INDICATOR */
-
-function showTyping() {
-
-    const message = document.createElement("div");
-
-    message.className = "message";
-    message.id = "typingMessage";
-
-    message.innerHTML = `
-
-        <div class="message-name">
-            SHERON AI
-        </div>
-
-        <div class="message-content typing">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
-
-    `;
-
-    messages.appendChild(message);
-
-    scrollChat();
-
-}
-
-
-/* REMOVE TYPING */
-
-function removeTyping() {
-
-    const typing =
-        document.getElementById("typingMessage");
-
-    if (typing) {
-
-        typing.remove();
-
-    }
-
-}
-
-
-/* CHAT RESPONSE */
-
-function generateResponse(text) {
-
-    const lower = text.toLowerCase().trim();
-
-
-    if (lower === "hi" ||
-        lower === "hello" ||
-        lower === "hey") {
-
-        return "Hey bro! 👋 Welcome to Sheron AI.";
-
-    }
-
-
-    if (lower === "/help") {
-
-        return "Available commands:\n\n/help\n/clear\n/about\n\nYou can also just type a normal message.";
-
-    }
-
-
-    if (lower === "/about") {
-
-        return "I'm Sheron AI — a modular personal AI assistant built by Sheron Elijah.";
-
-    }
-
-
-    if (lower === "/clear") {
-
-        messages.innerHTML = "";
-
-        return "Chat cleared. 🧹";
-
-    }
-
-
-    if (lower.includes("your name")) {
-
-        return "I'm Sheron AI. 🧠";
-
-    }
-
-
-    if (lower.includes("who are you")) {
-
-        return "I'm Sheron AI, a modular personal AI assistant.";
-
-    }
-
-
-    if (lower.includes("calculator")) {
-
-        return "The full Python calculator is part of the Sheron AI backend. 🧮";
-
-    }
-
-
-    if (lower.includes("cybersecurity")) {
-
-        return "Sheron AI is designed to support ethical cybersecurity learning and defensive knowledge.";
-
-    }
-
-
-    return "I received your message. 🤖\n\nThe website chat is working, but the real Python AI backend has not been connected yet.";
-
-}
-
-
-/* SEND MESSAGE */
+/* =========================
+   SEND MESSAGE
+========================= */
 
 function sendMessage() {
 
-    const text = input.value.trim();
+    const input =
+        document.getElementById("chatInput");
 
+    const text =
+        input.value.trim();
 
-    if (!text) {
-
+    if (text === "") {
         return;
-
     }
 
 
-    addUserMessage(text);
+    addMessage(
+        text,
+        "user-message"
+    );
+
 
     input.value = "";
+
 
     showTyping();
 
 
-    setTimeout(function() {
+    setTimeout(() => {
 
         removeTyping();
 
-        const response =
-            generateResponse(text);
+        generateAIResponse(text);
 
-        addAIMessage(response);
-
-    }, 800);
+    }, 900);
 
 }
 
 
-/* AUTO SCROLL */
+/* =========================
+   ADD MESSAGE
+========================= */
 
-function scrollChat() {
+function addMessage(
+    text,
+    className
+) {
+
+    const messages =
+        document.getElementById("messages");
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        "message " + className;
+
+
+    message.innerHTML =
+        text;
+
+
+    messages.appendChild(message);
+
 
     messages.scrollTop =
         messages.scrollHeight;
-
 }
 
 
-/* HTML SECURITY */
+/* =========================
+   TYPING
+========================= */
 
-function escapeHTML(text) {
+function showTyping() {
 
-    const div =
+    const messages =
+        document.getElementById("messages");
+
+
+    const typing =
         document.createElement("div");
 
-    div.textContent = text;
 
-    return div.innerHTML;
+    typing.id = "typing";
+
+    typing.className =
+        "message ai-message";
+
+
+    typing.innerHTML = `
+
+        <div class="typing">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+    `;
+
+
+    messages.appendChild(typing);
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+}
+
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("typing");
+
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+
+/* =========================
+   DEMO AI RESPONSE
+========================= */
+
+function generateAIResponse(text) {
+
+    const lower =
+        text.toLowerCase();
+
+
+    let response =
+        "I'm Yield AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
+
+
+    if (
+        lower.includes("hello") ||
+        lower.includes("hi") ||
+        lower.includes("hey")
+    ) {
+
+        response =
+            "Hello 👋 Welcome to Yield Technologies. I'm Yield AI. How can I help you today?";
+
+    }
+
+
+    else if (
+        lower.includes("who are you") ||
+        lower.includes("what are you")
+    ) {
+
+        response =
+            "I'm Yield AI, the intelligent assistant concept of Yield Technologies.";
+
+    }
+
+
+    else if (
+        lower.includes("ai") ||
+        lower.includes("artificial intelligence")
+    ) {
+
+        response =
+            "AI is technology that allows computer systems to perform tasks such as understanding language, recognizing patterns, generating content and assisting with decisions.";
+
+    }
+
+
+    else if (
+        lower.includes("cyber") ||
+        lower.includes("security")
+    ) {
+
+        response =
+            "Cybersecurity focuses on protecting systems, networks, applications and data from unauthorized access, attacks and other digital threats.";
+
+    }
+
+
+    else if (
+        lower.includes("cloud")
+    ) {
+
+        response =
+            "Cloud computing provides computing resources such as servers, storage, databases and applications through network-connected infrastructure.";
+
+    }
+
+
+    else if (
+        lower.includes("network")
+    ) {
+
+        response =
+            "Computer networking connects devices so they can communicate and share data and services.";
+
+    }
+
+
+    else if (
+        lower.includes("technology")
+    ) {
+
+        response =
+            "Yield Technologies is focused on AI, cybersecurity, cloud, networking and next-generation digital systems.";
+
+    }
+
+
+    addMessage(
+        response,
+        "ai-message"
+    );
 
 }
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+document
+    .getElementById("chatInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                sendMessage();
+
+            }
+
+        }
+    );
 
 </script>
 
