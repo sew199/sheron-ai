@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sheron AI — Personal AI Assistant</title>
+
+    <meta
+        name="description"
+        content="Sheron AI — A modular personal AI assistant built with Python."
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, #172554, transparent 35%),
+                radial-gradient(circle at bottom right, #312e81, transparent 35%),
+                #050816;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5,8,22,0.75);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 16px;
+            border: 1px solid rgba(96,165,250,0.4);
+            border-radius: 50px;
+            background: rgba(37,99,235,0.12);
+            color: #93c5fd;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(55px, 10vw, 110px);
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: -5px;
+        }
+
+        .gradient {
+            background: linear-gradient(
+                90deg,
+                #60a5fa,
+                #a78bfa,
+                #22d3ee
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            margin-top: 25px;
+            font-size: clamp(22px, 4vw, 38px);
+            color: #e2e8f0;
+        }
+
+        .hero p {
+            margin: 25px auto;
+            max-width: 700px;
+            color: #94a3b8;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.25s;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 10px 35px rgba(37,99,235,0.35);
+        }
+
+        .primary:hover {
+            transform: translateY(-3px);
+            background: #3b82f6;
+        }
+
+        .secondary {
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .secondary:hover {
+            background: rgba(255,255,255,0.09);
+        }
+
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
+            color: #94a3b8;
+        }
+
+        .features {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(220px, 1fr)
+            );
+            gap: 20px;
+        }
+
+        .card {
+            padding: 28px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.045);
+            backdrop-filter: blur(12px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(96,165,250,0.35);
+            background: rgba(255,255,255,0.07);
+        }
+
+        .icon {
+            font-size: 35px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .terminal {
+            max-width: 900px;
+            margin: auto;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #020617;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .terminal-bar {
+            padding: 13px 18px;
+            background: #111827;
+            color: #64748b;
+        }
+
+        .terminal-body {
+            padding: 30px;
+            font-family: monospace;
+            color: #94a3b8;
+            line-height: 2;
+            overflow-x: auto;
+        }
+
+        .green {
+            color: #4ade80;
+        }
+
+        .blue {
+            color: #60a5fa;
+        }
+
+        .purple {
+            color: #c084fc;
+        }
+
+        .creator {
+            text-align: center;
+        }
+
+        .creator-box {
+            max-width: 700px;
+            margin: auto;
+            padding: 45px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.045);
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            margin: auto auto 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            box-shadow: 0 15px 45px rgba(37,99,235,0.3);
+        }
+
+        .creator-box h2 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .creator-box p {
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #64748b;
+        }
+
+        footer strong {
+            color: #cbd5e1;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav div:last-child {
+                display: none;
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            section {
+                padding: 65px 5%;
+            }
+
+            .terminal-body {
+                padding: 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🧠 SHERON<span>AI</span>
+    </div>
+
+    <div>
+        <a href="#features">Features</a>
+        <a href="#terminal">Interface</a>
+        <a href="#creator">Creator</a>
+        <a
+            href="https://github.com/sew199/sheron-ai"
+            target="_blank"
+        >
+            GitHub
+        </a>
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            🚀 Personal AI Assistant
+        </div>
+
+        <h1>
+            SHERON<br>
+            <span class="gradient">AI</span>
+        </h1>
+
+        <h2>
+            Your Personal AI Assistant
+        </h2>
+
+        <p>
+            A modular personal AI assistant built with Python,
+            featuring memory, local knowledge, smart routing,
+            calculations and an extensible architecture.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                class="btn primary"
+                href="https://github.com/sew199/sheron-ai"
+                target="_blank"
+            >
+                ⭐ View on GitHub
+            </a>
+
+            <a
+                class="btn secondary"
+                href="#features"
+            >
+                Explore Sheron AI
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="features">
+
+    <div class="section-title">
+
+        <h2>Powerful Core</h2>
+
+        <p>
+            Built to grow into a complete personal AI ecosystem.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="card">
+
+            <div class="icon">🧠</div>
+
+            <h3>AI Brain</h3>
+
+            <p>
+                Central processing system that handles
+                conversations and responses.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">💾</div>
+
+            <h3>Memory</h3>
+
+            <p>
+                Stores useful profile information,
+                preferences, facts and conversation history.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">📚</div>
+
+            <h3>Knowledge</h3>
+
+            <p>
+                Local knowledge system organized into
+                different technical topics.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🧭</div>
+
+            <h3>Smart Router</h3>
+
+            <p>
+                Detects the topic of a question and
+                routes it to the appropriate system.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🧮</div>
+
+            <h3>Calculator</h3>
+
+            <p>
+                Safely handles mathematical expressions
+                directly inside Sheron AI.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🚀</div>
+
+            <h3>Extensible</h3>
+
+            <p>
+                Designed for future APIs, tools,
+                AI models and external services.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="terminal">
+
+    <div class="section-title">
+
+        <h2>Terminal Interface</h2>
+
+        <p>
+            Simple. Fast. Built for Termux.
+        </p>
+
+    </div>
+
+
+    <div class="terminal">
+
+        <div class="terminal-bar">
+            ● ● ●
+        </div>
+
+        <div class="terminal-body">
+
+            <div class="blue">
+                $ sheron
+            </div>
+
+            <br>
+
+            <div class="purple">
+                🧠 SHERON AI
+            </div>
+
+            <div class="green">
+                System initialized successfully. ✓
+            </div>
+
+            <div class="green">
+                Memory system loaded. ✓
+            </div>
+
+            <div class="green">
+                Knowledge system loaded. ✓
+            </div>
+
+            <br>
+
+            <div>
+                You: what is an IP address?
+            </div>
+
+            <div class="blue">
+                Sheron AI: An IP address identifies a
+                device on a network...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="creator" class="creator">
+
+    <div class="section-title">
+
+        <h2>Meet the Creator</h2>
+
+    </div>
+
+
+    <div class="creator-box">
+
+        <div class="avatar">
+            🧑‍💻
+        </div>
+
+        <h2>Sheron Elijah</h2>
+
+        <p>
+            🇱🇰 Sri Lanka
+        </p>
+
+        <br>
+
+        <p>
+            Creator and developer of
+            <strong>SHERON AI</strong>.
+        </p>
+
+        <br>
+
+        <p>
+            Development assistance provided by
+            <strong>ChatGPT</strong>.
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        © 2026 <strong>Sheron Elijah</strong>
+    </p>
+
+    <p>
+        All Rights Reserved.
+    </p>
+
+    <br>
+
+    <p>
+        🧠 SHERON AI — Build. Learn. Create. 🚀
+    </p>
+
+</footer>
+
+</body>
+</html>
