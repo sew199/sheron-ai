@@ -6117,140 +6117,192 @@ document.addEventListener("DOMContentLoaded", function(){
 </script>
 
 
+
+
 <script id="zorox-jamendo-live">
-(()=>{
+(function(){
+  const API = (typeof ZOROX_API !== "undefined")
+    ? ZOROX_API
+    : "http://127.0.0.1:5000";
 
-const API=window.ZOROX_API||"http://127.0.0.1:5000";
-const search=document.querySelector("#zxMusicSearch");
-const list=document.querySelector("#zxMusicList");
+  let tracks=[];
+  let current=-1;
+  let audio=null;
 
-if(!search||!list)return;
+  const search=document.getElementById("zxMusicSearch");
+  const list=document.getElementById("zxMusicList");
 
-let tracks=[];
-let current=0;
-let audio=null;
+  function esc(x){
+    return String(x??"").replace(/[&<>"']/g,m=>({
+      "&":"&amp;","<":"&lt;",">":"&gt;",
+      '"':"&quot;","'":"&#039;"
+    }[m]));
+  }
 
-const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-}[m]));
-
-async function musicSearch(q){
-
-  list.innerHTML=
-  '<div style="padding:30px;text-align:center;color:#9aa4b5">Searching ZOROX Music…</div>';
-
-  try{
-
-    const r=await fetch(
-      API+"/api/music/search?q="+encodeURIComponent(q||"rock")
-    );
-
-    const d=await r.json();
-
-    if(!r.ok || d.headers?.status!=="success")
-      throw new Error(d.headers?.error_message||"API error");
-
-    tracks=d.results||[];
+  function render(){
+    if(!list) return;
 
     if(!tracks.length){
-      list.innerHTML=
-      '<div style="padding:30px;text-align:center;color:#9aa4b5">No songs found.</div>';
+      list.innerHTML='<div style="padding:25px;text-align:center;opacity:.7">No songs found 🎵</div>';
       return;
     }
 
     list.innerHTML=tracks.map((t,i)=>`
-
-      <div class="zx-track"
-           data-i="${i}"
-           style="display:flex;align-items:center;gap:14px;padding:12px;margin:6px 0;border-radius:16px;cursor:pointer">
-
-        <img src="${esc(t.album_image||t.image||"")}"
-             style="width:60px;height:60px;border-radius:14px;object-fit:cover">
-
+      <div class="zx-track" data-i="${i}"
+           style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;cursor:pointer">
+        <img src="${esc(t.album_image||"")}"
+             style="width:58px;height:58px;border-radius:12px;object-fit:cover"
+             onerror="this.style.display='none'">
         <div style="flex:1;min-width:0">
           <div style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
             ${esc(t.name)}
           </div>
-          <div style="font-size:13px;color:#8d97a8">
-            ${esc(t.artist_name||"Unknown")}
+          <div style="opacity:.65;font-size:13px">
+            ${esc(t.artist_name||"Unknown artist")}
           </div>
         </div>
-
-        <button class="zx-api-play"
-                data-i="${i}"
-                style="border:0;border-radius:50%;width:42px;height:42px">
+        <button class="zx-song-play" data-i="${i}"
+          style="border:0;border-radius:50%;width:42px;height:42px;cursor:pointer">
           ▶
         </button>
-
       </div>
-
     `).join("");
 
-    list.querySelectorAll(".zx-track").forEach(row=>{
-      row.onclick=()=>playTrack(Number(row.dataset.i));
+    list.querySelectorAll(".zx-track").forEach(el=>{
+      el.onclick=e=>{
+        if(e.target.closest(".zx-song-play")) return;
+        playTrack(Number(el.dataset.i));
+      };
     });
 
-  }catch(e){
-
-    console.error("ZOROX MUSIC:",e);
-
-    list.innerHTML=
-    '<div style="padding:30px;text-align:center;color:#ff7777">Music API connection failed.</div>';
-  }
-}
-
-function playTrack(i){
-
-  const t=tracks[i];
-  if(!t||!t.audio)return;
-
-  current=i;
-
-  if(audio)audio.pause();
-
-  audio=new Audio(t.audio);
-  window.zxAudio=audio;
-
-  audio.play().catch(console.error);
-
-  const name=document.querySelector("#zoroxMusicName");
-  const status=document.querySelector("#zoroxMusicStatus");
-
-  if(name)name.textContent=t.name;
-  if(status)status.textContent=(t.artist_name||"Unknown")+" • Playing";
-
-  const screen=document.querySelector("#zxPlayerScreen");
-
-  if(screen){
-    screen.style.display="flex";
-    screen.classList.add("active");
+    list.querySelectorAll(".zx-song-play").forEach(btn=>{
+      btn.onclick=e=>{
+        e.stopPropagation();
+        playTrack(Number(btn.dataset.i));
+      };
+    });
   }
 
-  document.querySelectorAll(
-    "#zxPlayerTitle,#zxNowPlayingTitle"
-  ).forEach(x=>x.textContent=t.name);
+  async function musicSearch(q){
+    if(!list) return;
 
-  document.querySelectorAll(
-    "#zxPlayerArtist,#zxNowPlayingArtist"
-  ).forEach(x=>x.textContent=t.artist_name||"Unknown");
+    list.innerHTML='<div style="padding:25px;text-align:center;opacity:.7">Searching 🎵...</div>';
 
-  document.querySelectorAll(
-    "#zxPlayerArtwork,#zxNowPlayingArtwork"
-  ).forEach(x=>{
-    if(x.tagName==="IMG")
-      x.src=t.album_image||t.image||"";
-  });
-}
+    try{
+      const r=await fetch(API+"/api/music/search?q="+encodeURIComponent(q||"rock"));
+      const data=await r.json();
 
-search.oninput=()=>{
-  clearTimeout(window.zxSearchTimer);
-  window.zxSearchTimer=setTimeout(()=>{
-    musicSearch(search.value.trim()||"rock");
-  },400);
-};
+      tracks=Array.isArray(data.results)?data.results:[];
+      render();
+    }catch(e){
+      console.error(e);
+      list.innerHTML='<div style="padding:25px;text-align:center">Music connection error</div>';
+    }
+  }
 
-musicSearch("rock");
+  function player(show=true){
+    const p=document.getElementById("zxPlayerScreen");
+    if(!p) return;
+    p.style.display=show?"flex":"none";
+    if(show) p.classList.add("active");
+    else p.classList.remove("active");
+  }
 
+  function playTrack(i){
+    const t=tracks[i];
+    if(!t || !t.audio) return;
+
+    current=i;
+
+    if(audio){
+      audio.pause();
+      audio=null;
+    }
+
+    audio=new Audio(t.audio);
+    audio.preload="auto";
+
+    const title=t.name||"ZOROX Music";
+    const artist=t.artist_name||"Unknown artist";
+    const art=t.album_image||"";
+
+    const set=(id,v)=>{
+      const e=document.getElementById(id);
+      if(e) e.textContent=v;
+    };
+
+    const img=id=>{
+      const e=document.getElementById(id);
+      if(e && art) e.src=art;
+    };
+
+    set("zxPlayerTitle",title);
+    set("zxNowPlayingTitle",title);
+    set("zxPlayerArtist",artist);
+    set("zxNowPlayingArtist",artist);
+    set("zoroxMusicName",title);
+    set("zoroxMusicStatus","Now playing • "+artist);
+
+    img("zxPlayerArtwork");
+    img("zxNowPlayingArtwork");
+
+    player(true);
+
+    audio.play().catch(err=>console.log("Playback:",err));
+
+    audio.addEventListener("ended",()=>{
+      if(current < tracks.length-1) playTrack(current+1);
+    });
+
+    audio.addEventListener("timeupdate",()=>{
+      const bar=document.getElementById("zxProgress");
+      if(bar && audio.duration){
+        bar.value=(audio.currentTime/audio.duration)*100;
+      }
+    });
+  }
+
+  function back(){
+    if(audio) audio.pause();
+    player(false);
+  }
+
+  window.zoroxMusicNext=function(){
+    if(current<tracks.length-1) playTrack(current+1);
+  };
+
+  window.zoroxMusicPrev=function(){
+    if(current>0) playTrack(current-1);
+  };
+
+  window.zoroxMusicBack=back;
+
+  if(search){
+    let timer;
+    search.addEventListener("input",()=>{
+      clearTimeout(timer);
+      timer=setTimeout(()=>musicSearch(search.value.trim()||"rock"),400);
+    });
+  }
+
+  const backBtn=document.getElementById("zxPlayerBack");
+  if(backBtn) backBtn.onclick=back;
+
+  const next=document.getElementById("zxPlayerNext");
+  if(next) next.onclick=zoroxMusicNext;
+
+  const prev=document.getElementById("zxPlayerPrev");
+  if(prev) prev.onclick=zoroxMusicPrev;
+
+  const progress=document.getElementById("zxProgress");
+  if(progress){
+    progress.addEventListener("input",()=>{
+      if(audio && audio.duration)
+        audio.currentTime=(Number(progress.value)/100)*audio.duration;
+    });
+  }
+
+  musicSearch("rock");
 })();
 </script>
 </body>
