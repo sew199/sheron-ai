@@ -15,3 +15,8 @@ memory/*.db
 # Temporary helper scripts
 add_auth_ui.py
 add_login.py
+
+# Local ZOROX files
+api/server_before_auth_fix.py
+data/
+*.log
