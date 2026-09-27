@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: sheron-ai
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn api.server:app
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
