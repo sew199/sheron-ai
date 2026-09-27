@@ -17,8 +17,50 @@ app = Flask(__name__)
 CORS(app)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 DB_PATH = "memory/zorox.db"
+
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "openai/gpt-oss-120b"
+
+
+def groq_chat(prompt):
+    if not GROQ_API_KEY:
+        return None
+
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "temperature": 0.7
+    }
+
+    response = requests.post(
+        GROQ_URL,
+        headers={
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json=payload,
+        timeout=60
+    )
+
+    if response.status_code != 200:
+        return None
+
+    data = response.json()
+
+    try:
+        return data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError, TypeError):
+        return None
+
+
 
 
 def init_users_table():
@@ -342,8 +384,10 @@ def chat():
     contents = []
 
     for item in history:
+        gemini_role = "model" if item["role"] == "assistant" else "user"
+
         contents.append({
-            "role": item["role"],
+            "role": gemini_role,
             "parts": [
                 {
                     "text": item["content"]
@@ -370,19 +414,37 @@ def chat():
             )
 
             if response.status_code == 429:
+                groq_reply = groq_chat(message)
+
+                if groq_reply:
+                    conn.execute(
+                        "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
+                        (conversation_id, "assistant", groq_reply)
+                    )
+                    conn.commit()
+                    conn.close()
+
+                    return jsonify({
+                        "reply": groq_reply,
+                        "provider": "groq",
+                        "fallback": True
+                    }), 200
+
                 try:
                     error_data = response.json()
                     error_message = error_data.get("error", {}).get("message", response.text)
                 except Exception:
                     error_message = response.text
 
+                conn.close()
+
                 return jsonify({
-                    "error": "Gemini quota temporarily exceeded",
+                    "error": "AI providers temporarily unavailable",
                     "message": "ZOROX AI is temporarily busy. Please try again shortly.",
                     "details": error_message,
-                    "status": 429,
+                    "status": 503,
                     "retryable": True
-                }), 429
+                }), 503
 
             if response.status_code == 200:
                 result = response.json()
