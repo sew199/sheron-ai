@@ -1809,6 +1809,200 @@ body .chat-box {
 }
 </style>
 
+
+<style>
+/* ZOROX AI PROCESSOR CHAT CORE V1 */
+
+.chat-box {
+    height: 72vh !important;
+    min-height: 620px !important;
+    max-height: 850px !important;
+
+    position: relative !important;
+    overflow: hidden !important;
+
+    isolation: isolate;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 8, 18, .94),
+            rgba(8, 5, 18, .91)
+        ) !important;
+
+    border: 1px solid rgba(0, 184, 255, .16) !important;
+
+    box-shadow:
+        0 0 0 1px rgba(139, 92, 246, .05),
+        0 0 35px rgba(0, 184, 255, .08),
+        0 0 75px rgba(139, 92, 246, .07),
+        0 25px 90px rgba(0,0,0,.72) !important;
+}
+
+/* Moving processor scan line */
+.chat-box::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0,184,255,0),
+            rgba(0,184,255,.95),
+            rgba(139,92,246,.95),
+            rgba(255,23,68,.75),
+            rgba(0,184,255,0),
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px rgba(0,184,255,.75),
+        0 0 28px rgba(139,92,246,.45);
+
+    opacity: .85;
+
+    animation:
+        zoroxProcessorScan 5s linear infinite;
+
+    z-index: 20;
+    pointer-events: none;
+}
+
+@keyframes zoroxProcessorScan {
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: .85;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: .85;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+}
+
+/* Digital processor grid */
+.chat-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0,184,255,.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(139,92,246,.045) 1px,
+            transparent 1px
+        );
+
+    background-size: 34px 34px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 15%,
+            black 80%,
+            transparent
+        );
+
+    opacity: .45;
+
+    animation: zoroxGridMove 14s linear infinite;
+
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes zoroxGridMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 34px 34px;
+    }
+}
+
+/* Glowing processor rails */
+.chat-box {
+    --processor-line: rgba(0,184,255,.45);
+}
+
+.chat-box > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Animated side energy rails */
+.chat-box {
+    border-left-color: rgba(0,184,255,.35) !important;
+    border-right-color: rgba(139,92,246,.35) !important;
+}
+
+.chat-box:hover {
+    border-color: rgba(0,184,255,.28) !important;
+
+    box-shadow:
+        0 0 0 1px rgba(0,184,255,.05),
+        0 0 45px rgba(0,184,255,.11),
+        0 0 90px rgba(139,92,246,.09),
+        0 25px 90px rgba(0,0,0,.75) !important;
+}
+
+/* Chat messages get a processor-console feel */
+.ai-message {
+    border-left: 2px solid rgba(0,184,255,.38);
+    box-shadow: -8px 0 25px rgba(0,184,255,.035);
+}
+
+.user-message {
+    border-right: 2px solid rgba(139,92,246,.38);
+    box-shadow: 8px 0 25px rgba(139,92,246,.035);
+}
+
+/* Input console */
+.chat-input-area {
+    position: relative;
+    z-index: 5;
+
+    border: 1px solid rgba(0,184,255,.12) !important;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.04),
+        0 0 25px rgba(0,184,255,.045) !important;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .chat-box {
+        height: 70vh !important;
+        min-height: 540px !important;
+        max-height: 760px !important;
+        border-radius: 20px !important;
+    }
+}
+</style>
+
 </head>
 
 <body>
