@@ -1647,6 +1647,168 @@ button:active {
 }
 </style>
 
+
+<style>
+/* ZOROX AI FANTASY BACKGROUND V1 */
+
+body {
+    background:
+        radial-gradient(circle at 10% 20%, rgba(0, 140, 255, .16), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(139, 60, 255, .15), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255, 20, 70, .12), transparent 35%),
+        #020207 !important;
+    overflow-x: hidden;
+}
+
+/* AI atmospheric glow */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -5;
+    pointer-events: none;
+
+    background:
+        radial-gradient(circle at 25% 35%,
+            rgba(0, 180, 255, .18),
+            transparent 18%),
+        radial-gradient(circle at 75% 30%,
+            rgba(130, 70, 255, .18),
+            transparent 20%),
+        radial-gradient(circle at 55% 75%,
+            rgba(255, 25, 70, .12),
+            transparent 22%);
+
+    filter: blur(45px);
+    animation: zoroxAIAura 18s ease-in-out infinite alternate;
+}
+
+@keyframes zoroxAIAura {
+    0% {
+        transform: translate(-3%, -2%) scale(1);
+    }
+
+    50% {
+        transform: translate(3%, 2%) scale(1.08);
+    }
+
+    100% {
+        transform: translate(-1%, 4%) scale(1.03);
+    }
+}
+
+/* Digital grid */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 180, 255, .035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(130, 70, 255, .035) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image:
+        radial-gradient(
+            ellipse at center,
+            black 15%,
+            transparent 78%
+        );
+}
+
+/* Floating AI energy orbs */
+body {
+    isolation: isolate;
+}
+
+body .chat-box {
+    box-shadow:
+        0 0 80px rgba(0, 160, 255, .08),
+        0 0 120px rgba(130, 70, 255, .05),
+        0 25px 80px rgba(0,0,0,.65) !important;
+}
+
+/* Premium futuristic glass */
+.chat-box {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8, 10, 20, .82),
+            rgba(8, 8, 15, .72)
+        ) !important;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    border: 1px solid rgba(255,255,255,.08) !important;
+}
+
+/* Subtle energy border */
+.chat-box::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(0,184,255,.22),
+            transparent 35%,
+            rgba(139,92,246,.18),
+            transparent 70%,
+            rgba(255,23,68,.18)
+        );
+
+    opacity: .45;
+    z-index: -1;
+}
+
+/* AI console glow around input */
+.chat-input-area {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 184, 255, .035),
+            rgba(139, 92, 246, .035),
+            rgba(255, 23, 68, .025)
+        ) !important;
+
+    box-shadow:
+        0 0 30px rgba(0,184,255,.05),
+        inset 0 1px rgba(255,255,255,.04) !important;
+}
+
+/* Smooth interface depth */
+.chat-box,
+.chat-input-area,
+.auth-card {
+    transform: translateZ(0);
+}
+
+@media (max-width: 700px) {
+    body::after {
+        background-size: 40px 40px;
+        opacity: .65;
+    }
+
+    body::before {
+        filter: blur(32px);
+    }
+}
+</style>
+
 </head>
 
 <body>
