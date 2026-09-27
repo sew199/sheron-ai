@@ -132,12 +132,12 @@ def login():
 
     user = conn.execute(
         """
-        SELECT id, email, username, password_hash, country, verified
+        SELECT id, email, username, password_hash, country
         FROM users
-        WHERE email = ? OR username = ?
+        WHERE LOWER(email) = LOWER(?) OR username = ?
         LIMIT 1
         """,
-        (identifier.lower(), identifier)
+        (identifier, identifier)
     ).fetchone()
 
     conn.close()
@@ -147,17 +147,17 @@ def login():
             "error": "Invalid email/username or password"
         }), 401
 
-    user_id, email, username, password_hash, country, verified = user
+    user_id, email, username, password_hash, country = user
 
-    if not check_password_hash(password_hash, password):
+    try:
+        valid_password = check_password_hash(password_hash, password)
+    except Exception:
+        valid_password = False
+
+    if not valid_password:
         return jsonify({
             "error": "Invalid email/username or password"
         }), 401
-
-    if not verified:
-        return jsonify({
-            "error": "Invalid email/username or password."
-        }), 403
 
     return jsonify({
         "message": "Login successful",
@@ -169,89 +169,6 @@ def login():
         }
     }), 200
 
-@app.post("/api/send-otp")
-def send_otp():
-    data = request.get_json(silent=True) or {}
-    email = str(data.get("email", "")).strip().lower()
-
-    if not email:
-        return jsonify({"error": "Email is required"}), 400
-
-    otp = f"{secrets.randbelow(1000000):06d}"
-    otp_hash = generate_password_hash(otp)
-    expires_at = int(time.time()) + 600
-
-    conn = get_db()
-    conn.execute("DELETE FROM email_otps WHERE email = ?", (email,))
-    conn.execute("INSERT INTO email_otps (email, otp_hash, expires_at, attempts) VALUES (?, ?, ?, 0)", (email, otp_hash, expires_at))
-    conn.commit()
-    conn.close()
-
-    try:
-        send_otp_email(email, otp)
-        return jsonify({"message": "OTP sent successfully"}), 200
-    except Exception as error:
-        return jsonify({"error": "Could not send OTP", "message": str(error)}), 500
-
-@app.post("/api/verify-otp")
-def verify_otp():
-    data = request.get_json(silent=True) or {}
-    email = str(data.get("email", "")).strip().lower()
-    otp = str(data.get("otp", "")).strip()
-
-    if not email or not otp:
-        return jsonify({"error": "Email and OTP are required"}), 400
-
-    if not otp.isdigit() or len(otp) != 6:
-        return jsonify({"error": "OTP must be 6 digits"}), 400
-
-    conn = get_db()
-    row = conn.execute(
-        "SELECT id, otp_hash, expires_at, attempts FROM email_otps WHERE email = ? ORDER BY id DESC LIMIT 1",
-        (email,)
-    ).fetchone()
-
-    if not row:
-        conn.close()
-        return jsonify({"error": "OTP not found or expired"}), 404
-
-    otp_id, otp_hash, expires_at, attempts = row
-
-    if int(time.time()) > expires_at:
-        conn.execute("DELETE FROM email_otps WHERE id = ?", (otp_id,))
-        conn.commit()
-        conn.close()
-        return jsonify({"error": "OTP has expired"}), 400
-
-    if attempts >= 5:
-        conn.close()
-        return jsonify({"error": "Too many attempts. Request a new OTP"}), 429
-
-    if not check_password_hash(otp_hash, otp):
-        conn.execute("UPDATE email_otps SET attempts = attempts + 1 WHERE id = ?", (otp_id,))
-        conn.commit()
-        conn.close()
-        return jsonify({"error": "Invalid OTP"}), 400
-
-    conn.execute("UPDATE users SET verified = 1 WHERE email = ?", (email,))
-    conn.execute("DELETE FROM email_otps WHERE id = ?", (otp_id,))
-    conn.commit()
-
-    user = conn.execute(
-        "SELECT id, username FROM users WHERE email = ?",
-        (email,)
-    ).fetchone()
-
-    conn.close()
-
-    if not user:
-        return jsonify({"error": "User account not found"}), 404
-
-    return jsonify({
-        "message": "Email verified successfully",
-        "user_id": user[0],
-        "username": user[1]
-    }), 200
 
 @app.post("/api/register")
 def register():
@@ -275,74 +192,56 @@ def register():
 
     conn = get_db()
 
-    existing_email = conn.execute(
-        "SELECT id, username, verified FROM users WHERE email = ?",
-        (email,)
-    ).fetchone()
-
-    existing_username = conn.execute(
-        "SELECT id, email, verified FROM users WHERE username = ?",
-        (username,)
-    ).fetchone()
-
-    # Existing verified account
-    if existing_email and int(existing_email["verified"]) == 1:
-        conn.close()
-        return jsonify({
-            "error": "Email already exists. Please login."
-        }), 409
-
-    # Username belongs to another account
-    if existing_username and existing_username["email"] != email:
-        conn.close()
-        return jsonify({
-            "error": "Username already exists. Please choose another username."
-        }), 409
-
-    password_hash = generate_password_hash(password)
-
     try:
-        # Reuse an existing unverified email account
-        if existing_email and int(existing_email["verified"]) == 0:
-            conn.execute(
-                """
-                UPDATE users
-                SET phone = ?,
-                    username = ?,
-                    password_hash = ?,
-                    country = ?
-                WHERE email = ?
-                """,
-                (phone or None, username, password_hash, country, email)
-            )
-            conn.commit()
-            user_id = existing_email["id"]
+        existing_email = conn.execute(
+            "SELECT id FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1",
+            (email,)
+        ).fetchone()
 
-        else:
-            cursor = conn.execute(
-                """
-                INSERT INTO users
-                (phone, email, username, password_hash, country, verified)
-                VALUES (?, ?, ?, ?, ?, 1)
-                """,
-                (phone or None, email, username, password_hash, country)
-            )
-            conn.commit()
-            user_id = cursor.lastrowid
+        if existing_email:
+            conn.close()
+            return jsonify({
+                "error": "Email already exists. Please use Login or another email."
+            }), 409
 
+        existing_username = conn.execute(
+            "SELECT id FROM users WHERE LOWER(username) = LOWER(?) LIMIT 1",
+            (username,)
+        ).fetchone()
+
+        if existing_username:
+            conn.close()
+            return jsonify({
+                "error": "Username already exists. Please choose another username."
+            }), 409
+
+        password_hash = generate_password_hash(password)
+
+        cursor = conn.execute(
+            """
+            INSERT INTO users
+            (phone, email, username, password_hash, country, verified)
+            VALUES (?, ?, ?, ?, ?, 1)
+            """,
+            (phone or None, email, username, password_hash, country)
+        )
+
+        conn.commit()
+        user_id = cursor.lastrowid
         conn.close()
 
         return jsonify({
-            "message": "Account ready for verification",
+            "message": "Account created successfully",
             "user_id": user_id,
             "username": username
         }), 201
 
     except Exception as error:
+        conn.rollback()
         conn.close()
+
         return jsonify({
-            "error": "Could not create account",
-            "message": str(error)
+            "error": "Could not create account"
         }), 500
 
 
