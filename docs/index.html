@@ -4585,10 +4585,6 @@ document
                        maxlength="6"
                        placeholder="000000">
 
-                <button class="z-auth-btn" onclick="zoroxVerifyOTP()">
-                    Verify Email
-                </button>
-
             </div>
 
         </div>
@@ -4811,90 +4807,7 @@ async function zoroxRegister() {
     }
 }
 
-async function zoroxVerifyOTP() {
 
-    clearZoroxError("z-otp-error");
-
-    const otp =
-        document.getElementById("z-otp").value.trim();
-
-    if (!/^[0-9]{6}$/.test(otp)) {
-
-        showZoroxError(
-            "z-otp-error",
-            "Enter the 6-digit OTP."
-        );
-
-        return;
-    }
-
-    try {
-
-        const response = await fetch(
-            ZOROX_API + "/api/verify-otp",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: zoroxPendingEmail,
-                    otp
-                })
-            }
-        );
-
-        const data =
-            await response.json();
-
-        if (!response.ok) {
-            throw new Error(
-                data.error || "OTP verification failed"
-            );
-        }
-
-        localStorage.setItem(
-            "zorox_user",
-            JSON.stringify({
-                id: data.user_id,
-                username: data.username,
-                email: zoroxPendingEmail
-            })
-        );
-
-        document.getElementById("zorox-auth").style.display =
-            "none";
-
-    } catch (error) {
-
-        showZoroxError(
-            "z-otp-error",
-            error.message
-        );
-    }
-}
-</script>
-
-
-<script>
-function retryLastMessage() {
-    if (!zoroxLastMessage) return;
-
-    const input = document.getElementById("chatInput");
-
-    if (input) {
-        input.value = zoroxLastMessage;
-    }
-
-    sendMessage();
-}
-</script>
-
-
-<script>
-/* ZOROX NEURAL BRAIN V1 */
-
-(function () {
     function createNeuralCore() {
         const box = document.querySelector(".chat-box");
 
