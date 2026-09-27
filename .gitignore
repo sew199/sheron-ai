@@ -20,3 +20,5 @@ add_login.py
 api/server_before_auth_fix.py
 data/
 *.log
+
+docs/index_before_otp_debug.html
