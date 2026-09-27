@@ -22,3 +22,6 @@ data/
 *.log
 
 docs/index_before_otp_debug.html
+
+api/server_before_no_otp.html
+docs/index_before_no_otp.html
