@@ -355,7 +355,7 @@ def chat():
         "contents": contents
     }
 
-    max_retries = 3
+    max_retries = 2
 
     for attempt in range(max_retries):
         try:
@@ -368,6 +368,21 @@ def chat():
                 json=payload,
                 timeout=60
             )
+
+            if response.status_code == 429:
+                try:
+                    error_data = response.json()
+                    error_message = error_data.get("error", {}).get("message", response.text)
+                except Exception:
+                    error_message = response.text
+
+                return jsonify({
+                    "error": "Gemini quota temporarily exceeded",
+                    "message": "ZOROX AI is temporarily busy. Please try again shortly.",
+                    "details": error_message,
+                    "status": 429,
+                    "retryable": True
+                }), 429
 
             if response.status_code == 200:
                 result = response.json()

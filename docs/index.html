@@ -1391,6 +1391,71 @@ footer {
 }
 
 </style>
+
+<style>
+.zorox-quota-card {
+    margin: 8px 0;
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(8,8,15,.97), rgba(24,5,15,.97));
+    border: 1px solid rgba(255,45,85,.45);
+    box-shadow:
+        0 0 25px rgba(255,25,75,.12),
+        inset 0 0 25px rgba(30,80,255,.05);
+    animation: zoroxQuotaIn .35s ease;
+}
+
+.zorox-quota-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.zorox-quota-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.zorox-quota-text {
+    color: rgba(255,255,255,.68);
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+}
+
+.zorox-retry-btn {
+    border: 1px solid rgba(0,220,255,.5);
+    border-radius: 12px;
+    padding: 9px 17px;
+    color: #fff;
+    background: linear-gradient(
+        135deg,
+        rgba(0,180,255,.2),
+        rgba(120,40,255,.2)
+    );
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.zorox-retry-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 18px rgba(0,210,255,.3);
+}
+
+@keyframes zoroxQuotaIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -1923,6 +1988,7 @@ async function sendMessage() {
 
     const text =
         input.value.trim();
+    zoroxLastMessage = text;
 
     if (text === "") {
         return;
@@ -1958,7 +2024,23 @@ async function sendMessage() {
 
         removeTyping();
 
-        if (data.reply) {
+        if (response.status === 429 && data.retryable) {
+
+            addMessage(
+                `<div class="zorox-quota-card">
+                    <div class="zorox-quota-icon">⚡</div>
+                    <div class="zorox-quota-title">ZOROX AI is temporarily busy</div>
+                    <div class="zorox-quota-text">
+                        AI capacity has been reached right now. Please try again shortly.
+                    </div>
+                    <button class="zorox-retry-btn" onclick="retryLastMessage()">
+                        ↻ Retry
+                    </button>
+                </div>`,
+                "ai-message"
+            );
+
+        } else if (data.reply) {
 
             addMessage(
                 data.reply,
@@ -1968,7 +2050,7 @@ async function sendMessage() {
         } else {
 
             addMessage(
-                "Sorry, ZOROX AI could not respond.",
+                data.message || "Sorry, ZOROX AI could not respond.",
                 "ai-message"
             );
         }
@@ -2683,6 +2765,21 @@ async function zoroxVerifyOTP() {
             error.message
         );
     }
+}
+</script>
+
+
+<script>
+function retryLastMessage() {
+    if (!zoroxLastMessage) return;
+
+    const input = document.getElementById("chatInput");
+
+    if (input) {
+        input.value = zoroxLastMessage;
+    }
+
+    sendMessage();
 }
 </script>
 
