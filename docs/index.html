@@ -2232,6 +2232,163 @@ body .chat-box {
 }
 </style>
 
+
+<style id="zorox-platform-css">
+.zorox-platform{
+    padding:90px 7%;
+    background:
+        radial-gradient(circle at 15% 20%,rgba(0,184,255,.07),transparent 35%),
+        radial-gradient(circle at 85% 70%,rgba(139,92,246,.08),transparent 35%);
+}
+.zorox-platform-header{text-align:center;max-width:850px;margin:0 auto 45px}
+.zorox-platform-header h2{
+    font-size:clamp(32px,5vw,58px);
+    margin:0 0 14px;
+    background:linear-gradient(90deg,#00d9ff,#8b5cf6,#ff1744);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+.zorox-platform-header p{color:#9ca3af;font-size:16px;line-height:1.7}
+.zorox-platform-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+    max-width:1250px;
+    margin:auto;
+}
+.zorox-platform-card{
+    position:relative;
+    overflow:hidden;
+    min-height:220px;
+    padding:28px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;
+    background:linear-gradient(145deg,rgba(15,23,42,.92),rgba(2,6,23,.96));
+    box-shadow:0 15px 50px rgba(0,0,0,.28);
+    transition:.3s ease;
+}
+.zorox-platform-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(0,200,255,.38);
+    box-shadow:0 20px 60px rgba(0,184,255,.12);
+}
+.zorox-platform-icon{
+    font-size:34px;
+    margin-bottom:20px;
+}
+.zorox-platform-card h3{font-size:22px;margin:0 0 10px}
+.zorox-platform-card p{color:#9ca3af;line-height:1.65}
+.zorox-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.zorox-tag{
+    padding:7px 11px;
+    border-radius:999px;
+    font-size:12px;
+    color:#cbd5e1;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.07);
+}
+.zorox-section-title{
+    max-width:1250px;
+    margin:75px auto 25px;
+}
+.zorox-section-title h3{font-size:30px;margin:0 0 7px}
+.zorox-section-title p{color:#8b95a7;margin:0}
+
+.zorox-course-grid,.zorox-language-grid,.zorox-movie-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:18px;
+    max-width:1250px;
+    margin:auto;
+}
+.zorox-course-card,.zorox-language-card{
+    padding:23px;
+    border-radius:20px;
+    background:#070b14;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.25s;
+}
+.zorox-course-card:hover,.zorox-language-card:hover{
+    border-color:rgba(139,92,246,.5);
+    transform:translateY(-5px);
+}
+.zorox-level{
+    display:inline-block;
+    font-size:11px;
+    padding:5px 9px;
+    border-radius:999px;
+    background:rgba(0,184,255,.1);
+    color:#67e8f9;
+    margin-bottom:13px;
+}
+.zorox-course-card h4,.zorox-language-card h4{font-size:19px;margin:5px 0 9px}
+.zorox-course-card p,.zorox-language-card p{font-size:13px;color:#8b95a7;line-height:1.55}
+
+.zorox-movie-card{
+    overflow:hidden;
+    border-radius:20px;
+    background:#070b14;
+    border:1px solid rgba(255,255,255,.08);
+    transition:.3s;
+}
+.zorox-movie-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,23,68,.45);
+}
+.zorox-movie-poster{
+    height:300px;
+    display:flex;
+    align-items:flex-end;
+    padding:18px;
+    background:
+      linear-gradient(to top,rgba(0,0,0,.9),transparent 60%),
+      linear-gradient(135deg,#111827,#312e81,#0f172a);
+}
+.zorox-movie-poster span{
+    font-size:13px;
+    color:#dbeafe;
+    letter-spacing:.08em;
+}
+.zorox-movie-info{padding:17px}
+.zorox-movie-info h4{margin:0 0 7px;font-size:18px}
+.zorox-movie-info p{margin:0;color:#8b95a7;font-size:13px}
+.zorox-rating{color:#facc15!important;margin-top:9px!important}
+
+.zorox-music{
+    max-width:1250px;
+    margin:auto;
+    padding:28px;
+    border-radius:24px;
+    background:linear-gradient(120deg,#090d18,#111827);
+    border:1px solid rgba(255,255,255,.08);
+}
+.zorox-music-player{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+}
+.zorox-play{
+    width:55px;height:55px;border:0;border-radius:50%;
+    background:linear-gradient(135deg,#00b8ff,#8b5cf6);
+    color:white;font-size:20px;cursor:pointer;
+}
+.zorox-music-name{font-size:19px;font-weight:700}
+.zorox-music-status{font-size:13px;color:#8b95a7;margin-top:5px}
+
+.zorox-platform-note{
+    max-width:1250px;
+    margin:28px auto 0;
+    padding:16px 20px;
+    border-left:3px solid #00b8ff;
+    background:rgba(0,184,255,.045);
+    color:#94a3b8;
+    border-radius:10px;
+    font-size:13px;
+    line-height:1.6;
+}
+</style>
+
 </head>
 
 <body>
@@ -2550,6 +2707,271 @@ body .chat-box {
 </main>
 
 
+
+<!-- =========================
+     ZOROX PLATFORM
+========================= -->
+
+<section id="zoroxPlatform" class="zorox-platform">
+
+    <div class="zorox-platform-header">
+        <h2>ZOROX DIGITAL WORLD</h2>
+        <p>
+            Learn technology, explore languages, discover films,
+            enjoy music and build your future with WIKRAMASINGHE TECHNOLOGIES.
+        </p>
+    </div>
+
+    <div class="zorox-platform-grid">
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🎓</div>
+            <h3>ZOROX Courses</h3>
+            <p>Technology courses from complete beginner level to advanced professional level.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">Hardware</span>
+                <span class="zorox-tag">Networking</span>
+                <span class="zorox-tag">Cybersecurity</span>
+                <span class="zorox-tag">Cloud</span>
+            </div>
+        </div>
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🌎</div>
+            <h3>Languages</h3>
+            <p>Learn languages step-by-step from alphabet and basic words to advanced communication.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">English</span>
+                <span class="zorox-tag">Japanese</span>
+                <span class="zorox-tag">Korean</span>
+                <span class="zorox-tag">Chinese</span>
+            </div>
+        </div>
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🎬</div>
+            <h3>Top IMDb Films</h3>
+            <p>Explore popular films with posters, ratings, genres, years and movie information.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">Movies</span>
+                <span class="zorox-tag">IMDb</span>
+                <span class="zorox-tag">Posters</span>
+            </div>
+        </div>
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🎵</div>
+            <h3>ZOROX Music</h3>
+            <p>A dedicated music area with search, player controls and future streaming integration.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">Player</span>
+                <span class="zorox-tag">Search</span>
+                <span class="zorox-tag">Playlists</span>
+            </div>
+        </div>
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🛡️</div>
+            <h3>Cyber Technology</h3>
+            <p>Learn networking, security, cloud infrastructure, ethical security concepts and system protection.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">Security</span>
+                <span class="zorox-tag">Network</span>
+                <span class="zorox-tag">Cloud</span>
+            </div>
+        </div>
+
+        <div class="zorox-platform-card">
+            <div class="zorox-platform-icon">🤖</div>
+            <h3>ZOROX AI</h3>
+            <p>Your intelligent assistant for technology, programming, AI, networking and learning.</p>
+            <div class="zorox-tags">
+                <span class="zorox-tag">AI Assistant</span>
+                <span class="zorox-tag">Learning</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="zorox-section-title">
+        <h3>🎓 Courses</h3>
+        <p>From Beginner → Intermediate → Advanced</p>
+    </div>
+
+    <div class="zorox-course-grid">
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Computer Hardware</h4>
+            <p>PC components, motherboard, CPU, RAM, storage, assembly, Windows, Linux and troubleshooting.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Networking</h4>
+            <p>IP addresses, subnetting, LAN, WAN, routers, switches, VLAN, DNS, DHCP and network administration.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Cybersecurity</h4>
+            <p>Security fundamentals, authentication, encryption, network defense, vulnerabilities and ethical security.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Cloud Computing</h4>
+            <p>Cloud fundamentals, virtual machines, storage, networking, deployment and cloud administration.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Programming</h4>
+            <p>Programming fundamentals, Python, JavaScript, APIs, databases and application development.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>AI & Machine Learning</h4>
+            <p>AI concepts, machine learning fundamentals, neural networks, LLMs and AI application development.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Web Development</h4>
+            <p>HTML, CSS, JavaScript, frontend development, backend APIs and modern web applications.</p>
+        </div>
+
+        <div class="zorox-course-card">
+            <span class="zorox-level">BEGINNER → ADVANCED</span>
+            <h4>Business & Entrepreneurship</h4>
+            <p>Business basics, startups, marketing, finance fundamentals, management and digital business.</p>
+        </div>
+
+    </div>
+
+    <div class="zorox-section-title">
+        <h3>🌎 Languages</h3>
+        <p>Start from the basics and progress toward advanced communication.</p>
+    </div>
+
+    <div class="zorox-language-grid">
+
+        <div class="zorox-language-card">
+            <h4>🇬🇧 English</h4>
+            <p>Alphabet → vocabulary → grammar → sentences → conversation → advanced communication.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇯🇵 Japanese</h4>
+            <p>Hiragana → Katakana → vocabulary → grammar → Kanji → conversation → advanced Japanese.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇰🇷 Korean</h4>
+            <p>Hangul → basic words → grammar → sentences → conversation → advanced Korean.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇨🇳 Chinese</h4>
+            <p>Pinyin → tones → vocabulary → characters → grammar → conversation → advanced Chinese.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇪🇸 Spanish</h4>
+            <p>Alphabet → vocabulary → grammar → speaking → conversation → advanced Spanish.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇫🇷 French</h4>
+            <p>Basics → vocabulary → grammar → pronunciation → conversation → advanced French.</p>
+        </div>
+
+        <div class="zorox-language-card">
+            <h4>🇩🇪 German</h4>
+            <p>Basics → vocabulary → grammar → sentences → speaking → advanced German.</p>
+        </div>
+
+    </div>
+
+    <div class="zorox-section-title">
+        <h3>🎬 Top IMDb Films</h3>
+        <p>Movie discovery area — ready for dynamic movie data and posters.</p>
+    </div>
+
+    <div class="zorox-movie-grid">
+
+        <div class="zorox-movie-card">
+            <div class="zorox-movie-poster"><span>FEATURED FILM</span></div>
+            <div class="zorox-movie-info">
+                <h4>The Shawshank Redemption</h4>
+                <p>Drama • Classic</p>
+                <p class="zorox-rating">★ IMDb Rating</p>
+            </div>
+        </div>
+
+        <div class="zorox-movie-card">
+            <div class="zorox-movie-poster"><span>FEATURED FILM</span></div>
+            <div class="zorox-movie-info">
+                <h4>The Dark Knight</h4>
+                <p>Action • Crime • Drama</p>
+                <p class="zorox-rating">★ IMDb Rating</p>
+            </div>
+        </div>
+
+        <div class="zorox-movie-card">
+            <div class="zorox-movie-poster"><span>FEATURED FILM</span></div>
+            <div class="zorox-movie-info">
+                <h4>Inception</h4>
+                <p>Action • Sci-Fi • Thriller</p>
+                <p class="zorox-rating">★ IMDb Rating</p>
+            </div>
+        </div>
+
+        <div class="zorox-movie-card">
+            <div class="zorox-movie-poster"><span>FEATURED FILM</span></div>
+            <div class="zorox-movie-info">
+                <h4>Interstellar</h4>
+                <p>Adventure • Drama • Sci-Fi</p>
+                <p class="zorox-rating">★ IMDb Rating</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="zorox-platform-note">
+        Movie posters and ratings will later be connected to an authorized movie-data API,
+        so the information can be updated dynamically instead of hardcoding ratings.
+    </div>
+
+    <div class="zorox-section-title">
+        <h3>🎵 ZOROX Music</h3>
+        <p>Your future music and media area.</p>
+    </div>
+
+    <div class="zorox-music">
+
+        <div class="zorox-music-player">
+
+            <button class="zorox-play" id="zoroxPlayButton">▶</button>
+
+            <div>
+                <div class="zorox-music-name" id="zoroxMusicName">
+                    ZOROX Music
+                </div>
+
+                <div class="zorox-music-status" id="zoroxMusicStatus">
+                    Ready — select a track when music integration is connected.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 <!-- =========================
      ZOROX AI
 ========================= -->
@@ -2782,7 +3204,7 @@ async function sendMessage() {
     try {
 
         const response = await fetch(
-            "https://sheron-ai.onrender.com/api/chat",
+            "http://127.0.0.1:5000/api/chat",
             {
                 method: "POST",
 
@@ -3299,7 +3721,7 @@ document
 </div>
 
 <script>
-const ZOROX_API = "https://sheron-ai.onrender.com";
+const ZOROX_API = "http://127.0.0.1:5000";
 
 let zoroxPendingEmail = "";
 
@@ -3848,6 +4270,27 @@ function retryLastMessage() {
     } else {
         addZoroxCommandHeader();
     }
+})();
+</script>
+
+
+<script id="zorox-platform-js">
+(function(){
+
+    const play = document.getElementById("zoroxPlayButton");
+    const status = document.getElementById("zoroxMusicStatus");
+
+    if(play){
+        play.addEventListener("click", function(){
+            if(status){
+                status.textContent =
+                    "Music player interface ready — streaming integration can be connected next.";
+            }
+
+            play.textContent = "✓";
+        });
+    }
+
 })();
 </script>
 
