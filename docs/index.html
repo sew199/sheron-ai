@@ -2193,5 +2193,498 @@ document
 
 </script>
 
+
+<style>
+#zorox-auth {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0,229,255,.12), transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(124,77,255,.14), transparent 35%),
+        #07070d;
+}
+
+.z-auth-card {
+    width: min(430px, 100%);
+    padding: 28px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 26px;
+    background: rgba(15,15,25,.82);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 80px rgba(0,0,0,.55);
+}
+
+.z-auth-logo {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    color: #00e5ff;
+    text-shadow: 0 0 25px rgba(0,229,255,.45);
+}
+
+.z-auth-brand {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.z-auth-title {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 6px;
+}
+
+.z-auth-subtitle {
+    color: #8d8d9b;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.z-auth-input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.10);
+    outline: none;
+    background: rgba(255,255,255,.045);
+    color: white;
+    font-size: 15px;
+}
+
+.z-auth-input:focus {
+    border-color: #00e5ff;
+    box-shadow: 0 0 18px rgba(0,229,255,.10);
+}
+
+.z-auth-btn {
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 14px;
+    margin-top: 5px;
+    background: linear-gradient(135deg,#00e5ff,#7c4dff);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.z-auth-link {
+    text-align: center;
+    margin-top: 18px;
+    color: #888;
+    font-size: 13px;
+}
+
+.z-auth-link span {
+    color: #00e5ff;
+    cursor: pointer;
+}
+
+.z-auth-error {
+    display: none;
+    margin-bottom: 12px;
+    padding: 11px;
+    border-radius: 10px;
+    background: rgba(255,60,80,.10);
+    color: #ff7180;
+    font-size: 13px;
+}
+
+.z-auth-success {
+    display: none;
+    margin-bottom: 12px;
+    padding: 11px;
+    border-radius: 10px;
+    background: rgba(0,229,255,.08);
+    color: #00e5ff;
+    font-size: 13px;
+}
+
+.z-auth-form {
+    display: none;
+}
+
+.z-auth-form.active {
+    display: block;
+}
+
+.z-otp-box {
+    text-align: center;
+}
+
+.z-otp-input {
+    text-align: center;
+    letter-spacing: 8px;
+    font-size: 22px;
+    font-weight: 700;
+}
+</style>
+
+<div id="zorox-auth">
+
+    <div class="z-auth-card">
+
+        <div class="z-auth-logo">ZOROX</div>
+        <div class="z-auth-brand">WIKRAMASINGHE TECHNOLOGIES</div>
+
+        <div id="z-login-form" class="z-auth-form active">
+
+            <div class="z-auth-title">Welcome back</div>
+            <div class="z-auth-subtitle">Sign in to your ZOROX AI account</div>
+
+            <div id="z-login-error" class="z-auth-error"></div>
+
+            <input id="z-login-identifier"
+                   class="z-auth-input"
+                   placeholder="Email or Username"
+                   autocomplete="username">
+
+            <input id="z-login-password"
+                   class="z-auth-input"
+                   type="password"
+                   placeholder="Password"
+                   autocomplete="current-password">
+
+            <button class="z-auth-btn" onclick="zoroxLogin()">
+                Sign In
+            </button>
+
+            <div class="z-auth-link">
+                Don't have an account?
+                <span onclick="showZoroxForm('register')">Create account</span>
+            </div>
+
+        </div>
+
+
+        <div id="z-register-form" class="z-auth-form">
+
+            <div class="z-auth-title">Create account</div>
+            <div class="z-auth-subtitle">Join ZOROX AI</div>
+
+            <div id="z-register-error" class="z-auth-error"></div>
+
+            <input id="z-reg-phone"
+                   class="z-auth-input"
+                   type="tel"
+                   placeholder="Phone number">
+
+            <input id="z-reg-email"
+                   class="z-auth-input"
+                   type="email"
+                   placeholder="Email">
+
+            <input id="z-reg-username"
+                   class="z-auth-input"
+                   placeholder="Username">
+
+            <input id="z-reg-password"
+                   class="z-auth-input"
+                   type="password"
+                   placeholder="Password (8+ characters)">
+
+            <input id="z-reg-country"
+                   class="z-auth-input"
+                   placeholder="Country">
+
+            <button class="z-auth-btn" onclick="zoroxRegister()">
+                Create Account
+            </button>
+
+            <div class="z-auth-link">
+                Already have an account?
+                <span onclick="showZoroxForm('login')">Sign in</span>
+            </div>
+
+        </div>
+
+
+        <div id="z-otp-form" class="z-auth-form">
+
+            <div class="z-auth-title">Verify email</div>
+            <div class="z-auth-subtitle">
+                Enter the 6-digit code sent to your email
+            </div>
+
+            <div id="z-otp-error" class="z-auth-error"></div>
+            <div id="z-otp-success" class="z-auth-success"></div>
+
+            <div class="z-otp-box">
+
+                <input id="z-otp"
+                       class="z-auth-input z-otp-input"
+                       inputmode="numeric"
+                       maxlength="6"
+                       placeholder="000000">
+
+                <button class="z-auth-btn" onclick="zoroxVerifyOTP()">
+                    Verify Email
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+const ZOROX_API = "http://127.0.0.1:5000";
+
+let zoroxPendingEmail = "";
+
+function showZoroxForm(name) {
+    document.querySelectorAll(".z-auth-form").forEach(el => {
+        el.classList.remove("active");
+    });
+
+    const form = document.getElementById("z-" + name + "-form");
+
+    if (form) {
+        form.classList.add("active");
+    }
+}
+
+function showZoroxError(id, message) {
+    const box = document.getElementById(id);
+    box.textContent = message;
+    box.style.display = "block";
+}
+
+function clearZoroxError(id) {
+    const box = document.getElementById(id);
+    box.style.display = "none";
+}
+
+async function zoroxLogin() {
+
+    clearZoroxError("z-login-error");
+
+    const identifier =
+        document.getElementById("z-login-identifier").value.trim();
+
+    const password =
+        document.getElementById("z-login-password").value;
+
+    if (!identifier || !password) {
+        showZoroxError(
+            "z-login-error",
+            "Enter your email/username and password."
+        );
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            ZOROX_API + "/api/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    identifier: identifier,
+                    password: password
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Login failed");
+        }
+
+        localStorage.setItem(
+            "zorox_user",
+            JSON.stringify(data.user)
+        );
+
+        document.getElementById("zorox-auth").style.display = "none";
+
+    } catch (error) {
+
+        showZoroxError(
+            "z-login-error",
+            error.message
+        );
+    }
+}
+
+
+async function zoroxRegister() {
+
+    clearZoroxError("z-register-error");
+
+    const phone =
+        document.getElementById("z-reg-phone").value.trim();
+
+    const email =
+        document.getElementById("z-reg-email").value.trim();
+
+    const username =
+        document.getElementById("z-reg-username").value.trim();
+
+    const password =
+        document.getElementById("z-reg-password").value;
+
+    const country =
+        document.getElementById("z-reg-country").value.trim();
+
+    if (!email || !username || !password || !country) {
+        showZoroxError(
+            "z-register-error",
+            "Email, username, password and country are required."
+        );
+        return;
+    }
+
+    try {
+
+        const registerResponse = await fetch(
+            ZOROX_API + "/api/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone,
+                    email,
+                    username,
+                    password,
+                    country
+                })
+            }
+        );
+
+        const registerData =
+            await registerResponse.json();
+
+        if (!registerResponse.ok) {
+            throw new Error(
+                registerData.error || "Registration failed"
+            );
+        }
+
+        const otpResponse = await fetch(
+            ZOROX_API + "/api/send-otp",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email
+                })
+            }
+        );
+
+        const otpData =
+            await otpResponse.json();
+
+        if (!otpResponse.ok) {
+            throw new Error(
+                otpData.error || "Could not send OTP"
+            );
+        }
+
+        zoroxPendingEmail = email;
+
+        showZoroxForm("otp");
+
+        document.getElementById("z-otp-success").textContent =
+            "Verification code sent to " + email;
+
+        document.getElementById("z-otp-success").style.display =
+            "block";
+
+    } catch (error) {
+
+        showZoroxError(
+            "z-register-error",
+            error.message
+        );
+    }
+}
+
+
+async function zoroxVerifyOTP() {
+
+    clearZoroxError("z-otp-error");
+
+    const otp =
+        document.getElementById("z-otp").value.trim();
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+
+        showZoroxError(
+            "z-otp-error",
+            "Enter the 6-digit OTP."
+        );
+
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            ZOROX_API + "/api/verify-otp",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: zoroxPendingEmail,
+                    otp
+                })
+            }
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || "OTP verification failed"
+            );
+        }
+
+        localStorage.setItem(
+            "zorox_user",
+            JSON.stringify({
+                id: data.user_id,
+                username: data.username,
+                email: zoroxPendingEmail
+            })
+        );
+
+        document.getElementById("zorox-auth").style.display =
+            "none";
+
+    } catch (error) {
+
+        showZoroxError(
+            "z-otp-error",
+            error.message
+        );
+    }
+}
+</script>
+
 </body>
 </html>

@@ -1,3 +1,17 @@
 memory.json
 __pycache__/
 *.pyc
+.env
+
+# Local database
+memory/*.db
+
+# Backup files
+**/*-before-*.py
+**/*-before-*.html
+**/*-before-*.db
+**/*-backup.html
+
+# Temporary helper scripts
+add_auth_ui.py
+add_login.py
