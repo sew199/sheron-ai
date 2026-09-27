@@ -156,7 +156,7 @@ def login():
 
     if not verified:
         return jsonify({
-            "error": "Email is not verified"
+            "error": "Invalid email/username or password."
         }), 403
 
     return jsonify({

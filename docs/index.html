@@ -5408,48 +5408,96 @@ window.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
-<script id="zorox-auth-final-behaviour">
-(function(){
 
-    function fixZoroxLauncher(){
 
-        const launcher=document.getElementById("zorox-auth-launcher");
-        const overlay=document.getElementById("zorox-auth-overlay");
 
-        if(!launcher || !overlay) return;
+<script id="zorox-clean-launcher">
+document.addEventListener("DOMContentLoaded", function(){
 
-        launcher.classList.remove("hidden");
+    const launcher = document.getElementById("zorox-auth-launcher");
+    const overlay = document.getElementById("zorox-auth-overlay");
+    const closeBtn = document.getElementById("zorox-auth-close");
+    const auth = document.getElementById("zorox-auth");
+    const container = document.getElementById("zorox-auth-container");
 
-        const observer=new MutationObserver(()=>{
-            launcher.classList.remove("hidden");
-            launcher.style.display="flex";
-            launcher.style.opacity="1";
-            launcher.style.pointerEvents="auto";
-        });
-
-        observer.observe(launcher,{
-            attributes:true,
-            attributeFilter:["class","style"]
-        });
-
-        overlay.addEventListener("transitionend",()=>{
-            launcher.classList.remove("hidden");
-            launcher.style.display="flex";
-        });
-
-        console.log("[ZOROX] Login launcher locked visible.");
+    if(!launcher || !overlay || !auth){
+        console.error("[ZOROX] Auth elements missing.");
+        return;
     }
 
-    if(document.readyState==="loading"){
-        document.addEventListener(
-            "DOMContentLoaded",
-            fixZoroxLauncher
-        );
-    }else{
-        fixZoroxLauncher();
+    // Put auth box inside the center container.
+    if(container && auth.parentElement !== container){
+        container.appendChild(auth);
     }
 
-})();
+    function openAuth(e){
+        if(e) e.preventDefault();
+
+        overlay.style.display="flex";
+        overlay.setAttribute("aria-hidden","false");
+
+        requestAnimationFrame(function(){
+            overlay.classList.add("zorox-auth-open");
+        });
+
+        // Always show login first.
+        if(typeof window.showZoroxForm === "function"){
+            window.showZoroxForm("login");
+        }
+
+        document.body.style.overflow="hidden";
+
+        console.log("[ZOROX] Auth opened.");
+    }
+
+    function closeAuth(e){
+        if(e) e.preventDefault();
+
+        overlay.classList.remove("zorox-auth-open");
+        overlay.setAttribute("aria-hidden","true");
+
+        setTimeout(function(){
+            if(!overlay.classList.contains("zorox-auth-open")){
+                overlay.style.display="none";
+            }
+        },350);
+
+        document.body.style.overflow="";
+    }
+
+    // Remove old listeners by replacing the button.
+    const newLauncher=launcher.cloneNode(true);
+    launcher.replaceWith(newLauncher);
+
+    newLauncher.addEventListener("click",openAuth);
+
+    if(closeBtn){
+        closeBtn.addEventListener("click",closeAuth);
+    }
+
+    overlay.addEventListener("click",function(e){
+        if(e.target === overlay){
+            closeAuth();
+        }
+    });
+
+    document.addEventListener("keydown",function(e){
+        if(e.key==="Escape" &&
+           overlay.classList.contains("zorox-auth-open")){
+            closeAuth();
+        }
+    });
+
+    // Keep launcher visible.
+    newLauncher.style.display="flex";
+    newLauncher.style.opacity="1";
+    newLauncher.style.pointerEvents="auto";
+
+    window.openZoroxAuth=openAuth;
+    window.closeZoroxAuth=closeAuth;
+
+    console.log("[ZOROX] Clean launcher ready.");
+});
 </script>
 
 </body>
