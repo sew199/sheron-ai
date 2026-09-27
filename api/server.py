@@ -349,189 +349,230 @@ def chat():
             "error": "Message is required"
         }), 400
 
-    if not GEMINI_API_KEY:
-        logger.error("GEMINI_API_KEY is missing from environment")
-        if GROQ_API_KEY:
-            logger.info("GROQ_API_KEY is available")
-        else:
-            logger.error("GROQ_API_KEY is also missing")
-
-        return jsonify({
-            "error": "AI provider configuration error"
-        }), 500
-
     conn = get_db()
 
-    conversation = conn.execute(
-        "SELECT id FROM conversations ORDER BY updated_at DESC LIMIT 1"
-    ).fetchone()
+    try:
+        conversation = conn.execute(
+            "SELECT id FROM conversations ORDER BY updated_at DESC LIMIT 1"
+        ).fetchone()
 
-    if conversation:
-        conversation_id = conversation["id"]
-    else:
-        cursor = conn.execute(
-            "INSERT INTO conversations (title) VALUES (?)",
-            (message[:50],)
-        )
-        conversation_id = cursor.lastrowid
-
-    conn.execute(
-        "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
-        (conversation_id, "user", message)
-    )
-    conn.commit()
-
-    history = conn.execute(
-        """
-        SELECT role, content
-        FROM messages
-        WHERE conversation_id = ?
-        ORDER BY id ASC
-        LIMIT 20
-        """,
-        (conversation_id,)
-    ).fetchall()
-
-    contents = []
-
-    for item in history:
-        gemini_role = "model" if item["role"] == "assistant" else "user"
-
-        contents.append({
-            "role": gemini_role,
-            "parts": [
-                {
-                    "text": item["content"]
-                }
-            ]
-        })
-
-    payload = {
-        "contents": contents
-    }
-
-    max_retries = 2
-
-    for attempt in range(max_retries):
-        try:
-            response = requests.post(
-                GEMINI_URL,
-                headers={
-                    "x-goog-api-key": GEMINI_API_KEY,
-                    "Content-Type": "application/json"
-                },
-                json=payload,
-                timeout=60
+        if conversation:
+            conversation_id = conversation["id"]
+        else:
+            cursor = conn.execute(
+                "INSERT INTO conversations (title) VALUES (?)",
+                (message[:50],)
             )
+            conversation_id = cursor.lastrowid
 
-            if response.status_code == 429:
-                groq_reply = groq_chat(message)
+        conn.execute(
+            "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
+            (conversation_id, "user", message)
+        )
+        conn.commit()
 
-                if groq_reply:
-                    conn.execute(
-                        "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
-                        (conversation_id, "assistant", groq_reply)
-                    )
-                    conn.commit()
-                    conn.close()
+        history = conn.execute(
+            """
+            SELECT role, content
+            FROM messages
+            WHERE conversation_id = ?
+            ORDER BY id ASC
+            LIMIT 20
+            """,
+            (conversation_id,)
+        ).fetchall()
 
-                    return jsonify({
-                        "reply": groq_reply,
-                        "provider": "groq",
-                        "fallback": True
-                    }), 200
+        contents = []
 
-                try:
-                    error_data = response.json()
-                    error_message = error_data.get("error", {}).get("message", response.text)
-                except Exception:
-                    error_message = response.text
+        for item in history:
+            gemini_role = "model" if item["role"] == "assistant" else "user"
 
-                conn.close()
+            contents.append({
+                "role": gemini_role,
+                "parts": [
+                    {
+                        "text": item["content"]
+                    }
+                ]
+            })
 
-                return jsonify({
-                    "error": "AI providers temporarily unavailable",
-                    "message": "ZOROX AI is temporarily busy. Please try again shortly.",
-                    "details": error_message,
-                    "status": 503,
-                    "retryable": True
-                }), 503
+        payload = {
+            "contents": contents
+        }
 
-            if response.status_code == 200:
-                result = response.json()
+        # If Gemini key is missing, use Groq directly.
+        if not GEMINI_API_KEY:
+            logger.error("GEMINI_API_KEY is missing; trying Groq fallback")
 
-                candidates = result.get("candidates", [])
+            groq_reply = groq_chat(message)
 
-                if not candidates:
-                    return jsonify({
-                        "error": "Gemini returned no candidates",
-                        "details": result
-                    }), 502
-
-                content = candidates[0].get("content", {})
-                parts = content.get("parts", [])
-
-                if not parts:
-                    return jsonify({
-                        "error": "Gemini returned no response text",
-                        "details": result
-                    }), 502
-
-                reply = parts[0].get("text", "").strip()
-
-                if not reply:
-                    return jsonify({
-                        "error": "Gemini returned an empty response"
-                    }), 502
-
+            if groq_reply:
                 conn.execute(
                     "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
-                    (conversation_id, "model", reply)
+                    (conversation_id, "assistant", groq_reply)
                 )
-
-                conn.execute(
-                    "UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-                    (conversation_id,)
-                )
-
                 conn.commit()
-                conn.close()
 
                 return jsonify({
-                    "reply": reply,
+                    "reply": groq_reply,
+                    "provider": "groq",
+                    "fallback": True,
                     "conversation_id": conversation_id
-                })
+                }), 200
 
-            # Retry only temporary errors
-            if response.status_code in (408, 429, 500, 502, 503, 504):
+            return jsonify({
+                "error": "No AI provider is configured"
+            }), 500
+
+        max_retries = 2
+
+        for attempt in range(max_retries):
+            try:
+                response = requests.post(
+                    GEMINI_URL,
+                    headers={
+                        "x-goog-api-key": GEMINI_API_KEY,
+                        "Content-Type": "application/json"
+                    },
+                    json=payload,
+                    timeout=60
+                )
+
+                if response.status_code == 429:
+                    logger.warning("Gemini rate limited; trying Groq")
+
+                    groq_reply = groq_chat(message)
+
+                    if groq_reply:
+                        conn.execute(
+                            "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
+                            (conversation_id, "assistant", groq_reply)
+                        )
+                        conn.commit()
+
+                        return jsonify({
+                            "reply": groq_reply,
+                            "provider": "groq",
+                            "fallback": True,
+                            "conversation_id": conversation_id
+                        }), 200
+
+                    try:
+                        error_data = response.json()
+                        error_message = error_data.get(
+                            "error", {}
+                        ).get("message", response.text)
+                    except Exception:
+                        error_message = response.text
+
+                    return jsonify({
+                        "error": "AI providers temporarily unavailable",
+                        "message": "ZOROX AI is temporarily busy. Please try again shortly.",
+                        "details": error_message,
+                        "status": 503,
+                        "retryable": True
+                    }), 503
+
+                if response.status_code == 200:
+                    result = response.json()
+
+                    candidates = result.get("candidates", [])
+
+                    if not candidates:
+                        return jsonify({
+                            "error": "Gemini returned no candidates",
+                            "details": result
+                        }), 502
+
+                    content = candidates[0].get("content", {})
+                    parts = content.get("parts", [])
+
+                    if not parts:
+                        return jsonify({
+                            "error": "Gemini returned no response text",
+                            "details": result
+                        }), 502
+
+                    reply = parts[0].get("text", "").strip()
+
+                    if not reply:
+                        return jsonify({
+                            "error": "Gemini returned an empty response"
+                        }), 502
+
+                    conn.execute(
+                        "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
+                        (conversation_id, "assistant", reply)
+                    )
+
+                    conn.execute(
+                        "UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+                        (conversation_id,)
+                    )
+
+                    conn.commit()
+
+                    return jsonify({
+                        "reply": reply,
+                        "conversation_id": conversation_id,
+                        "provider": "gemini"
+                    }), 200
+
+                if response.status_code in (408, 500, 502, 503, 504):
+                    if attempt < max_retries - 1:
+                        delay = (2 ** attempt) + random.uniform(0, 0.5)
+                        time.sleep(delay)
+                        continue
+
+                logger.error(
+                    "Gemini returned HTTP %s: %s",
+                    response.status_code,
+                    response.text[:500]
+                )
+
+                return jsonify(
+                    gemini_error(response)
+                ), response.status_code
+
+            except requests.Timeout:
+                logger.warning("Gemini request timed out")
+
                 if attempt < max_retries - 1:
                     delay = (2 ** attempt) + random.uniform(0, 0.5)
                     time.sleep(delay)
                     continue
 
-            return jsonify(gemini_error(response)), response.status_code
+                return jsonify({
+                    "error": "Gemini request timed out",
+                    "message": "Please try again."
+                }), 504
 
-        except requests.Timeout:
-            if attempt < max_retries - 1:
-                delay = (2 ** attempt) + random.uniform(0, 0.5)
-                time.sleep(delay)
-                continue
+            except requests.RequestException as error:
+                logger.exception("Gemini request failed")
 
-            return jsonify({
-                "error": "Gemini request timed out",
-                "message": "Please try again."
-            }), 504
+                return jsonify({
+                    "error": "Could not connect to Gemini API",
+                    "message": str(error)
+                }), 502
 
-        except requests.RequestException as error:
-            return jsonify({
-                "error": "Could not connect to Gemini API",
-                "message": str(error)
-            }), 502
+        return jsonify({
+            "error": "Gemini service is temporarily unavailable",
+            "message": "Please try again in a moment."
+        }), 503
 
-    return jsonify({
-        "error": "Gemini service is temporarily unavailable",
-        "message": "Please try again in a moment."
-    }), 503
+    except Exception as error:
+        logger.exception("Unhandled /api/chat error")
+
+        return jsonify({
+            "error": "Internal server error",
+            "message": "ZOROX AI encountered an internal error."
+        }), 500
+
+    finally:
+        try:
+            conn.close()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
