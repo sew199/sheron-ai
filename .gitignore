@@ -28,3 +28,5 @@ docs/index_before_no_otp.html
 
 docs/index_before_local_api_fix.html
 docs/index_before_platform_features.html
+.env
+zorox-server.log

@@ -6116,5 +6116,13 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 
+
+<script id="zorox-jamendo-live">
+(()=>{const A=window.ZOROX_API||"http://127.0.0.1:5000",S=document.querySelector("#zxMusicSearch"),L=document.querySelector("#zxMusicList");if(!S||!L)return;
+const e=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+async function load(q="rock"){L.innerHTML='<div style="padding:20px">Loading music…</div>';try{let r=await fetch(A+"/api/music/search?q="+encodeURIComponent(q));let d=await r.json();if(!r.ok||!d.results)throw 0;L.innerHTML=d.results.map(t=>`<div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:15px"><img src="${e(t.album_image)}" style="width:58px;height:58px;border-radius:12px;object-fit:cover"><div style="flex:1;min-width:0"><b>${e(t.name)}</b><div style="font-size:13px;color:#8993a5">${e(t.artist_name)}</div></div><button class="zx-api-play" data-a="${e(t.audio)}" data-n="${e(t.name)}" data-r="${e(t.artist_name)}">▶</button></div>`).join("");L.querySelectorAll(".zx-api-play").forEach(b=>b.onclick=()=>{window.zxAudio?.pause();window.zxAudio=new Audio(b.dataset.a);window.zxAudio.play();let n=document.querySelector("#zoroxMusicName"),st=document.querySelector("#zoroxMusicStatus");if(n)n.textContent=b.dataset.n;if(st)st.textContent=b.dataset.r+" • Playing";});}catch(x){L.innerHTML='<div style="padding:20px;color:#ff7777">Music API connection failed.</div>'}}
+S.addEventListener("input",()=>{clearTimeout(window.zxT);window.zxT=setTimeout(()=>load(S.value),350)});load();
+})();
+</script>
 </body>
 </html>

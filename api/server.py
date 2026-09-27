@@ -19,6 +19,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+
+@app.get("/api/music/search")
+def zorox_music_search():
+    import os, requests
+    q=request.args.get("q","").strip()
+    if not q:
+        q="rock"
+    client_id=os.getenv("JAMENDO_CLIENT_ID")
+    if not client_id:
+        return jsonify({"error":"JAMENDO_CLIENT_ID is not configured"}),500
+    try:
+        r=requests.get(
+            "https://api.jamendo.com/v3.0/tracks/",
+            params={"client_id":client_id,"format":"json","limit":20,"search":q},
+            timeout=15
+        )
+        data=r.json()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({"error":str(e)}),500
+
 CORS(app)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
