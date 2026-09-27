@@ -92,6 +92,8 @@ def get_db():
     return conn
 
 
+resend.api_key = os.getenv("RESEND_API_KEY")
+
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/"
     "v1beta/models/gemini-3.8-flash:generateContent"
@@ -273,35 +275,65 @@ def register():
 
     conn = get_db()
 
-    existing = conn.execute(
-        "SELECT id FROM users WHERE email = ? OR username = ?",
-        (email, username)
+    existing_email = conn.execute(
+        "SELECT id, username, verified FROM users WHERE email = ?",
+        (email,)
     ).fetchone()
 
-    if existing:
+    existing_username = conn.execute(
+        "SELECT id, email, verified FROM users WHERE username = ?",
+        (username,)
+    ).fetchone()
+
+    # Existing verified account
+    if existing_email and int(existing_email["verified"]) == 1:
         conn.close()
         return jsonify({
-            "error": "Email or username already exists"
+            "error": "Email already exists. Please login."
+        }), 409
+
+    # Username belongs to another account
+    if existing_username and existing_username["email"] != email:
+        conn.close()
+        return jsonify({
+            "error": "Username already exists. Please choose another username."
         }), 409
 
     password_hash = generate_password_hash(password)
 
     try:
-        cursor = conn.execute(
-            """
-            INSERT INTO users
-            (phone, email, username, password_hash, country)
-            VALUES (?, ?, ?, ?, ?)
-            """,
-            (phone or None, email, username, password_hash, country)
-        )
+        # Reuse an existing unverified email account
+        if existing_email and int(existing_email["verified"]) == 0:
+            conn.execute(
+                """
+                UPDATE users
+                SET phone = ?,
+                    username = ?,
+                    password_hash = ?,
+                    country = ?
+                WHERE email = ?
+                """,
+                (phone or None, username, password_hash, country, email)
+            )
+            conn.commit()
+            user_id = existing_email["id"]
 
-        conn.commit()
-        user_id = cursor.lastrowid
+        else:
+            cursor = conn.execute(
+                """
+                INSERT INTO users
+                (phone, email, username, password_hash, country, verified)
+                VALUES (?, ?, ?, ?, ?, 0)
+                """,
+                (phone or None, email, username, password_hash, country)
+            )
+            conn.commit()
+            user_id = cursor.lastrowid
+
         conn.close()
 
         return jsonify({
-            "message": "Account created successfully",
+            "message": "Account ready for verification",
             "user_id": user_id,
             "username": username
         }), 201
