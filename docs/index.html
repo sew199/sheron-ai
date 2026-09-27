@@ -3875,6 +3875,8 @@ async function zoroxRegister() {
             );
         }
 
+        console.log("[ZOROX] Registration successful:", registerData);
+
         const otpResponse = await fetch(
             ZOROX_API + "/api/send-otp",
             {
@@ -3890,6 +3892,8 @@ async function zoroxRegister() {
 
         const otpData =
             await otpResponse.json();
+
+        console.log("[ZOROX] OTP response:", otpResponse.status, otpData);
 
         if (!otpResponse.ok) {
             throw new Error(
@@ -3909,9 +3913,11 @@ async function zoroxRegister() {
 
     } catch (error) {
 
+        console.error("[ZOROX] Register/OTP error:", error);
+
         showZoroxError(
             "z-register-error",
-            error.message
+            error.message || "Registration or OTP sending failed."
         );
     }
 }
