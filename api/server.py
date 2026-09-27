@@ -1,3 +1,5 @@
+import logging
+import traceback
 import os
 import secrets
 import resend
@@ -9,6 +11,9 @@ import requests
 from flask import Flask, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -345,8 +350,14 @@ def chat():
         }), 400
 
     if not GEMINI_API_KEY:
+        logger.error("GEMINI_API_KEY is missing from environment")
+        if GROQ_API_KEY:
+            logger.info("GROQ_API_KEY is available")
+        else:
+            logger.error("GROQ_API_KEY is also missing")
+
         return jsonify({
-            "error": "Gemini API key is not configured"
+            "error": "AI provider configuration error"
         }), 500
 
     conn = get_db()
