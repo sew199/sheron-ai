@@ -6118,10 +6118,165 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 <script id="zorox-jamendo-live">
-(()=>{const A=window.ZOROX_API||"http://127.0.0.1:5000",S=document.querySelector("#zxMusicSearch"),L=document.querySelector("#zxMusicList");if(!S||!L)return;
-const e=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-async function load(q="rock"){L.innerHTML='<div style="padding:20px">Loading music…</div>';try{let r=await fetch(A+"/api/music/search?q="+encodeURIComponent(q));let d=await r.json();if(!r.ok||!d.results)throw 0;L.innerHTML=d.results.map(t=>`<div style="display:flex;align-items:center;gap:12px;padding:10px;border-radius:15px"><img src="${e(t.album_image)}" style="width:58px;height:58px;border-radius:12px;object-fit:cover"><div style="flex:1;min-width:0"><b>${e(t.name)}</b><div style="font-size:13px;color:#8993a5">${e(t.artist_name)}</div></div><button class="zx-api-play" data-a="${e(t.audio)}" data-n="${e(t.name)}" data-r="${e(t.artist_name)}">▶</button></div>`).join("");L.querySelectorAll(".zx-api-play").forEach(b=>b.onclick=()=>{window.zxAudio?.pause();window.zxAudio=new Audio(b.dataset.a);window.zxAudio.play();let n=document.querySelector("#zoroxMusicName"),st=document.querySelector("#zoroxMusicStatus");if(n)n.textContent=b.dataset.n;if(st)st.textContent=b.dataset.r+" • Playing";});}catch(x){L.innerHTML='<div style="padding:20px;color:#ff7777">Music API connection failed.</div>'}}
-S.addEventListener("input",()=>{clearTimeout(window.zxT);window.zxT=setTimeout(()=>load(S.value),350)});load();
+(()=>{
+
+const API = window.ZOROX_API || "http://127.0.0.1:5000";
+const search = document.querySelector("#zxMusicSearch");
+const list = document.querySelector("#zxMusicList");
+
+if(!search || !list) return;
+
+let tracks = [];
+
+const esc = x => String(x ?? "").replace(/[&<>"']/g,m=>({
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+}[m]));
+
+async function loadMusic(q="rock"){
+
+    list.innerHTML =
+      '<div style="padding:25px;text-align:center;color:#9aa4b5">Loading ZOROX Music…</div>';
+
+    try{
+
+        const res = await fetch(
+          API + "/api/music/search?q=" + encodeURIComponent(q || "rock")
+        );
+
+        const data = await res.json();
+
+        if(!res.ok || data.headers?.status !== "success"){
+            throw new Error(data.headers?.error_message || "Music API error");
+        }
+
+        tracks = data.results || [];
+
+        if(!tracks.length){
+            list.innerHTML =
+              '<div style="padding:25px;text-align:center;color:#9aa4b5">No songs found.</div>';
+            return;
+        }
+
+        list.innerHTML = tracks.map((t,i)=>`
+
+          <div class="zx-track"
+               data-index="${i}"
+               style="display:flex;align-items:center;gap:14px;padding:12px;margin-bottom:8px;border-radius:16px;cursor:pointer">
+
+            <img
+              src="${esc(t.album_image || t.image || "")}"
+              style="width:62px;height:62px;border-radius:14px;object-fit:cover"
+              onerror="this.style.display='none'">
+
+            <div style="flex:1;min-width:0">
+
+              <div style="
+                font-weight:700;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis">
+                ${esc(t.name)}
+              </div>
+
+              <div style="font-size:13px;color:#8f99aa;margin-top:4px">
+                ${esc(t.artist_name || "Unknown artist")}
+              </div>
+
+              <div style="font-size:11px;color:#687386;margin-top:3px">
+                ${Math.floor((t.duration || 0)/60)}:${String((t.duration || 0)%60).padStart(2,"0")}
+              </div>
+
+            </div>
+
+            <button
+              class="zx-api-play"
+              data-index="${i}"
+              style="border:0;border-radius:50%;width:42px;height:42px;cursor:pointer">
+              ▶
+            </button>
+
+          </div>
+
+        `).join("");
+
+        list.querySelectorAll(".zx-track").forEach(row=>{
+            row.addEventListener("click",()=>{
+                openTrack(Number(row.dataset.index));
+            });
+        });
+
+    }catch(err){
+
+        console.error(err);
+
+        list.innerHTML =
+          '<div style="padding:25px;text-align:center;color:#ff7777">'+
+          'Music API connection failed.'+
+          '</div>';
+    }
+}
+
+function openTrack(index){
+
+    const t = tracks[index];
+
+    if(!t || !t.audio) return;
+
+    if(window.zxAudio){
+        window.zxAudio.pause();
+    }
+
+    window.zxAudio = new Audio(t.audio);
+    window.zxAudio.play().catch(()=>{});
+
+    const name = document.querySelector("#zoroxMusicName");
+    const status = document.querySelector("#zoroxMusicStatus");
+
+    if(name) name.textContent = t.name;
+
+    if(status){
+        status.textContent =
+          (t.artist_name || "Unknown artist") + " • Playing";
+    }
+
+    // Existing ZOROX player screen
+    const player = document.querySelector("#zxPlayerScreen");
+
+    if(player){
+        player.classList.add("active");
+        player.style.display = "flex";
+    }
+
+    // Update player artwork/title if those elements exist
+    document.querySelectorAll(
+      "#zxPlayerTitle,#zxNowPlayingTitle"
+    ).forEach(el=>el.textContent=t.name);
+
+    document.querySelectorAll(
+      "#zxPlayerArtist,#zxNowPlayingArtist"
+    ).forEach(el=>el.textContent=t.artist_name || "Unknown artist");
+
+    document.querySelectorAll(
+      "#zxPlayerArtwork,#zxNowPlayingArtwork"
+    ).forEach(el=>{
+        if(el.tagName==="IMG"){
+            el.src=t.album_image || t.image || "";
+        }
+    });
+}
+
+search.addEventListener("input",()=>{
+
+    clearTimeout(window.zxMusicTimer);
+
+    window.zxMusicTimer=setTimeout(()=>{
+        loadMusic(search.value.trim() || "rock");
+    },350);
+
+});
+
+loadMusic("rock");
+
 })();
 </script>
 </body>
