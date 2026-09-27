@@ -2104,6 +2104,134 @@ body .chat-box {
 }
 </style>
 
+
+<style>
+/* ZOROX AI COMMAND HEADER V1 */
+
+.zorox-command-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 auto 16px;
+    width: min(96vw, 1500px);
+    padding: 12px 18px;
+    border: 1px solid rgba(0,184,255,.12);
+    border-radius: 18px;
+    background: linear-gradient(
+        110deg,
+        rgba(8,10,18,.82),
+        rgba(15,7,24,.72)
+    );
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow:
+        0 0 28px rgba(0,184,255,.045),
+        0 0 40px rgba(139,92,246,.035);
+    animation: zoroxHeaderIn .5s ease both;
+}
+
+.zorox-command-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.zorox-command-dot {
+    width: 9px;
+    height: 9px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: #00e5ff;
+    box-shadow:
+        0 0 8px #00e5ff,
+        0 0 18px rgba(0,229,255,.75);
+    animation: zoroxOnlinePulse 1.8s ease-in-out infinite;
+}
+
+.zorox-command-title {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.zorox-command-subtitle {
+    margin-top: 3px;
+    color: rgba(255,255,255,.42);
+    font-size: 10px;
+    letter-spacing: .08em;
+}
+
+.zorox-command-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.zorox-status-pill {
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,229,255,.14);
+    background: rgba(0,229,255,.045);
+    color: rgba(180,245,255,.9);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.zorox-model-pill {
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(139,92,246,.16);
+    background: rgba(139,92,246,.05);
+    color: rgba(220,205,255,.85);
+    font-size: 10px;
+    letter-spacing: .06em;
+}
+
+@keyframes zoroxOnlinePulse {
+    0%, 100% {
+        transform: scale(.9);
+        opacity: .65;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes zoroxHeaderIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .zorox-command-header {
+        width: 94vw;
+        padding: 11px 13px;
+    }
+
+    .zorox-command-subtitle {
+        display: none;
+    }
+
+    .zorox-model-pill {
+        display: none;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -3663,6 +3791,62 @@ function retryLastMessage() {
         );
     } else {
         createNeuralCore();
+    }
+})();
+</script>
+
+
+<script>
+/* ZOROX AI COMMAND HEADER V1 */
+
+(function () {
+    function addZoroxCommandHeader() {
+        const chatBox = document.querySelector(".chat-box");
+
+        if (!chatBox || document.querySelector(".zorox-command-header")) {
+            return;
+        }
+
+        const header = document.createElement("div");
+
+        header.className = "zorox-command-header";
+
+        header.innerHTML = `
+            <div class="zorox-command-left">
+                <span class="zorox-command-dot"></span>
+
+                <div>
+                    <div class="zorox-command-title">
+                        ZOROX AI
+                    </div>
+
+                    <div class="zorox-command-subtitle">
+                        WIKRAMASINGHE TECHNOLOGIES • INTELLIGENCE CORE
+                    </div>
+                </div>
+            </div>
+
+            <div class="zorox-command-right">
+                <span class="zorox-status-pill">
+                    ● ONLINE
+                </span>
+
+                <span class="zorox-model-pill">
+                    AI CORE
+                </span>
+            </div>
+        `;
+
+        chatBox.parentNode.insertBefore(header, chatBox);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            addZoroxCommandHeader
+        );
+    } else {
+        addZoroxCommandHeader();
     }
 })();
 </script>
