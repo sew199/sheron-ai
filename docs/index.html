@@ -2839,7 +2839,181 @@ body .chat-box {
 
 </style>
 
+
+<style id="zorox-auth-launcher-ui">
+#zorox-auth-launcher{
+    position:fixed;
+    left:50%;
+    bottom:42px;
+    transform:translateX(-50%);
+    z-index:99990;
+    padding:13px 25px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:.3px;
+    cursor:pointer;
+    background:rgba(12,16,28,.72);
+    backdrop-filter:blur(18px);
+    box-shadow:
+        0 12px 45px rgba(0,0,0,.45),
+        0 0 35px rgba(0,145,255,.13);
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+    animation:zoroxLauncherIn .8s cubic-bezier(.16,1,.3,1);
+}
+
+#zorox-auth-launcher:hover{
+    transform:translateX(-50%) translateY(-4px) scale(1.03);
+    background:rgba(18,25,43,.88);
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.55),
+        0 0 45px rgba(0,145,255,.25);
+}
+
+#zorox-auth-launcher span{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
+
+#zorox-auth-launcher-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#25a7ff;
+    box-shadow:0 0 14px #25a7ff;
+    animation:zoroxLauncherPulse 1.6s ease-in-out infinite;
+}
+
+#zorox-auth-overlay{
+    position:fixed;
+    inset:0;
+    z-index:99980;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:22px;
+    background:
+        radial-gradient(circle at 50% 35%,rgba(0,130,255,.12),transparent 32%),
+        rgba(1,3,8,.76);
+    backdrop-filter:blur(14px);
+    opacity:0;
+    transition:opacity .35s ease;
+}
+
+#zorox-auth-overlay.zorox-auth-open{
+    opacity:1;
+}
+
+#zorox-auth-overlay #zorox-auth{
+    position:relative!important;
+    width:min(430px,100%)!important;
+    max-height:calc(100vh - 44px);
+    overflow:auto!important;
+    margin:0!important;
+    transform:translateY(30px) scale(.94);
+    opacity:0;
+    transition:
+        transform .5s cubic-bezier(.16,1,.3,1),
+        opacity .35s ease;
+}
+
+#zorox-auth-overlay.zorox-auth-open #zorox-auth{
+    transform:none;
+    opacity:1;
+}
+
+#zorox-auth-close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    z-index:20;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    color:#fff;
+    background:rgba(255,255,255,.06);
+    cursor:pointer;
+    font-size:19px;
+    line-height:1;
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+#zorox-auth-close:hover{
+    transform:rotate(90deg) scale(1.08);
+    background:rgba(255,255,255,.12);
+}
+
+#zorox-auth-launcher.hidden{
+    opacity:0;
+    pointer-events:none;
+    transform:translateX(-50%) translateY(15px) scale(.9);
+}
+
+@keyframes zoroxLauncherIn{
+    from{
+        opacity:0;
+        transform:translateX(-50%) translateY(25px) scale(.9);
+    }
+    to{
+        opacity:1;
+        transform:translateX(-50%);
+    }
+}
+
+@keyframes zoroxLauncherPulse{
+    0%,100%{opacity:.55;transform:scale(.85)}
+    50%{opacity:1;transform:scale(1.2)}
+}
+
+@media(max-width:600px){
+    #zorox-auth-launcher{
+        bottom:25px;
+        padding:12px 21px;
+    }
+
+    #zorox-auth-overlay{
+        padding:12px;
+    }
+
+    #zorox-auth-overlay #zorox-auth{
+        max-height:calc(100vh - 24px);
+    }
+}
+</style>
+
 </head>
+
+
+<div id="zorox-auth-overlay" aria-hidden="true">
+
+    <button id="zorox-auth-close"
+            type="button"
+            aria-label="Close authentication">
+        ×
+    </button>
+
+    <div id="zorox-auth-container">
+    </div>
+
+</div>
+
+<button id="zorox-auth-launcher"
+        type="button"
+        aria-label="Open Login or Sign Up">
+    <span>
+        <i id="zorox-auth-launcher-dot"></i>
+        LOGIN / SIGN UP
+    </span>
+</button>
 
 <body>
 
@@ -4878,6 +5052,107 @@ window.addEventListener("DOMContentLoaded", () => {
     zoroxRestoreSession();
 });
 
+</script>
+
+
+<script id="zorox-auth-launcher-js">
+(function(){
+
+    function setupZoroxAuthLauncher(){
+
+        const overlay =
+            document.getElementById("zorox-auth-overlay");
+
+        const launcher =
+            document.getElementById("zorox-auth-launcher");
+
+        const close =
+            document.getElementById("zorox-auth-close");
+
+        const container =
+            document.getElementById("zorox-auth-container");
+
+        const auth =
+            document.getElementById("zorox-auth");
+
+        if(!overlay || !launcher || !container || !auth){
+            console.warn("[ZOROX AUTH] Elements not ready.");
+            return;
+        }
+
+        // Move existing authentication UI inside the overlay.
+        if(auth.parentElement !== container){
+            container.appendChild(auth);
+        }
+
+        function openAuth(){
+
+            overlay.style.display = "flex";
+
+            requestAnimationFrame(()=>{
+                overlay.classList.add("zorox-auth-open");
+                overlay.setAttribute("aria-hidden","false");
+            });
+
+            launcher.classList.add("hidden");
+
+            document.body.style.overflow = "hidden";
+
+            // Always start on Login.
+            if(typeof showZoroxForm === "function"){
+                showZoroxForm("login");
+            }
+        }
+
+        function closeAuth(){
+
+            overlay.classList.remove("zorox-auth-open");
+            overlay.setAttribute("aria-hidden","true");
+
+            launcher.classList.remove("hidden");
+
+            document.body.style.overflow = "";
+
+            setTimeout(()=>{
+                if(!overlay.classList.contains("zorox-auth-open")){
+                    overlay.style.display = "none";
+                }
+            },350);
+        }
+
+        launcher.addEventListener("click",openAuth);
+        close.addEventListener("click",closeAuth);
+
+        overlay.addEventListener("click",(event)=>{
+            if(event.target === overlay){
+                closeAuth();
+            }
+        });
+
+        document.addEventListener("keydown",(event)=>{
+            if(event.key === "Escape" &&
+               overlay.classList.contains("zorox-auth-open")){
+                closeAuth();
+            }
+        });
+
+        // Expose functions for the rest of ZOROX.
+        window.openZoroxAuth = openAuth;
+        window.closeZoroxAuth = closeAuth;
+
+        console.log("[ZOROX AUTH] Launcher ready.");
+    }
+
+    if(document.readyState === "loading"){
+        document.addEventListener(
+            "DOMContentLoaded",
+            setupZoroxAuthLauncher
+        );
+    }else{
+        setupZoroxAuthLauncher();
+    }
+
+})();
 </script>
 
 </body>
