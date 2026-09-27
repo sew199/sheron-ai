@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yield Technologies</title>
+<title>WIKRAMASINGHE TECHNOLOGIES</title>
 
 <style>
 
@@ -1240,6 +1240,104 @@ footer {
     }
 }
 
+
+/* =========================
+   ZOROX AI MOBILE UPGRADE
+========================= */
+
+@media (max-width: 600px) {
+
+    .chat-top {
+        padding: 18px 16px !important;
+    }
+
+    .mini-logo {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+    }
+
+    .chat-name {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
+
+    .chat-online {
+        font-size: 12px !important;
+    }
+
+    .messages {
+        flex: 1 !important;
+        min-height: 0 !important;
+        padding: 18px 14px !important;
+        overflow-y: auto !important;
+    }
+
+    .message {
+        max-width: 88% !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+        padding: 13px 15px !important;
+    }
+
+    .chat-input-area {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .chat-input {
+        height: 52px !important;
+        font-size: 16px !important;
+        padding: 0 16px !important;
+        border-radius: 18px !important;
+    }
+
+    .send-btn {
+        width: 52px !important;
+        height: 52px !important;
+        min-width: 52px !important;
+        border-radius: 18px !important;
+        font-size: 20px !important;
+    }
+
+    .footer-brand {
+        letter-spacing: 3px !important;
+        font-weight: 800 !important;
+    }
+}
+
+
+/* =========================
+   WIKRAMASINGHE TECHNOLOGIES LOGO
+========================= */
+
+.mini-logo {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #00e5ff, #7c4dff) !important;
+    color: #ffffff !important;
+    border-radius: 15px !important;
+    font-size: 0 !important;
+    font-weight: 900 !important;
+    box-shadow:
+        0 0 18px rgba(0, 229, 255, 0.35),
+        0 0 28px rgba(124, 77, 255, 0.25) !important;
+}
+
+.mini-logo::after {
+    content: "Y";
+    font-size: 25px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.footer-brand {
+    font-weight: 900 !important;
+    letter-spacing: 4px !important;
+}
+
 </style>
 </head>
 
@@ -1267,7 +1365,7 @@ footer {
         </div>
 
         <div class="brand-text">
-            YIELD <span>TECHNOLOGIES</span>
+            ZOROX AI
         </div>
 
     </div>
@@ -1349,7 +1447,7 @@ footer {
                 class="btn secondary"
                 onclick="openAI()"
             >
-                Meet Yield AI
+                Meet ZOROX AI
             </button>
 
         </div>
@@ -1503,7 +1601,7 @@ footer {
         </h2>
 
         <p>
-            Yield Technologies focuses on artificial intelligence,
+            WIKRAMASINGHE TECHNOLOGIES focuses on artificial intelligence,
             cybersecurity, cloud infrastructure, networking and
             next-generation digital systems.
             Our vision is to build technology that makes complex
@@ -1522,11 +1620,11 @@ footer {
     <div class="about-box">
 
         <h2>
-            About Yield Technologies
+            About WIKRAMASINGHE TECHNOLOGIES
         </h2>
 
         <p>
-            Yield Technologies is a technology concept focused on
+            WIKRAMASINGHE TECHNOLOGIES is a technology concept focused on
             creating intelligent digital products and services.
             From AI assistants to cloud systems and cybersecurity,
             the mission is simple — build useful technology for
@@ -1541,7 +1639,7 @@ footer {
 
 
 <!-- =========================
-     YIELD AI
+     ZOROX AI
 ========================= -->
 
 <section id="aiSection">
@@ -1556,7 +1654,7 @@ footer {
             </div>
 
             <h2>
-                Yield AI
+                ZOROX AI
             </h2>
 
             <p>
@@ -1590,7 +1688,7 @@ footer {
                     <div>
 
                         <div class="chat-name">
-                            Yield AI
+                            ZOROX AI
                         </div>
 
                         <div class="chat-online">
@@ -1621,12 +1719,12 @@ footer {
 
                 <div class="message ai-message">
 
-                    Hello 👋 I'm <b>Yield AI</b>.
+                    Hello 👋 I'm <b>ZOROX AI</b>.
 
                     <br><br>
 
                     I'm the AI assistant of
-                    <b>Yield Technologies</b>.
+                    <b>WIKRAMASINGHE TECHNOLOGIES</b>.
                     Ask me anything about technology,
                     AI, cybersecurity, cloud,
                     networking or programming.
@@ -1644,7 +1742,7 @@ footer {
                     type="text"
                     id="chatInput"
                     class="chat-input"
-                    placeholder="Message Yield AI..."
+                    placeholder="Message ZOROX AI..."
                     autocomplete="off"
                 >
 
@@ -1672,11 +1770,11 @@ footer {
 <footer>
 
     <div class="footer-brand">
-        YIELD TECHNOLOGIES
+        WIKRAMASINGHE TECHNOLOGIES
     </div>
 
     <div>
-        © 2026 Yield Technologies.
+        © 2026 WIKRAMASINGHE TECHNOLOGIES.
         All rights reserved.
     </div>
 
@@ -1691,7 +1789,7 @@ footer {
 <script>
 
 /* =========================
-   OPEN YIELD AI
+   OPEN ZOROX AI
 ========================= */
 
 function openAI() {
@@ -1747,7 +1845,7 @@ function showHome() {
    SEND MESSAGE
 ========================= */
 
-function sendMessage() {
+async function sendMessage() {
 
     const input =
         document.getElementById("chatInput");
@@ -1759,27 +1857,62 @@ function sendMessage() {
         return;
     }
 
-
     addMessage(
         text,
         "user-message"
     );
 
-
     input.value = "";
-
 
     showTyping();
 
+    try {
 
-    setTimeout(() => {
+        const response = await fetch(
+            "http://127.0.0.1:5000/api/chat",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+            }
+        );
+
+        const data = await response.json();
 
         removeTyping();
 
-        generateAIResponse(text);
+        if (data.reply) {
 
-    }, 900);
+            addMessage(
+                data.reply,
+                "ai-message"
+            );
 
+        } else {
+
+            addMessage(
+                "Sorry, ZOROX AI could not respond.",
+                "ai-message"
+            );
+        }
+
+    } catch (error) {
+
+        removeTyping();
+
+        addMessage(
+            "Backend connection error. Please make sure ZOROX AI server is running.",
+            "ai-message"
+        );
+
+        console.error(error);
+    }
 }
 
 
@@ -1880,7 +2013,7 @@ function generateAIResponse(text) {
 
 
     let response =
-        "I'm Yield AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
+        "I'm ZOROX AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
 
 
     if (
@@ -1890,7 +2023,7 @@ function generateAIResponse(text) {
     ) {
 
         response =
-            "Hello 👋 Welcome to Yield Technologies. I'm Yield AI. How can I help you today?";
+            "Hello 👋 Welcome to WIKRAMASINGHE TECHNOLOGIES. I'm ZOROX AI. How can I help you today?";
 
     }
 
@@ -1901,7 +2034,7 @@ function generateAIResponse(text) {
     ) {
 
         response =
-            "I'm Yield AI, the intelligent assistant concept of Yield Technologies.";
+            "I'm ZOROX AI, the intelligent assistant concept of WIKRAMASINGHE TECHNOLOGIES.";
 
     }
 
@@ -1953,7 +2086,7 @@ function generateAIResponse(text) {
     ) {
 
         response =
-            "Yield Technologies is focused on AI, cybersecurity, cloud, networking and next-generation digital systems.";
+            "WIKRAMASINGHE TECHNOLOGIES is focused on AI, cybersecurity, cloud, networking and next-generation digital systems.";
 
     }
 
