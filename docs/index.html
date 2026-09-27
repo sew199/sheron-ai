@@ -1390,6 +1390,390 @@ footer {
         drop-shadow(0 0 8px rgba(124,77,255,.45));
 }
 
+
+/* =========================
+   ZOROX MUSIC APP
+========================= */
+
+.zx-music-app{
+    position:relative;
+    width:100%;
+    max-width:900px;
+    margin:25px auto;
+    padding:24px;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:28px;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(120,90,255,.18),transparent 35%),
+        linear-gradient(145deg,rgba(18,22,35,.98),rgba(7,10,18,.98));
+    box-shadow:0 25px 80px rgba(0,0,0,.35);
+}
+
+.zx-music-topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.zx-music-kicker,
+.zx-premium-label{
+    font-size:10px;
+    letter-spacing:2px;
+    opacity:.6;
+}
+
+.zx-music-topbar h2{
+    margin:5px 0 0;
+    font-size:30px;
+}
+
+.zx-premium-btn{
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:14px;
+    padding:11px 15px;
+    color:white;
+    background:rgba(255,255,255,.07);
+    cursor:pointer;
+}
+
+.zx-music-search{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:22px;
+    padding:14px 17px;
+    border-radius:17px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.zx-music-search input{
+    width:100%;
+    border:0;
+    outline:0;
+    color:white;
+    background:transparent;
+    font-size:15px;
+}
+
+.zx-music-tabs{
+    display:flex;
+    gap:8px;
+    overflow:auto;
+    margin:18px 0;
+}
+
+.zx-music-tab{
+    white-space:nowrap;
+    border:0;
+    border-radius:12px;
+    padding:10px 14px;
+    color:#9da6b8;
+    background:rgba(255,255,255,.05);
+}
+
+.zx-music-tab.active{
+    color:white;
+    background:rgba(120,90,255,.25);
+}
+
+.zx-song-card{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px;
+    margin:9px 0;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    color:white;
+    background:rgba(255,255,255,.035);
+    cursor:pointer;
+    text-align:left;
+}
+
+.zx-song-card:active{
+    transform:scale(.98);
+}
+
+.zx-song-art{
+    width:58px;
+    height:58px;
+    flex:0 0 58px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    font-size:27px;
+    background:linear-gradient(135deg,#27233e,#111827);
+}
+
+.zx-song-info{
+    flex:1;
+    min-width:0;
+}
+
+.zx-song-info strong,
+.zx-song-info span{
+    display:block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.zx-song-info span{
+    margin-top:5px;
+    font-size:13px;
+    color:#8d97aa;
+}
+
+.zx-song-arrow{
+    font-size:27px;
+    opacity:.5;
+}
+
+.zx-music-empty{
+    padding:45px 20px;
+    text-align:center;
+    color:#929bad;
+}
+
+.zx-music-icon{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.zx-music-empty h3{
+    color:white;
+    margin:8px 0;
+}
+
+.zx-player-screen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    background:
+        radial-gradient(circle at 50% 25%,rgba(105,70,255,.30),transparent 35%),
+        #080b13;
+    transform:translateX(100%);
+    transition:transform .35s ease;
+    overflow:auto;
+}
+
+.zx-player-screen.open{
+    transform:translateX(0);
+}
+
+.zx-player-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:700px;
+    width:100%;
+    margin:auto;
+}
+
+.zx-player-top button{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:13px;
+    color:white;
+    background:rgba(255,255,255,.08);
+    font-size:22px;
+}
+
+.zx-player-top span{
+    font-size:11px;
+    letter-spacing:2px;
+    opacity:.6;
+}
+
+.zx-player-art{
+    width:min(76vw,360px);
+    aspect-ratio:1;
+    margin:55px auto 30px;
+    display:grid;
+    place-items:center;
+    border-radius:30px;
+    background:linear-gradient(135deg,#292342,#101522);
+    box-shadow:0 30px 90px rgba(0,0,0,.5);
+}
+
+.zx-player-art div{
+    font-size:100px;
+}
+
+.zx-player-info{
+    width:min(700px,100%);
+    margin:auto;
+}
+
+.zx-player-info h2{
+    margin:0;
+    font-size:27px;
+}
+
+.zx-player-info p{
+    margin-top:7px;
+    color:#929bad;
+}
+
+.zx-progress{
+    width:min(700px,100%);
+    margin:25px auto 0;
+}
+
+.zx-progress input{
+    width:100%;
+}
+
+.zx-time{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#7f8899;
+}
+
+.zx-player-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:28px;
+    margin:25px auto;
+}
+
+.zx-player-controls button{
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:25px;
+}
+
+.zx-player-controls .zx-main-play{
+    width:66px;
+    height:66px;
+    border-radius:50%;
+    background:white;
+    color:#080b13;
+    font-size:25px;
+}
+
+.zx-player-actions{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+}
+
+.zx-player-actions button{
+    border:0;
+    color:#aaa;
+    background:transparent;
+    font-size:24px;
+}
+
+.zx-premium-overlay{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(12px);
+}
+
+.zx-premium-overlay.open{
+    display:flex;
+}
+
+.zx-premium-card{
+    position:relative;
+    width:min(430px,100%);
+    padding:35px 25px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:28px;
+    background:linear-gradient(145deg,#171b2b,#090c14);
+    box-shadow:0 30px 100px rgba(0,0,0,.55);
+}
+
+.zx-premium-close{
+    position:absolute;
+    right:15px;
+    top:15px;
+    border:0;
+    color:white;
+    background:transparent;
+    font-size:25px;
+}
+
+.zx-crown{
+    font-size:48px;
+}
+
+.zx-premium-card h2{
+    font-size:25px;
+    margin:15px 0;
+}
+
+.zx-price strong{
+    font-size:48px;
+}
+
+.zx-price span{
+    color:#929bad;
+}
+
+.zx-premium-features{
+    margin:25px 0;
+    text-align:left;
+    line-height:2;
+    color:#c7ccda;
+}
+
+.zx-upgrade-btn{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:15px;
+    color:white;
+    background:linear-gradient(135deg,#7657ff,#a052ff);
+    font-weight:700;
+}
+
+.zx-premium-card small{
+    display:block;
+    margin-top:13px;
+    color:#70798b;
+}
+
+@media(max-width:600px){
+
+    .zx-music-app{
+        padding:18px;
+        border-radius:22px;
+    }
+
+    .zx-music-topbar h2{
+        font-size:25px;
+    }
+
+    .zx-premium-btn{
+        padding:9px 11px;
+        font-size:12px;
+    }
+
+    .zx-player-art{
+        margin-top:45px;
+    }
+
+}
+
 </style>
 
 <style>
@@ -3822,24 +4206,122 @@ body .chat-box {
 
     <div class="zorox-section-title">
         <h3>🎵 ZOROX Music</h3>
-        <p>Your future music and media area.</p>
+        <p>Discover, search and enjoy your music experience with ZOROX.</p>
     </div>
 
-    <div class="zorox-music">
+    <div class="zx-music-app" id="zxMusicApp">
 
-        <div class="zorox-music-player">
-
-            <button class="zorox-play" id="zoroxPlayButton">▶</button>
-
+        <div class="zx-music-topbar">
             <div>
-                <div class="zorox-music-name" id="zoroxMusicName">
-                    ZOROX Music
-                </div>
-
-                <div class="zorox-music-status" id="zoroxMusicStatus">
-                    Ready — select a track when music integration is connected.
-                </div>
+                <span class="zx-music-kicker">ZOROX MUSIC</span>
+                <h2>Your Music</h2>
             </div>
+
+            <button class="zx-premium-btn" id="zxPremiumBtn">
+                👑 Premium
+            </button>
+        </div>
+
+        <div class="zx-music-search">
+            <span>⌕</span>
+            <input id="zxMusicSearch"
+                   type="search"
+                   placeholder="Search songs or artists...">
+        </div>
+
+        <div class="zx-music-tabs">
+            <button class="zx-music-tab active" data-tab="discover">Discover</button>
+            <button class="zx-music-tab" data-tab="favorites">❤️ Favorites</button>
+            <button class="zx-music-tab" data-tab="recent">Recently Played</button>
+        </div>
+
+        <div class="zx-music-results" id="zxMusicResults">
+
+            <div class="zx-music-empty">
+                <div class="zx-music-icon">🎧</div>
+                <h3>Welcome to ZOROX Music</h3>
+                <p>Search for a song or artist to start building your music library.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Full player screen -->
+    <div class="zx-player-screen" id="zxPlayerScreen">
+
+        <div class="zx-player-top">
+            <button id="zxPlayerBack">←</button>
+            <span>NOW PLAYING</span>
+            <button id="zxPlayerMore">⋯</button>
+        </div>
+
+        <div class="zx-player-art">
+            <div id="zxPlayerArtwork">🎵</div>
+        </div>
+
+        <div class="zx-player-info">
+            <h2 id="zxPlayerTitle">ZOROX Music</h2>
+            <p id="zxPlayerArtist">Select a song</p>
+        </div>
+
+        <div class="zx-progress">
+            <input id="zxProgress"
+                   type="range"
+                   min="0"
+                   max="100"
+                   value="0">
+            <div class="zx-time">
+                <span id="zxCurrentTime">0:00</span>
+                <span id="zxDuration">0:00</span>
+            </div>
+        </div>
+
+        <div class="zx-player-controls">
+            <button id="zxPrev">⏮</button>
+            <button class="zx-main-play" id="zxMainPlay">▶</button>
+            <button id="zxNext">⏭</button>
+        </div>
+
+        <div class="zx-player-actions">
+            <button id="zxLike">♡</button>
+            <button id="zxShare">↗</button>
+        </div>
+
+    </div>
+
+    <!-- Premium modal -->
+    <div class="zx-premium-overlay" id="zxPremiumOverlay">
+
+        <div class="zx-premium-card">
+
+            <button class="zx-premium-close" id="zxPremiumClose">×</button>
+
+            <div class="zx-crown">👑</div>
+
+            <span class="zx-premium-label">ZOROX PREMIUM</span>
+
+            <h2>Unlock the full ZOROX experience.</h2>
+
+            <div class="zx-price">
+                <strong>$4</strong>
+                <span>/ month</span>
+            </div>
+
+            <div class="zx-premium-features">
+                <div>✓ Premium ZOROX Music features</div>
+                <div>✓ Premium AI features</div>
+                <div>✓ Premium courses</div>
+                <div>✓ Exclusive platform features</div>
+            </div>
+
+            <button class="zx-upgrade-btn" id="zxUpgradeBtn">
+                Continue with Premium
+            </button>
+
+            <small>
+                Payment integration will be connected later.
+            </small>
 
         </div>
 
@@ -5099,19 +5581,240 @@ async function zoroxRegister() {
 <script id="zorox-platform-js">
 (function(){
 
-    const play = document.getElementById("zoroxPlayButton");
-    const status = document.getElementById("zoroxMusicStatus");
+    const results = document.getElementById("zxMusicResults");
+    const search = document.getElementById("zxMusicSearch");
 
-    if(play){
-        play.addEventListener("click", function(){
-            if(status){
-                status.textContent =
-                    "Music player interface ready — streaming integration can be connected next.";
+    const player = document.getElementById("zxPlayerScreen");
+    const back = document.getElementById("zxPlayerBack");
+
+    const title = document.getElementById("zxPlayerTitle");
+    const artist = document.getElementById("zxPlayerArtist");
+    const artwork = document.getElementById("zxPlayerArtwork");
+
+    const mainPlay = document.getElementById("zxMainPlay");
+    const progress = document.getElementById("zxProgress");
+
+    const premiumOverlay =
+        document.getElementById("zxPremiumOverlay");
+
+    const premiumBtn =
+        document.getElementById("zxPremiumBtn");
+
+    const premiumClose =
+        document.getElementById("zxPremiumClose");
+
+    const upgrade =
+        document.getElementById("zxUpgradeBtn");
+
+    const demoSongs = [
+        {
+            title: "Midnight Dreams",
+            artist: "ZOROX Demo",
+            icon: "🌙"
+        },
+        {
+            title: "Neon City",
+            artist: "ZOROX Demo",
+            icon: "🌆"
+        },
+        {
+            title: "Lost In Time",
+            artist: "ZOROX Demo",
+            icon: "⏳"
+        },
+        {
+            title: "After Dark",
+            artist: "ZOROX Demo",
+            icon: "🌌"
+        }
+    ];
+
+    let currentSong = null;
+    let isPlaying = false;
+
+    function renderSongs(list){
+
+        if(!results) return;
+
+        if(!list.length){
+            results.innerHTML =
+                '<div class="zx-music-empty">' +
+                '<div class="zx-music-icon">🔎</div>' +
+                '<h3>No results</h3>' +
+                '<p>Try another song or artist.</p>' +
+                '</div>';
+            return;
+        }
+
+        results.innerHTML = list.map(function(song, index){
+
+            return `
+                <button class="zx-song-card"
+                        data-index="${index}">
+
+                    <div class="zx-song-art">
+                        ${song.icon}
+                    </div>
+
+                    <div class="zx-song-info">
+                        <strong>${song.title}</strong>
+                        <span>${song.artist}</span>
+                    </div>
+
+                    <span class="zx-song-arrow">›</span>
+
+                </button>
+            `;
+
+        }).join("");
+
+        results.querySelectorAll(".zx-song-card")
+            .forEach(function(card){
+
+                card.addEventListener("click", function(){
+
+                    const song =
+                        list[Number(card.dataset.index)];
+
+                    openPlayer(song);
+
+                });
+
+            });
+    }
+
+    function openPlayer(song){
+
+        currentSong = song;
+
+        title.textContent = song.title;
+        artist.textContent = song.artist;
+        artwork.textContent = song.icon;
+
+        isPlaying = false;
+        mainPlay.textContent = "▶";
+
+        player.classList.add("open");
+
+        document.body.classList.add("zx-player-open");
+
+    }
+
+    function closePlayer(){
+
+        player.classList.remove("open");
+
+        document.body.classList.remove("zx-player-open");
+
+        isPlaying = false;
+        mainPlay.textContent = "▶";
+
+    }
+
+    if(search){
+
+        search.addEventListener("input", function(){
+
+            const q =
+                search.value.trim().toLowerCase();
+
+            const filtered =
+                demoSongs.filter(function(song){
+
+                    return (
+                        song.title.toLowerCase().includes(q) ||
+                        song.artist.toLowerCase().includes(q)
+                    );
+
+                });
+
+            renderSongs(filtered);
+
+        });
+
+    }
+
+    if(back){
+        back.addEventListener("click", closePlayer);
+    }
+
+    if(mainPlay){
+
+        mainPlay.addEventListener("click", function(){
+
+            if(!currentSong) return;
+
+            isPlaying = !isPlaying;
+
+            mainPlay.textContent =
+                isPlaying ? "Ⅱ" : "▶";
+
+        });
+
+    }
+
+    if(progress){
+
+        progress.addEventListener("input", function(){
+
+            const current =
+                document.getElementById("zxCurrentTime");
+
+            if(current){
+                const seconds =
+                    Math.floor(Number(progress.value) * 1.8);
+
+                const min =
+                    Math.floor(seconds / 60);
+
+                const sec =
+                    String(seconds % 60).padStart(2,"0");
+
+                current.textContent =
+                    min + ":" + sec;
             }
 
-            play.textContent = "✓";
+        });
+
+    }
+
+    if(premiumBtn){
+        premiumBtn.addEventListener("click", function(){
+            premiumOverlay.classList.add("open");
         });
     }
+
+    if(premiumClose){
+        premiumClose.addEventListener("click", function(){
+            premiumOverlay.classList.remove("open");
+        });
+    }
+
+    if(premiumOverlay){
+
+        premiumOverlay.addEventListener("click", function(e){
+
+            if(e.target === premiumOverlay){
+                premiumOverlay.classList.remove("open");
+            }
+
+        });
+
+    }
+
+    if(upgrade){
+
+        upgrade.addEventListener("click", function(){
+
+            alert(
+                "ZOROX Premium payment integration will be connected soon."
+            );
+
+        });
+
+    }
+
+    renderSongs(demoSongs);
 
 })();
 </script>
