@@ -323,7 +323,7 @@ def register():
                 """
                 INSERT INTO users
                 (phone, email, username, password_hash, country, verified)
-                VALUES (?, ?, ?, ?, ?, 0)
+                VALUES (?, ?, ?, ?, ?, 1)
                 """,
                 (phone or None, email, username, password_hash, country)
             )

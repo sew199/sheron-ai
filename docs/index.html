@@ -3952,23 +3952,13 @@ async function zoroxLogin() {
 
 
 async function zoroxRegister() {
-
     clearZoroxError("z-register-error");
 
-    const phone =
-        document.getElementById("z-reg-phone").value.trim();
-
-    const email =
-        document.getElementById("z-reg-email").value.trim();
-
-    const username =
-        document.getElementById("z-reg-username").value.trim();
-
-    const password =
-        document.getElementById("z-reg-password").value;
-
-    const country =
-        document.getElementById("z-reg-country").value.trim();
+    const phone = document.getElementById("z-reg-phone").value.trim();
+    const email = document.getElementById("z-reg-email").value.trim();
+    const username = document.getElementById("z-reg-username").value.trim();
+    const password = document.getElementById("z-reg-password").value;
+    const country = document.getElementById("z-reg-country").value.trim();
 
     if (!email || !username || !password || !country) {
         showZoroxError(
@@ -3979,8 +3969,7 @@ async function zoroxRegister() {
     }
 
     try {
-
-        const registerResponse = await fetch(
+        const response = await fetch(
             ZOROX_API + "/api/register",
             {
                 method: "POST",
@@ -3997,62 +3986,36 @@ async function zoroxRegister() {
             }
         );
 
-        const registerData =
-            await registerResponse.json();
+        const data = await response.json();
 
-        if (!registerResponse.ok) {
-            throw new Error(
-                registerData.error || "Registration failed"
-            );
+        if (!response.ok) {
+            throw new Error(data.error || "Registration failed");
         }
 
-        console.log("[ZOROX] Registration successful:", registerData);
+        // Registration complete — go directly to login
+        document.getElementById("z-login-identifier").value = email;
+        document.getElementById("z-login-password").value = "";
 
-        const otpResponse = await fetch(
-            ZOROX_API + "/api/send-otp",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email
-                })
-            }
-        );
-
-        const otpData =
-            await otpResponse.json();
-
-        console.log("[ZOROX] OTP response:", otpResponse.status, otpData);
-
-        if (!otpResponse.ok) {
-            throw new Error(
-                otpData.error || "Could not send OTP"
-            );
-        }
-
-        zoroxPendingEmail = email;
-
-        showZoroxForm("otp");
-
-        document.getElementById("z-otp-success").textContent =
-            "Verification code sent to " + email;
-
-        document.getElementById("z-otp-success").style.display =
-            "block";
-
-    } catch (error) {
-
-        console.error("[ZOROX] Register/OTP error:", error);
+        showZoroxForm("login");
 
         showZoroxError(
+            "z-login-error",
+            ""
+        );
+
+        const success = document.getElementById("z-login-success");
+        if (success) {
+            success.textContent = "Account created successfully. Please login.";
+            success.style.display = "block";
+        }
+
+    } catch (error) {
+        showZoroxError(
             "z-register-error",
-            error.message || "Registration or OTP sending failed."
+            error.message || "Registration failed."
         );
     }
 }
-
 
 async function zoroxVerifyOTP() {
 
