@@ -2040,6 +2040,70 @@ body .chat-box {
 }
 </style>
 
+
+<style>
+/* ZOROX NEURAL TRAIL FIX V3 */
+
+.chat-box {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+}
+
+/* Neural animation = BACKGROUND */
+.chat-box > .zorox-neural-core {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .48 !important;
+}
+
+/* Canvas fills entire chat box */
+.zorox-neural-core canvas {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+}
+
+/* Dark glass layer keeps text readable */
+.chat-box::after {
+    z-index: 1 !important;
+    pointer-events: none !important;
+}
+
+/* Actual UI always above animation */
+.chat-box > *:not(.zorox-neural-core) {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Neural effect remains visible around the interface */
+.chat-box .zorox-neural-core {
+    mix-blend-mode: screen !important;
+}
+
+/* Stronger center glow */
+.chat-box .zorox-neural-core::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 55%;
+    height: 55%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+        circle,
+        rgba(0,184,255,.08),
+        rgba(139,92,246,.035) 40%,
+        transparent 72%
+    );
+    filter: blur(25px);
+}
+</style>
+
 </head>
 
 <body>
