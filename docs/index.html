@@ -2990,6 +2990,120 @@ body .chat-box {
 }
 </style>
 
+
+<style id="zorox-auth-layout-fix">
+/* ===== ZOROX AUTH CLEAN LAYOUT ===== */
+
+#zorox-auth-overlay{
+    box-sizing:border-box!important;
+    width:100vw!important;
+    height:100dvh!important;
+    min-height:100vh!important;
+    padding:24px!important;
+    display:none;
+    align-items:center!important;
+    justify-content:center!important;
+}
+
+#zorox-auth-overlay.zorox-auth-open{
+    display:flex!important;
+}
+
+#zorox-auth-container{
+    width:min(460px, calc(100vw - 32px))!important;
+    max-width:460px!important;
+    margin:0 auto!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+}
+
+#zorox-auth-overlay #zorox-auth{
+    box-sizing:border-box!important;
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    max-width:460px!important;
+    min-width:0!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:calc(100dvh - 48px)!important;
+    margin:0!important;
+    padding:32px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    transform:translateY(30px) scale(.94);
+    opacity:0;
+}
+
+#zorox-auth-overlay.zorox-auth-open #zorox-auth{
+    transform:translateY(0) scale(1)!important;
+    opacity:1!important;
+}
+
+/* Prevent old layout rules from shrinking the form */
+#zorox-auth-overlay #zorox-auth *,
+#zorox-auth-overlay #zorox-auth input,
+#zorox-auth-overlay #zorox-auth select,
+#zorox-auth-overlay #zorox-auth button{
+    box-sizing:border-box!important;
+}
+
+#zorox-auth-overlay #zorox-auth input,
+#zorox-auth-overlay #zorox-auth select{
+    width:100%!important;
+    min-height:48px!important;
+    margin-bottom:12px!important;
+}
+
+#zorox-auth-overlay #zorox-auth button{
+    min-height:48px!important;
+    width:100%!important;
+}
+
+/* Keep form content centered and comfortable */
+#zorox-auth-overlay #zorox-auth form,
+#zorox-auth-overlay #zorox-auth .zorox-form,
+#zorox-auth-overlay #zorox-auth > div{
+    max-width:100%!important;
+}
+
+#zorox-auth-close{
+    top:12px!important;
+    right:12px!important;
+}
+
+/* Mobile */
+@media(max-width:600px){
+
+    #zorox-auth-overlay{
+        padding:12px!important;
+    }
+
+    #zorox-auth-container{
+        width:calc(100vw - 24px)!important;
+        max-width:none!important;
+    }
+
+    #zorox-auth-overlay #zorox-auth{
+        width:100%!important;
+        max-width:none!important;
+        padding:26px 20px!important;
+        max-height:calc(100dvh - 24px)!important;
+        border-radius:22px!important;
+    }
+}
+
+/* Very small phones */
+@media(max-height:650px){
+
+    #zorox-auth-overlay #zorox-auth{
+        padding-top:22px!important;
+        padding-bottom:22px!important;
+    }
+}
+</style>
+
 </head>
 
 
