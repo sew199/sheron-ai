@@ -2216,8 +2216,10 @@ body{
         <a href="#about">About</a>
 
     
-       <button class="zx-auth-login" onclick="location.href='login.html'">Login</button>
-       <button class="zx-auth-signup" onclick="location.href='signup.html'">Sign Up</button>
+       <span id="zx-user-welcome" style="display:none;color:#dce8ff;font-weight:600;font-size:14px;"></span>
+       <button id="zx-auth-login" class="zx-auth-login" onclick="location.href='login.html'">Login</button>
+       <button id="zx-auth-signup" class="zx-auth-signup" onclick="location.href='signup.html'">Sign Up</button>
+       <button id="zx-auth-logout" class="zx-auth-login" style="display:none;" onclick="zoroxLogout()">Logout</button>
 </nav>
 
 </header>
