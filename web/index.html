@@ -2143,10 +2143,7 @@ document
 
 <script>
 (function () {
-  const API_BASE =
-    location.hostname === "127.0.0.1" || location.hostname === "localhost"
-      ? "http://" + location.hostname + ":5000"
-      : "http://" + location.hostname + ":5000";
+  const API_BASE = window.location.protocol + "//" + window.location.hostname + ":5000";
 
   const results = document.getElementById("musicResults");
   const status = document.getElementById("musicStatus");
