@@ -1242,7 +1242,7 @@ footer {
 
 
 /* =========================
-   ZOROX AI MOBILE UPGRADE
+   ZOROX.AI MOBILE UPGRADE
 ========================= */
 
 @media (max-width: 600px) {
@@ -1338,7 +1338,841 @@ footer {
     letter-spacing: 4px !important;
 }
 
+
+.music-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.music-button:hover {
+    transform: none;
+}
+
+
+
+
+/* =========================
+   ZOROX PREMIUM CYBER UI
+========================= */
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,110,255,.14), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(255,20,55,.12), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(40,0,255,.10), transparent 35%),
+        #030407 !important;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 55px 55px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,115,255,.14),
+        rgba(255,20,55,.06) 38%,
+        transparent 70%);
+    filter: blur(25px);
+    animation: zoroxAmbient 7s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+header,
+main,
+section,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    background: rgba(3,4,7,.62) !important;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.hero {
+    min-height: 82vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center !important;
+    max-width: 900px !important;
+    animation: zoroxEnter 1s ease both;
+}
+
+.badge {
+    display: inline-flex !important;
+    padding: 9px 16px !important;
+    border: 1px solid rgba(0,150,255,.25) !important;
+    background: rgba(0,110,255,.07) !important;
+    box-shadow: 0 0 30px rgba(0,100,255,.10);
+    backdrop-filter: blur(15px);
+}
+
+.badge-dot {
+    box-shadow:
+        0 0 8px #ff1744,
+        0 0 18px rgba(255,23,68,.7) !important;
+    animation: zoroxPulse 1.8s infinite;
+}
+
+.hero h1 {
+    font-size: clamp(4rem, 10vw, 8.5rem) !important;
+    line-height: .88 !important;
+    letter-spacing: -5px !important;
+    text-shadow:
+        0 0 35px rgba(0,120,255,.12),
+        0 0 70px rgba(255,20,55,.07);
+}
+
+.hero h1 .gradient {
+    background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #5bbcff 38%,
+        #1677ff 62%,
+        #ff3158 100%
+    ) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    background-size: 220% auto;
+    animation: zoroxGradient 5s ease infinite;
+}
+
+.subtitle {
+    color: rgba(220,230,245,.68) !important;
+    max-width: 680px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.buttons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 13px !important;
+    flex-wrap: wrap !important;
+    margin-top: 32px !important;
+}
+
+.buttons .btn,
+.buttons .music-button {
+    min-width: 185px !important;
+    min-height: 54px !important;
+    padding: 15px 24px !important;
+    border-radius: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px;
+    transition: transform .3s ease, box-shadow .3s ease,
+                border-color .3s ease, background .3s ease !important;
+}
+
+.buttons .btn:hover,
+.buttons .music-button:hover {
+    transform: translateY(-4px) !important;
+}
+
+.buttons .btn.primary {
+    background: linear-gradient(
+        135deg,
+        #086cff,
+        #1558ff 55%,
+        #e91645
+    ) !important;
+    border: 1px solid rgba(100,180,255,.28) !important;
+    box-shadow:
+        0 10px 35px rgba(0,90,255,.22),
+        0 0 45px rgba(255,20,55,.07);
+}
+
+.buttons .btn.secondary,
+.buttons .music-button {
+    color: #eef5ff !important;
+    background: rgba(255,255,255,.045) !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05),
+        0 10px 30px rgba(0,0,0,.25);
+    backdrop-filter: blur(18px);
+}
+
+.buttons .music-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+}
+
+.buttons .music-button:hover {
+    border-color: rgba(0,145,255,.45) !important;
+    background: rgba(0,110,255,.09) !important;
+    box-shadow:
+        0 0 28px rgba(0,110,255,.14),
+        inset 0 1px rgba(255,255,255,.08);
+}
+
+/* Cyber floating light */
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    left: 8%;
+    top: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,120,255,.12),
+        transparent 68%);
+    filter: blur(12px);
+    animation: zoroxFloat 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: 6%;
+    bottom: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(255,20,55,.10),
+        transparent 68%);
+    filter: blur(15px);
+    animation: zoroxFloat 8s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes zoroxEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes zoroxGradient {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes zoroxAmbient {
+    from { transform: translate(-50%,-50%) scale(.85); opacity: .65; }
+    to { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+}
+
+@keyframes zoroxFloat {
+    0%,100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-25px) translateX(15px); }
+}
+
+@keyframes zoroxPulse {
+    0%,100% { opacity: .55; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        min-height: 78vh !important;
+        padding: 90px 18px 60px !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.3rem, 18vw, 5.5rem) !important;
+        letter-spacing: -3px !important;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons .btn,
+    .buttons .music-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* ===== ZOROX BRAND ===== */
+
+.zorox-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.zorox-logo {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 12px;
+    background:
+        linear-gradient(145deg, #0a7cff, #142cff 48%, #e91b48);
+    box-shadow:
+        0 0 18px rgba(0,115,255,.32),
+        0 0 28px rgba(235,25,70,.14);
+    overflow: hidden;
+}
+
+.zorox-logo::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 11px;
+    background: #05070b;
+}
+
+.zorox-logo span {
+    position: relative;
+    z-index: 2;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    text-shadow:
+        0 0 12px rgba(0,145,255,.8),
+        0 0 18px rgba(255,35,70,.35);
+}
+
+.zorox-brand-name {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    column-gap: 5px;
+    line-height: 1;
+}
+
+.zorox-brand-name strong {
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.zorox-brand-name small {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #ff3158;
+    font-weight: 800;
+}
+
+.zorox-brand-name em {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+    font-size: 7px;
+    letter-spacing: 1.7px;
+    color: rgba(190,205,225,.55);
+    font-style: normal;
+}
+
+.zorox-brand:hover .zorox-logo {
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow:
+        0 0 25px rgba(0,125,255,.5),
+        0 0 35px rgba(235,25,70,.22);
+}
+
+.zorox-logo {
+    transition: .3s ease;
+}
+
+@media (max-width: 600px) {
+    .zorox-brand-name strong {
+        font-size: 17px;
+    }
+
+    .zorox-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .zorox-brand-name em {
+        font-size: 6px;
+    }
+}
+
 </style>
+
+
+
+
+<style id="zorox-final-animation">
+.zorox-logo,
+.zorox-logo span,
+.zorox-logo small{
+    animation:none !important;
+}
+
+.zorox-logo{
+    display:flex !important;
+    align-items:baseline !important;
+    gap:2px !important;
+    animation:zoroxFullGlow 2.2s ease-in-out infinite !important;
+}
+
+.zorox-logo span{
+    font-size:1.35rem !important;
+    font-weight:900 !important;
+    background:linear-gradient(90deg,#fff,#4da3ff,#ff315c,#fff) !important;
+    background-size:300% auto !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+    animation:zoroxTextShine 2.5s linear infinite !important;
+}
+
+.zorox-logo small{
+    font-size:.72rem !important;
+    font-weight:400 !important;
+    color:#69aaff !important;
+    animation:zoroxAiGlow 1.8s ease-in-out infinite !important;
+}
+
+@keyframes zoroxTextShine{
+    0%{background-position:0% center}
+    100%{background-position:300% center}
+}
+
+@keyframes zoroxAiGlow{
+    0%,100%{opacity:.55;text-shadow:0 0 3px #348cff}
+    50%{opacity:1;text-shadow:0 0 18px #348cff,0 0 30px #348cff}
+}
+
+@keyframes zoroxFullGlow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.035)}
+}
+</style>
+
+
+<style id="zorox-premium-ai-core">
+/* ===== ZOROX PREMIUM AI CORE ===== */
+.zorox-ai-core-wrap{
+    width:180px;
+    height:180px;
+    margin:24px auto 30px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    filter:drop-shadow(0 0 25px rgba(60,150,255,.45));
+}
+
+.zorox-ai-core{
+    width:112px;
+    height:112px;
+    border-radius:50%;
+    position:relative;
+    background:
+        radial-gradient(circle at 35% 30%,
+        rgba(255,255,255,.95) 0 3%,
+        rgba(100,190,255,.9) 8%,
+        rgba(30,100,220,.75) 32%,
+        rgba(20,25,70,.9) 62%,
+        rgba(5,8,20,1) 100%);
+    box-shadow:
+        inset -18px -20px 35px rgba(0,0,0,.65),
+        inset 15px 10px 25px rgba(120,210,255,.45),
+        0 0 25px rgba(45,145,255,.65),
+        0 0 70px rgba(45,110,255,.3);
+    animation:zoroxCoreFloat 3s ease-in-out infinite;
+    overflow:hidden;
+}
+
+.zorox-ai-core::before,
+.zorox-ai-core::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    border:1px solid rgba(80,180,255,.45);
+    animation:zoroxRing 3s linear infinite;
+}
+
+.zorox-ai-core::after{
+    inset:-20px;
+    border-color:rgba(255,55,95,.25);
+    animation-duration:5s;
+    animation-direction:reverse;
+}
+
+.zorox-liquid{
+    position:absolute;
+    width:180%;
+    height:70%;
+    left:-40%;
+    bottom:-18%;
+    border-radius:48%;
+    background:linear-gradient(
+        90deg,
+        rgba(40,120,255,.15),
+        rgba(100,210,255,.8),
+        rgba(70,80,255,.25)
+    );
+    filter:blur(2px);
+    animation:zoroxLiquid 2.8s ease-in-out infinite;
+}
+
+.zorox-particle{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#8bd7ff;
+    box-shadow:0 0 12px #55baff;
+    animation:zoroxParticle 2.5s ease-in-out infinite;
+}
+
+.zorox-particle:nth-child(2){animation-delay:.4s;transform:translate(-55px,20px)}
+.zorox-particle:nth-child(3){animation-delay:.8s;transform:translate(55px,-15px)}
+.zorox-particle:nth-child(4){animation-delay:1.2s;transform:translate(-25px,-65px)}
+.zorox-particle:nth-child(5){animation-delay:1.6s;transform:translate(35px,55px)}
+
+.zorox-ai-label{
+    text-align:center;
+    font-size:.72rem;
+    letter-spacing:3px;
+    font-weight:600;
+    color:rgba(170,210,255,.8);
+    text-transform:uppercase;
+    margin-top:-10px;
+}
+
+@keyframes zoroxCoreFloat{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-7px) scale(1.025)}
+}
+
+@keyframes zoroxLiquid{
+    0%,100%{transform:translateY(8px) rotate(-3deg)}
+    50%{transform:translateY(-10px) rotate(4deg)}
+}
+
+@keyframes zoroxRing{
+    0%{transform:rotate(0deg) scale(.92);opacity:.2}
+    50%{opacity:.8}
+    100%{transform:rotate(360deg) scale(1.08);opacity:.15}
+}
+
+@keyframes zoroxParticle{
+    0%,100%{opacity:.25;transform:translateY(8px) scale(.7)}
+    50%{opacity:1;transform:translateY(-12px) scale(1.2)}
+}
+
+@media(max-width:600px){
+    .zorox-ai-core-wrap{
+        width:150px;
+        height:150px;
+    }
+    .zorox-ai-core{
+        width:95px;
+        height:95px;
+    }
+}
+</style>
+
+
+<style id="zorox-ui-v2">
+/* ===== ZOROX.AI PREMIUM UI V2 ===== */
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#03050b!important;
+  overflow-x:hidden;
+}
+.zx-v2-hero{
+  min-height:calc(100vh - 80px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:70px 20px 90px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(40,90,255,.13),transparent 28%),
+    radial-gradient(circle at 15% 75%,rgba(255,25,65,.10),transparent 30%),
+    radial-gradient(circle at 85% 25%,rgba(0,180,255,.09),transparent 30%);
+}
+.zx-v2-grid{
+  position:absolute;
+  inset:0;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(80,130,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(80,130,255,.12) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent);
+}
+.zx-v2-content{
+  position:relative;
+  z-index:3;
+  width:min(1150px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:50px;
+}
+.zx-v2-copy{text-align:left}
+.zx-v2-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 14px;
+  border:1px solid rgba(90,150,255,.25);
+  border-radius:999px;
+  background:rgba(10,18,35,.55);
+  backdrop-filter:blur(15px);
+  color:#a9c7ff;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.zx-v2-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#39aaff;
+  box-shadow:0 0 14px #39aaff;
+  animation:zxPulse 1.5s infinite;
+}
+.zx-v2-title{
+  margin:24px 0 18px;
+  font-size:clamp(48px,7vw,86px);
+  line-height:.94;
+  letter-spacing:-4px;
+  font-weight:800;
+  color:#fff;
+}
+.zx-v2-title span{
+  background:linear-gradient(100deg,#fff 15%,#68b7ff 45%,#a66cff 68%,#ff4568 95%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.zx-v2-sub{
+  max-width:590px;
+  color:#9ba8bf;
+  font-size:17px;
+  line-height:1.75;
+}
+.zx-v2-actions{
+  display:flex;
+  gap:13px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+.zx-v2-btn{
+  text-decoration:none;
+  border-radius:13px;
+  padding:13px 21px;
+  font-size:14px;
+  font-weight:650;
+  transition:.25s ease;
+}
+.zx-v2-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 10px 35px rgba(52,103,255,.25);
+}
+.zx-v2-secondary{
+  color:#dce7ff;
+  border:1px solid rgba(120,150,210,.22);
+  background:rgba(255,255,255,.045);
+  backdrop-filter:blur(14px);
+}
+.zx-v2-btn:hover{transform:translateY(-3px);filter:brightness(1.12)}
+
+.zx-v2-core-area{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:470px;
+}
+.zx-v2-core{
+  width:320px;height:320px;
+  position:relative;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  animation:zxFloat 5s ease-in-out infinite;
+}
+.zx-v2-core::before{
+  content:"";
+  position:absolute;
+  inset:-55px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(45,125,255,.16),transparent 65%);
+  filter:blur(10px);
+}
+.zx-v2-orbit{
+  position:absolute;
+  inset:-28px;
+  border:1px solid rgba(65,155,255,.35);
+  border-radius:50%;
+  transform:rotateX(68deg) rotateZ(20deg);
+  animation:zxOrbit 7s linear infinite;
+}
+.zx-v2-orbit.two{
+  inset:-48px;
+  border-color:rgba(255,65,95,.22);
+  transform:rotateX(68deg) rotateZ(-35deg);
+  animation-duration:10s;
+  animation-direction:reverse;
+}
+.zx-v2-orbit::after{
+  content:"";
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#65c5ff;
+  box-shadow:0 0 18px #65c5ff;
+  top:12%;left:12%;
+}
+.zx-v2-liquid{
+  width:210px;height:210px;
+  border-radius:46% 54% 52% 48%;
+  background:
+    radial-gradient(circle at 32% 25%,#dff6ff 0 2%,transparent 8%),
+    radial-gradient(circle at 58% 48%,rgba(255,80,125,.85),transparent 34%),
+    radial-gradient(circle at 42% 55%,#287dff 0 20%,#122d9b 48%,#05091c 78%);
+  box-shadow:
+    inset -25px -25px 55px rgba(0,0,0,.65),
+    inset 18px 15px 35px rgba(100,190,255,.25),
+    0 0 35px rgba(42,125,255,.65),
+    0 0 100px rgba(50,80,255,.3);
+  filter:saturate(1.15);
+  animation:zxLiquid 6s ease-in-out infinite;
+}
+.zx-v2-liquid::after{
+  content:"Z";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:rgba(255,255,255,.88);
+  font-size:58px;
+  font-weight:800;
+  letter-spacing:-5px;
+  text-shadow:0 0 25px rgba(100,190,255,.9);
+}
+.zx-v2-label{
+  position:absolute;
+  bottom:-65px;
+  text-align:center;
+  color:#71819d;
+  font-size:10px;
+  letter-spacing:3px;
+}
+.zx-v2-label b{color:#a9c7ff;font-weight:600}
+
+@keyframes zxFloat{50%{transform:translateY(-13px)}}
+@keyframes zxLiquid{
+  0%,100%{border-radius:46% 54% 52% 48%;transform:rotate(0deg) scale(1)}
+  50%{border-radius:54% 46% 45% 55%;transform:rotate(7deg) scale(1.035)}
+}
+@keyframes zxOrbit{to{transform:rotateX(68deg) rotateZ(380deg)}}
+@keyframes zxPulse{50%{opacity:.35;transform:scale(.65)}}
+
+@media(max-width:800px){
+  .zx-v2-content{grid-template-columns:1fr;gap:10px;text-align:center}
+  .zx-v2-copy{text-align:center}
+  .zx-v2-sub{margin:auto}
+  .zx-v2-actions{justify-content:center}
+  .zx-v2-core-area{min-height:390px}
+  .zx-v2-core{transform:scale(.78)}
+  .zx-v2-title{letter-spacing:-2px}
+}
+</style>
+
+
+<style id="zorox-auth-ui">
+.zx-auth-login,.zx-auth-signup{
+  border:0;border-radius:10px;padding:9px 15px;
+  font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+  transition:.25s ease;
+}
+.zx-auth-login{
+  color:#dce7ff;background:rgba(255,255,255,.05);
+  border:1px solid rgba(100,150,255,.22);
+}
+.zx-auth-signup{
+  color:#fff;background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 7px 25px rgba(55,100,255,.22);
+}
+.zx-auth-login:hover,.zx-auth-signup:hover{
+  transform:translateY(-2px);filter:brightness(1.12);
+}
+@media(max-width:800px){
+  .zx-auth-login,.zx-auth-signup{padding:7px 11px;font-size:12px}
+}
+</style>
+
+
+<style id="zorox-auth-force">
+.zorox-nav{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  flex-wrap:wrap !important;
+}
+.zx-auth-login,.zx-auth-signup{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  z-index:9999 !important;
+  align-items:center;
+  justify-content:center;
+  min-width:72px;
+  cursor:pointer;
+}
+.zx-auth-login{
+  color:#e8efff !important;
+  background:rgba(255,255,255,.07) !important;
+  border:1px solid rgba(100,160,255,.35) !important;
+}
+.zx-auth-signup{
+  color:#fff !important;
+  background:linear-gradient(135deg,#287dff,#684cff) !important;
+  border:1px solid rgba(120,170,255,.35) !important;
+}
+</style>
+
 </head>
 
 <body>
@@ -1358,38 +2192,33 @@ footer {
 
 <header>
 
-    <div class="brand" onclick="showHome()">
+    <div class="brand zorox-brand" onclick="showHome()">
 
-        <div class="logo">
-            Y
+        <div class="zorox-logo">
+            <span>Z</span>
         </div>
 
-        <div class="brand-text">
-            YIELD <span>TECHNOLOGIES</span>
+        <div class="zorox-brand-name">
+            <strong>ZOROX</strong>
+            <small>AI</small>
+            <em>WIKRAMASINGHE TECHNOLOGIES</em>
         </div>
 
     </div>
 
 
-    <nav>
+    <nav class="zorox-nav">
 
-        <a href="#home" onclick="showHome()">
-            Home
-        </a>
+        <a href="#home" onclick="showHome()">Home</a>
+        <a href="#aiSection" onclick="openAI()">AI</a>
+        <a href="#technology">Technology</a>
+        <a href="music.html">Music</a>
+        <a href="#about">About</a>
 
-        <a href="#aiSection" onclick="openAI()">
-            AI
-        </a>
-
-        <a href="#technology">
-            Technology
-        </a>
-
-        <a href="#about">
-            About
-        </a>
-
-    </nav>
+    
+       <button class="zx-auth-login" onclick="location.href='login.html'">Login</button>
+       <button class="zx-auth-signup" onclick="location.href='signup.html'">Sign Up</button>
+</nav>
 
 </header>
 
@@ -1400,61 +2229,45 @@ footer {
 
 <main id="home">
 
-<section class="hero">
 
-    <div class="hero-content">
+<section class="zx-v2-hero" id="zx-v2-home">
+  <div class="zx-v2-grid"></div>
 
-        <div class="badge">
+  <div class="zx-v2-content">
+    <div class="zx-v2-copy">
+      <div class="zx-v2-kicker">
+        <i class="zx-v2-dot"></i>
+        ZOROX.AI ONLINE
+      </div>
 
-            <span class="badge-dot"></span>
+      <h1 class="zx-v2-title">
+        WELCOME TO<br>
+        <span>ZOROX.AI</span>
+      </h1>
 
-            NEXT GENERATION TECHNOLOGY
+      <p class="zx-v2-sub">
+        Your next-generation AI workspace.
+        Chat, create, explore and discover intelligent
+        digital experiences powered by ZOROX.AI.
+      </p>
 
-        </div>
-
-
-        <h1>
-
-            BUILD THE<br>
-
-            <span class="gradient">
-                FUTURE.
-            </span>
-
-        </h1>
-
-
-        <p class="subtitle">
-
-            Intelligent technology, artificial intelligence
-            and next-generation digital solutions — built
-            for a world that never stops evolving.
-
-        </p>
-
-
-        <div class="buttons">
-
-            <a
-                href="#technology"
-                class="btn primary"
-            >
-                Explore Technology
-            </a>
-
-
-            <button
-                class="btn secondary"
-                onclick="openAI()"
-            >
-                Meet ZOROX AI
-            </button>
-
-        </div>
-
+      <div class="zx-v2-actions">
+        <a href="javascript:void(0)" onclick="openAI()" class="zx-v2-btn zx-v2-primary">Start Chatting →</a>
+        <a href="music.html" class="zx-v2-btn zx-v2-secondary">Explore Music</a>
+      </div>
     </div>
 
+    <div class="zx-v2-core-area">
+      <div class="zx-v2-core">
+        <div class="zx-v2-orbit"></div>
+        <div class="zx-v2-orbit two"></div>
+        <div class="zx-v2-liquid"></div>
+        <div class="zx-v2-label"><b>ZOROX.AI</b><br>INTELLIGENCE CORE</div>
+      </div>
+    </div>
+  </div>
 </section>
+
 
 
 <!-- SERVICES -->
@@ -1639,7 +2452,7 @@ footer {
 
 
 <!-- =========================
-     ZOROX AI
+     ZOROX.AI
 ========================= -->
 
 <section id="aiSection">
@@ -1649,12 +2462,10 @@ footer {
 
         <div class="ai-header">
 
-            <div class="ai-logo">
-                Y
-            </div>
+            
 
             <h2>
-                ZOROX AI
+                ZOROX.AI
             </h2>
 
             <p>
@@ -1681,14 +2492,12 @@ footer {
 
                 <div class="chat-title">
 
-                    <div class="mini-logo">
-                        Y
-                    </div>
+                    
 
                     <div>
 
                         <div class="chat-name">
-                            ZOROX AI
+                            ZOROX.AI
                         </div>
 
                         <div class="chat-online">
@@ -1719,7 +2528,7 @@ footer {
 
                 <div class="message ai-message">
 
-                    Hello 👋 I'm <b>ZOROX AI</b>.
+                    Hello 👋 I'm <b>ZOROX.AI</b>.
 
                     <br><br>
 
@@ -1742,7 +2551,7 @@ footer {
                     type="text"
                     id="chatInput"
                     class="chat-input"
-                    placeholder="Message ZOROX AI..."
+                    placeholder="Message ZOROX.AI..."
                     autocomplete="off"
                 >
 
@@ -1789,7 +2598,7 @@ footer {
 <script>
 
 /* =========================
-   OPEN ZOROX AI
+   OPEN ZOROX.AI
 ========================= */
 
 function openAI() {
@@ -1897,7 +2706,7 @@ async function sendMessage() {
         } else {
 
             addMessage(
-                "Sorry, ZOROX AI could not respond.",
+                "Sorry, ZOROX.AI could not respond.",
                 "ai-message"
             );
         }
@@ -1907,7 +2716,7 @@ async function sendMessage() {
         removeTyping();
 
         addMessage(
-            "Backend connection error. Please make sure ZOROX AI server is running.",
+            "Backend connection error. Please make sure ZOROX.AI server is running.",
             "ai-message"
         );
 
@@ -2013,7 +2822,7 @@ function generateAIResponse(text) {
 
 
     let response =
-        "I'm ZOROX AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
+        "I'm ZOROX.AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
 
 
     if (
@@ -2023,7 +2832,7 @@ function generateAIResponse(text) {
     ) {
 
         response =
-            "Hello 👋 Welcome to WIKRAMASINGHE TECHNOLOGIES. I'm ZOROX AI. How can I help you today?";
+            "Hello 👋 Welcome to WIKRAMASINGHE TECHNOLOGIES. I'm ZOROX.AI. How can I help you today?";
 
     }
 
@@ -2034,7 +2843,7 @@ function generateAIResponse(text) {
     ) {
 
         response =
-            "I'm ZOROX AI, the intelligent assistant concept of WIKRAMASINGHE TECHNOLOGIES.";
+            "I'm ZOROX.AI, the intelligent assistant concept of WIKRAMASINGHE TECHNOLOGIES.";
 
     }
 
@@ -2123,116 +2932,27 @@ document
 </script>
 
 
-<!-- ZOROX MUSIC -->
-<section id="zorox-music" style="margin:40px auto;max-width:1100px;padding:24px;border-radius:24px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
-  <h2 style="margin:0 0 8px;font-size:28px;">🎵 ZOROX Music</h2>
-  <p style="opacity:.65;margin:0 0 20px;">Search and play music powered by Jamendo.</p>
+<script id="zorox-welcome">
+document.addEventListener("DOMContentLoaded",()=>{
+  try{
+    const raw=localStorage.getItem("zorox_user");
+    if(!raw) return;
 
-  <div style="display:flex;gap:10px;margin-bottom:20px;">
-    <input id="musicSearch" value="rock" placeholder="Search songs..."
-      style="flex:1;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.25);color:inherit;outline:none;">
-    <button onclick="searchZoroxMusic()"
-      style="padding:14px 20px;border:0;border-radius:14px;cursor:pointer;font-weight:700;">Search</button>
-  </div>
+    const user=JSON.parse(raw);
+    const name=user.username || "User";
 
-  <div id="musicStatus" style="opacity:.65;margin-bottom:15px;">Loading songs...</div>
-  <div id="musicResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;"></div>
-
-  <audio id="zoroxAudio" controls style="width:100%;margin-top:22px;"></audio>
-</section>
-
-<script>
-(function () {
-  const API_BASE = window.location.protocol + "//" + window.location.hostname + ":5000";
-
-  const results = document.getElementById("musicResults");
-  const status = document.getElementById("musicStatus");
-  const audio = document.getElementById("zoroxAudio");
-  const input = document.getElementById("musicSearch");
-
-  window.searchZoroxMusic = async function () {
-    const q = input.value.trim() || "rock";
-    status.textContent = "Searching for " + q + "...";
-    results.innerHTML = "";
-
-    try {
-      const res = await fetch(
-        API_BASE + "/api/music/search?q=" + encodeURIComponent(q)
-      );
-      const data = await res.json();
-
-      if (!res.ok || data.error) {
-        throw new Error(data.error || "Music API error");
-      }
-
-      const songs = data.results || [];
-
-      if (!songs.length) {
-        status.textContent = "No songs found.";
-        return;
-      }
-
-      status.textContent = songs.length + " songs found";
-
-      results.innerHTML = songs.map((song, i) => {
-        const image = song.album_image || "";
-        const title = song.name || "Unknown Track";
-        const artist = song.artist_name || "Unknown Artist";
-        const duration = song.duration
-          ? Math.floor(song.duration / 60) + ":" + String(song.duration % 60).padStart(2, "0")
-          : "";
-
-        return `
-          <div style="overflow:hidden;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);">
-            <img src="${image}" alt=""
-              style="width:100%;height:180px;object-fit:cover;display:block;"
-              onerror="this.style.display='none'">
-            <div style="padding:14px;">
-              <div style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(title)}</div>
-              <div style="opacity:.65;font-size:13px;margin:5px 0 12px;">${escapeHtml(artist)} ${duration ? "• " + duration : ""}</div>
-              <button onclick="playZoroxSong(${i})"
-                style="width:100%;padding:10px;border:0;border-radius:11px;cursor:pointer;font-weight:700;">
-                ▶ Play
-              </button>
-            </div>
-          </div>`;
-      }).join("");
-
-      window.zoroxSongs = songs;
-    } catch (err) {
-      console.error(err);
-      status.textContent = "Music connection error: " + err.message;
+    const hero=document.querySelector(".zx-v2-copy");
+    if(hero && !document.getElementById("zxWelcome")){
+      const box=document.createElement("div");
+      box.id="zxWelcome";
+      box.style.cssText=
+        "margin-bottom:16px;color:#9fc4ff;font-size:14px;font-weight:600;letter-spacing:.3px;";
+      box.textContent="Welcome back, "+name+" 👋";
+      hero.prepend(box);
     }
-  };
-
-  window.playZoroxSong = function (index) {
-    const song = window.zoroxSongs[index];
-    if (!song || !song.audio) return;
-
-    audio.src = song.audio;
-    audio.play().catch(err => console.log("Playback:", err));
-  };
-
-  function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, function (c) {
-      return {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
-      }[c];
-    });
-  }
-
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") searchZoroxMusic();
-  });
-
-  searchZoroxMusic();
-})();
+  }catch(e){}
+});
 </script>
-<!-- END ZOROX MUSIC -->
 
 </body>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login — ZOROX.AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;display:grid;place-items:center;
+ font-family:Inter,system-ui,sans-serif;color:#fff;background:#03050b;
+ background-image:radial-gradient(circle at 50% 35%,rgba(45,100,255,.18),transparent 35%);
+}
+.card{
+ width:min(420px,92%);padding:38px;border-radius:24px;
+ background:rgba(10,15,28,.82);border:1px solid rgba(100,150,255,.2);
+ box-shadow:0 25px 80px rgba(0,0,0,.5);backdrop-filter:blur(20px);
+}
+.logo{font-size:30px;font-weight:800;margin-bottom:8px}
+.logo span{color:#639dff}
+.sub{color:#8997b2;margin-bottom:28px}
+input{
+ width:100%;padding:14px;margin:7px 0;border-radius:11px;
+ border:1px solid rgba(120,150,210,.2);background:#080d18;color:#fff;
+ outline:none;
+}
+button{
+ width:100%;padding:14px;margin-top:15px;border:0;border-radius:11px;
+ color:#fff;font-weight:700;cursor:pointer;
+ background:linear-gradient(135deg,#287dff,#684cff);
+}
+.msg{margin-top:15px;text-align:center;color:#9fb5d8;font-size:13px}
+a{color:#69a9ff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+ <div class="logo">ZOROX<span>.AI</span></div>
+ <div class="sub">Welcome back. Sign in to your account.</div>
+
+ <input id="email" type="email" placeholder="Email">
+ <input id="password" type="password" placeholder="Password">
+ <button onclick="login()">Login</button>
+
+ <div class="msg" id="msg"></div>
+ <div class="msg">Don't have an account? <a href="signup.html">Create one</a></div>
+ <div class="msg"><a href="index.html">← Back to ZOROX.AI</a></div>
+</div>
+
+<script>
+async function login(){
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ const msg=document.getElementById("msg");
+
+ if(!email||!password){msg.textContent="Enter your email and password.";return}
+
+ try{
+  const r=await fetch("http://"+location.hostname+":5000/api/login",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({identifier:email,password})
+  });
+  const data=await r.json();
+  if(r.ok && data.user){
+   localStorage.setItem("zorox_user",JSON.stringify(data.user));
+   msg.textContent="Login successful! Opening ZOROX.AI...";
+   window.location.href="./index.html";
+   return;
+  }
+  msg.textContent=data.message || "Login failed.";
+ }catch(e){msg.textContent="Server connection error."}
+}
+</script>
+</body>
+</html>

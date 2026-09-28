@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZOROX MUSIC — WIKRAMASINGHE TECHNOLOGIES</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+ --black:#030407;
+ --black2:#070a10;
+ --blue:#168cff;
+ --blue2:#0057ff;
+ --red:#ff3158;
+ --white:#f7f9ff;
+ --muted:#8c94a5;
+ --glass:rgba(255,255,255,.055);
+ --line:rgba(255,255,255,.09);
+}
+
+html{scroll-behavior:smooth}
+
+body{
+ background:
+ radial-gradient(circle at 10% 10%,rgba(0,96,255,.13),transparent 28%),
+ radial-gradient(circle at 90% 20%,rgba(255,30,75,.10),transparent 25%),
+ radial-gradient(circle at 50% 100%,rgba(0,110,255,.09),transparent 30%),
+ #030407;
+ color:var(--white);
+ font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ min-height:100vh;
+ overflow-x:hidden;
+ padding-bottom:130px;
+}
+
+/* ambient background */
+.ambient{
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-5;
+ overflow:hidden;
+}
+
+.blob{
+ position:absolute;
+ border-radius:50%;
+ filter:blur(80px);
+ opacity:.24;
+ animation:floatBlob 12s ease-in-out infinite alternate;
+}
+
+.blob.one{
+ width:350px;height:350px;
+ background:#006eff;
+ left:-130px;top:90px;
+}
+
+.blob.two{
+ width:300px;height:300px;
+ background:#ff174d;
+ right:-120px;top:300px;
+ animation-delay:2s;
+}
+
+.blob.three{
+ width:400px;height:400px;
+ background:#153cff;
+ left:35%;bottom:-250px;
+ animation-delay:4s;
+}
+
+@keyframes floatBlob{
+ from{transform:translate(0,0) scale(1)}
+ to{transform:translate(60px,-40px) scale(1.2)}
+}
+
+/* particles */
+.particles{
+ position:absolute;
+ inset:0;
+ background-image:
+ radial-gradient(circle,rgba(255,255,255,.55) 1px,transparent 1px);
+ background-size:80px 80px;
+ opacity:.06;
+ animation:particleMove 30s linear infinite;
+}
+
+@keyframes particleMove{
+ to{transform:translateY(80px)}
+}
+
+/* NAV */
+nav{
+ position:sticky;
+ top:0;
+ z-index:100;
+ height:76px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 clamp(20px,5vw,70px);
+ background:rgba(3,4,7,.68);
+ backdrop-filter:blur(25px);
+ border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-size:15px;
+ font-weight:900;
+ letter-spacing:.14em;
+}
+
+.logoDot{
+ width:9px;
+ height:9px;
+ border-radius:50%;
+ background:var(--red);
+ box-shadow:0 0 20px var(--red);
+ animation:logoPulse 1.8s infinite;
+}
+
+@keyframes logoPulse{
+ 50%{transform:scale(1.5);opacity:.5}
+}
+
+.logo span{color:#4da4ff}
+
+.back{
+ text-decoration:none;
+ color:#dce3ef;
+ border:1px solid var(--line);
+ padding:10px 17px;
+ border-radius:30px;
+ font-size:12px;
+ transition:.3s;
+}
+
+.back:hover{
+ border-color:#328eff;
+ background:rgba(0,120,255,.1);
+ transform:translateY(-2px);
+}
+
+/* HERO */
+.hero{
+ position:relative;
+ min-height:700px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ padding:80px 20px 50px;
+ overflow:hidden;
+}
+
+.eyebrow{
+ display:flex;
+ align-items:center;
+ gap:9px;
+ color:#aab5c9;
+ font-size:11px;
+ letter-spacing:.22em;
+ text-transform:uppercase;
+ margin-bottom:27px;
+ animation:fadeUp .8s ease;
+}
+
+.eyebrow b{
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:var(--red);
+ box-shadow:0 0 14px var(--red);
+}
+
+.hero h1{
+ font-size:clamp(48px,10vw,105px);
+ line-height:.9;
+ letter-spacing:-.075em;
+ font-weight:900;
+ animation:fadeUp .9s ease;
+}
+
+.hero h1 .blue{
+ color:#479dff;
+ text-shadow:0 0 50px rgba(30,130,255,.2);
+}
+
+.hero h1 .red{
+ color:#ff3d61;
+ text-shadow:0 0 50px rgba(255,40,80,.18);
+}
+
+.heroText{
+ max-width:620px;
+ color:#8f98aa;
+ font-size:15px;
+ line-height:1.8;
+ margin:28px auto 34px;
+ animation:fadeUp 1s ease;
+}
+
+/* VISUALIZER */
+.orbit{
+ position:relative;
+ width:250px;
+ height:250px;
+ margin-bottom:36px;
+ display:grid;
+ place-items:center;
+ animation:fadeUp .7s ease;
+}
+
+.orbitRing{
+ position:absolute;
+ border:1px solid rgba(55,145,255,.25);
+ border-radius:50%;
+}
+
+.r1{inset:0;animation:spin 15s linear infinite}
+.r2{inset:22px;border-color:rgba(255,49,88,.3);animation:spinReverse 11s linear infinite}
+.r3{inset:47px;border-color:rgba(255,255,255,.13);animation:spin 8s linear infinite}
+
+.orbitCore{
+ width:112px;
+ height:112px;
+ border-radius:50%;
+ background:
+ radial-gradient(circle at 30% 25%,#5eb0ff,#0969e9 38%,#071327 72%);
+ box-shadow:
+ 0 0 45px rgba(0,115,255,.45),
+ inset 0 0 35px rgba(0,0,0,.7);
+ display:grid;
+ place-items:center;
+ position:relative;
+ z-index:2;
+}
+
+.orbitCore:before{
+ content:"";
+ position:absolute;
+ inset:-12px;
+ border-radius:50%;
+ border:1px solid rgba(70,160,255,.35);
+ animation:corePulse 2s ease-in-out infinite;
+}
+
+.disc{
+ width:58px;
+ height:58px;
+ border-radius:50%;
+ background:
+ repeating-radial-gradient(circle,#080a0f 0 3px,#161a22 4px 5px);
+ box-shadow:0 0 20px rgba(0,0,0,.8);
+ animation:spin 5s linear infinite;
+ position:relative;
+}
+
+.disc:after{
+ content:"";
+ position:absolute;
+ width:9px;height:9px;
+ border-radius:50%;
+ background:#fff;
+ left:50%;top:50%;
+ transform:translate(-50%,-50%);
+ box-shadow:0 0 12px #fff;
+}
+
+.wave{
+ position:absolute;
+ bottom:-5px;
+ display:flex;
+ align-items:end;
+ gap:4px;
+ height:34px;
+ z-index:4;
+}
+
+.wave i{
+ width:3px;
+ border-radius:4px;
+ background:linear-gradient(to top,#168cff,#fff);
+ animation:wave 1s ease-in-out infinite;
+}
+
+.wave i:nth-child(1){height:12px}
+.wave i:nth-child(2){height:23px;animation-delay:.1s}
+.wave i:nth-child(3){height:32px;animation-delay:.2s}
+.wave i:nth-child(4){height:18px;animation-delay:.3s}
+.wave i:nth-child(5){height:28px;animation-delay:.4s}
+.wave i:nth-child(6){height:14px;animation-delay:.5s}
+.wave i:nth-child(7){height:25px;animation-delay:.6s}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spinReverse{to{transform:rotate(-360deg)}}
+@keyframes corePulse{
+ 50%{transform:scale(1.13);opacity:.35}
+}
+@keyframes wave{
+ 50%{transform:scaleY(.35);opacity:.55}
+}
+
+/* SEARCH */
+.searchBox{
+ width:min(680px,94vw);
+ display:flex;
+ padding:7px;
+ gap:7px;
+ background:rgba(255,255,255,.055);
+ border:1px solid rgba(255,255,255,.1);
+ border-radius:18px;
+ backdrop-filter:blur(25px);
+ box-shadow:0 25px 80px rgba(0,0,0,.35);
+ animation:fadeUp 1.1s ease;
+}
+
+.searchBox input{
+ flex:1;
+ min-width:0;
+ background:transparent;
+ border:0;
+ outline:0;
+ color:#fff;
+ padding:14px 16px;
+ font-size:14px;
+}
+
+.searchBox input::placeholder{color:#667084}
+
+.searchBox button{
+ border:0;
+ color:white;
+ background:linear-gradient(135deg,#147eff,#0756e8);
+ padding:0 23px;
+ border-radius:13px;
+ font-weight:800;
+ cursor:pointer;
+ transition:.25s;
+}
+
+.searchBox button:hover{
+ transform:scale(1.04);
+ box-shadow:0 0 30px rgba(0,110,255,.35);
+}
+
+.moods{
+ display:flex;
+ flex-wrap:wrap;
+ justify-content:center;
+ gap:9px;
+ margin-top:17px;
+}
+
+.mood{
+ border:1px solid var(--line);
+ color:#aeb7c8;
+ background:rgba(255,255,255,.035);
+ border-radius:30px;
+ padding:8px 15px;
+ font-size:11px;
+ cursor:pointer;
+ transition:.25s;
+}
+
+.mood:hover{
+ color:#fff;
+ border-color:#267fff;
+ background:rgba(0,110,255,.1);
+ transform:translateY(-2px);
+}
+
+/* CONTENT */
+.content{
+ width:min(1180px,92%);
+ margin:auto;
+}
+
+.heading{
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
+ margin:30px 0 18px;
+}
+
+.heading h2{
+ font-size:27px;
+ letter-spacing:-.045em;
+}
+
+.heading p{
+ color:#687286;
+ font-size:11px;
+ letter-spacing:.08em;
+ text-transform:uppercase;
+}
+
+.status{
+ min-height:20px;
+ color:#7d879a;
+ font-size:12px;
+ margin-bottom:18px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(185px,1fr));
+ gap:17px;
+}
+
+.card{
+ position:relative;
+ overflow:hidden;
+ padding:9px;
+ border:1px solid rgba(255,255,255,.075);
+ background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+ border-radius:21px;
+ backdrop-filter:blur(20px);
+ animation:cardIn .6s ease both;
+ transition:.35s;
+}
+
+.card:hover{
+ transform:translateY(-8px);
+ border-color:rgba(40,137,255,.42);
+ box-shadow:0 25px 60px rgba(0,0,0,.4),0 0 35px rgba(0,100,255,.08);
+}
+
+.coverWrap{
+ position:relative;
+ overflow:hidden;
+ border-radius:15px;
+}
+
+.cover{
+ display:block;
+ width:100%;
+ aspect-ratio:1;
+ object-fit:cover;
+ transition:.5s;
+ background:#0b0e15;
+}
+
+.card:hover .cover{transform:scale(1.045)}
+
+.playOverlay{
+ position:absolute;
+ inset:0;
+ display:grid;
+ place-items:center;
+ background:rgba(0,0,0,.35);
+ opacity:0;
+ transition:.3s;
+}
+
+.card:hover .playOverlay{opacity:1}
+
+.playCircle{
+ width:52px;
+ height:52px;
+ border:0;
+ border-radius:50%;
+ background:#fff;
+ color:#05070a;
+ font-size:17px;
+ cursor:pointer;
+ box-shadow:0 8px 35px rgba(0,0,0,.5);
+}
+
+.cardInfo{padding:12px 5px 5px}
+
+.songTitle{
+ font-size:13px;
+ font-weight:800;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.artist{
+ color:#7e8798;
+ font-size:11px;
+ margin-top:5px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.cardPlay{
+ width:100%;
+ border:0;
+ background:rgba(255,255,255,.055);
+ color:#dfe5ef;
+ padding:10px;
+ border-radius:11px;
+ margin-top:10px;
+ cursor:pointer;
+ font-size:11px;
+ font-weight:700;
+ transition:.25s;
+}
+
+.cardPlay:hover{
+ background:#096df0;
+ color:#fff;
+}
+
+@keyframes cardIn{
+ from{opacity:0;transform:translateY(20px) scale(.97)}
+ to{opacity:1;transform:none}
+}
+
+.empty{
+ border:1px dashed rgba(255,255,255,.1);
+ border-radius:22px;
+ padding:70px 20px;
+ text-align:center;
+ color:#70798a;
+}
+
+/* PLAYER */
+.player{
+ position:fixed;
+ left:50%;
+ bottom:15px;
+ transform:translateX(-50%);
+ width:min(1100px,94%);
+ z-index:200;
+ display:none;
+ align-items:center;
+ gap:14px;
+ padding:11px 14px;
+ border-radius:22px;
+ background:rgba(7,9,14,.86);
+ border:1px solid rgba(255,255,255,.12);
+ backdrop-filter:blur(30px);
+ box-shadow:0 25px 90px rgba(0,0,0,.65);
+}
+
+.player.show{
+ display:flex;
+ animation:playerIn .5s cubic-bezier(.2,.8,.2,1);
+}
+
+.playerCover{
+ width:55px;
+ height:55px;
+ border-radius:14px;
+ object-fit:cover;
+}
+
+.playerInfo{
+ flex:1;
+ min-width:0;
+}
+
+.playerInfo strong{
+ display:block;
+ font-size:13px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.playerInfo small{
+ display:block;
+ color:#7f899b;
+ margin-top:4px;
+ font-size:10px;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
+}
+
+.progress{
+ height:3px;
+ margin-top:9px;
+ background:#272c36;
+ border-radius:5px;
+ overflow:hidden;
+}
+
+.progress i{
+ display:block;
+ width:0;
+ height:100%;
+ background:linear-gradient(90deg,#167fff,#ff3158);
+ box-shadow:0 0 12px #168cff;
+}
+
+.playerWave{
+ display:flex;
+ align-items:end;
+ gap:3px;
+ height:25px;
+}
+
+.playerWave i{
+ width:3px;
+ height:10px;
+ border-radius:4px;
+ background:#258cff;
+ animation:wave .7s infinite;
+}
+
+.playerWave i:nth-child(2){animation-delay:.1s}
+.playerWave i:nth-child(3){animation-delay:.2s}
+.playerWave i:nth-child(4){animation-delay:.3s}
+.playerWave i:nth-child(5){animation-delay:.4s}
+
+.playerBtn{
+ width:43px;
+ height:43px;
+ flex:none;
+ border:0;
+ border-radius:50%;
+ cursor:pointer;
+ background:#fff;
+ color:#05070a;
+ font-weight:900;
+}
+
+.closeBtn{
+ background:transparent;
+ color:#8891a0;
+ font-size:20px;
+}
+
+@keyframes playerIn{
+ from{opacity:0;transform:translate(-50%,30px)}
+ to{opacity:1;transform:translate(-50%,0)}
+}
+
+/* FOOTER */
+footer{
+ text-align:center;
+ margin:80px 0 25px;
+ color:#505969;
+ font-size:10px;
+ letter-spacing:.16em;
+}
+
+footer strong{
+ color:#8c95a6;
+ display:block;
+ margin-top:8px;
+ font-size:11px;
+ letter-spacing:.09em;
+}
+
+/* animations */
+@keyframes fadeUp{
+ from{opacity:0;transform:translateY(25px)}
+ to{opacity:1;transform:none}
+}
+
+@media(max-width:650px){
+ nav{height:67px;padding:0 16px}
+ .logo{font-size:12px}
+ .back{padding:8px 12px}
+ .hero{min-height:680px;padding-top:55px}
+ .orbit{width:190px;height:190px}
+ .orbitCore{width:88px;height:88px}
+ .disc{width:46px;height:46px}
+ .hero h1{font-size:52px}
+ .heroText{font-size:13px}
+ .searchBox button{padding:0 16px}
+ .grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+ }
+ .card{padding:7px;border-radius:17px}
+ .cardInfo{padding:9px 3px 4px}
+ .playOverlay{display:none}
+ .player{bottom:8px;width:96%;padding:8px;border-radius:18px}
+ .playerCover{width:47px;height:47px}
+ .playerWave{display:none}
+ .playerBtn{width:40px;height:40px}
+ footer{margin-top:60px}
+}
+
+@media(min-width:900px){
+ .cardPlay{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="ambient">
+ <div class="blob one"></div>
+ <div class="blob two"></div>
+ <div class="blob three"></div>
+ <div class="particles"></div>
+</div>
+
+<nav>
+ <div class="logo">
+  <span class="logoDot"></span>
+  ZOROX <span>MUSIC</span>
+ </div>
+ <a href="index.html" class="back">← ZOROX AI</a>
+</nav>
+
+<section class="hero">
+
+ <div class="orbit">
+  <div class="orbitRing r1"></div>
+  <div class="orbitRing r2"></div>
+  <div class="orbitRing r3"></div>
+
+  <div class="orbitCore">
+   <div class="disc"></div>
+  </div>
+
+  <div class="wave">
+   <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+ </div>
+
+ <div class="eyebrow">
+  <b></b>
+  YOUR SOUND · YOUR SPACE
+  <b></b>
+ </div>
+
+ <h1>
+  Feel the <span class="blue">sound.</span><br>
+  Own the <span class="red">moment.</span>
+ </h1>
+
+ <p class="heroText">
+  Welcome to ZOROX Music. Discover sounds that slow the world down,
+  sharpen your focus and make every moment feel different.
+ </p>
+
+ <div class="searchBox">
+  <input id="searchInput" placeholder="Search artists, songs, moods..." autocomplete="off">
+  <button id="searchBtn">Search</button>
+ </div>
+
+ <div class="moods">
+  <button class="mood" data-q="calm">Calm</button>
+  <button class="mood" data-q="focus">Focus</button>
+  <button class="mood" data-q="ambient">Ambient</button>
+  <button class="mood" data-q="lofi">Lo-Fi</button>
+  <button class="mood" data-q="night">Night</button>
+  <button class="mood" data-q="electronic">Electronic</button>
+ </div>
+
+</section>
+
+<main class="content">
+
+ <div class="heading">
+  <div>
+   <h2 id="heading">Made for your mood</h2>
+   <p id="subheading">ZOROX sound discovery</p>
+  </div>
+ </div>
+
+ <div id="status" class="status">Finding your sound...</div>
+
+ <div id="results" class="grid"></div>
+
+</main>
+
+<div class="player" id="player">
+
+ <img id="playerCover" class="playerCover" src="" alt="">
+
+ <div class="playerInfo">
+  <strong id="playerTitle">Nothing playing</strong>
+  <small id="playerArtist">ZOROX Music</small>
+  <div class="progress">
+   <i id="progress"></i>
+  </div>
+ </div>
+
+ <div class="playerWave">
+  <i></i><i></i><i></i><i></i><i></i>
+ </div>
+
+ <button id="playPause" class="playerBtn">▶</button>
+ <button id="closePlayer" class="playerBtn closeBtn">×</button>
+
+</div>
+
+<audio id="audio" preload="none"></audio>
+
+<footer>
+ WIKRAMASINGHE TECHNOLOGIES
+ <strong>SHERON ELIJAH WICKRAMASINGHE</strong>
+</footer>
+
+<script>
+const API_BASE =
+ window.location.hostname
+ ? `http://${window.location.hostname}:5000`
+ : "http://127.0.0.1:5000";
+
+const input=document.getElementById("searchInput");
+const searchBtn=document.getElementById("searchBtn");
+const results=document.getElementById("results");
+const statusEl=document.getElementById("status");
+const heading=document.getElementById("heading");
+
+const audio=document.getElementById("audio");
+const player=document.getElementById("player");
+const playerCover=document.getElementById("playerCover");
+const playerTitle=document.getElementById("playerTitle");
+const playerArtist=document.getElementById("playerArtist");
+const playPause=document.getElementById("playPause");
+const progress=document.getElementById("progress");
+
+let currentSong=null;
+
+function esc(v){
+ return String(v??"").replace(/[&<>"']/g,m=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#039;"
+ }[m]));
+}
+
+function fallbackCover(){
+ return "data:image/svg+xml;charset=UTF-8,"+
+ encodeURIComponent(`
+ <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+ <rect width="100%" height="100%" fill="#070b13"/>
+ <circle cx="300" cy="300" r="210" fill="none" stroke="#168cff" stroke-width="2" opacity=".5"/>
+ <circle cx="300" cy="300" r="150" fill="#071a35"/>
+ <circle cx="300" cy="300" r="55" fill="#ff3158" opacity=".8"/>
+ <text x="50%" y="53%" fill="white" font-size="80" text-anchor="middle" font-family="Arial">Z</text>
+ </svg>`);
+}
+
+async function searchMusic(q="calm"){
+
+ statusEl.textContent=`Searching for "${q}"...`;
+ results.innerHTML="";
+
+ try{
+
+  const url=`${API_BASE}/api/music/search?q=${encodeURIComponent(q)}`;
+
+  const response=await fetch(url,{cache:"no-store"});
+
+  if(!response.ok){
+   throw new Error(`HTTP ${response.status}`);
+  }
+
+  const data=await response.json();
+
+  const apiStatus=data.status || (data.headers && data.headers.status);
+
+  if(apiStatus!=="success" || !Array.isArray(data.results)){
+   throw new Error(
+    data.message ||
+    (data.headers && data.headers.error_message) ||
+    "Invalid music response"
+   );
+  }
+
+  const songs=data.results.filter(song=>song.audio);
+
+  if(!songs.length){
+   statusEl.textContent="No playable tracks found. Try another search.";
+   return;
+  }
+
+  heading.textContent=
+   q.toLowerCase()==="calm"
+   ? "Made for your mood"
+   : `Results for "${q}"`;
+
+  statusEl.textContent=`${songs.length} tracks discovered`;
+
+  songs.forEach((song,index)=>{
+
+   const cover=song.album_image || fallbackCover();
+
+   const card=document.createElement("article");
+
+   card.className="card";
+   card.style.animationDelay=`${Math.min(index*45,600)}ms`;
+
+   card.innerHTML=`
+    <div class="coverWrap">
+     <img class="cover" src="${esc(cover)}" alt="">
+     <div class="playOverlay">
+      <button class="playCircle">▶</button>
+     </div>
+    </div>
+
+    <div class="cardInfo">
+     <div class="songTitle">${esc(song.name||"Unknown track")}</div>
+     <div class="artist">${esc(song.artist_name||"Unknown artist")}</div>
+     <button class="cardPlay">▶ Play track</button>
+    </div>
+   `;
+
+   const play=()=>{
+    playSong(song,cover);
+   };
+
+   card.querySelector(".playCircle").addEventListener("click",play);
+   card.querySelector(".cardPlay").addEventListener("click",play);
+
+   results.appendChild(card);
+  });
+
+ }catch(error){
+
+  console.error(error);
+
+  statusEl.textContent=
+   `Music connection error: ${error.message}. API: ${API_BASE}`;
+ }
+}
+
+function playSong(song,cover){
+
+ currentSong=song;
+
+ audio.src=song.audio;
+
+ playerCover.src=cover || fallbackCover();
+ playerTitle.textContent=song.name || "Unknown track";
+ playerArtist.textContent=song.artist_name || "Unknown artist";
+
+ player.classList.add("show");
+
+ audio.play()
+ .then(()=>{
+  playPause.textContent="❚❚";
+ })
+ .catch(()=>{
+  playPause.textContent="▶";
+  statusEl.textContent="Track loaded — tap play to start.";
+ });
+}
+
+playPause.addEventListener("click",()=>{
+
+ if(!currentSong)return;
+
+ if(audio.paused){
+  audio.play();
+  playPause.textContent="❚❚";
+ }else{
+  audio.pause();
+  playPause.textContent="▶";
+ }
+});
+
+audio.addEventListener("timeupdate",()=>{
+
+ if(audio.duration){
+  progress.style.width=
+   `${(audio.currentTime/audio.duration)*100}%`;
+ }
+});
+
+audio.addEventListener("ended",()=>{
+ playPause.textContent="▶";
+ progress.style.width="0%";
+});
+
+document.getElementById("closePlayer").addEventListener("click",()=>{
+
+ audio.pause();
+ audio.removeAttribute("src");
+
+ currentSong=null;
+ player.classList.remove("show");
+ progress.style.width="0%";
+});
+
+searchBtn.addEventListener("click",()=>{
+
+ const q=input.value.trim() || "calm";
+
+ searchMusic(q);
+});
+
+input.addEventListener("keydown",e=>{
+
+ if(e.key==="Enter"){
+  searchBtn.click();
+ }
+});
+
+document.querySelectorAll(".mood").forEach(btn=>{
+
+ btn.addEventListener("click",()=>{
+
+  input.value=btn.dataset.q;
+  searchMusic(btn.dataset.q);
+ });
+});
+
+searchMusic("calm");
+</script>
+
+</body>
+</html>
