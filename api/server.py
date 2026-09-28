@@ -469,22 +469,51 @@ def chat():
                         "conversation_id": conversation_id,
                         "provider": "gemini"
                     }), 200
-
                 if response.status_code in (408, 500, 502, 503, 504):
                     if attempt < max_retries - 1:
                         delay = (2 ** attempt) + random.uniform(0, 0.5)
+                        logger.warning(
+                            "Gemini HTTP %s; retrying in %.2fs",
+                            response.status_code,
+                            delay
+                        )
                         time.sleep(delay)
                         continue
 
-                logger.error(
-                    "Gemini returned HTTP %s: %s",
-                    response.status_code,
-                    response.text[:500]
-                )
+                    logger.warning(
+                        "Gemini unavailable after retries; trying Groq fallback"
+                    )
 
-                return jsonify(
-                    gemini_error(response)
-                ), response.status_code
+                    groq_reply = groq_chat(message)
+
+                    if groq_reply:
+                        conn.execute(
+                            "INSERT INTO messages (conversation_id, role, content) VALUES (?, ?, ?)",
+                            (conversation_id, "assistant", groq_reply)
+                        )
+                        conn.execute(
+                            "UPDATE conversations SET updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+                            (conversation_id,)
+                        )
+                        conn.commit()
+
+                        return jsonify({
+                            "reply": groq_reply,
+                            "provider": "groq",
+                            "fallback": True,
+                            "conversation_id": conversation_id
+                        }), 200
+
+                    logger.error(
+                        "Gemini and Groq are both unavailable"
+                    )
+
+                    return jsonify({
+                        "error": "AI providers temporarily unavailable",
+                        "message": "ZOROX AI is temporarily busy. Please try again shortly.",
+                        "status": 503,
+                        "retryable": True
+                    }), 503
 
             except requests.Timeout:
                 logger.warning("Gemini request timed out")
