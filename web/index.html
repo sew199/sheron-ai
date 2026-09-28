@@ -2122,5 +2122,120 @@ document
 
 </script>
 
+
+<!-- ZOROX MUSIC -->
+<section id="zorox-music" style="margin:40px auto;max-width:1100px;padding:24px;border-radius:24px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
+  <h2 style="margin:0 0 8px;font-size:28px;">🎵 ZOROX Music</h2>
+  <p style="opacity:.65;margin:0 0 20px;">Search and play music powered by Jamendo.</p>
+
+  <div style="display:flex;gap:10px;margin-bottom:20px;">
+    <input id="musicSearch" value="rock" placeholder="Search songs..."
+      style="flex:1;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.25);color:inherit;outline:none;">
+    <button onclick="searchZoroxMusic()"
+      style="padding:14px 20px;border:0;border-radius:14px;cursor:pointer;font-weight:700;">Search</button>
+  </div>
+
+  <div id="musicStatus" style="opacity:.65;margin-bottom:15px;">Loading songs...</div>
+  <div id="musicResults" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;"></div>
+
+  <audio id="zoroxAudio" controls style="width:100%;margin-top:22px;"></audio>
+</section>
+
+<script>
+(function () {
+  const API_BASE =
+    location.hostname === "127.0.0.1" || location.hostname === "localhost"
+      ? "http://" + location.hostname + ":5000"
+      : "http://" + location.hostname + ":5000";
+
+  const results = document.getElementById("musicResults");
+  const status = document.getElementById("musicStatus");
+  const audio = document.getElementById("zoroxAudio");
+  const input = document.getElementById("musicSearch");
+
+  window.searchZoroxMusic = async function () {
+    const q = input.value.trim() || "rock";
+    status.textContent = "Searching for " + q + "...";
+    results.innerHTML = "";
+
+    try {
+      const res = await fetch(
+        API_BASE + "/api/music/search?q=" + encodeURIComponent(q)
+      );
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        throw new Error(data.error || "Music API error");
+      }
+
+      const songs = data.results || [];
+
+      if (!songs.length) {
+        status.textContent = "No songs found.";
+        return;
+      }
+
+      status.textContent = songs.length + " songs found";
+
+      results.innerHTML = songs.map((song, i) => {
+        const image = song.album_image || "";
+        const title = song.name || "Unknown Track";
+        const artist = song.artist_name || "Unknown Artist";
+        const duration = song.duration
+          ? Math.floor(song.duration / 60) + ":" + String(song.duration % 60).padStart(2, "0")
+          : "";
+
+        return `
+          <div style="overflow:hidden;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);">
+            <img src="${image}" alt=""
+              style="width:100%;height:180px;object-fit:cover;display:block;"
+              onerror="this.style.display='none'">
+            <div style="padding:14px;">
+              <div style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(title)}</div>
+              <div style="opacity:.65;font-size:13px;margin:5px 0 12px;">${escapeHtml(artist)} ${duration ? "• " + duration : ""}</div>
+              <button onclick="playZoroxSong(${i})"
+                style="width:100%;padding:10px;border:0;border-radius:11px;cursor:pointer;font-weight:700;">
+                ▶ Play
+              </button>
+            </div>
+          </div>`;
+      }).join("");
+
+      window.zoroxSongs = songs;
+    } catch (err) {
+      console.error(err);
+      status.textContent = "Music connection error: " + err.message;
+    }
+  };
+
+  window.playZoroxSong = function (index) {
+    const song = window.zoroxSongs[index];
+    if (!song || !song.audio) return;
+
+    audio.src = song.audio;
+    audio.play().catch(err => console.log("Playback:", err));
+  };
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, function (c) {
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c];
+    });
+  }
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") searchZoroxMusic();
+  });
+
+  searchZoroxMusic();
+})();
+</script>
+<!-- END ZOROX MUSIC -->
+
 </body>
 </html>
