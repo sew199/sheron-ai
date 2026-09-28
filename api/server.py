@@ -22,120 +22,40 @@ app = Flask(__name__)
 
 @app.get("/api/music/search")
 def zorox_music_search():
-    import os, requests
-    q=request.args.get("q","").strip()
-    if not q:
-        q="rock"
-    client_id=os.getenv("JAMENDO_CLIENT_ID")
+    import os
+    import requests
+
+    q = request.args.get("q", "").strip() or "rock"
+    client_id = os.getenv("JAMENDO_CLIENT_ID")
+
     if not client_id:
-        return jsonify({"error":"JAMENDO_CLIENT_ID is not configured"}),500
+        return jsonify({"error": "JAMENDO_CLIENT_ID is not configured"}), 500
+
     try:
-        r=requests.get(
+        r = requests.get(
             "https://api.jamendo.com/v3.0/tracks/",
-            params={"client_id":client_id,"format":"json","limit":20,"search":q},
+            params={
+                "client_id": client_id,
+                "format": "json",
+                "limit": 20,
+                "search": q
+            },
             timeout=15
         )
-        data=r.json()
-        return jsonify(data)
+
+        r.raise_for_status()
+        data = r.json()
+
+        return jsonify({
+            "headers": data.get("headers", {}),
+            "results": data.get("results", [])
+        })
+
     except Exception as e:
-        return jsonify({"error":str(e)}),500
-
-CORS(app)
-
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-
-DB_PATH = "memory/zorox.db"
-
-GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "openai/gpt-oss-120b"
-
-
-def groq_chat(prompt):
-    if not GROQ_API_KEY:
-        return None
-
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        "temperature": 0.7
-    }
-
-    response = requests.post(
-        GROQ_URL,
-        headers={
-            "Authorization": f"Bearer {GROQ_API_KEY}",
-            "Content-Type": "application/json"
-        },
-        json=payload,
-        timeout=60
-    )
-
-    if response.status_code != 200:
-        return None
-
-    data = response.json()
-
-    try:
-        return data["choices"][0]["message"]["content"]
-    except (KeyError, IndexError, TypeError):
-        return None
-
-
-
-
-def init_users_table():
-    conn = get_db()
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            phone TEXT,
-            email TEXT UNIQUE NOT NULL,
-            username TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL,
-            country TEXT NOT NULL,
-            verified INTEGER DEFAULT 0,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-
-def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-resend.api_key = os.getenv("RESEND_API_KEY")
-
-GEMINI_URL = (
-    "https://generativelanguage.googleapis.com/"
-    "v1beta/models/gemini-3.8-flash:generateContent"
-)
-
-
-def send_otp_email(email, otp):
-    params = {
-        "from": "ZOROX AI <onboarding@resend.dev>",
-        "to": [email],
-        "subject": "Your ZOROX AI verification code",
-        "html": f"""
-        <div style="font-family:Arial;background:#0b0b12;color:white;padding:30px">
-            <h2 style="color:#00e5ff">ZOROX AI</h2>
-            <p>Your verification code is:</p>
-            <h1 style="letter-spacing:8px;color:#7c4dff">{otp}</h1>
-            <p>This code expires in 10 minutes.</p>
-        </div>
-        """
-    }
-    return resend.Emails.send(params)
+        return jsonify({
+            "error": str(e),
+            "results": []
+        }), 500
 
 @app.post("/api/login")
 def login():
