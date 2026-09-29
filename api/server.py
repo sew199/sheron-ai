@@ -35,6 +35,22 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID", "").strip()
 
+# API HUB
+OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "").strip()
+TMDB_API_KEY = os.getenv("TMDB_API_KEY", "").strip()
+OMDB_API_KEY = os.getenv("OMDB_API_KEY", "").strip()
+GNEWS_API_KEY = os.getenv("GNEWS_API_KEY", "").strip()
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY", "").strip()
+BRAVE_SEARCH_API_KEY = os.getenv("BRAVE_SEARCH_API_KEY", "").strip()
+EXCHANGERATE_API_KEY = os.getenv("EXCHANGERATE_API_KEY", "").strip()
+ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY", "").strip()
+TWELVE_DATA_API_KEY = os.getenv("TWELVE_DATA_API_KEY", "").strip()
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "").strip()
+HF_API_KEY = os.getenv("HF_API_KEY", "").strip()
+PEXELS_API_KEY = os.getenv("PEXELS_API_KEY", "").strip()
+UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "").strip()
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "").strip()
+
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/"
     "models/gemini-2.5-flash:generateContent"
@@ -601,11 +617,304 @@ def chat():
         conn.close()
 
 
+
+# =========================================================
+# ZOROX API HUB - FREE / NO-KEY SERVICES
+# =========================================================
+
+@app.get("/api/weather")
+def api_weather():
+    city = request.args.get("city", "Colombo").strip()
+
+    try:
+        geo = requests.get(
+            "https://geocoding-api.open-meteo.com/v1/search",
+            params={"name": city, "count": 1, "language": "en", "format": "json"},
+            timeout=10
+        ).json()
+
+        results = geo.get("results", [])
+        if not results:
+            return jsonify({"error": "City not found"}), 404
+
+        place = results[0]
+
+        weather = requests.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={
+                "latitude": place["latitude"],
+                "longitude": place["longitude"],
+                "current": "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",
+                "timezone": "auto"
+            },
+            timeout=10
+        ).json()
+
+        return jsonify({
+            "service": "Open-Meteo",
+            "city": place.get("name"),
+            "country": place.get("country"),
+            "latitude": place.get("latitude"),
+            "longitude": place.get("longitude"),
+            "current": weather.get("current", {})
+        })
+
+    except Exception as e:
+        logger.exception("Weather API failed")
+        return jsonify({"error": "Weather service unavailable"}), 502
+
+
+@app.get("/api/currency")
+def api_currency():
+    base = request.args.get("base", "USD").upper().strip()
+    target = request.args.get("target", "LKR").upper().strip()
+
+    try:
+        data = requests.get(
+            "https://api.frankfurter.app/latest",
+            params={"from": base, "to": target},
+            timeout=10
+        ).json()
+
+        return jsonify({
+            "service": "Frankfurter",
+            "base": data.get("base"),
+            "date": data.get("date"),
+            "rates": data.get("rates", {})
+        })
+
+    except Exception:
+        logger.exception("Currency API failed")
+        return jsonify({"error": "Currency service unavailable"}), 502
+
+
+@app.get("/api/wiki")
+def api_wiki():
+    query = request.args.get("q", "").strip()
+
+    if not query:
+        return jsonify({"error": "Query is required"}), 400
+
+    try:
+        data = requests.get(
+            "https://en.wikipedia.org/w/api.php",
+            params={
+                "action": "query",
+                "generator": "search",
+                "gsrsearch": query,
+                "gsrlimit": 5,
+                "prop": "extracts",
+                "exintro": 1,
+                "explaintext": 1,
+                "format": "json"
+            },
+            headers={"User-Agent": "ZOROX-AI/2.0"},
+            timeout=10
+        ).json()
+
+        pages = data.get("query", {}).get("pages", {})
+
+        results = []
+        for page in pages.values():
+            results.append({
+                "title": page.get("title"),
+                "pageid": page.get("pageid"),
+                "extract": page.get("extract", ""),
+                "url": "https://en.wikipedia.org/?curid=" + str(page.get("pageid"))
+            })
+
+        return jsonify({
+            "service": "Wikipedia",
+            "results": results
+        })
+
+    except Exception:
+        logger.exception("Wikipedia API failed")
+        return jsonify({"error": "Wikipedia unavailable"}), 502
+
+
+@app.get("/api/stackexchange")
+def api_stackexchange():
+    query = request.args.get("q", "").strip()
+
+    if not query:
+        return jsonify({"error": "Query is required"}), 400
+
+    try:
+        data = requests.get(
+            "https://api.stackexchange.com/2.3/search/advanced",
+            params={
+                "site": "stackoverflow",
+                "q": query,
+                "pagesize": 5,
+                "order": "desc",
+                "sort": "relevance"
+            },
+            timeout=10
+        ).json()
+
+        results = []
+
+        for item in data.get("items", []):
+            results.append({
+                "title": item.get("title"),
+                "link": item.get("link"),
+                "score": item.get("score"),
+                "is_answered": item.get("is_answered"),
+                "tags": item.get("tags", [])
+            })
+
+        return jsonify({
+            "service": "Stack Exchange",
+            "results": results
+        })
+
+    except Exception:
+        logger.exception("Stack Exchange API failed")
+        return jsonify({"error": "Stack Exchange unavailable"}), 502
+
+
+@app.get("/api/nvd")
+def api_nvd():
+    keyword = request.args.get("q", "").strip()
+
+    if not keyword:
+        return jsonify({"error": "Query is required"}), 400
+
+    try:
+        data = requests.get(
+            "https://services.nvd.nist.gov/rest/json/cves/2.0",
+            params={
+                "keywordSearch": keyword,
+                "resultsPerPage": 5
+            },
+            timeout=15
+        ).json()
+
+        results = []
+
+        for item in data.get("vulnerabilities", []):
+            cve = item.get("cve", {})
+            descriptions = cve.get("descriptions", [])
+
+            results.append({
+                "id": cve.get("id"),
+                "description": descriptions[0].get("value", "") if descriptions else "",
+                "published": cve.get("published"),
+                "lastModified": cve.get("lastModified")
+            })
+
+        return jsonify({
+            "service": "NVD",
+            "results": results
+        })
+
+    except Exception:
+        logger.exception("NVD API failed")
+        return jsonify({"error": "NVD unavailable"}), 502
+
+
+@app.get("/api/dictionary")
+def api_dictionary():
+    word = request.args.get("word", "").strip()
+
+    if not word:
+        return jsonify({"error": "Word is required"}), 400
+
+    try:
+        response = requests.get(
+            f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}",
+            timeout=10
+        )
+
+        if response.status_code != 200:
+            return jsonify({"error": "Word not found"}), 404
+
+        return jsonify({
+            "service": "Free Dictionary",
+            "results": response.json()
+        })
+
+    except Exception:
+        logger.exception("Dictionary API failed")
+        return jsonify({"error": "Dictionary unavailable"}), 502
+
+
+@app.get("/api/crypto")
+def api_crypto():
+    coin = request.args.get("coin", "bitcoin").lower().strip()
+
+    try:
+        data = requests.get(
+            "https://api.coingecko.com/api/v3/simple/price",
+            params={
+                "ids": coin,
+                "vs_currencies": "usd,lkr"
+            },
+            timeout=10
+        ).json()
+
+        return jsonify({
+            "service": "CoinGecko",
+            "coin": coin,
+            "data": data
+        })
+
+    except Exception:
+        logger.exception("CoinGecko API failed")
+        return jsonify({"error": "Crypto service unavailable"}), 502
+
+
+@app.get("/api/ip")
+def api_ip():
+    ip = request.args.get("ip", "").strip()
+
+    try:
+        url = f"https://ipapi.co/{ip}/json/" if ip else "https://ipapi.co/json/"
+        data = requests.get(url, timeout=10).json()
+
+        return jsonify({
+            "service": "ipapi",
+            "data": data
+        })
+
+    except Exception:
+        logger.exception("IP API failed")
+        return jsonify({"error": "IP service unavailable"}), 502
+
 # =========================================================
 # START
 # =========================================================
 
 init_db()
+
+@app.get("/api/movies/search")
+def movie_search():
+    q = str(request.args.get("q", "")).strip()
+
+    if not q:
+        return jsonify({"error": "Movie search query is required"}), 400
+
+    if not TMDB_API_KEY:
+        return jsonify({"error": "TMDB API key is not configured"}), 500
+
+    try:
+        r = requests.get(
+            "https://api.themoviedb.org/3/search/movie",
+            params={
+                "api_key": TMDB_API_KEY,
+                "query": q,
+                "include_adult": "false",
+                "language": "en-US",
+                "page": 1
+            },
+            timeout=15
+        )
+        return jsonify(r.json()), r.status_code
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     logger.info("Starting ZOROX AI backend")
@@ -616,3 +925,6 @@ if __name__ == "__main__":
         port=5000,
         debug=False
     )
+
+
+
