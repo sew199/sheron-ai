@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZOROX MOVIES — WIKRAMASINGHE TECHNOLOGIES</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,Arial,sans-serif;background:#050505;color:#fff;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 15% 20%,rgba(255,0,40,.16),transparent 28%),radial-gradient(circle at 85% 70%,rgba(180,0,30,.12),transparent 30%);z-index:-3}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:50px 50px;mask-image:linear-gradient(to bottom,#000,transparent);z-index:-2}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(3,3,3,.72);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,40,70,.12)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:2px}
+.logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#ff163d,#65000e);box-shadow:0 0 28px rgba(255,0,45,.4);font-size:21px}
+.brand small{display:block;font-size:9px;color:#ff3152;letter-spacing:3px;margin-top:2px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{color:#aaa;text-decoration:none;font-size:13px;font-weight:700;transition:.25s}
+nav a:hover{color:#fff}
+.back{border:1px solid #292929;padding:10px 16px;border-radius:999px}
+.hero{min-height:760px;padding:150px 6% 70px;display:flex;align-items:center;position:relative;overflow:hidden}
+.heroGlow{position:absolute;width:700px;height:700px;right:-200px;top:50px;border-radius:50%;background:radial-gradient(circle,rgba(255,0,42,.23),transparent 65%);filter:blur(15px);animation:pulse 5s infinite alternate}
+.heroGrid{position:absolute;inset:0;background:linear-gradient(110deg,transparent 45%,rgba(255,0,40,.05));}
+.heroContent{position:relative;z-index:2;max-width:800px}
+.kicker{color:#ff3152;font-size:12px;font-weight:900;letter-spacing:4px;margin-bottom:22px}
+h1{font-size:clamp(55px,9vw,120px);line-height:.86;letter-spacing:-6px;font-weight:950}
+h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px rgba(255,0,45,.22)}
+.hero p{max-width:650px;color:#888;margin:30px 0;font-size:16px;line-height:1.8}
+.search{display:flex;max-width:720px;background:#101010;border:1px solid #292929;border-radius:18px;padding:7px;box-shadow:0 20px 70px rgba(0,0,0,.45)}
+.search input{flex:1;background:none;border:0;outline:0;color:#fff;padding:16px;font-size:15px}
+.search button{border:0;border-radius:13px;padding:0 25px;background:linear-gradient(135deg,#ff173e,#a80020);color:#fff;font-weight:900;cursor:pointer;box-shadow:0 0 25px rgba(255,0,50,.22)}
+.scroll{margin-top:40px;color:#555;font-size:11px;letter-spacing:3px}
+.filmRing{position:absolute;right:5%;width:430px;height:430px;border:1px solid rgba(255,30,60,.18);border-radius:50%;animation:spin 20s linear infinite}
+.filmRing:before,.filmRing:after{content:"";position:absolute;inset:30px;border:1px dashed rgba(255,40,70,.25);border-radius:50%}
+.filmRing:after{inset:95px;border-style:solid;box-shadow:0 0 80px rgba(255,0,40,.15)}
+.section{padding:50px 6% 100px}
+.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}
+.sectionHead h2{font-size:34px}
+.sectionHead span{color:#666;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:22px}
+.card{background:#0c0c0c;border:1px solid #1c1c1c;border-radius:18px;overflow:hidden;position:relative;cursor:pointer;transition:.35s;animation:rise .5s ease both}
+.card:hover{transform:translateY(-9px) scale(1.015);border-color:#ff2448;box-shadow:0 20px 55px rgba(255,0,40,.16)}
+.poster{aspect-ratio:2/3;background:#111;position:relative;overflow:hidden}
+.poster img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover img{transform:scale(1.07)}
+.overlay{position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.95));display:flex;align-items:end;padding:15px;opacity:.15;transition:.3s}
+.card:hover .overlay{opacity:1}
+.play{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#ff1744;box-shadow:0 0 25px rgba(255,0,50,.5)}
+.info{padding:15px}
+.info h3{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{color:#777;font-size:11px;margin-top:7px}
+.rating{color:#ffb300}
+.empty{text-align:center;color:#555;padding:70px;grid-column:1/-1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);z-index:50;display:none;padding:5vh 6%;overflow:auto}
+.modal.show{display:block}
+.detail{max-width:1100px;margin:auto;background:#0b0b0b;border:1px solid #292929;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 30px 100px #000}
+.close{position:absolute;right:20px;top:20px;width:42px;height:42px;border:1px solid #444;border-radius:50%;background:#111;color:#fff;font-size:20px;z-index:3;cursor:pointer}
+.detailTop{min-height:460px;padding:55px;display:flex;align-items:end;position:relative;background-size:cover;background-position:center}
+.detailTop:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#080808 15%,rgba(8,8,8,.72),rgba(8,8,8,.25)),linear-gradient(0deg,#080808,transparent)}
+.detailText{position:relative;z-index:2;max-width:650px}
+.detailText h2{font-size:55px;line-height:1}
+.detailText p{color:#aaa;line-height:1.7;margin:20px 0}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:7px 11px;border-radius:999px;background:#171717;border:1px solid #333;font-size:11px;color:#bbb}
+.actions{display:flex;gap:10px;margin-top:22px}
+.btn{padding:13px 20px;border-radius:12px;border:1px solid #333;background:#151515;color:#fff;text-decoration:none;font-weight:800}
+.btn.red{background:#e51038;border-color:#e51038}
+.detailBody{padding:30px 55px 50px;color:#999;display:flex;gap:35px;flex-wrap:wrap}
+.stat b{display:block;color:#fff;font-size:17px;margin-top:5px}
+#loader{display:none;text-align:center;color:#ff3152;padding:35px}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{to{transform:scale(1.15);opacity:.7}}@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@media(max-width:800px){nav a:not(.back){display:none}.hero{min-height:680px}.filmRing{opacity:.25;right:-250px}.section{padding-left:5%;padding-right:5%}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.detailTop{padding:30px;min-height:520px}.detailText h2{font-size:38px}.detailBody{padding:25px 30px}h1{letter-spacing:-3px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">Z</div><div>ZOROX <small>MOVIES</small></div></div>
+  <nav><a href="index.html">ZOROX AI</a><a href="#discover">Discover</a><a class="back" href="index.html">← Back</a></nav>
+</header>
+
+<section class="hero">
+  <div class="heroGrid"></div><div class="heroGlow"></div><div class="filmRing"></div>
+  <div class="heroContent">
+    <div class="kicker">WIKRAMASINGHE TECHNOLOGIES / CINEMA CORE</div>
+    <h1>ENTER<br><span>THE MOVIE</span><br>WORLD.</h1>
+    <p>Discover cinematic worlds, legendary stories and the movies everyone's talking about — powered by ZOROX.</p>
+    <div class="search"><input id="q" placeholder="Search movies... e.g. Inception, Interstellar, Dune"><button onclick="searchMovies()">SEARCH</button></div>
+    <div class="scroll">SCROLL TO DISCOVER ↓</div>
+  </div>
+</section>
+
+<section class="section" id="discover">
+  <div class="sectionHead"><div><span>EXPLORE</span><h2>Movie Universe</h2></div><span id="count"></span></div>
+  <div id="loader">SEARCHING CINEMA DATABASE...</div>
+  <div class="grid" id="grid"><div class="empty">Search for a movie to enter the ZOROX cinema database.</div></div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="detail">
+    <button class="close" onclick="closeModal()">×</button>
+    <div class="detailTop" id="detailTop"><div class="detailText">
+      <h2 id="dt"></h2><p id="do"></p><div class="tags" id="tags"></div>
+      <div class="actions"><a id="trailer" class="btn red" target="_blank">▶ WATCH TRAILER</a><button class="btn" onclick="closeModal()">CLOSE</button></div>
+    </div></div>
+    <div class="detailBody">
+      <div class="stat">RATING<b id="dr"></b></div>
+      <div class="stat">RELEASE<b id="dd"></b></div>
+      <div class="stat">VOTES<b id="dv"></b></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE=window.location.hostname==="localhost"||window.location.hostname==="127.0.0.1"?"http://127.0.0.1:5000":"http://"+window.location.hostname+":5000";
+const IMG="https://image.tmdb.org/t/p/w500";
+const BACK="https://image.tmdb.org/t/p/w1280";
+let movies=[];
+async function searchMovies(){
+ const q=document.getElementById("q").value.trim(); if(!q)return;
+ const loader=document.getElementById("loader"),grid=document.getElementById("grid");
+ loader.style.display="block";grid.innerHTML="";
+ try{
+  const r=await fetch(API_BASE+"/api/movies/search?q="+encodeURIComponent(q));
+  const d=await r.json();
+  if(!r.ok)throw new Error(d.error||"Search failed");
+  movies=d.results||[];document.getElementById("count").textContent=movies.length+" RESULTS";
+  if(!movies.length){grid.innerHTML='<div class="empty">No movies found.</div>';return}
+  movies.forEach((m,i)=>{
+   if(!m.poster_path)return;
+   const c=document.createElement("div");c.className="card";c.style.animationDelay=(i*.035)+"s";
+   c.innerHTML='<div class="poster"><img src="'+IMG+m.poster_path+'" loading="lazy"><div class="overlay"><div class="play">▶</div></div></div><div class="info"><h3>'+esc(m.title)+'</h3><div class="meta"><span class="rating">★ '+(m.vote_average||0).toFixed(1)+'</span> · '+(m.release_date||"N/A").slice(0,4)+'</div></div>';
+   c.onclick=()=>openMovie(m);grid.appendChild(c);
+  });
+ }catch(e){grid.innerHTML='<div class="empty">Movie connection error.<br>'+esc(e.message)+'</div>'}
+ finally{loader.style.display="none"}
+}
+function openMovie(m){
+ document.getElementById("dt").textContent=m.title||"Untitled";
+ document.getElementById("do").textContent=m.overview||"No overview available.";
+ document.getElementById("dr").textContent="★ "+(m.vote_average||0).toFixed(1)+"/10";
+ document.getElementById("dd").textContent=m.release_date||"N/A";
+ document.getElementById("dv").textContent=(m.vote_count||0).toLocaleString();
+ document.getElementById("detailTop").style.backgroundImage=m.backdrop_path?"url("+BACK+m.backdrop_path+")":"linear-gradient(135deg,#220008,#080808)";
+ document.getElementById("tags").innerHTML=(m.genre_ids||[]).map(x=>'<span class="tag">Genre '+x+'</span>').join("");
+ document.getElementById("trailer").href="https://www.youtube.com/results?search_query="+encodeURIComponent(m.title+" official trailer");
+ document.getElementById("modal").classList.add("show");document.body.style.overflow="hidden";
+}
+function closeModal(){document.getElementById("modal").classList.remove("show");document.body.style.overflow=""}
+document.getElementById("q").addEventListener("keydown",e=>{if(e.key==="Enter")searchMovies()});
+function esc(x){return String(x??"").replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]))}
+</script>
+</body>
+</html>
