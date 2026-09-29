@@ -1924,6 +1924,88 @@ header {
 }
 /* ================= END ZOROX PREMIUM CHAT UI ================= */
 
+
+/* === ZOROX JARVIS RESPONSE ANIMATION === */
+.zorox-thinking{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  margin:10px 0;
+  color:#ff334d;
+  font-family:monospace;
+  letter-spacing:2px;
+  font-size:12px;
+  animation:zoroxFade .8s ease-in-out infinite alternate;
+}
+
+.zorox-core{
+  width:18px;
+  height:18px;
+  border:2px solid #ff334d;
+  border-top-color:transparent;
+  border-radius:50%;
+  position:relative;
+  animation:zoroxSpin 1s linear infinite;
+  box-shadow:0 0 12px #ff334d;
+}
+
+.zorox-core:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:#fff;
+  border-radius:50%;
+  top:4px;
+  left:4px;
+  box-shadow:0 0 10px #ff334d;
+}
+
+.zorox-scan{
+  overflow:hidden;
+  position:relative;
+}
+
+.zorox-scan:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#ff334d,transparent);
+  box-shadow:0 0 12px #ff334d;
+  animation:zoroxScan 1.4s linear infinite;
+}
+
+.zorox-dots span{
+  display:inline-block;
+  animation:zoroxDot 1.2s infinite;
+}
+
+.zorox-dots span:nth-child(2){animation-delay:.2s}
+.zorox-dots span:nth-child(3){animation-delay:.4s}
+
+@keyframes zoroxSpin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxFade{
+  from{opacity:.45}
+  to{opacity:1}
+}
+
+@keyframes zoroxScan{
+  from{transform:translateY(-10px)}
+  to{transform:translateY(45px)}
+}
+
+@keyframes zoroxDot{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+
 </style>
 
 
