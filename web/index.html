@@ -2006,6 +2006,95 @@ header {
   50%{opacity:1}
 }
 
+
+/* ===== ZOROX JARVIS CORE ===== */
+.zorox-jarvis{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:170px;
+  margin:18px auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.zorox-orb{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  position:relative;
+  background:radial-gradient(circle,#fff 0%,#ff465c 12%,#9b0015 42%,#050505 72%);
+  box-shadow:0 0 20px #ff334d,0 0 55px rgba(255,35,60,.65),0 0 100px rgba(255,35,60,.3);
+  animation:zoroxPulse 1.5s ease-in-out infinite;
+  z-index:3;
+}
+
+.zorox-orb::before,
+.zorox-orb::after{
+  content:"";
+  position:absolute;
+  inset:-15px;
+  border:1px solid rgba(255,50,75,.8);
+  border-radius:50%;
+  box-shadow:0 0 20px rgba(255,40,60,.35);
+}
+
+.zorox-orb::before{
+  animation:zoroxRing 2.4s linear infinite;
+}
+
+.zorox-orb::after{
+  inset:-30px;
+  border-color:rgba(255,50,75,.35);
+  animation:zoroxRingReverse 3.2s linear infinite;
+}
+
+.zorox-energy{
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,transparent,#ff334d,transparent,#ff334d,transparent);
+  -webkit-mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  animation:zoroxEnergy 1.8s linear infinite;
+  opacity:.9;
+}
+
+.zorox-label{
+  position:absolute;
+  bottom:4px;
+  font:600 10px monospace;
+  letter-spacing:3px;
+  color:#ff5065;
+  text-shadow:0 0 10px #ff334d;
+  animation:zoroxLabel 1s ease-in-out infinite alternate;
+}
+
+@keyframes zoroxPulse{
+  0%,100%{transform:scale(.88);filter:brightness(.85)}
+  50%{transform:scale(1.08);filter:brightness(1.35)}
+}
+
+@keyframes zoroxRing{
+  from{transform:rotate(0deg) scale(.9)}
+  to{transform:rotate(360deg) scale(1.08)}
+}
+
+@keyframes zoroxRingReverse{
+  from{transform:rotate(360deg) scale(1.05)}
+  to{transform:rotate(0deg) scale(.88)}
+}
+
+@keyframes zoroxEnergy{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxLabel{
+  from{opacity:.35}
+  to{opacity:1}
+}
+
 </style>
 
 
@@ -3046,32 +3135,21 @@ function showTyping() {
     const messages =
         document.getElementById("messages");
 
-
     const typing =
         document.createElement("div");
 
-
     typing.id = "typing";
-
-    typing.className =
-        "message ai-message";
-
+    typing.className = "message ai-message";
 
     typing.innerHTML = `
-
-        <div class="typing">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
+        <div class="zorox-jarvis">
+            <div class="zorox-energy"></div>
+            <div class="zorox-orb"></div>
+            <div class="zorox-label">ZOROX CORE · PROCESSING</div>
         </div>
-
     `;
 
-
     messages.appendChild(typing);
-
 
     messages.scrollTop =
         messages.scrollHeight;
