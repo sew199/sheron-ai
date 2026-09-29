@@ -3046,7 +3046,10 @@ async function sendMessage() {
     try {
 
         const response = await fetch(
-            "http://127.0.0.1:5000/api/chat",
+            (window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1")
+  ? "http://127.0.0.1:5000/api/chat"
+  : "https://YOUR-BACKEND-URL/api/chat",
             {
                 method: "POST",
 
