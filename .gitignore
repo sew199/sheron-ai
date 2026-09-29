@@ -30,3 +30,6 @@ docs/index_before_local_api_fix.html
 docs/index_before_platform_features.html
 .env
 zorox-server.log
+
+backup-*/
+zorox.db
