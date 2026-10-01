@@ -9,3 +9,17 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: JAMENDO_CLIENT_ID
+        sync: false
+      - key: TMDB_API_KEY
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        sync: false
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SERVER_SECRET
+        sync: false
