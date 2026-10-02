@@ -2539,6 +2539,138 @@ body{
 }
 </style>
 
+
+<style id="zorox-chat-mobile-fix">
+/* ZOROX CHAT FINAL UI */
+.chat-box{
+    width:min(100%, 760px)!important;
+    height:clamp(520px,72vh,680px)!important;
+    margin:0 auto!important;
+    background:#080b10!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:22px!important;
+    overflow:hidden!important;
+    box-shadow:0 18px 55px rgba(0,0,0,.35)!important;
+}
+
+.chat-box::before{
+    display:none!important;
+}
+
+.chat-top{
+    min-height:68px!important;
+    background:#0b0f14!important;
+    border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+
+.messages{
+    background:#080b10!important;
+    padding:18px!important;
+    gap:12px!important;
+}
+
+.message{
+    max-width:min(82%,620px)!important;
+    color:#fff!important;
+    line-height:1.55!important;
+    font-size:14px!important;
+}
+
+.ai-message{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.07)!important;
+    border-radius:15px 15px 15px 5px!important;
+}
+
+.user-message{
+    background:#1a2028!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.06)!important;
+    border-radius:15px 15px 5px 15px!important;
+}
+
+.chat-input-area{
+    background:#090d12!important;
+    border-top:1px solid rgba(255,255,255,.07)!important;
+    padding:12px!important;
+}
+
+.chat-input{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:14px!important;
+}
+
+.chat-input:focus{
+    border-color:rgba(255,255,255,.2)!important;
+    box-shadow:none!important;
+}
+
+.chat-input::placeholder{
+    color:#707b86!important;
+}
+
+/* typing indicator */
+#typing{
+    width:max-content!important;
+    padding:11px 14px!important;
+}
+
+#typing .typing span{
+    display:inline-block!important;
+    width:6px!important;
+    height:6px!important;
+    margin:0 3px!important;
+    border-radius:50%!important;
+    background:#cbd5df!important;
+    animation:zoroxTyping 1.2s infinite ease-in-out!important;
+}
+
+#typing .typing span:nth-child(2){animation-delay:.15s!important}
+#typing .typing span:nth-child(3){animation-delay:.30s!important}
+
+@keyframes zoroxTyping{
+    0%,60%,100%{transform:translateY(0);opacity:.35}
+    30%{transform:translateY(-5px);opacity:1}
+}
+
+/* mobile */
+@media(max-width:600px){
+    .chat-box{
+        width:calc(100vw - 24px)!important;
+        height:calc(100dvh - 150px)!important;
+        min-height:450px!important;
+        max-height:680px!important;
+        border-radius:18px!important;
+    }
+
+    .messages{
+        padding:14px!important;
+    }
+
+    .message{
+        max-width:88%!important;
+        font-size:14px!important;
+    }
+
+    .chat-top{
+        min-height:60px!important;
+        padding:10px 14px!important;
+    }
+
+    .chat-input-area{
+        padding:9px!important;
+    }
+
+    .chat-input{
+        min-height:46px!important;
+        font-size:15px!important;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -2586,6 +2718,7 @@ body{
        <button id="zx-auth-login" class="zx-auth-login" onclick="location.href='login.html'">Login</button>
        <button id="zx-auth-signup" class="zx-auth-signup" onclick="location.href='signup.html'">Sign Up</button>
        <button id="zx-auth-logout" class="zx-auth-login" style="display:none;" onclick="zoroxLogout()">Logout</button>
+       <button class="zx-auth-login" onclick="location.href='admin.html'">Admin</button>
 </nav>
 
 </header>
@@ -3134,30 +3267,36 @@ function addMessage(
 ========================= */
 
 function showTyping() {
+    const messages = document.getElementById("messages");
 
-    const messages =
-        document.getElementById("messages");
+    if (!messages) return;
 
-    const typing =
-        document.createElement("div");
+    hideTyping();
+
+    const typing = document.createElement("div");
 
     typing.id = "typing";
     typing.className = "message ai-message";
 
     typing.innerHTML = `
-        <div class="zorox-jarvis">
-            <div class="zorox-energy"></div>
-            <div class="zorox-orb"></div>
-            <div class="zorox-label">ZOROX CORE · PROCESSING</div>
+        <div class="typing" aria-label="ZOROX is typing">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     `;
 
     messages.appendChild(typing);
-
-    messages.scrollTop =
-        messages.scrollHeight;
+    messages.scrollTop = messages.scrollHeight;
 }
 
+function hideTyping() {
+    const typing = document.getElementById("typing");
+
+    if (typing) {
+        typing.remove();
+    }
+}
 
 function removeTyping() {
 

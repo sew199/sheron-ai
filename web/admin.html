@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZOROX Admin Dashboard</title>
+<style>
+body{margin:0;background:#05070b;color:#fff;font-family:Arial,sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:30px}
+h1{margin-bottom:25px}
+.card{background:#0c111a;border:1px solid #1b2635;border-radius:16px;padding:20px;margin-bottom:20px}
+input,button{padding:12px;border-radius:9px;border:1px solid #263448;background:#080c12;color:#fff}
+input{width:220px;margin:5px}
+button{cursor:pointer}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.stat{background:#101722;padding:18px;border-radius:12px}
+.stat b{display:block;font-size:25px;margin-top:8px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #202a38;text-align:left;font-size:13px}
+#dashboard{display:none}
+#status{margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>🛡️ ZOROX Admin</h1>
+
+<div id="login" class="card">
+<h2>Admin Login</h2>
+<input id="username" placeholder="Admin username">
+<input id="password" type="password" placeholder="Password">
+<button onclick="adminLogin()">Login</button>
+<div id="loginStatus"></div>
+</div>
+
+<div id="dashboard">
+<div class="stats">
+<div class="stat">Total Users<b id="users">0</b></div>
+<div class="stat">Online Users<b id="online">0</b></div>
+<div class="stat">Messages<b id="messages">0</b></div>
+<div class="stat">Server<b id="server">—</b></div>
+<div class="stat">Database<b id="database">—</b></div>
+<div class="stat">AI<b id="ai">—</b></div>
+<div class="stat">Movies API<b id="movies">—</b></div>
+<div class="stat">Music API<b id="music">—</b></div>
+</div>
+
+<div class="card">
+<h2>User Monitoring</h2>
+<div style="overflow:auto">
+<table>
+<thead><tr>
+<th>ID</th><th>Username</th><th>Email</th><th>Phone</th>
+<th>Country</th><th>IP</th><th>Last Login</th>
+<th>Last Seen</th><th>Logins</th>
+</tr></thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+const API="http://127.0.0.1:5000";
+
+async function adminLogin(){
+ const username=document.getElementById("username").value;
+ const password=document.getElementById("password").value;
+
+ try{
+  const r=await fetch(API+"/api/admin/login",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({username,password})
+  });
+  const d=await r.json();
+
+  if(!r.ok) throw new Error(d.error||"Login failed");
+
+  sessionStorage.setItem("adminToken",d.token);
+  document.getElementById("login").style.display="none";
+  document.getElementById("dashboard").style.display="block";
+  loadDashboard();
+ }catch(e){
+  document.getElementById("loginStatus").textContent=e.message;
+ }
+}
+
+async function loadDashboard(){
+ const token=sessionStorage.getItem("adminToken");
+
+ const r=await fetch(API+"/api/admin/dashboard",{
+  headers:{"X-Admin-Token":token}
+ });
+
+ if(!r.ok){
+  sessionStorage.removeItem("adminToken");
+  location.reload();
+  return;
+ }
+
+ const d=await r.json();
+
+ document.getElementById("users").textContent=d.stats.total_users;
+ document.getElementById("online").textContent=d.stats.online_users;
+ document.getElementById("messages").textContent=d.stats.total_messages;
+ document.getElementById("server").textContent=d.server;
+ document.getElementById("database").textContent=d.database;
+ document.getElementById("ai").textContent=d.ai;
+ document.getElementById("movies").textContent=d.movies;
+ document.getElementById("music").textContent=d.music;
+
+ document.getElementById("userTable").innerHTML=d.users.map(u=>`
+ <tr>
+ <td>${u.id}</td>
+ <td>${u.username}</td>
+ <td>${u.email}</td>
+ <td>${u.phone||"-"}</td>
+ <td>${u.country}</td>
+ <td>${u.last_ip||"-"}</td>
+ <td>${u.last_login||"-"}</td>
+ <td>${u.last_seen||"-"}</td>
+ <td>${u.login_count||0}</td>
+ </tr>`).join("");
+}
+</script>
+</body>
+</html>

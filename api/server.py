@@ -33,6 +33,9 @@ CORS(app)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "").strip()
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "").strip()
+SERVER_SECRET = os.getenv("SERVER_SECRET", "").strip()
 JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID", "").strip()
 
 # API HUB
@@ -406,6 +409,15 @@ def login():
             "error": "Invalid email/username or password"
         }), 401
 
+    # Admin monitoring: record last login IP/time without storing plaintext passwords
+    conn = get_db()
+    conn.execute(
+        "UPDATE users SET last_ip = ?, last_seen = CURRENT_TIMESTAMP, last_login = CURRENT_TIMESTAMP, login_count = COALESCE(login_count, 0) + 1 WHERE id = ?",
+        (request.headers.get("X-Forwarded-For", request.remote_addr), user["id"])
+    )
+    conn.commit()
+    conn.close()
+
     return jsonify({
         "message": "Login successful",
         "user": {
@@ -416,6 +428,69 @@ def login():
         }
     })
 
+
+# =========================================================
+# ADMIN AUTH + MONITORING
+# =========================================================
+
+from functools import wraps
+
+ADMIN_TOKENS = set()
+
+
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        token = request.headers.get("X-Admin-Token", "")
+        if not token or token not in ADMIN_TOKENS:
+            return jsonify({"error": "Admin authentication required"}), 401
+        return fn(*args, **kwargs)
+    return wrapper
+
+
+@app.post("/api/admin/login")
+def admin_login():
+    data = request.get_json(silent=True) or {}
+    username = str(data.get("username", "")).strip()
+    password = str(data.get("password", ""))
+
+    if not ADMIN_USERNAME or not ADMIN_PASSWORD or not SERVER_SECRET:
+        return jsonify({"error": "Admin security is not configured"}), 503
+
+    if username != ADMIN_USERNAME or password != ADMIN_PASSWORD:
+        logger.warning("Failed admin login attempt")
+        return jsonify({"error": "Invalid admin credentials"}), 401
+
+    token = __import__("secrets").token_urlsafe(32)
+    ADMIN_TOKENS.add(token)
+
+    logger.info("Admin login successful")
+    return jsonify({"message": "Admin login successful", "token": token})
+
+
+@app.get("/api/admin/dashboard")
+@admin_required
+def admin_dashboard():
+    conn = get_db()
+    users = conn.execute("SELECT id, phone, email, username, country, verified, created_at, last_ip, last_seen, last_login, login_count FROM users ORDER BY id DESC").fetchall()
+    total_users = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+    total_chats = conn.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
+    online_users = conn.execute("SELECT COUNT(*) FROM users WHERE last_seen IS NOT NULL AND datetime(last_seen) >= datetime('now', '-5 minutes')").fetchone()[0]
+    conn.close()
+
+    return jsonify({
+        "server": "online",
+        "database": "online",
+        "ai": "configured" if (GROQ_API_KEY or GEMINI_API_KEY) else "not_configured",
+        "movies": "configured" if TMDB_API_KEY else "not_configured",
+        "music": "configured" if JAMENDO_CLIENT_ID else "not_configured",
+        "stats": {
+            "total_users": total_users,
+            "online_users": online_users,
+            "total_messages": total_chats
+        },
+        "users": [dict(u) for u in users]
+    })
 
 # =========================================================
 # MUSIC
@@ -915,6 +990,26 @@ def movie_search():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+@app.get("/api/admin/logs")
+@admin_required
+def admin_logs():
+    from pathlib import Path
+
+    log_file = Path(BASE_DIR) / "zorox-server.log"
+
+    if not log_file.exists():
+        return jsonify({"logs": [], "message": "Log file not found"})
+
+    try:
+        lines = log_file.read_text(errors="replace").splitlines()
+        return jsonify({
+            "logs": lines[-200:]
+        })
+    except Exception as e:
+        logger.exception("Failed to read admin logs")
+        return jsonify({"error": "Unable to read logs"}), 500
 
 if __name__ == "__main__":
     logger.info("Starting ZOROX AI backend")
