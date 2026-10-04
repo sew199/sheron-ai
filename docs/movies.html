@@ -51,8 +51,90 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
 .meta{color:#777;font-size:11px;margin-top:7px}
 .rating{color:#ffb300}
 .empty{text-align:center;color:#555;padding:70px;grid-column:1/-1}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);z-index:50;display:none;padding:5vh 6%;overflow:auto}
-.modal.show{display:block}
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0);
+  backdrop-filter:blur(0);
+  z-index:50;
+  display:none;
+  padding:5vh 6%;
+  overflow:auto;
+  opacity:0;
+}
+
+.modal.show{
+  display:block;
+  animation:modalOpen .38s cubic-bezier(.22,.8,.2,1) forwards;
+}
+
+.modal.closing{
+  display:block;
+  animation:modalClose .30s cubic-bezier(.4,0,.8,.2) forwards;
+}
+
+.modal.show .detail{
+  animation:detailOpen .45s cubic-bezier(.16,1,.3,1) both;
+}
+
+.modal.closing .detail{
+  animation:detailClose .28s cubic-bezier(.4,0,.8,.2) both;
+}
+
+@keyframes modalOpen{
+  from{
+    opacity:0;
+    background:rgba(0,0,0,0);
+    backdrop-filter:blur(0);
+  }
+  to{
+    opacity:1;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(18px);
+  }
+}
+
+@keyframes modalClose{
+  from{
+    opacity:1;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(18px);
+  }
+  to{
+    opacity:0;
+    background:rgba(0,0,0,0);
+    backdrop-filter:blur(0);
+  }
+}
+
+@keyframes detailOpen{
+  from{
+    opacity:0;
+    transform:translateY(35px) scale(.94);
+    filter:blur(5px);
+  }
+  60%{
+    opacity:1;
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes detailClose{
+  from{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+  to{
+    opacity:0;
+    transform:translateY(20px) scale(.96);
+    filter:blur(4px);
+  }
+}
 .detail{max-width:1100px;margin:auto;background:#0b0b0b;border:1px solid #292929;border-radius:25px;overflow:hidden;position:relative;box-shadow:0 30px 100px #000}
 .close{position:absolute;right:20px;top:20px;width:42px;height:42px;border:1px solid #444;border-radius:50%;background:#111;color:#fff;font-size:20px;z-index:3;cursor:pointer}
 .detailTop{min-height:460px;padding:55px;display:flex;align-items:end;position:relative;background-size:cover;background-position:center}
@@ -71,6 +153,825 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{to{transform:scale(1.15);opacity:.7}}@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @media(max-width:800px){nav a:not(.back){display:none}.hero{min-height:680px}.filmRing{opacity:.25;right:-250px}.section{padding-left:5%;padding-right:5%}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.detailTop{padding:30px;min-height:520px}.detailText h2{font-size:38px}.detailBody{padding:25px 30px}h1{letter-spacing:-3px}}
 </style>
+
+<style id="zorox-download-style">
+.zx-download{
+  width:100%;
+  margin-top:22px;
+  padding-top:22px;
+  border-top:1px solid rgba(255,255,255,.09);
+}
+.zx-download-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+.zx-download-head h3{
+  margin:0;
+  color:#fff;
+  font-size:18px;
+}
+.zx-download-head p{
+  margin:4px 0 0;
+  color:#777;
+  font-size:12px;
+}
+.zx-download-head>span{
+  font-size:9px;
+  letter-spacing:1px;
+  padding:6px 9px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  color:#999;
+}
+.zx-download-main{
+  width:100%;
+  min-height:52px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+  color:#fff;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.zx-download-main span{
+  font-size:20px;
+  margin-right:8px;
+}
+.zx-download-main:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.1);
+}
+.zx-quality{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-8px);
+  transition:.35s ease;
+}
+.zx-quality.show{
+  max-height:100px;
+  opacity:1;
+  transform:translateY(0);
+  margin-top:10px;
+}
+.zx-quality button{
+  min-height:52px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+  color:#fff;
+  cursor:pointer;
+  transition:.22s ease;
+}
+.zx-quality button:hover{
+  transform:translateY(-3px);
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.3);
+}
+.zx-quality b{
+  display:block;
+  font-size:14px;
+}
+.zx-quality small{
+  display:block;
+  color:#777;
+  margin-top:3px;
+}
+.zx-download-status{
+  display:none;
+  align-items:center;
+  gap:9px;
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.035);
+  color:#888;
+  font-size:12px;
+}
+.zx-download-status.show{
+  display:flex;
+  animation:zxFade .3s ease;
+}
+.zx-download-status i{
+  width:11px;
+  height:11px;
+  border:2px solid rgba(255,255,255,.15);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation:zxSpin .7s linear infinite;
+}
+@keyframes zxSpin{to{transform:rotate(360deg)}}
+@keyframes zxFade{
+  from{opacity:0;transform:translateY(5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:520px){
+  .zx-quality{grid-template-columns:1fr}
+  .zx-quality.show{max-height:190px}
+}
+</style>
+
+
+<style id="zorox-cinema-details">
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.84);
+  backdrop-filter:blur(18px);
+  z-index:50;
+  display:none;
+  padding:7vh 6%;
+  overflow:auto;
+}
+
+.modal.show{
+  display:block;
+  animation:detailFade .3s ease;
+}
+
+.detail{
+  max-width:900px;
+  margin:auto;
+  background:#0b0b0b;
+  border:1px solid #292929;
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 30px 100px #000;
+  animation:detailUp .4s ease;
+}
+
+.detailTop{
+  min-height:360px;
+  padding:40px;
+  display:flex;
+  align-items:flex-end;
+  position:relative;
+  background-size:cover;
+  background-position:center;
+}
+
+.detailTop:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg,#080808 8%,rgba(8,8,8,.72),rgba(8,8,8,.25)),
+    linear-gradient(0deg,#080808,transparent);
+}
+
+.detailText{
+  position:relative;
+  z-index:2;
+  max-width:620px;
+}
+
+.detailText h2{
+  font-size:44px;
+  line-height:1;
+  margin:0;
+}
+
+.detailText p{
+  color:#aaa;
+  line-height:1.65;
+  margin:15px 0;
+  font-size:14px;
+}
+
+.actions{
+  display:flex;
+  gap:9px;
+  margin-top:17px;
+}
+
+.btn{
+  padding:11px 17px;
+  border-radius:11px;
+  border:1px solid #333;
+  background:#151515;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-size:11px;
+}
+
+.btn.red{
+  background:#e51038;
+  border-color:#e51038;
+}
+
+.detailBody{
+  padding:20px 40px 28px;
+  color:#999;
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+  align-items:flex-start;
+}
+
+.stat{
+  font-size:9px;
+  letter-spacing:1px;
+  color:#666;
+}
+
+.stat b{
+  display:block;
+  color:#fff;
+  font-size:15px;
+  margin-top:5px;
+  letter-spacing:0;
+}
+
+.zx-download{
+  width:100%;
+  padding:18px 0 17px;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  order:-1;
+}
+
+.zx-download-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:11px;
+}
+
+.zx-download-head h3{
+  color:#fff;
+  font-size:16px;
+  margin:0;
+}
+
+.zx-download-head p{
+  color:#666;
+  font-size:10px;
+  margin:3px 0 0;
+}
+
+.zx-download-head>span{
+  font-size:8px;
+  color:#777;
+  border:1px solid #292929;
+  border-radius:20px;
+  padding:5px 8px;
+}
+
+.zx-download-main{
+  width:100%;
+  height:46px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:11px;
+  background:linear-gradient(135deg,#171717,#0f0f0f);
+  color:#fff;
+  cursor:pointer;
+  font-size:11px;
+  transition:.25s;
+}
+
+.zx-download-main:hover{
+  transform:translateY(-2px);
+  border-color:#ff3152;
+}
+
+.zx-download-main span{
+  margin-right:7px;
+  font-size:17px;
+}
+
+.zx-quality{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-6px);
+  transition:.3s ease;
+}
+
+.zx-quality.show{
+  max-height:80px;
+  opacity:1;
+  transform:none;
+  margin-top:8px;
+}
+
+.zx-quality button{
+  min-height:46px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;
+  background:#121212;
+  color:#fff;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.zx-quality button:hover{
+  transform:translateY(-2px);
+  border-color:#ff3152;
+  background:#191919;
+}
+
+.zx-quality b{
+  display:block;
+  font-size:12px;
+}
+
+.zx-quality small{
+  display:block;
+  color:#666;
+  font-size:8px;
+  margin-top:2px;
+}
+
+.zx-download-status{
+  display:none;
+  align-items:center;
+  gap:7px;
+  margin-top:8px;
+  padding:8px 10px;
+  border-radius:8px;
+  background:#111;
+  color:#777;
+  font-size:10px;
+}
+
+.zx-download-status.show{
+  display:flex;
+  animation:detailFade .25s ease;
+}
+
+.zx-download-status i{
+  width:9px;
+  height:9px;
+  border:2px solid #333;
+  border-top-color:#ff3152;
+  border-radius:50%;
+  animation:zxSpin .7s linear infinite;
+}
+
+@keyframes detailFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+@keyframes detailUp{
+  from{opacity:0;transform:translateY(18px) scale(.98)}
+  to{opacity:1;transform:none}
+}
+
+@keyframes zxSpin{
+  to{transform:rotate(360deg)}
+}
+
+@media(max-width:600px){
+  .modal{
+    padding:35px 12px;
+  }
+
+  .detailTop{
+    min-height:400px;
+    padding:28px;
+  }
+
+  .detailText h2{
+    font-size:34px;
+  }
+
+  .detailBody{
+    padding:18px 25px 25px;
+  }
+
+  .zx-quality{
+    grid-template-columns:1fr;
+  }
+
+  .zx-quality.show{
+    max-height:180px;
+  }
+
+  .actions{
+    flex-wrap:wrap;
+  }
+}
+</style>
+
+<style id="zorox-quality-style">
+#qualityBox{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-10px);
+  pointer-events:none;
+  margin-top:0;
+  transition:
+    max-height .4s cubic-bezier(.16,1,.3,1),
+    opacity .25s ease,
+    transform .4s cubic-bezier(.16,1,.3,1),
+    margin-top .4s ease;
+}
+
+#qualityBox.show{
+  max-height:100px;
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+  margin-top:12px;
+}
+
+#qualityBox button{
+  min-height:54px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:13px;
+  background:rgba(255,255,255,.045);
+  color:#fff;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+#qualityBox button:hover{
+  transform:translateY(-3px);
+  background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.3);
+}
+
+#qualityBox b{
+  display:block;
+  font-size:14px;
+}
+
+#qualityBox small{
+  display:block;
+  margin-top:3px;
+  color:#777;
+  font-size:10px;
+}
+
+@media(max-width:520px){
+  #qualityBox{
+    grid-template-columns:1fr;
+  }
+
+  #qualityBox.show{
+    max-height:190px;
+  }
+}
+</style>
+
+
+<style id="zorox-cinema-animation">
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:none;
+  padding:5vh 6%;
+  overflow:auto;
+  opacity:0;
+  background:rgba(0,0,0,0);
+  backdrop-filter:blur(0);
+}
+
+.modal.show{
+  display:block;
+  animation:zoroxModalIn .42s ease forwards;
+}
+
+.modal.closing{
+  display:block;
+  animation:zoroxModalOut .32s ease forwards;
+}
+
+.modal.show .cinema-page{
+  animation:zoroxCardIn .48s cubic-bezier(.16,1,.3,1) both;
+}
+
+.modal.closing .cinema-page{
+  animation:zoroxCardOut .30s ease both;
+}
+
+@keyframes zoroxModalIn{
+  from{opacity:0;background:rgba(0,0,0,0);backdrop-filter:blur(0)}
+  to{opacity:1;background:rgba(0,0,0,.84);backdrop-filter:blur(18px)}
+}
+
+@keyframes zoroxModalOut{
+  from{opacity:1;background:rgba(0,0,0,.84);backdrop-filter:blur(18px)}
+  to{opacity:0;background:rgba(0,0,0,0);backdrop-filter:blur(0)}
+}
+
+@keyframes zoroxCardIn{
+  from{opacity:0;transform:translateY(45px) scale(.94);filter:blur(6px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+
+@keyframes zoroxCardOut{
+  from{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  to{opacity:0;transform:translateY(25px) scale(.96);filter:blur(5px)}
+}
+
+@media(max-width:600px){
+  .modal{padding:25px 14px}
+}
+</style>
+
+
+<style id="zorox-cinema-card-style">
+
+.cinema-page{
+  width:100%;
+  max-width:920px;
+  min-height:520px;
+  margin:20px auto;
+  background:#080808;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 30px 100px rgba(0,0,0,.8);
+}
+
+.cinema-backdrop{
+  min-height:520px;
+  padding:42px;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  background-size:cover;
+  background-position:center;
+  isolation:isolate;
+}
+
+.cinema-shade{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    linear-gradient(to top,#080808 4%,rgba(8,8,8,.82) 42%,rgba(8,8,8,.25) 100%),
+    linear-gradient(to right,rgba(0,0,0,.8),transparent 70%);
+}
+
+.cinema-back{
+  position:absolute;
+  top:22px;
+  left:22px;
+  z-index:5;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+  color:#fff;
+  border-radius:12px;
+  padding:10px 15px;
+  cursor:pointer;
+  font-size:11px;
+  letter-spacing:1px;
+  transition:.25s ease;
+}
+
+.cinema-back:hover{
+  background:rgba(255,255,255,.1);
+  transform:translateX(-3px);
+}
+
+.cinema-content{
+  max-width:700px;
+  margin-top:120px;
+}
+
+.cinema-kicker{
+  color:#ff3153;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+.cinema-content h2{
+  margin:0;
+  color:#fff;
+  font-size:clamp(30px,5vw,54px);
+  line-height:1;
+  letter-spacing:-1px;
+}
+
+.cinema-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:16px 0;
+}
+
+.cinema-tags .tag{
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:20px;
+  background:rgba(255,255,255,.06);
+  color:#aaa;
+  font-size:10px;
+}
+
+.cinema-overview{
+  max-width:680px;
+  color:#aaa;
+  font-size:13px;
+  line-height:1.75;
+  margin:0;
+}
+
+.cinema-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  margin-top:25px;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+.cinema-stats div{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.cinema-stats span{
+  color:#666;
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+
+.cinema-stats b{
+  color:#fff;
+  font-size:13px;
+}
+
+.cinema-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.cinema-btn{
+  min-height:48px;
+  padding:0 18px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.12);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.5px;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.cinema-red{
+  background:#e9153d;
+  color:#fff;
+  border-color:#e9153d;
+}
+
+.cinema-red:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(233,21,61,.25);
+}
+
+.cinema-dark{
+  background:rgba(255,255,255,.07);
+  color:#fff;
+}
+
+.cinema-dark:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.12);
+}
+
+#qualityBox{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transform:translateY(-8px);
+  pointer-events:none;
+  margin-top:0;
+  transition:.35s ease;
+}
+
+#qualityBox.show{
+  max-height:100px;
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+  margin-top:12px;
+}
+
+#qualityBox button{
+  min-height:50px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  background:rgba(255,255,255,.05);
+  color:#fff;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+#qualityBox button:hover{
+  transform:translateY(-3px);
+  border-color:#ff3153;
+  background:rgba(255,255,255,.09);
+}
+
+#qualityBox b{
+  display:block;
+  font-size:13px;
+}
+
+#qualityBox small{
+  display:block;
+  margin-top:3px;
+  color:#777;
+  font-size:9px;
+}
+
+@media(max-width:600px){
+
+  .cinema-page{
+    min-height:0;
+    margin:10px auto;
+    border-radius:20px;
+  }
+
+  .cinema-backdrop{
+    min-height:0;
+    padding:25px 20px 25px;
+  }
+
+  .cinema-content{
+    margin-top:105px;
+  }
+
+  .cinema-content h2{
+    font-size:32px;
+  }
+
+  .cinema-overview{
+    font-size:12px;
+    line-height:1.65;
+  }
+
+  .cinema-stats{
+    gap:18px;
+  }
+
+  .cinema-actions{
+    flex-direction:column;
+  }
+
+  .cinema-btn{
+    width:100%;
+  }
+
+  #qualityBox{
+    grid-template-columns:1fr;
+  }
+
+  #qualityBox.show{
+    max-height:190px;
+  }
+}
+
+
+/* ---- discover tabs / load more / extras ---- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+.tabs button{background:#101010;border:1px solid #292929;color:#aaa;padding:9px 16px;border-radius:999px;font-size:12px;letter-spacing:1px;cursor:pointer;transition:.25s}
+.tabs button:hover{border-color:#ff3152;color:#fff}
+.tabs button.on{background:#ff3152;border-color:#ff3152;color:#fff}
+#more{display:none;margin:34px auto 0;background:#101010;border:1px solid #333;color:#fff;padding:14px 38px;border-radius:14px;letter-spacing:2px;cursor:pointer}
+#more:hover{border-color:#ff3152}
+.noimg{aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;background:#111;color:#444;font-size:11px;letter-spacing:2px}
+.cinema-tagline{color:#ff8a9b;font-style:italic;margin:6px 0 0;font-size:14px}
+.cinema-cast{color:#888;font-size:13px;margin:14px 0 0;line-height:1.6;max-width:640px}
+</style>
+
 </head>
 <body>
 <header>
@@ -91,63 +992,279 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
 
 <section class="section" id="discover">
   <div class="sectionHead"><div><span>EXPLORE</span><h2>Movie Universe</h2></div><span id="count"></span></div>
-  <div id="loader">SEARCHING CINEMA DATABASE...</div>
-  <div class="grid" id="grid"><div class="empty">Search for a movie to enter the ZOROX cinema database.</div></div>
+  <div class="tabs" id="tabs"></div>
+  <div id="loader">LOADING CINEMA DATABASE...</div>
+  <div class="grid" id="grid"></div>
+  <button id="more" type="button" onclick="loadMovies(false)">LOAD MORE</button>
 </section>
 
 <div class="modal" id="modal">
-  <div class="detail">
-    <button class="close" onclick="closeModal()">×</button>
-    <div class="detailTop" id="detailTop"><div class="detailText">
-      <h2 id="dt"></h2><p id="do"></p><div class="tags" id="tags"></div>
-      <div class="actions"><a id="trailer" class="btn red" target="_blank">▶ WATCH TRAILER</a><button class="btn" onclick="closeModal()">CLOSE</button></div>
-    </div></div>
-    <div class="detailBody">
-      <div class="stat">RATING<b id="dr"></b></div>
-      <div class="stat">RELEASE<b id="dd"></b></div>
-      <div class="stat">VOTES<b id="dv"></b></div>
+  <div class="cinema-page">
+
+    <div class="cinema-backdrop" id="detailTop">
+      <div class="cinema-shade"></div>
+      <button class="cinema-back" type="button" onclick="closeModal()">
+        <span>←</span> BACK
+      </button>
+
+      <div class="cinema-content">
+        <div class="cinema-kicker">ZOROX CINEMA / MOVIE PROFILE</div>
+        <h2 id="dt">Movie Title</h2>
+
+        <p class="cinema-tagline" id="tagline"></p>
+        <div class="cinema-tags" id="tags"></div>
+
+        <p class="cinema-overview" id="do">
+          No overview available.
+        </p>
+
+        <p class="cinema-cast" id="cast"></p>
+
+        <div class="cinema-stats">
+          <div>
+            <span>RATING</span>
+            <b id="dr">★ 0.0/10</b>
+          </div>
+          <div>
+            <span>RELEASE</span>
+            <b id="dd">N/A</b>
+          </div>
+          <div>
+            <span>VOTES</span>
+            <b id="dv">0</b>
+          </div>
+          <div>
+            <span>RUNTIME</span>
+            <b id="drt">N/A</b>
+          </div>
+        </div>
+
+        <div class="cinema-actions">
+          <a id="trailer"
+             class="cinema-btn cinema-red"
+             target="_blank"
+             rel="noopener">
+            ▶ WATCH TRAILER
+          </a>
+
+          <button class="cinema-btn cinema-dark"
+                  type="button"
+                  id="downloadMain">
+            ↓ DOWNLOAD NOW
+          </button>
+        </div>
+
+        <div class="zx-quality" id="qualityBox">
+          <button type="button" onclick="requestMovieDownload('480p',this)">
+            <b>480p</b>
+            <small>SD</small>
+          </button>
+
+          <button type="button" onclick="requestMovieDownload('720p',this)">
+            <b>720p</b>
+            <small>HD</small>
+          </button>
+
+          <button type="button" onclick="requestMovieDownload('1080p',this)">
+            <b>1080p</b>
+            <small>FULL HD</small>
+          </button>
+        </div>
+
+        <div class="zx-download-status" id="downloadStatus">
+          <i></i>
+          <span id="downloadStatusText">Choose a quality</span>
+        </div>
+
+      </div>
     </div>
+
   </div>
 </div>
 
 <script>
-const API_BASE=window.location.hostname==="localhost"||window.location.hostname==="127.0.0.1"?"http://127.0.0.1:5000":"http://"+window.location.hostname+":5000";
+// API URL: window.ZOROX_API > ?api=https://... (saved) > localhost > same host :5000
+const _qs=new URLSearchParams(location.search);
+try{if(_qs.get("api"))localStorage.setItem("zorox_api",_qs.get("api").replace(/\/+$/,""))}catch(e){}
+const _saved=(()=>{try{return localStorage.getItem("zorox_api")}catch(e){return null}})();
+const _local=["localhost","127.0.0.1"].includes(location.hostname);
+const API_BASE=window.ZOROX_API||_saved||(_local?"http://127.0.0.1:5000":(location.protocol==="https:"?"":"http://"+location.hostname+":5000"));
 const IMG="https://image.tmdb.org/t/p/w500";
 const BACK="https://image.tmdb.org/t/p/w1280";
-let movies=[];
-async function searchMovies(){
- const q=document.getElementById("q").value.trim(); if(!q)return;
- const loader=document.getElementById("loader"),grid=document.getElementById("grid");
- loader.style.display="block";grid.innerHTML="";
+const GENRES={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Sci-Fi",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"};
+const CATS={trending:"TRENDING",popular:"POPULAR",top_rated:"TOP RATED",now_playing:"IN THEATRES",upcoming:"UPCOMING"};
+let movies=[],selectedMovie=null,reqId=0;
+const state={mode:"cat",cat:"trending",q:"",page:1,total:1};
+
+function renderTabs(){
+ document.getElementById("tabs").innerHTML=Object.entries(CATS).map(([k,v])=>
+  '<button type="button" class="'+(state.mode==="cat"&&state.cat===k?"on":"")+'" onclick="setCat(\''+k+'\')">'+v+'</button>').join("");
+}
+function setCat(c){state.mode="cat";state.cat=c;renderTabs();loadMovies(true)}
+function searchMovies(){
+ const q=document.getElementById("q").value.trim();
+ if(!q){setCat(state.cat);return}
+ state.mode="search";state.q=q;renderTabs();loadMovies(true);
+ document.getElementById("discover").scrollIntoView({behavior:"smooth"});
+}
+function makeCard(m,i){
+ const c=document.createElement("div");c.className="card";c.style.animationDelay=((i%20)*.035)+"s";
+ const poster=m.poster_path?'<img src="'+IMG+m.poster_path+'" loading="lazy" alt="">':'<div class="noimg">NO POSTER</div>';
+ c.innerHTML='<div class="poster">'+poster+'<div class="overlay"><div class="play">▶</div></div></div><div class="info"><h3>'+esc(m.title)+'</h3><div class="meta"><span class="rating">★ '+(m.vote_average||0).toFixed(1)+'</span> · '+(m.release_date||"N/A").slice(0,4)+'</div></div>';
+ c.onclick=()=>openMovie(m);
+ return c;
+}
+async function loadMovies(reset){
+ const loader=document.getElementById("loader"),grid=document.getElementById("grid"),more=document.getElementById("more"),count=document.getElementById("count");
+ const my=++reqId;
+ if(reset){state.page=1;movies=[];grid.innerHTML="";count.textContent=""}else state.page++;
+ loader.style.display="block";more.style.display="none";
+ const url=state.mode==="search"
+  ?"/api/movies/search?q="+encodeURIComponent(state.q)+"&page="+state.page
+  :"/api/movies/discover?category="+state.cat+"&page="+state.page;
  try{
-  const r=await fetch(API_BASE+"/api/movies/search?q="+encodeURIComponent(q));
+  const r=await fetch(API_BASE+url);
   const d=await r.json();
-  if(!r.ok)throw new Error(d.error||"Search failed");
-  movies=d.results||[];document.getElementById("count").textContent=movies.length+" RESULTS";
+  if(my!==reqId)return;
+  if(!r.ok)throw new Error(d.error||d.status_message||"Request failed");
+  const list=d.results||[];const start=movies.length;
+  movies=movies.concat(list);
   if(!movies.length){grid.innerHTML='<div class="empty">No movies found.</div>';return}
-  movies.forEach((m,i)=>{
-   if(!m.poster_path)return;
-   const c=document.createElement("div");c.className="card";c.style.animationDelay=(i*.035)+"s";
-   c.innerHTML='<div class="poster"><img src="'+IMG+m.poster_path+'" loading="lazy"><div class="overlay"><div class="play">▶</div></div></div><div class="info"><h3>'+esc(m.title)+'</h3><div class="meta"><span class="rating">★ '+(m.vote_average||0).toFixed(1)+'</span> · '+(m.release_date||"N/A").slice(0,4)+'</div></div>';
-   c.onclick=()=>openMovie(m);grid.appendChild(c);
-  });
- }catch(e){grid.innerHTML='<div class="empty">Movie connection error.<br>'+esc(e.message)+'</div>'}
- finally{loader.style.display="none"}
+  list.forEach((m,i)=>grid.appendChild(makeCard(m,start+i)));
+  count.textContent=(d.total_results||movies.length).toLocaleString()+" RESULTS";
+  more.textContent="LOAD MORE";
+  more.style.display=state.page<Math.min(d.total_pages||1,500)?"block":"none";
+ }catch(e){
+  if(my!==reqId)return;
+  if(reset||!movies.length){
+   grid.innerHTML='<div class="empty">Movie connection error.<br>'+esc(e.message)+'<br><small>API: '+esc(API_BASE||location.origin)+'<br>Tip: open this page with ?api=https://YOUR-SERVER</small></div>';
+  }else{state.page--;more.textContent="RETRY";more.style.display="block"}
+ }finally{if(my===reqId)loader.style.display="none"}
+}
+function setTags(names){
+ document.getElementById("tags").innerHTML=names.map(x=>'<span class="tag">'+esc(x)+'</span>').join("");
 }
 function openMovie(m){
+ selectedMovie=m;
  document.getElementById("dt").textContent=m.title||"Untitled";
  document.getElementById("do").textContent=m.overview||"No overview available.";
  document.getElementById("dr").textContent="★ "+(m.vote_average||0).toFixed(1)+"/10";
  document.getElementById("dd").textContent=m.release_date||"N/A";
  document.getElementById("dv").textContent=(m.vote_count||0).toLocaleString();
+ document.getElementById("drt").textContent="…";
+ document.getElementById("tagline").textContent="";
+ document.getElementById("cast").textContent="";
  document.getElementById("detailTop").style.backgroundImage=m.backdrop_path?"url("+BACK+m.backdrop_path+")":"linear-gradient(135deg,#220008,#080808)";
- document.getElementById("tags").innerHTML=(m.genre_ids||[]).map(x=>'<span class="tag">Genre '+x+'</span>').join("");
- document.getElementById("trailer").href="https://www.youtube.com/results?search_query="+encodeURIComponent(m.title+" official trailer");
- document.getElementById("modal").classList.add("show");document.body.style.overflow="hidden";
+ setTags((m.genre_ids||[]).map(x=>GENRES[x]).filter(Boolean));
+ document.getElementById("trailer").href="https://www.youtube.com/results?search_query="+encodeURIComponent((m.title||"")+" official trailer");
+ document.getElementById("qualityBox").classList.remove("show");
+ const modal=document.getElementById("modal");
+ modal.classList.remove("closing");
+ modal.style.display="block";
+ requestAnimationFrame(()=>modal.classList.add("show"));
+ document.body.style.overflow="hidden";
+ loadDetails(m);
 }
-function closeModal(){document.getElementById("modal").classList.remove("show");document.body.style.overflow=""}
-document.getElementById("q").addEventListener("keydown",e=>{if(e.key==="Enter")searchMovies()});
+async function loadDetails(m){
+ try{
+  const r=await fetch(API_BASE+"/api/movies/"+encodeURIComponent(m.id));
+  const d=await r.json();
+  if(!r.ok||!selectedMovie||selectedMovie.id!==m.id)return;
+  document.getElementById("drt").textContent=d.runtime?Math.floor(d.runtime/60)+"h "+(d.runtime%60)+"m":"N/A";
+  document.getElementById("tagline").textContent=d.tagline||"";
+  if(d.overview)document.getElementById("do").textContent=d.overview;
+  if(d.genres&&d.genres.length)setTags(d.genres);
+  if(d.cast&&d.cast.length)document.getElementById("cast").textContent="CAST: "+d.cast.map(c=>c.name).join(" · ");
+  if(d.trailer_key)document.getElementById("trailer").href="https://www.youtube.com/watch?v="+encodeURIComponent(d.trailer_key);
+ }catch(e){
+  if(selectedMovie&&selectedMovie.id===m.id)document.getElementById("drt").textContent="N/A";
+ }
+}
+renderTabs();loadMovies(true);
+function closeModal(){
+  const modal=document.getElementById("modal");
+
+  if(!modal.classList.contains("show")) return;
+
+  modal.classList.remove("show");
+  modal.classList.add("closing");
+
+  document.body.style.overflow="";
+
+  setTimeout(()=>{
+    modal.classList.remove("closing");
+    modal.style.display="none";
+  },300);
+}
+document.getElementById("q").addEventListener("keydown",e=>{
+  if(e.key==="Enter")searchMovies();
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModal();
+  }
+});
 function esc(x){return String(x??"").replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[a]))}
+
+const downloadMain=document.getElementById("downloadMain");
+const qualityBox=document.getElementById("qualityBox");
+
+if(downloadMain){
+  downloadMain.addEventListener("click",()=>{
+    qualityBox.classList.toggle("show");
+  });
+}
+
+async function requestMovieDownload(quality,button){
+  const status=document.getElementById("downloadStatus");
+  const statusText=document.getElementById("downloadStatusText");
+
+  if(!selectedMovie || !selectedMovie.id){
+    status.classList.add("show");
+    statusText.textContent="Movie ID not available.";
+    return;
+  }
+
+  document.querySelectorAll(".zx-quality button").forEach(b=>{
+    b.disabled=true;
+    b.style.opacity=".55";
+  });
+
+  status.classList.add("show");
+  statusText.textContent="Preparing "+quality+"...";
+
+  try{
+    const r=await fetch(
+      API_BASE+"/api/movies/download?movie_id="+
+      encodeURIComponent(selectedMovie.id)+
+      "&quality="+encodeURIComponent(quality)
+    );
+
+    const d=await r.json();
+
+    if(!r.ok || !d.url){
+      statusText.textContent=d.message||"Download source unavailable.";
+      return;
+    }
+
+    statusText.textContent="Download ready — "+quality;
+    window.location.href=d.url;
+
+  }catch(e){
+    console.error(e);
+    statusText.textContent="Download service unavailable.";
+  }finally{
+    document.querySelectorAll(".zx-quality button").forEach(b=>{
+      b.disabled=false;
+      b.style.opacity="";
+    });
+  }
+}
+
 </script>
+
+
+
 </body>
 </html>

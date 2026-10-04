@@ -994,33 +994,86 @@ def api_ip():
 
 init_db()
 
+# =========================================================
+# MOVIES (TMDB)
+# =========================================================
+TMDB_BASE = "https://api.themoviedb.org/3"
+MOVIE_CATEGORIES = {
+    "trending": "trending/movie/week",
+    "popular": "movie/popular",
+    "top_rated": "movie/top_rated",
+    "now_playing": "movie/now_playing",
+    "upcoming": "movie/upcoming",
+}
+
+
+def tmdb_get(path, **params):
+    """Call TMDB. Never leaks the API key in error messages."""
+    if not TMDB_API_KEY:
+        return {"error": "TMDB API key is not configured"}, 500
+    params.update({"api_key": TMDB_API_KEY, "language": "en-US"})
+    try:
+        r = requests.get(f"{TMDB_BASE}/{path}", params=params, timeout=15)
+        return r.json(), r.status_code
+    except Exception:
+        logger.exception("TMDB request failed")
+        return {"error": "Movie service unavailable"}, 502
+
+
+def movie_page_arg():
+    try:
+        return max(1, min(int(request.args.get("page", 1)), 500))
+    except (TypeError, ValueError):
+        return 1
+
+
 @app.get("/api/movies/search")
 def movie_search():
     q = str(request.args.get("q", "")).strip()
-
     if not q:
         return jsonify({"error": "Movie search query is required"}), 400
+    data, status = tmdb_get(
+        "search/movie", query=q, include_adult="false", page=movie_page_arg()
+    )
+    return jsonify(data), status
 
-    if not TMDB_API_KEY:
-        return jsonify({"error": "TMDB API key is not configured"}), 500
 
-    try:
-        r = requests.get(
-            "https://api.themoviedb.org/3/search/movie",
-            params={
-                "api_key": TMDB_API_KEY,
-                "query": q,
-                "include_adult": "false",
-                "language": "en-US",
-                "page": 1
-            },
-            timeout=15
-        )
-        return jsonify(r.json()), r.status_code
+@app.get("/api/movies/discover")
+def movie_discover():
+    category = request.args.get("category", "trending").strip().lower()
+    path = MOVIE_CATEGORIES.get(category)
+    if not path:
+        return jsonify({"error": "Invalid category"}), 400
+    data, status = tmdb_get(path, page=movie_page_arg())
+    return jsonify(data), status
 
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
+@app.get("/api/movies/<int:movie_id>")
+def movie_details(movie_id):
+    data, status = tmdb_get(f"movie/{movie_id}", append_to_response="videos,credits")
+    if status != 200:
+        return jsonify(data), status
+
+    videos = (data.get("videos") or {}).get("results", [])
+    yt = [v for v in videos if v.get("site") == "YouTube" and v.get("type") == "Trailer"]
+    trailer = next((v for v in yt if v.get("official")), None) or (yt[0] if yt else None)
+    cast = (data.get("credits") or {}).get("cast", [])[:8]
+
+    return jsonify({
+        "id": data.get("id"),
+        "title": data.get("title"),
+        "tagline": data.get("tagline"),
+        "overview": data.get("overview"),
+        "runtime": data.get("runtime"),
+        "release_date": data.get("release_date"),
+        "vote_average": data.get("vote_average"),
+        "vote_count": data.get("vote_count"),
+        "genres": [g.get("name") for g in data.get("genres", [])],
+        "poster_path": data.get("poster_path"),
+        "backdrop_path": data.get("backdrop_path"),
+        "trailer_key": trailer.get("key") if trailer else None,
+        "cast": [{"name": c.get("name"), "character": c.get("character")} for c in cast],
+    })
 
 
 @app.get("/api/admin/logs")
