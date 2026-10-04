@@ -5,7 +5,7 @@ import sqlite3
 import logging
 import requests
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -275,6 +275,15 @@ def home():
 
 
 # =========================================================
+@app.get("/app")
+def frontend_home():
+    return send_from_directory(os.path.join(os.path.dirname(os.path.dirname(__file__)), "web"), "index.html")
+
+@app.get("/app/<path:filename>")
+def frontend_files(filename):
+    return send_from_directory(os.path.join(os.path.dirname(os.path.dirname(__file__)), "web"), filename)
+
+
 # REGISTER
 # =========================================================
 
