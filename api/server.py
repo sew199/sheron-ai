@@ -21,6 +21,12 @@ DB_FILE = os.path.join(BASE_DIR, "zorox.db")
 
 load_dotenv(dotenv_path=ENV_FILE)
 
+CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "").strip()
+CINESUBZ_API_KEY = os.getenv("CINESUBZ_API_KEY", "").strip()
+TEST_DOWNLOAD_URL = os.getenv("TEST_DOWNLOAD_URL", "").strip()
+MOVIE_PROVIDER_URL = os.getenv("MOVIE_PROVIDER_URL", "").strip()
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("zorox")
 
@@ -37,6 +43,7 @@ ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "").strip()
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "").strip()
 SERVER_SECRET = os.getenv("SERVER_SECRET", "").strip()
 JAMENDO_CLIENT_ID = os.getenv("JAMENDO_CLIENT_ID", "").strip()
+EPIDEMIC_API_KEY = os.getenv("EPIDEMIC_API_KEY", "").strip()
 
 # API HUB
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "").strip()
@@ -498,45 +505,69 @@ def admin_dashboard():
 
 @app.get("/api/music/search")
 def music_search():
-    query = request.args.get(
-        "q",
-        ""
-    ).strip() or "rock"
+    query = request.args.get("q", "").strip() or "rock"
 
-    if not JAMENDO_CLIENT_ID:
-        return jsonify({
-            "error": "JAMENDO_CLIENT_ID is not configured",
-            "results": []
-        }), 500
+    jamendo_results = []
+    epidemic_results = []
 
-    try:
-        response = requests.get(
-            "https://api.jamendo.com/v3.0/tracks/",
-            params={
-                "client_id": JAMENDO_CLIENT_ID,
-                "format": "json",
-                "limit": 20,
-                "search": query
-            },
-            timeout=20
-        )
+    # -------------------------
+    # JAMENDO
+    # -------------------------
+    if JAMENDO_CLIENT_ID:
+        try:
+            response = requests.get(
+                "https://api.jamendo.com/v3.0/tracks/",
+                params={
+                    "client_id": JAMENDO_CLIENT_ID,
+                    "format": "json",
+                    "limit": 20,
+                    "search": query
+                },
+                timeout=20
+            )
 
-        response.raise_for_status()
+            response.raise_for_status()
+            data = response.json()
+            jamendo_results = data.get("results", [])
 
-        data = response.json()
+        except Exception:
+            logger.exception("Jamendo music search failed")
 
-        return jsonify({
-            "headers": data.get("headers", {}),
-            "results": data.get("results", [])
-        })
+    # -------------------------
+    # EPIDEMIC SOUND
+    # -------------------------
+    if EPIDEMIC_API_KEY:
+        try:
+            response = requests.get(
+                "https://partner-content-api.epidemicsound.com/v0/tracks/search",
+                headers={
+                    "Authorization": f"Bearer {EPIDEMIC_API_KEY}",
+                    "Accept": "application/json"
+                },
+                params={
+                    "term": query,
+                    "limit": 20
+                },
+                timeout=20
+            )
 
-    except Exception as error:
-        logger.exception("Music search failed")
+            response.raise_for_status()
+            data = response.json()
+            epidemic_results = data.get("tracks", [])
 
-        return jsonify({
-            "error": str(error),
-            "results": []
-        }), 500
+        except Exception:
+            logger.exception("Epidemic Sound search failed")
+
+    return jsonify({
+        "query": query,
+        "sources": {
+            "jamendo": len(jamendo_results),
+            "epidemic": len(epidemic_results)
+        },
+        "jamendo": jamendo_results,
+        "epidemic": epidemic_results,
+        "results": jamendo_results + epidemic_results
+    })
 
 
 # =========================================================
@@ -1011,15 +1042,33 @@ def admin_logs():
         logger.exception("Failed to read admin logs")
         return jsonify({"error": "Unable to read logs"}), 500
 
+@app.get("/api/movies/download")
+def movie_download():
+    movie_id = request.args.get("movie_id", "").strip()
+    quality = request.args.get("quality", "").strip().lower()
+
+    if not movie_id:
+        return jsonify({"message": "Movie ID is required"}), 400
+
+    if quality not in {"480p", "720p", "1080p"}:
+        return jsonify({"message": "Invalid quality"}), 400
+
+    if not TEST_DOWNLOAD_URL:
+        return jsonify({
+            "status": "not_configured",
+            "message": "Test download URL is not configured."
+        }), 503
+
+    return jsonify({
+        "status": "ready",
+        "movie_id": movie_id,
+        "quality": quality,
+        "provider": "test",
+        "url": TEST_DOWNLOAD_URL
+    })
+
+# =========================================================
+# START ZOROX SERVER
+# =========================================================
 if __name__ == "__main__":
-    logger.info("Starting ZOROX AI backend")
-    logger.info("Database: %s", DB_FILE)
-
-    app.run(
-        host="0.0.0.0",
-        port=5000,
-        debug=False
-    )
-
-
-
+    app.run(host="0.0.0.0", port=5000, debug=False)

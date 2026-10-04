@@ -33,3 +33,4 @@ zorox-server.log
 
 backup-*/
 zorox.db
+web/movies.html.backup-download-ui

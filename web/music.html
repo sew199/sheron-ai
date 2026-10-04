@@ -852,7 +852,6 @@ async function searchMusic(q="calm"){
  try{
 
   const url=`${API_BASE}/api/music/search?q=${encodeURIComponent(q)}`;
-
   const response=await fetch(url,{cache:"no-store"});
 
   if(!response.ok){
@@ -861,60 +860,88 @@ async function searchMusic(q="calm"){
 
   const data=await response.json();
 
-  const apiStatus=data.status || (data.headers && data.headers.status);
+  const jamendo = Array.isArray(data.jamendo) ? data.jamendo : [];
+  const epidemic = Array.isArray(data.epidemic) ? data.epidemic : [];
 
-  if(apiStatus!=="success" || !Array.isArray(data.results)){
-   throw new Error(
-    data.message ||
-    (data.headers && data.headers.error_message) ||
-    "Invalid music response"
-   );
-  }
+  const playable = jamendo.filter(song=>song.audio);
 
-  const songs=data.results.filter(song=>song.audio);
+  const tracks = [
+   ...playable.map(song=>({...song,_source:"Jamendo"})),
+   ...epidemic.map(song=>({
+    ...song,
+    _source:"Epidemic Sound",
+    _epidemic:true,
+    name:song.title || "Unknown track",
+    artist_name:
+      song.mainArtists?.map(a=>a.name || a).join(", ") ||
+      "Epidemic Sound",
+    album_image:
+      song.images?.M ||
+      song.images?.S ||
+      song.images?.L ||
+      ""
+   }))
+  ];
 
-  if(!songs.length){
-   statusEl.textContent="No playable tracks found. Try another search.";
+  if(!tracks.length){
+   statusEl.textContent="No tracks found. Try another search.";
    return;
   }
 
   heading.textContent=
    q.toLowerCase()==="calm"
-   ? "Made for your mood"
-   : `Results for "${q}"`;
+    ? "Made for your mood"
+    : `Results for "${q}"`;
 
-  statusEl.textContent=`${songs.length} tracks discovered`;
+  statusEl.textContent=
+   `${tracks.length} tracks discovered • ${playable.length} playable`;
 
-  songs.forEach((song,index)=>{
+  tracks.forEach((song,index)=>{
 
    const cover=song.album_image || fallbackCover();
-
    const card=document.createElement("article");
 
    card.className="card";
    card.style.animationDelay=`${Math.min(index*45,600)}ms`;
 
+   const sourceBadge =
+    song._epidemic
+     ? `<span class="sourceBadge">EPIDEMIC SOUND</span>`
+     : `<span class="sourceBadge">JAMENDO</span>`;
+
+   const playButton =
+    song._epidemic
+     ? `<button class="cardPlay" disabled title="Preview URL is not provided by the API">
+         Epidemic • Preview unavailable
+        </button>`
+     : `<button class="cardPlay">▶ Play track</button>`;
+
    card.innerHTML=`
     <div class="coverWrap">
      <img class="cover" src="${esc(cover)}" alt="">
      <div class="playOverlay">
-      <button class="playCircle">▶</button>
+      ${
+       song._epidemic
+        ? `<button class="playCircle" disabled>♪</button>`
+        : `<button class="playCircle">▶</button>`
+      }
      </div>
     </div>
 
     <div class="cardInfo">
+     ${sourceBadge}
      <div class="songTitle">${esc(song.name||"Unknown track")}</div>
      <div class="artist">${esc(song.artist_name||"Unknown artist")}</div>
-     <button class="cardPlay">▶ Play track</button>
+     ${playButton}
     </div>
    `;
 
-   const play=()=>{
-    playSong(song,cover);
-   };
+   if(!song._epidemic){
+    const play=()=>playSong(song,cover);
 
-   card.querySelector(".playCircle").addEventListener("click",play);
-   card.querySelector(".cardPlay").addEventListener("click",play);
+    card.querySelector(".playCircle").addEventListener("click",play);
+    card.querySelector(".cardPlay").addEventListener("click",play);
+   }
 
    results.appendChild(card);
   });
