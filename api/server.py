@@ -1115,18 +1115,20 @@ def movie_download():
     if quality not in {"480p", "720p", "1080p"}:
         return jsonify({"message": "Invalid quality"}), 400
 
-    if not TEST_DOWNLOAD_URL:
+    if not MOVIE_PROVIDER_URL:
         return jsonify({
             "status": "not_configured",
-            "message": "Test download URL is not configured."
+            "message": "Movie provider URL is not configured."
         }), 503
+
+    url = MOVIE_PROVIDER_URL.replace("[MOVIE_URL]", movie_id)
 
     return jsonify({
         "status": "ready",
         "movie_id": movie_id,
         "quality": quality,
-        "provider": "test",
-        "url": TEST_DOWNLOAD_URL
+        "provider": "configured",
+        "url": url
     })
 
 # =========================================================
