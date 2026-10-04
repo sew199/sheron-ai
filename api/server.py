@@ -25,6 +25,7 @@ CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "").strip()
 CINESUBZ_API_KEY = os.getenv("CINESUBZ_API_KEY", "").strip()
 TEST_DOWNLOAD_URL = os.getenv("TEST_DOWNLOAD_URL", "").strip()
 MOVIE_PROVIDER_URL = os.getenv("MOVIE_PROVIDER_URL", "").strip()
+MOVIE_API_KEY = os.getenv("MOVIE_API_KEY", "").strip()
 
 
 logging.basicConfig(level=logging.INFO)
@@ -1122,6 +1123,9 @@ def movie_download():
         }), 503
 
     url = MOVIE_PROVIDER_URL.replace("[MOVIE_URL]", movie_id)
+    if MOVIE_API_KEY and "api_key=" not in url:
+        separator = "&" if "?" in url else "?"
+        url += separator + "api_key=" + requests.utils.quote(MOVIE_API_KEY, safe="")
 
     return jsonify({
         "status": "ready",
