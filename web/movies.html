@@ -1088,7 +1088,7 @@ const _qs=new URLSearchParams(location.search);
 try{if(_qs.get("api"))localStorage.setItem("zorox_api",_qs.get("api").replace(/\/+$/,""))}catch(e){}
 const _saved=(()=>{try{return localStorage.getItem("zorox_api")}catch(e){return null}})();
 const _local=["localhost","127.0.0.1"].includes(location.hostname);
-const API_BASE=window.ZOROX_API||_saved||(_local?"http://127.0.0.1:5000":(location.protocol==="https:"?"":"http://"+location.hostname+":5000"));
+const API_BASE=window.ZOROX_API||"https://zoroz-ai.onrender.com";
 const IMG="https://image.tmdb.org/t/p/w500";
 const BACK="https://image.tmdb.org/t/p/w1280";
 const GENRES={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Sci-Fi",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"};
