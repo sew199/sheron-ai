@@ -3182,7 +3182,7 @@ async function sendMessage() {
         const response = await fetch(
             (window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1")
-  ? "http://127.0.0.1:5000/api/chat"
+  ? "https://zoroz-ai.onrender.com/api/chat"
   : "https://YOUR-BACKEND-URL/api/chat",
             {
                 method: "POST",
