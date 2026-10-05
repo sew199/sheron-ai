@@ -21,7 +21,8 @@ DB_FILE = os.path.join(BASE_DIR, "zorox.db")
 
 load_dotenv(dotenv_path=ENV_FILE)
 
-CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "").strip()
+CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "")
+CINESUBZ_SEARCH_API_URL = os.getenv("CINESUBZ_SEARCH_API_URL", "").strip()
 CINESUBZ_API_KEY = os.getenv("CINESUBZ_API_KEY", "").strip()
 TEST_DOWNLOAD_URL = os.getenv("TEST_DOWNLOAD_URL", "").strip()
 MOVIE_PROVIDER_URL = os.getenv("MOVIE_PROVIDER_URL", "").strip()
@@ -1040,13 +1041,64 @@ def movie_page_arg():
 @app.get("/api/movies/search")
 def movie_search():
     q = str(request.args.get("q", "")).strip()
+
     if not q:
         return jsonify({"error": "Movie search query is required"}), 400
-    data, status = tmdb_get(
-        "search/movie", query=q, include_adult="false", page=movie_page_arg()
-    )
-    return jsonify(data), status
 
+    if not CINESUBZ_SEARCH_API_URL or not CINESUBZ_API_KEY:
+        return jsonify({
+            "success": False,
+            "message": "CineSubz Search API is not configured."
+        }), 503
+
+    try:
+        search_url = CINESUBZ_SEARCH_API_URL.replace(
+            "[KEYWORDS]",
+            requests.utils.quote(q, safe="")
+        ).replace(
+            "[CINESUBZ_API_KEY]",
+            requests.utils.quote(CINESUBZ_API_KEY, safe="")
+        )
+
+        response = requests.get(search_url, timeout=30)
+        response.raise_for_status()
+
+        data = response.json()
+
+        if not data.get("success"):
+            return jsonify({
+                "success": False,
+                "message": "CineSubz search failed"
+            }), 502
+
+        results = data.get("results") or []
+
+        return jsonify({
+            "success": True,
+            "results": [
+                {
+                    "title": item.get("title", ""),
+                    "url": item.get("url", ""),
+                    "poster": item.get("poster", ""),
+                    "description": item.get("description", "")
+                }
+                for item in results
+            ]
+        })
+
+    except requests.RequestException:
+        logger.exception("CineSubz search request failed")
+        return jsonify({
+            "success": False,
+            "message": "Unable to reach CineSubz Search API"
+        }), 502
+
+    except Exception:
+        logger.exception("Movie search error")
+        return jsonify({
+            "success": False,
+            "message": "Movie search service error"
+        }), 500
 
 @app.get("/api/movies/discover")
 def movie_discover():
@@ -1126,17 +1178,20 @@ def movie_download():
         }), 503
 
     try:
-        provider_url = CINESUBZ_API_URL.replace(
-            "[MOVIE_URL]",
-            requests.utils.quote(movie_url, safe="")
+        base_url = CINESUBZ_API_URL.split("?", 1)[0]
+
+        provider_url = (
+            base_url
+            + "?url="
+            + requests.utils.quote(movie_url, safe="")
+            + "&api_key="
+            + requests.utils.quote(CINESUBZ_API_KEY, safe="")
         )
 
-        if "api_key=" not in provider_url:
-            separator = "&" if "?" in provider_url else "?"
-            provider_url += separator + "api_key=" + requests.utils.quote(
-                CINESUBZ_API_KEY,
-                safe=""
-            )
+        print(
+            "CineSubz provider:",
+            base_url + "?url=[HIDDEN]&api_key=[HIDDEN]"
+        )
 
         response = requests.get(provider_url, timeout=30)
         response.raise_for_status()
@@ -1179,7 +1234,9 @@ def movie_download():
             "title": result.get("title", ""),
             "quality": quality,
             "label": selected.get("label", ""),
-            "url": selected.get("link", "")
+            "url": __import__("html").unescape(
+                selected.get("link", "")
+            )
         })
 
     except requests.RequestException as e:
