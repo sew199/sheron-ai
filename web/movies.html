@@ -719,7 +719,7 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
 .cinema-shade{
   position:absolute;
   inset:0;
-  z-index:-1;
+  z-index:0;
   background:
     linear-gradient(to top,#080808 4%,rgba(8,8,8,.82) 42%,rgba(8,8,8,.25) 100%),
     linear-gradient(to right,rgba(0,0,0,.8),transparent 70%);
@@ -748,6 +748,8 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
 }
 
 .cinema-content{
+  position:relative;
+  z-index:2;
   max-width:700px;
   margin-top:120px;
 }
@@ -1076,6 +1078,10 @@ h1 span{color:transparent;-webkit-text-stroke:1px #ff284b;text-shadow:0 0 35px r
           <span id="downloadStatusText">Choose a quality</span>
         </div>
 
+        <div style="text-align:center;margin-top:12px;font-size:12px;color:#777;">
+          Powered by CineSubz API
+        </div>
+
       </div>
     </div>
 
@@ -1088,7 +1094,7 @@ const _qs=new URLSearchParams(location.search);
 try{if(_qs.get("api"))localStorage.setItem("zorox_api",_qs.get("api").replace(/\/+$/,""))}catch(e){}
 const _saved=(()=>{try{return localStorage.getItem("zorox_api")}catch(e){return null}})();
 const _local=["localhost","127.0.0.1"].includes(location.hostname);
-const API_BASE=window.ZOROX_API||"https://zoroz-ai.onrender.com";
+const API_BASE=window.ZOROX_API||_saved||"https://zoroz-ai.onrender.com";
 const IMG="https://image.tmdb.org/t/p/w500";
 const BACK="https://image.tmdb.org/t/p/w1280";
 const GENRES={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Sci-Fi",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"};
@@ -1108,78 +1114,140 @@ function searchMovies(){
  document.getElementById("discover").scrollIntoView({behavior:"smooth"});
 }
 function makeCard(m,i){
- const c=document.createElement("div");c.className="card";c.style.animationDelay=((i%20)*.035)+"s";
- const poster=m.poster_path?'<img src="'+IMG+m.poster_path+'" loading="lazy" alt="">':'<div class="noimg">NO POSTER</div>';
- c.innerHTML='<div class="poster">'+poster+'<div class="overlay"><div class="play">▶</div></div></div><div class="info"><h3>'+esc(m.title)+'</h3><div class="meta"><span class="rating">★ '+(m.vote_average||0).toFixed(1)+'</span> · '+(m.release_date||"N/A").slice(0,4)+'</div></div>';
+ const c=document.createElement("div");
+ c.className="card";
+ c.style.animationDelay=((i%20)*.035)+"s";
+
+ const poster=m.poster
+  ? '<img src="'+String(m.poster).replace(/"/g,"&quot;")+'" loading="lazy" alt="'+esc(m.title||"Movie")+'" onerror="this.parentElement.innerHTML=\'<div class="noimg">NO POSTER</div>\';">'
+  : '<div class="noimg">NO POSTER</div>';
+
+ const year=((m.title||"").match(/\b(19|20)\d{2}\b/)||[])[0]||"N/A";
+
+ c.innerHTML=
+  '<div class="poster">'+poster+
+  '<div class="overlay"><div class="play">▶</div></div></div>'+
+  '<div class="info"><h3>'+esc(m.title||"Untitled")+
+  '</h3><div class="meta">'+year+'</div></div>';
+
  c.onclick=()=>openMovie(m);
  return c;
 }
+
 async function loadMovies(reset){
- const loader=document.getElementById("loader"),grid=document.getElementById("grid"),more=document.getElementById("more"),count=document.getElementById("count");
+ const loader=document.getElementById("loader");
+ const grid=document.getElementById("grid");
+ const more=document.getElementById("more");
+ const count=document.getElementById("count");
  const my=++reqId;
- if(reset){state.page=1;movies=[];grid.innerHTML="";count.textContent=""}else state.page++;
- loader.style.display="block";more.style.display="none";
- const url=state.mode==="search"
-  ?"/api/movies/search?q="+encodeURIComponent(state.q)+"&page="+state.page
-  :"/api/movies/discover?category="+state.cat+"&page="+state.page;
+
+ if(reset){
+  state.page=1;
+  movies=[];
+  grid.innerHTML="";
+  count.textContent="";
+ }else{
+  state.page++;
+ }
+
+ loader.style.display="block";
+ more.style.display="none";
+
+ if(state.mode!=="search"){
+  loader.style.display="none";
+  grid.innerHTML='<div class="empty">Search for a movie to get CineSubz results.</div>';
+  return;
+ }
+
+ const url="/api/movies/search?q="+encodeURIComponent(state.q);
+
  try{
   const r=await fetch(API_BASE+url);
   const d=await r.json();
+
   if(my!==reqId)return;
-  if(!r.ok)throw new Error(d.error||d.status_message||"Request failed");
-  const list=d.results||[];const start=movies.length;
+  if(!r.ok)throw new Error(d.message||d.error||"Search failed");
+
+  const list=Array.isArray(d.results)?d.results:[];
+  const start=movies.length;
+
   movies=movies.concat(list);
-  if(!movies.length){grid.innerHTML='<div class="empty">No movies found.</div>';return}
-  list.forEach((m,i)=>grid.appendChild(makeCard(m,start+i)));
-  count.textContent=(d.total_results||movies.length).toLocaleString()+" RESULTS";
-  more.textContent="LOAD MORE";
-  more.style.display=state.page<Math.min(d.total_pages||1,500)?"block":"none";
+
+  if(!movies.length){
+   grid.innerHTML='<div class="empty">No movies found.</div>';
+   count.textContent="0 RESULTS";
+   return;
+  }
+
+  list.forEach((m,i)=>{
+   grid.appendChild(makeCard(m,start+i));
+  });
+
+  count.textContent=movies.length.toLocaleString()+" RESULTS";
+  more.style.display="none";
+
  }catch(e){
   if(my!==reqId)return;
-  if(reset||!movies.length){
-   grid.innerHTML='<div class="empty">Movie connection error.<br>'+esc(e.message)+'<br><small>API: '+esc(API_BASE||location.origin)+'<br>Tip: open this page with ?api=https://YOUR-SERVER</small></div>';
-  }else{state.page--;more.textContent="RETRY";more.style.display="block"}
- }finally{if(my===reqId)loader.style.display="none"}
+
+  grid.innerHTML=
+   '<div class="empty">Movie connection error.<br>'+
+   esc(e.message)+'</div>';
+
+ }finally{
+  if(my===reqId)loader.style.display="none";
+ }
 }
+
 function setTags(names){
  document.getElementById("tags").innerHTML=names.map(x=>'<span class="tag">'+esc(x)+'</span>').join("");
 }
 function openMovie(m){
- selectedMovie={...m,source_url:m.source_url||""};
- document.getElementById("dt").textContent=m.title||"Untitled";
- document.getElementById("do").textContent=m.overview||"No overview available.";
- document.getElementById("dr").textContent="★ "+(m.vote_average||0).toFixed(1)+"/10";
- document.getElementById("dd").textContent=m.release_date||"N/A";
- document.getElementById("dv").textContent=(m.vote_count||0).toLocaleString();
- document.getElementById("drt").textContent="…";
+ selectedMovie={
+  ...m,
+  source_url:m.url||m.source_url||""
+ };
+
+ const title=m.title||"Untitled";
+ const year=((title.match(/\b(19|20)\d{2}\b/)||[])[0]||"N/A");
+
+ document.getElementById("dt").textContent=title;
+ document.getElementById("do").textContent=m.description||"No description available.";
+ document.getElementById("dr").textContent="CineSubz";
+ document.getElementById("dd").textContent=year;
+ document.getElementById("dv").textContent="Available";
+ document.getElementById("drt").textContent="N/A";
  document.getElementById("tagline").textContent="";
  document.getElementById("cast").textContent="";
- document.getElementById("detailTop").style.backgroundImage=m.backdrop_path?"url("+BACK+m.backdrop_path+")":"linear-gradient(135deg,#220008,#080808)";
- setTags((m.genre_ids||[]).map(x=>GENRES[x]).filter(Boolean));
- document.getElementById("trailer").href="https://www.youtube.com/results?search_query="+encodeURIComponent((m.title||"")+" official trailer");
+
+ const detailTop=document.getElementById("detailTop");
+
+if(m.poster){
+ detailTop.style.backgroundImage=
+  "linear-gradient(90deg,rgba(8,8,8,.95) 0%,rgba(8,8,8,.65) 45%,rgba(8,8,8,.25)),url('"+
+  String(m.poster).replace(/'/g,"%27")+
+  "')";
+}else{
+ detailTop.style.backgroundImage=
+  "linear-gradient(135deg,#220008,#080808)";
+}
+
+ setTags([]);
+
+ document.getElementById("trailer").href=
+  "https://www.youtube.com/results?search_query="+
+  encodeURIComponent(title+" official trailer");
+
  document.getElementById("qualityBox").classList.remove("show");
+
  const modal=document.getElementById("modal");
  modal.classList.remove("closing");
  modal.style.display="block";
+
  requestAnimationFrame(()=>modal.classList.add("show"));
+
  document.body.style.overflow="hidden";
- loadDetails(m);
 }
-async function loadDetails(m){
- try{
-  const r=await fetch(API_BASE+"/api/movies/"+encodeURIComponent(m.id));
-  const d=await r.json();
-  if(!r.ok||!selectedMovie||selectedMovie.id!==m.id)return;
-  document.getElementById("drt").textContent=d.runtime?Math.floor(d.runtime/60)+"h "+(d.runtime%60)+"m":"N/A";
-  document.getElementById("tagline").textContent=d.tagline||"";
-  if(d.overview)document.getElementById("do").textContent=d.overview;
-  if(d.genres&&d.genres.length)setTags(d.genres);
-  if(d.cast&&d.cast.length)document.getElementById("cast").textContent="CAST: "+d.cast.map(c=>c.name).join(" · ");
-  if(d.trailer_key)document.getElementById("trailer").href="https://www.youtube.com/watch?v="+encodeURIComponent(d.trailer_key);
- }catch(e){
-  if(selectedMovie&&selectedMovie.id===m.id)document.getElementById("drt").textContent="N/A";
- }
-}
+
 renderTabs();loadMovies(true);
 function closeModal(){
   const modal=document.getElementById("modal");
@@ -1226,7 +1294,7 @@ async function requestMovieDownload(quality,button){
   return;
  }
 
- const source=selectedMovie.source_url||selectedMovie.file_url||selectedMovie.download_url||"";
+ const source=selectedMovie.url||selectedMovie.source_url||"";
 
  if(!source){
   status.classList.add("show");
