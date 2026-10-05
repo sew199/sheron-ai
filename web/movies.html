@@ -1145,7 +1145,7 @@ function setTags(names){
  document.getElementById("tags").innerHTML=names.map(x=>'<span class="tag">'+esc(x)+'</span>').join("");
 }
 function openMovie(m){
- selectedMovie=m;
+ selectedMovie={...m,source_url:m.source_url||""};
  document.getElementById("dt").textContent=m.title||"Untitled";
  document.getElementById("do").textContent=m.overview||"No overview available.";
  document.getElementById("dr").textContent="★ "+(m.vote_average||0).toFixed(1)+"/10";
@@ -1217,49 +1217,57 @@ if(downloadMain){
 }
 
 async function requestMovieDownload(quality,button){
-  const status=document.getElementById("downloadStatus");
-  const statusText=document.getElementById("downloadStatusText");
+ const status=document.getElementById("downloadStatus");
+ const statusText=document.getElementById("downloadStatusText");
 
-  if(!selectedMovie || !selectedMovie.id){
-    status.classList.add("show");
-    statusText.textContent="Movie ID not available.";
-    return;
-  }
-
-  document.querySelectorAll(".zx-quality button").forEach(b=>{
-    b.disabled=true;
-    b.style.opacity=".55";
-  });
-
+ if(!selectedMovie){
   status.classList.add("show");
-  statusText.textContent="Preparing "+quality+"...";
+  statusText.textContent="Movie not selected.";
+  return;
+ }
 
-  try{
-    const r=await fetch(
-      API_BASE+"/api/movies/download?movie_id="+
-      encodeURIComponent(selectedMovie.id)+
-      "&quality="+encodeURIComponent(quality)
-    );
+ const source=selectedMovie.source_url||selectedMovie.file_url||selectedMovie.download_url||"";
 
-    const d=await r.json();
+ if(!source){
+  status.classList.add("show");
+  statusText.textContent="Download source unavailable.";
+  return;
+ }
 
-    if(!r.ok || !d.url){
-      statusText.textContent=d.message||"Download source unavailable.";
-      return;
-    }
+ document.querySelectorAll(".zx-quality button").forEach(b=>{
+  b.disabled=true;
+  b.style.opacity=".55";
+ });
 
-    statusText.textContent="Download ready — "+quality;
-    window.location.href=d.url;
+ status.classList.add("show");
+ statusText.textContent="Preparing "+quality+"...";
 
-  }catch(e){
-    console.error(e);
-    statusText.textContent="Download service unavailable.";
-  }finally{
-    document.querySelectorAll(".zx-quality button").forEach(b=>{
-      b.disabled=false;
-      b.style.opacity="";
-    });
+ try{
+  const r=await fetch(
+   API_BASE+"/api/movies/download?url="+
+   encodeURIComponent(source)+
+   "&quality="+encodeURIComponent(quality)
+  );
+
+  const d=await r.json();
+
+  if(!r.ok||!d.url){
+   statusText.textContent=d.message||"Download unavailable.";
+   return;
   }
+
+  statusText.textContent="Download ready — "+quality;
+  window.location.href=d.url;
+
+ }catch(e){
+  console.error(e);
+  statusText.textContent="Download service unavailable.";
+ }finally{
+  document.querySelectorAll(".zx-quality button").forEach(b=>{
+   b.disabled=false;
+   b.style.opacity="";
+  });
+ }
 }
 
 </script>

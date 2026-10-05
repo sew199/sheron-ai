@@ -1107,36 +1107,98 @@ def admin_logs():
 
 @app.get("/api/movies/download")
 def movie_download():
-    movie_id = request.args.get("movie_id", "").strip()
+    movie_url = request.args.get("url", "").strip()
     quality = request.args.get("quality", "").strip().lower()
 
-    if not movie_id:
-        return jsonify({"message": "Movie ID is required"}), 400
+    if not movie_url:
+        return jsonify({"message": "Movie URL is required"}), 400
+
+    if not movie_url.startswith(("http://", "https://")):
+        return jsonify({"message": "Invalid movie URL"}), 400
 
     if quality not in {"480p", "720p", "1080p"}:
         return jsonify({"message": "Invalid quality"}), 400
 
-    if not MOVIE_PROVIDER_URL:
+    if not CINESUBZ_API_URL or not CINESUBZ_API_KEY:
         return jsonify({
             "status": "not_configured",
-            "message": "Movie provider URL is not configured."
+            "message": "CineSubz API is not configured."
         }), 503
 
-    url = MOVIE_PROVIDER_URL.replace("[MOVIE_URL]", movie_id)
-    if MOVIE_API_KEY and "api_key=" not in url:
-        separator = "&" if "?" in url else "?"
-        url += separator + "api_key=" + requests.utils.quote(MOVIE_API_KEY, safe="")
+    try:
+        provider_url = CINESUBZ_API_URL.replace(
+            "[MOVIE_URL]",
+            requests.utils.quote(movie_url, safe="")
+        )
 
-    return jsonify({
-        "status": "ready",
-        "movie_id": movie_id,
-        "quality": quality,
-        "provider": "configured",
-        "url": url
-    })
+        if "api_key=" not in provider_url:
+            separator = "&" if "?" in provider_url else "?"
+            provider_url += separator + "api_key=" + requests.utils.quote(
+                CINESUBZ_API_KEY,
+                safe=""
+            )
 
-# =========================================================
-# START ZOROX SERVER
-# =========================================================
+        response = requests.get(provider_url, timeout=30)
+        response.raise_for_status()
+
+        data = response.json()
+
+        if not data.get("success"):
+            return jsonify({
+                "status": "provider_error",
+                "message": "Movie provider failed"
+            }), 502
+
+        result = data.get("result") or {}
+        download_links = result.get("download_links") or []
+
+        selected = None
+
+        for item in download_links:
+            label = str(item.get("label", "")).lower()
+            link = item.get("link", "")
+
+            if quality in label and link:
+                selected = item
+                break
+
+        if not selected:
+            return jsonify({
+                "status": "not_available",
+                "message": f"{quality} download is not available",
+                "available": [
+                    item.get("label", "")
+                    for item in download_links
+                    if item.get("link")
+                ]
+            }), 404
+
+        return jsonify({
+            "status": "ready",
+            "success": True,
+            "title": result.get("title", ""),
+            "quality": quality,
+            "label": selected.get("label", ""),
+            "url": selected.get("link", "")
+        })
+
+    except requests.RequestException as e:
+        logger.exception("CineSubz provider request failed")
+        return jsonify({
+            "status": "provider_error",
+            "message": "Unable to reach movie provider"
+        }), 502
+
+    except Exception as e:
+        logger.exception("Movie download error")
+        return jsonify({
+            "status": "error",
+            "message": "Movie download service error"
+        }), 500
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", "5000")),
+        debug=False
+    )
