@@ -184,6 +184,22 @@ def init_db():
         )
     """)
 
+    # Database migration: add newer user monitoring columns
+    existing_columns = {
+        row[1] for row in conn.execute("PRAGMA table_info(users)").fetchall()
+    }
+
+    migrations = {
+        "last_ip": "ALTER TABLE users ADD COLUMN last_ip TEXT",
+        "last_seen": "ALTER TABLE users ADD COLUMN last_seen TIMESTAMP",
+        "last_login": "ALTER TABLE users ADD COLUMN last_login TIMESTAMP",
+        "login_count": "ALTER TABLE users ADD COLUMN login_count INTEGER DEFAULT 0",
+    }
+
+    for column, sql in migrations.items():
+        if column not in existing_columns:
+            conn.execute(sql)
+
     conn.commit()
     conn.close()
 
