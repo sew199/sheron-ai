@@ -159,7 +159,9 @@ def init_db():
             password_hash TEXT NOT NULL,
             country TEXT NOT NULL,
             verified INTEGER DEFAULT 1,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            coins INTEGER DEFAULT 0,
+            unlimited_coins INTEGER DEFAULT 0
         )
     """)
 
@@ -194,6 +196,8 @@ def init_db():
         "last_seen": "ALTER TABLE users ADD COLUMN last_seen TIMESTAMP",
         "last_login": "ALTER TABLE users ADD COLUMN last_login TIMESTAMP",
         "login_count": "ALTER TABLE users ADD COLUMN login_count INTEGER DEFAULT 0",
+        "coins": "ALTER TABLE users ADD COLUMN coins INTEGER DEFAULT 0",
+        "unlimited_coins": "ALTER TABLE users ADD COLUMN unlimited_coins INTEGER DEFAULT 0",
     }
 
     for column, sql in migrations.items():
@@ -580,11 +584,71 @@ def admin_login():
     return jsonify({"message": "Admin login successful", "token": token})
 
 
+
+@app.post("/api/admin/coins")
+@admin_required
+def admin_manage_coins():
+    data = request.get_json(silent=True) or {}
+
+    email = str(data.get("email", "")).strip().lower()
+    unlimited = bool(data.get("unlimited", False))
+
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    conn = get_db()
+    user = conn.execute(
+        "SELECT id, email, username, coins, unlimited_coins FROM users WHERE LOWER(email)=?",
+        (email,)
+    ).fetchone()
+
+    if not user:
+        conn.close()
+        return jsonify({"error": "User not found"}), 404
+
+    if unlimited:
+        conn.execute(
+            "UPDATE users SET unlimited_coins=1 WHERE id=?",
+            (user["id"],)
+        )
+        new_coins = user["coins"]
+    else:
+        try:
+            amount = int(data.get("coins", 0))
+        except (TypeError, ValueError):
+            conn.close()
+            return jsonify({"error": "Coins must be a whole number"}), 400
+
+        if amount < 0:
+            conn.close()
+            return jsonify({"error": "Coins cannot be negative"}), 400
+
+        conn.execute(
+            "UPDATE users SET coins=?, unlimited_coins=0 WHERE id=?",
+            (amount, user["id"])
+        )
+        new_coins = amount
+
+    conn.commit()
+    conn.close()
+
+    logger.info(
+        "Admin coin update: email=%s unlimited=%s coins=%s",
+        email, unlimited, new_coins
+    )
+
+    return jsonify({
+        "message": "Coin balance updated",
+        "email": email,
+        "coins": new_coins,
+        "unlimited_coins": 1 if unlimited else 0
+    })
+
 @app.get("/api/admin/dashboard")
 @admin_required
 def admin_dashboard():
     conn = get_db()
-    users = conn.execute("SELECT id, phone, email, username, country, verified, created_at, last_ip, last_seen, last_login, login_count FROM users ORDER BY id DESC").fetchall()
+    users = conn.execute("SELECT id, phone, email, username, country, verified, created_at, last_ip, last_seen, last_login, login_count, coins, unlimited_coins FROM users ORDER BY id DESC").fetchall()
     total_users = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
     total_chats = conn.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
     online_users = conn.execute("SELECT COUNT(*) FROM users WHERE last_seen IS NOT NULL AND datetime(last_seen) >= datetime('now', '-5 minutes')").fetchone()[0]
