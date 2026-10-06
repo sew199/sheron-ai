@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#050812"/>
+    <stop offset=".5" stop-color="#071d1a"/>
+    <stop offset="1" stop-color="#12060d"/>
+  </linearGradient>
+  <radialGradient id="glow">
+    <stop stop-color="#00ff88" stop-opacity=".65"/>
+    <stop offset="1" stop-color="#00ff88" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+
+<rect width="600" height="900" fill="url(#bg)"/>
+<circle cx="300" cy="410" r="270" fill="url(#glow)"/>
+
+<path d="M300 135 L365 205 L410 320 L390 570 L300 720 L210 570 L190 320 L235 205Z"
+      fill="#07110f" stroke="#00ff88" stroke-width="5"/>
+
+<path d="M245 290 Q300 245 355 290 L340 370 Q300 405 260 370Z"
+      fill="#102c28" stroke="#35ff9b" stroke-width="4"/>
+
+<circle cx="275" cy="320" r="12" fill="#56ffad"/>
+<circle cx="325" cy="320" r="12" fill="#56ffad"/>
+
+<path d="M245 430 Q300 465 355 430 L340 520 Q300 560 260 520Z"
+      fill="#0a1717" stroke="#1d8cff" stroke-width="4"/>
+
+<circle cx="300" cy="475" r="42"
+        fill="#07100d" stroke="#00ff88" stroke-width="7"/>
+<text x="300" y="493" text-anchor="middle"
+      font-family="Arial" font-size="42" font-weight="900"
+      fill="#72ffb2">10</text>
+
+<path d="M80 760 L520 760" stroke="#ff304f" stroke-width="3"/>
+<text x="300" y="115" text-anchor="middle"
+      font-family="Arial" font-size="58" font-weight="900"
+      fill="#ffffff">BEN 10</text>
+
+<text x="300" y="815" text-anchor="middle"
+      font-family="Arial" font-size="20" font-weight="700"
+      letter-spacing="5" fill="#70ffb0">ALIEN UNIVERSE</text>
+
+<text x="300" y="850" text-anchor="middle"
+      font-family="Arial" font-size="15"
+      letter-spacing="3" fill="#78a8ff">SINHALA DUBBED</text>
+</svg>

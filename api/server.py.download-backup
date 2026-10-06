@@ -21,8 +21,7 @@ DB_FILE = os.path.join(BASE_DIR, "zorox.db")
 
 load_dotenv(dotenv_path=ENV_FILE)
 
-CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "")
-CINESUBZ_SEARCH_API_URL = os.getenv("CINESUBZ_SEARCH_API_URL", "").strip()
+CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "").strip()
 CINESUBZ_API_KEY = os.getenv("CINESUBZ_API_KEY", "").strip()
 TEST_DOWNLOAD_URL = os.getenv("TEST_DOWNLOAD_URL", "").strip()
 MOVIE_PROVIDER_URL = os.getenv("MOVIE_PROVIDER_URL", "").strip()
@@ -70,72 +69,6 @@ GEMINI_URL = (
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "openai/gpt-oss-120b"
-
-# =========================================================
-# EMAIL / RESEND
-# =========================================================
-
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
-EMAIL_FROM = os.getenv("EMAIL_FROM", "")
-
-def send_welcome_email(to_email, username):
-    if not RESEND_API_KEY or not EMAIL_FROM:
-        logger.warning("Welcome email skipped: Resend is not configured")
-        return False
-
-    try:
-        import resend
-
-        resend.api_key = RESEND_API_KEY
-
-        resend.Emails.send({
-            "from": EMAIL_FROM,
-            "to": [to_email],
-            "subject": "Welcome to ZOROX AI 🚀",
-            "html": f"""
-            <div style="background:#070b12;padding:35px 20px;font-family:Arial,sans-serif;color:#ffffff;">
-                <div style="max-width:600px;margin:auto;background:#0d1420;
-                            border:1px solid #183449;border-radius:18px;padding:30px;">
-
-                    <h1 style="color:#20d9ff;margin-top:0;">
-                        Welcome to ZOROX AI 🚀
-                    </h1>
-
-                    <p style="font-size:16px;">
-                        Hi <strong>{username}</strong>,
-                    </p>
-
-                    <p style="color:#b9c7d6;line-height:1.7;">
-                        Your ZOROX AI account has been created successfully.
-                    </p>
-
-                    <p style="color:#b9c7d6;line-height:1.7;">
-                        Welcome to <strong>WIKRAMASINGHE TECHNOLOGIES</strong>.
-                        You can now use your ZOROX AI account and explore
-                        the features available on the platform.
-                    </p>
-
-                    <div style="margin:25px 0;padding:18px;border-radius:12px;
-                                background:#081c29;border:1px solid #123b50;">
-                        <strong style="color:#20d9ff;">Account created successfully ✓</strong>
-                    </div>
-
-                    <p style="color:#8899aa;font-size:13px;">
-                        This is an automated message from ZOROX AI.
-                    </p>
-
-                </div>
-            </div>
-            """
-        })
-
-        logger.info("Welcome email sent to %s", to_email)
-        return True
-
-    except Exception:
-        logger.exception("Welcome email failed for %s", to_email)
-        return False
-
 
 # =========================================================
 # DATABASE
@@ -418,12 +351,8 @@ def register():
 
         conn.close()
 
-        # Send welcome email after successful registration
-        email_sent = send_welcome_email(email, username)
-
         return jsonify({
             "message": "Account created successfully",
-            "email_sent": email_sent,
             "user": {
                 "id": user_id,
                 "email": email,
@@ -1111,64 +1040,13 @@ def movie_page_arg():
 @app.get("/api/movies/search")
 def movie_search():
     q = str(request.args.get("q", "")).strip()
-
     if not q:
         return jsonify({"error": "Movie search query is required"}), 400
+    data, status = tmdb_get(
+        "search/movie", query=q, include_adult="false", page=movie_page_arg()
+    )
+    return jsonify(data), status
 
-    if not CINESUBZ_SEARCH_API_URL or not CINESUBZ_API_KEY:
-        return jsonify({
-            "success": False,
-            "message": "CineSubz Search API is not configured."
-        }), 503
-
-    try:
-        search_url = CINESUBZ_SEARCH_API_URL.replace(
-            "[KEYWORDS]",
-            requests.utils.quote(q, safe="")
-        ).replace(
-            "[CINESUBZ_API_KEY]",
-            requests.utils.quote(CINESUBZ_API_KEY, safe="")
-        )
-
-        response = requests.get(search_url, timeout=30)
-        response.raise_for_status()
-
-        data = response.json()
-
-        if not data.get("success"):
-            return jsonify({
-                "success": False,
-                "message": "CineSubz search failed"
-            }), 502
-
-        results = data.get("results") or []
-
-        return jsonify({
-            "success": True,
-            "results": [
-                {
-                    "title": item.get("title", ""),
-                    "url": item.get("url", ""),
-                    "poster": item.get("poster", ""),
-                    "description": item.get("description", "")
-                }
-                for item in results
-            ]
-        })
-
-    except requests.RequestException:
-        logger.exception("CineSubz search request failed")
-        return jsonify({
-            "success": False,
-            "message": "Unable to reach CineSubz Search API"
-        }), 502
-
-    except Exception:
-        logger.exception("Movie search error")
-        return jsonify({
-            "success": False,
-            "message": "Movie search service error"
-        }), 500
 
 @app.get("/api/movies/discover")
 def movie_discover():
@@ -1229,103 +1107,36 @@ def admin_logs():
 
 @app.get("/api/movies/download")
 def movie_download():
-    movie_url = request.args.get("url", "").strip()
+    movie_id = request.args.get("movie_id", "").strip()
     quality = request.args.get("quality", "").strip().lower()
 
-    if not movie_url:
-        return jsonify({"message": "Movie URL is required"}), 400
-
-    if not movie_url.startswith(("http://", "https://")):
-        return jsonify({"message": "Invalid movie URL"}), 400
+    if not movie_id:
+        return jsonify({"message": "Movie ID is required"}), 400
 
     if quality not in {"480p", "720p", "1080p"}:
         return jsonify({"message": "Invalid quality"}), 400
 
-    if not CINESUBZ_API_URL or not CINESUBZ_API_KEY:
+    if not MOVIE_PROVIDER_URL:
         return jsonify({
             "status": "not_configured",
-            "message": "CineSubz API is not configured."
+            "message": "Movie provider URL is not configured."
         }), 503
 
-    try:
-        base_url = CINESUBZ_API_URL.split("?", 1)[0]
+    url = MOVIE_PROVIDER_URL.replace("[MOVIE_URL]", movie_id)
+    if MOVIE_API_KEY and "api_key=" not in url:
+        separator = "&" if "?" in url else "?"
+        url += separator + "api_key=" + requests.utils.quote(MOVIE_API_KEY, safe="")
 
-        provider_url = (
-            base_url
-            + "?url="
-            + requests.utils.quote(movie_url, safe="")
-            + "&api_key="
-            + requests.utils.quote(CINESUBZ_API_KEY, safe="")
-        )
+    return jsonify({
+        "status": "ready",
+        "movie_id": movie_id,
+        "quality": quality,
+        "provider": "configured",
+        "url": url
+    })
 
-        print(
-            "CineSubz provider:",
-            base_url + "?url=[HIDDEN]&api_key=[HIDDEN]"
-        )
-
-        response = requests.get(provider_url, timeout=30)
-        response.raise_for_status()
-
-        data = response.json()
-
-        if not data.get("success"):
-            return jsonify({
-                "status": "provider_error",
-                "message": "Movie provider failed"
-            }), 502
-
-        result = data.get("result") or {}
-        download_links = result.get("download_links") or []
-
-        selected = None
-
-        for item in download_links:
-            label = str(item.get("label", "")).lower()
-            link = item.get("link", "")
-
-            if quality in label and link:
-                selected = item
-                break
-
-        if not selected:
-            return jsonify({
-                "status": "not_available",
-                "message": f"{quality} download is not available",
-                "available": [
-                    item.get("label", "")
-                    for item in download_links
-                    if item.get("link")
-                ]
-            }), 404
-
-        return jsonify({
-            "status": "ready",
-            "success": True,
-            "title": result.get("title", ""),
-            "quality": quality,
-            "label": selected.get("label", ""),
-            "url": __import__("html").unescape(
-                selected.get("link", "")
-            )
-        })
-
-    except requests.RequestException as e:
-        logger.exception("CineSubz provider request failed")
-        return jsonify({
-            "status": "provider_error",
-            "message": "Unable to reach movie provider"
-        }), 502
-
-    except Exception as e:
-        logger.exception("Movie download error")
-        return jsonify({
-            "status": "error",
-            "message": "Movie download service error"
-        }), 500
-
+# =========================================================
+# START ZOROX SERVER
+# =========================================================
 if __name__ == "__main__":
-    app.run(
-        host="0.0.0.0",
-        port=int(os.getenv("PORT", "5000")),
-        debug=False
-    )
+    app.run(host="0.0.0.0", port=5000, debug=False)

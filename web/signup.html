@@ -4,74 +4,458 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Create Account — ZOROX.AI</title>
+
 <style>
 *{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ min-height:100%;
+ font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ color:#fff;
+ background:#02040a;
+}
+
 body{
- margin:0;min-height:100vh;display:grid;place-items:center;
- font-family:Inter,system-ui,sans-serif;color:#fff;background:#03050b;
- background-image:radial-gradient(circle at 50% 35%,rgba(255,45,85,.12),transparent 35%);
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow-x:hidden;
+ position:relative;
+ padding:30px 16px;
 }
+
+.bg{
+ position:fixed;
+ inset:0;
+ overflow:hidden;
+ pointer-events:none;
+ background:
+  radial-gradient(circle at 50% 20%,rgba(0,220,255,.12),transparent 32%),
+  radial-gradient(circle at 8% 75%,rgba(85,70,255,.10),transparent 30%),
+  radial-gradient(circle at 92% 25%,rgba(0,210,255,.08),transparent 28%);
+}
+
+.orb{
+ position:absolute;
+ border-radius:50%;
+ animation:float 10s ease-in-out infinite;
+}
+
+.orb.one{
+ width:190px;
+ height:190px;
+ top:5%;
+ left:3%;
+ background:rgba(0,220,255,.09);
+ box-shadow:0 0 100px rgba(0,220,255,.22);
+ filter:blur(2px);
+}
+
+.orb.two{
+ width:250px;
+ height:250px;
+ right:-90px;
+ bottom:4%;
+ background:rgba(76,70,255,.08);
+ box-shadow:0 0 120px rgba(76,70,255,.22);
+ filter:blur(3px);
+ animation-delay:-3s;
+}
+
+.orb.three{
+ width:110px;
+ height:110px;
+ left:45%;
+ bottom:5%;
+ background:rgba(0,255,220,.06);
+ box-shadow:0 0 80px rgba(0,255,220,.18);
+ filter:blur(2px);
+ animation-delay:-6s;
+}
+
+@keyframes float{
+ 0%,100%{transform:translate3d(0,0,0) scale(1)}
+ 50%{transform:translate3d(-25px,-32px,0) scale(1.08)}
+}
+
+.wrap{
+ width:100%;
+ display:flex;
+ justify-content:center;
+ position:relative;
+ z-index:2;
+}
+
 .card{
- width:min(420px,92%);padding:38px;border-radius:24px;
- background:rgba(10,15,28,.82);border:1px solid rgba(100,150,255,.2);
- box-shadow:0 25px 80px rgba(0,0,0,.5);backdrop-filter:blur(20px);
+ width:min(470px,100%);
+ padding:34px;
+ border-radius:28px;
+ background:linear-gradient(
+  145deg,
+  rgba(13,20,34,.89),
+  rgba(5,10,19,.79)
+ );
+ border:1px solid rgba(80,210,255,.18);
+ box-shadow:
+  0 30px 100px rgba(0,0,0,.65),
+  0 0 45px rgba(0,190,255,.05);
+ backdrop-filter:blur(24px);
+ -webkit-backdrop-filter:blur(24px);
+ animation:cardIn .7s ease both;
 }
-.logo{font-size:30px;font-weight:800;margin-bottom:8px}
-.logo span{color:#639dff}
-.sub{color:#8997b2;margin-bottom:28px}
+
+@keyframes cardIn{
+ from{
+  opacity:0;
+  transform:translateY(25px) scale(.97);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0) scale(1);
+ }
+}
+
+.brand{
+ text-align:center;
+ margin-bottom:24px;
+}
+
+.logo{
+ font-size:34px;
+ font-weight:900;
+ letter-spacing:3px;
+ line-height:1;
+}
+
+.logo span{
+ color:#21d9ff;
+ text-shadow:0 0 22px rgba(33,217,255,.45);
+}
+
+.tag{
+ margin-top:11px;
+ color:#7f91aa;
+ font-size:14px;
+}
+
+.field{
+ margin:10px 0;
+}
+
 input{
- width:100%;padding:14px;margin:7px 0;border-radius:11px;
- border:1px solid rgba(120,150,210,.2);background:#080d18;color:#fff;
+ width:100%;
+ height:50px;
+ padding:0 15px;
+ border-radius:14px;
+ border:1px solid rgba(120,160,200,.16);
  outline:none;
+ color:#fff;
+ background:rgba(3,8,17,.72);
+ transition:.25s ease;
+ font-size:14px;
 }
-button{
- width:100%;padding:14px;margin-top:15px;border:0;border-radius:11px;
- color:#fff;font-weight:700;cursor:pointer;
- background:linear-gradient(135deg,#287dff,#684cff);
+
+input::placeholder{
+ color:#68788f;
 }
-.msg{margin-top:15px;text-align:center;color:#9fb5d8;font-size:13px}
-a{color:#69a9ff;text-decoration:none}
+
+input:focus{
+ border-color:rgba(30,215,255,.55);
+ box-shadow:
+  0 0 0 3px rgba(30,215,255,.07),
+  0 0 25px rgba(0,200,255,.08);
+ background:rgba(4,11,21,.9);
+}
+
+.main-btn{
+ width:100%;
+ height:52px;
+ margin-top:15px;
+ border:0;
+ border-radius:14px;
+ color:#fff;
+ font-size:15px;
+ font-weight:800;
+ cursor:pointer;
+ background:linear-gradient(135deg,#08bfe9,#4c57ff);
+ box-shadow:0 12px 35px rgba(31,150,255,.18);
+ transition:.25s ease;
+}
+
+.main-btn:hover{
+ transform:translateY(-2px);
+ box-shadow:0 16px 42px rgba(31,180,255,.28);
+}
+
+.main-btn.loading{
+ opacity:.7;
+ pointer-events:none;
+}
+
+.status{
+ min-height:20px;
+ margin-top:13px;
+ text-align:center;
+ color:#9eb1ca;
+ font-size:13px;
+}
+
+.divider{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin:21px 0 15px;
+ color:#52637b;
+ font-size:11px;
+ text-transform:uppercase;
+ letter-spacing:1.5px;
+}
+
+.divider:before,
+.divider:after{
+ content:"";
+ height:1px;
+ flex:1;
+ background:rgba(120,150,190,.12);
+}
+
+.social{
+ width:100%;
+ height:50px;
+ margin-top:10px;
+ border-radius:13px;
+ border:1px solid rgba(130,160,200,.14);
+ background:rgba(255,255,255,.035);
+ color:#dce7f4;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+ font-weight:700;
+ cursor:pointer;
+ transition:.25s ease;
+}
+
+.social:hover{
+ background:rgba(255,255,255,.065);
+ border-color:rgba(33,217,255,.28);
+ transform:translateY(-1px);
+}
+
+.social-icon{
+ width:22px;
+ height:22px;
+ display:grid;
+ place-items:center;
+ font-size:17px;
+ font-weight:900;
+}
+
+.facebook .social-icon{
+ color:#4d9cff;
+}
+
+.bottom{
+ margin-top:23px;
+ text-align:center;
+ color:#71839c;
+ font-size:13px;
+ line-height:1.8;
+}
+
+.bottom a{
+ color:#35d9ff;
+ text-decoration:none;
+ font-weight:600;
+}
+
+.bottom a:hover{
+ text-decoration:underline;
+}
+
+.back{
+ color:#71839c !important;
+ font-weight:500 !important;
+}
+
+@media(max-width:480px){
+ body{
+  padding:18px 12px;
+ }
+
+ .card{
+  padding:27px 20px;
+  border-radius:23px;
+ }
+
+ .logo{
+  font-size:29px;
+ }
+}
 </style>
 </head>
+
 <body>
-<div class="card">
- <div class="logo">ZOROX<span>.AI</span></div>
- <div class="sub">Create your ZOROX.AI account.</div>
 
- <input id="username" placeholder="Username">
- <input id="email" type="email" placeholder="Email">
- <input id="password" type="password" placeholder="Password">
- <input id="country" placeholder="Country" value="Sri Lanka">
- <button onclick="signup()">Create Account</button>
+<div class="bg">
+ <div class="orb one"></div>
+ <div class="orb two"></div>
+ <div class="orb three"></div>
+</div>
 
- <div class="msg" id="msg"></div>
- <div class="msg">Already have an account? <a href="login.html">Login</a></div>
- <div class="msg"><a href="index.html">← Back to ZOROX.AI</a></div>
+<div class="wrap">
+ <main class="card">
+
+  <div class="brand">
+   <div class="logo">ZOROX<span>.AI</span></div>
+   <div class="tag">Create your account and enter the ZOROX ecosystem.</div>
+  </div>
+
+  <form onsubmit="signup();return false;">
+
+   <div class="field">
+    <input
+     id="username"
+     autocomplete="username"
+     placeholder="Username"
+     required>
+   </div>
+
+   <div class="field">
+    <input
+     id="email"
+     type="email"
+     autocomplete="email"
+     placeholder="Email address"
+     required>
+   </div>
+
+   <div class="field">
+    <input
+     id="password"
+     type="password"
+     autocomplete="new-password"
+     placeholder="Password — minimum 8 characters"
+     minlength="8"
+     required>
+   </div>
+
+   <div class="field">
+    <input
+     id="country"
+     autocomplete="country-name"
+     placeholder="Country"
+     value="Sri Lanka"
+     required>
+   </div>
+
+   <button id="signupBtn" class="main-btn" type="submit">
+    Create Account
+   </button>
+
+  </form>
+
+  <div class="status" id="msg"></div>
+
+  <div class="divider">
+   <span>or continue with</span>
+  </div>
+
+  <button class="social google" type="button" onclick="socialNotice('Google')">
+   <span class="social-icon">G</span>
+   Continue with Google
+  </button>
+
+  <button class="social facebook" type="button" onclick="socialNotice('Facebook')">
+   <span class="social-icon">f</span>
+   Continue with Facebook
+  </button>
+
+  <div class="bottom">
+   Already have an account?
+   <a href="login.html">Sign in</a>
+   <br>
+   <a class="back" href="index.html">← Back to ZOROX.AI</a>
+  </div>
+
+ </main>
 </div>
 
 <script>
+function socialNotice(provider){
+ const msg=document.getElementById("msg");
+ msg.textContent=provider+" sign-up will be available soon.";
+}
+
 async function signup(){
+
  const username=document.getElementById("username").value.trim();
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
- const country=document.getElementById("country").value.trim()||"Sri Lanka";
- const msg=document.getElementById("msg");
+ const country=document.getElementById("country").value.trim() || "Sri Lanka";
 
- if(!username||!email||!password){
-  msg.textContent="Please fill all required fields.";return
+ const msg=document.getElementById("msg");
+ const btn=document.getElementById("signupBtn");
+
+ if(!username || !email || !password){
+  msg.textContent="Please fill all required fields.";
+  return;
  }
 
+ if(password.length < 8){
+  msg.textContent="Password must be at least 8 characters.";
+  return;
+ }
+
+ btn.classList.add("loading");
+ btn.textContent="Creating account...";
+ msg.textContent="";
+
  try{
-  const r=await fetch("http://"+location.hostname+":5000/api/register",{
+
+  const r=await fetch("/api/register",{
    method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({username,email,password,country})
+   headers:{
+    "Content-Type":"application/json"
+   },
+   body:JSON.stringify({
+    username,
+    email,
+    password,
+    country
+   })
   });
+
   const data=await r.json();
-  msg.textContent=data.message || "Account created.";
-  if(r.ok){ msg.textContent="Account created successfully! Redirecting to Login..."; setTimeout(()=>{ window.location.replace("login.html"); },1500); }
- }catch(e){msg.textContent="Server connection error."}
+
+  if(r.ok){
+
+   msg.textContent="Account created successfully! Redirecting...";
+
+   setTimeout(()=>{
+    window.location.replace("login.html");
+   },900);
+
+   return;
+  }
+
+  msg.textContent=data.error || data.message || "Could not create account.";
+
+ }catch(e){
+
+  msg.textContent="Unable to connect to ZOROX server.";
+
+ }finally{
+
+  btn.classList.remove("loading");
+  btn.textContent="Create Account";
+
+ }
+
 }
 </script>
+
 </body>
 </html>
