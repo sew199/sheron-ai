@@ -517,6 +517,14 @@ def login():
     })
 
 
+@app.get("/api/admin/ping")
+def admin_ping():
+    return jsonify({
+        "status": "ok",
+        "service": "ZOROX admin API",
+        "version": "diagnostic-1"
+    })
+
 # =========================================================
 # ADMIN AUTH + MONITORING
 # =========================================================
