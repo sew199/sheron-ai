@@ -650,17 +650,47 @@ td{
     <div class="card">
 
      <div class="card-head">
-      <h3>🪙 Account Tools</h3>
+      <h3>🪙 Coin Management</h3>
      </div>
 
      <p class="note">
-      Coin management will be available here after the secure backend endpoint
-      is connected.
+      Search a registered user by email and manage their ZOROX coin balance.
      </p>
 
-     <button class="refresh" onclick="alert('Coin management backend will be connected next.')">
-      Coin Management
-     </button>
+     <label class="note">User Email</label>
+     <input
+      id="coinUserEmail"
+      type="email"
+      placeholder="user@gmail.com"
+      autocomplete="off"
+     >
+
+     <label class="note">Coins to Add</label>
+     <input
+      id="coinAmount"
+      type="number"
+      min="1"
+      step="1"
+      placeholder="10"
+     >
+
+     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+
+      <button class="refresh" onclick="addUserCoins()">
+       ➕ ADD COINS
+      </button>
+
+      <button class="refresh" onclick="enableUnlimitedCoins()">
+       ♾️ UNLIMITED
+      </button>
+
+     </div>
+
+     <div
+      id="coinManagerResult"
+      class="note"
+      style="margin-top:15px;min-height:24px;"
+     ></div>
 
     </div>
 
@@ -1012,6 +1042,99 @@ if(sessionStorage.getItem("adminToken")){
 
 }
 
+</script>
+
+
+<script>
+async function adminCoinRequest(payload) {
+    const token =
+        localStorage.getItem("adminToken") ||
+        sessionStorage.getItem("adminToken") ||
+        localStorage.getItem("admin_token") ||
+        sessionStorage.getItem("admin_token");
+
+    const result = document.getElementById("coinManagerResult");
+
+    if (!token) {
+        result.textContent = "❌ Admin session not found. Please login again.";
+        return null;
+    }
+
+    result.textContent = "⏳ Updating coin balance...";
+
+    try {
+        const response = await fetch("/api/admin/coins", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Admin-Token": token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            result.textContent =
+                "❌ " + (data.error || "Coin update failed.");
+            return null;
+        }
+
+        result.textContent =
+            "✅ " + (data.message || "Coin update successful.") +
+            " | " + data.email +
+            " | Balance: " + data.coins;
+
+        return data;
+
+    } catch (error) {
+        console.error("Coin management error:", error);
+        result.textContent =
+            "❌ Could not connect to the ZOROX server.";
+        return null;
+    }
+}
+
+async function addUserCoins() {
+    const email =
+        document.getElementById("coinUserEmail").value.trim().toLowerCase();
+
+    const amount =
+        Number(document.getElementById("coinAmount").value);
+
+    if (!email) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter the user's email.";
+        return;
+    }
+
+    if (!Number.isInteger(amount) || amount <= 0) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter a valid whole number of coins.";
+        return;
+    }
+
+    await adminCoinRequest({
+        email: email,
+        coins: amount
+    });
+}
+
+async function enableUnlimitedCoins() {
+    const email =
+        document.getElementById("coinUserEmail").value.trim().toLowerCase();
+
+    if (!email) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter the user's email.";
+        return;
+    }
+
+    await adminCoinRequest({
+        email: email,
+        unlimited: true
+    });
+}
 </script>
 
 </body>
