@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZOROX AI — WIKRAMASINGHE TECHNOLOGIES</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#050307;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden
+}
+button,input{font:inherit}
+button{cursor:pointer}
+
+body:before{
+    content:"";
+    position:fixed;
+    width:650px;height:650px;
+    left:-300px;top:-300px;
+    background:radial-gradient(circle,rgba(255,25,65,.16),transparent 68%);
+    pointer-events:none;
+    z-index:-3
+}
+body:after{
+    content:"";
+    position:fixed;
+    width:650px;height:650px;
+    right:-300px;bottom:-300px;
+    background:radial-gradient(circle,rgba(180,35,120,.13),transparent 68%);
+    pointer-events:none;
+    z-index:-3
+}
+
+.grid{
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+    background-size:55px 55px;
+    mask-image:linear-gradient(to bottom,#000,transparent 92%);
+    pointer-events:none;
+    z-index:-2
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+    background:rgba(5,3,7,.72);
+    backdrop-filter:blur(25px);
+    border-bottom:1px solid rgba(255,255,255,.07)
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    cursor:pointer
+}
+
+.logo{
+    width:43px;height:43px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:1000;
+    font-size:24px;
+    color:#fff;
+    background:linear-gradient(135deg,#ff174d,#8b102e);
+    box-shadow:0 0 30px rgba(255,23,77,.42);
+    animation:zPulse 2.6s infinite
+}
+
+@keyframes zPulse{
+    0%,100%{box-shadow:0 0 20px rgba(255,23,77,.3)}
+    50%{box-shadow:0 0 42px rgba(255,23,77,.72)}
+}
+
+.brand-text{
+    font-weight:900;
+    letter-spacing:2px;
+    font-size:14px
+}
+.brand-text span{color:#ff315d}
+
+nav{
+    display:flex;
+    gap:10px
+}
+nav button{
+    background:transparent;
+    border:0;
+    color:#8e8992;
+    padding:9px 12px;
+    transition:.25s
+}
+nav button:hover{color:#fff}
+
+.header-actions{
+    display:flex;
+    gap:8px
+}
+
+.small-btn{
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.04);
+    color:#fff;
+    border-radius:11px;
+    padding:9px 13px
+}
+
+.small-btn.red{
+    background:linear-gradient(135deg,#ff174d,#b70f39);
+    border:0
+}
+
+/* PAGES */
+
+.page{display:none;min-height:calc(100vh - 74px)}
+.page.active{display:block}
+
+/* HOME */
+
+.hero{
+    min-height:75vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:70px 20px
+}
+
+.hero-inner{max-width:950px}
+
+.badge{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding:9px 17px;
+    border-radius:50px;
+    border:1px solid rgba(255,40,85,.22);
+    background:rgba(255,20,65,.045);
+    color:#ff7894;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-bottom:28px
+}
+
+.dot{
+    width:7px;height:7px;
+    border-radius:50%;
+    background:#ff174d;
+    box-shadow:0 0 13px #ff174d;
+    animation:pulse 1.5s infinite
+}
+
+@keyframes pulse{50%{opacity:.25}}
+
+h1{
+    font-size:clamp(58px,11vw,125px);
+    line-height:.88;
+    letter-spacing:-7px;
+    font-weight:1000
+}
+
+.gradient{
+    background:linear-gradient(90deg,#fff,#ff365f,#b54cff);
+    -webkit-background-clip:text;
+    color:transparent
+}
+
+.subtitle{
+    max-width:690px;
+    margin:30px auto;
+    color:#8e8792;
+    line-height:1.8;
+    font-size:16px
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px
+}
+
+.btn{
+    border:0;
+    padding:14px 22px;
+    border-radius:13px;
+    font-weight:800;
+    color:#fff;
+    transition:.25s
+}
+
+.btn:hover{transform:translateY(-3px)}
+
+.red-btn{
+    background:linear-gradient(135deg,#ff174d,#a80d35);
+    box-shadow:0 10px 35px rgba(255,23,77,.18)
+}
+
+.dark-btn{
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.1)
+}
+
+.feature-grid{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 6% 90px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px
+}
+
+.feature{
+    min-height:190px;
+    padding:27px;
+    border-radius:23px;
+    border:1px solid rgba(255,255,255,.07);
+    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    backdrop-filter:blur(18px);
+    transition:.3s
+}
+.feature:hover{
+    transform:translateY(-7px);
+    border-color:rgba(255,30,75,.3)
+}
+.feature-icon{
+    font-size:25px;
+    margin-bottom:20px
+}
+.feature h3{margin-bottom:10px}
+.feature p{
+    color:#77717b;
+    font-size:13px;
+    line-height:1.7
+}
+
+/* CHAT */
+
+.chat-page{
+    max-width:950px;
+    margin:auto;
+    padding:45px 20px 80px
+}
+
+.chat-heading{text-align:center;margin-bottom:25px}
+.z-big{
+    width:72px;height:72px;
+    margin:auto auto 15px;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    font-weight:1000;
+    background:linear-gradient(135deg,#ff174d,#76102d);
+    box-shadow:0 0 45px rgba(255,23,77,.3);
+    animation:zPulse 2.5s infinite
+}
+
+.chat-heading h2{font-size:38px}
+.chat-heading p{color:#77717b;margin-top:7px}
+
+.chat-box{
+    height:610px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:25px;
+    overflow:hidden;
+    background:rgba(9,6,11,.76);
+    backdrop-filter:blur(25px);
+    box-shadow:0 30px 100px rgba(0,0,0,.45);
+    display:flex;
+    flex-direction:column
+}
+
+.chat-top{
+    padding:17px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.06)
+}
+
+.chat-brand{display:flex;align-items:center;gap:10px}
+.mini-z{
+    width:34px;height:34px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ff174d,#79102d);
+    font-weight:900
+}
+.chat-name{font-weight:800;font-size:14px}
+.online{font-size:10px;color:#ff5577;margin-top:3px}
+
+.close{
+    width:35px;height:35px;
+    border:0;border-radius:10px;
+    background:rgba(255,255,255,.05);
+    color:#aaa
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px
+}
+
+.message{
+    max-width:78%;
+    padding:13px 16px;
+    border-radius:16px;
+    line-height:1.6;
+    font-size:14px
+}
+.ai{
+    align-self:flex-start;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.06)
+}
+.user{
+    align-self:flex-end;
+    background:linear-gradient(135deg,#e91548,#8b1640)
+}
+
+.chat-input{
+    display:flex;
+    gap:9px;
+    padding:14px;
+    border-top:1px solid rgba(255,255,255,.06)
+}
+.chat-input input{
+    flex:1;
+    outline:0;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    color:#fff;
+    border-radius:13px;
+    padding:14px
+}
+.send{
+    width:52px;
+    border:0;
+    border-radius:13px;
+    color:#fff;
+    background:linear-gradient(135deg,#ff174d,#951038)
+}
+
+/* MEDIA PAGES */
+
+.media-page{
+    padding:30px 5% 80px;
+    max-width:1250px;
+    margin:auto
+}
+
+.media-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:24px
+}
+
+.back{
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.04);
+    color:#fff;
+    border-radius:12px;
+    padding:10px 15px
+}
+
+.media-title h2{font-size:38px}
+.media-title p{color:#77717b;margin-top:6px}
+
+.search{
+    display:flex;
+    gap:9px;
+    margin-bottom:20px
+}
+.search input{
+    flex:1;
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.035);
+    color:#fff;
+    outline:0;
+    border-radius:14px;
+    padding:15px 17px
+}
+.search button{
+    border:0;
+    border-radius:14px;
+    padding:0 20px;
+    color:#fff;
+    background:linear-gradient(135deg,#ff174d,#8c1235)
+}
+
+.categories{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:18px
+}
+.category{
+    white-space:nowrap;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    color:#aaa;
+    border-radius:50px;
+    padding:8px 14px
+}
+.category.active{
+    color:#fff;
+    border-color:rgba(255,40,80,.4);
+    background:rgba(255,25,65,.1)
+}
+
+/* MUSIC */
+
+.music-page .search button{
+    background:linear-gradient(135deg,#a348ff,#ff4f9a)
+}
+
+.music-visual{
+    height:190px;
+    border-radius:25px;
+    margin-bottom:24px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+      radial-gradient(circle at 30% 50%,rgba(166,58,255,.32),transparent 30%),
+      radial-gradient(circle at 70% 50%,rgba(255,60,145,.25),transparent 30%),
+      #0b0710;
+    border:1px solid rgba(210,80,255,.14)
+}
+
+.visualizer{
+    height:90px;
+    display:flex;
+    align-items:center;
+    gap:5px
+}
+.bar{
+    width:5px;
+    height:20px;
+    border-radius:10px;
+    background:linear-gradient(#bd55ff,#ff559c);
+    animation:musicBars .8s ease-in-out infinite alternate
+}
+.bar:nth-child(2n){animation-delay:.2s}
+.bar:nth-child(3n){animation-delay:.4s}
+.bar:nth-child(4n){animation-delay:.1s}
+
+@keyframes musicBars{
+    from{height:12px}
+    to{height:75px}
+}
+
+.music-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px
+}
+
+.media-card{
+    min-width:0;
+    border:1px solid rgba(255,255,255,.07);
+    background:rgba(255,255,255,.025);
+    border-radius:18px;
+    overflow:hidden;
+    transition:.3s
+}
+.media-card:hover{transform:translateY(-5px)}
+
+.poster{
+    width:100%;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    background:#111
+}
+
+.album{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    background:#111
+}
+
+.card-info{padding:13px}
+.card-info h3{
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis
+}
+.card-info p{
+    color:#716a75;
+    font-size:11px;
+    margin-top:6px
+}
+
+.play{
+    margin-top:11px;
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:9px;
+    color:#fff;
+    background:linear-gradient(135deg,#a644ff,#ff4c99)
+}
+
+.movie-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px
+}
+
+.empty{
+    grid-column:1/-1;
+    padding:70px 20px;
+    text-align:center;
+    color:#68616c;
+    border:1px dashed rgba(255,255,255,.08);
+    border-radius:20px
+}
+
+/* AUTH */
+
+.auth{
+    max-width:430px;
+    margin:70px auto;
+    padding:0 20px
+}
+.auth-box{
+    padding:30px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    backdrop-filter:blur(20px)
+}
+.auth-logo{
+    width:58px;height:58px;
+    margin:0 auto 17px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    font-weight:1000;
+    background:linear-gradient(135deg,#ff174d,#80102e)
+}
+.auth h2{text-align:center;margin-bottom:7px}
+.auth p{text-align:center;color:#716a75;font-size:13px;margin-bottom:24px}
+
+.auth input{
+    width:100%;
+    margin-bottom:11px;
+    padding:14px;
+    border-radius:12px;
+    outline:0;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.25);
+    color:#fff
+}
+
+.auth button{
+    width:100%;
+    padding:14px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ff174d,#911033);
+    color:#fff;
+    font-weight:800
+}
+
+.auth-switch{
+    margin-top:16px;
+    color:#77717b;
+    text-align:center;
+    font-size:12px
+}
+.auth-switch button{
+    width:auto;
+    padding:0;
+    background:none;
+    color:#ff4b70
+}
+
+/* FOOTER */
+
+footer{
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid rgba(255,255,255,.06);
+    color:#4f4952;
+    font-size:11px
+}
+footer strong{color:#ff315d;letter-spacing:2px}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+    nav{display:none}
+    .feature-grid{grid-template-columns:1fr}
+    .movie-grid{grid-template-columns:repeat(2,1fr)}
+    .music-grid{grid-template-columns:repeat(2,1fr)}
+    .media-title h2{font-size:30px}
+}
+
+@media(max-width:600px){
+    header{padding:13px 4%}
+    .brand-text{font-size:12px}
+    .header-actions .small-btn:first-child{display:none}
+    h1{letter-spacing:-4px}
+    .subtitle{font-size:14px}
+    .hero{padding:55px 18px}
+    .chat-page{padding:30px 12px}
+    .chat-box{height:620px}
+    .message{max-width:88%}
+    .media-page{padding:25px 14px}
+    .media-top{align-items:flex-start}
+    .movie-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    .music-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+}
+
+
+/* =========================
+   ZOROX MOVIE DETAILS
+========================= */
+
+.movie-details-container{
+    width:100%;
+    min-height:calc(100vh - 90px);
+    position:relative;
+    overflow:hidden;
+    border-radius:28px;
+    background:#030306;
+}
+
+.movie-detail-hero{
+    min-height:calc(100vh - 90px);
+    width:100%;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:70px 7%;
+    animation:movieHeroIn .7s ease both;
+}
+
+.movie-detail-hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            circle at 75% 35%,
+            rgba(255,35,35,.10),
+            transparent 35%
+        );
+}
+
+.movie-detail-content{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:48px;
+    max-width:1250px;
+    width:100%;
+}
+
+.movie-detail-poster{
+    width:280px;
+    max-width:30vw;
+    border-radius:18px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.75),
+        0 0 35px rgba(255,30,30,.12);
+    animation:posterFloat .8s ease both;
+}
+
+.movie-detail-info{
+    max-width:720px;
+    animation:movieInfoIn .8s ease .1s both;
+}
+
+.movie-detail-badge{
+    display:inline-flex;
+    padding:8px 14px;
+    border:1px solid rgba(255,60,60,.35);
+    border-radius:999px;
+    background:rgba(255,30,30,.08);
+    color:#ff4b4b;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.movie-detail-info h1{
+    margin:0 0 16px;
+    font-size:clamp(38px,6vw,76px);
+    line-height:.95;
+    letter-spacing:-2px;
+    color:#fff;
+    text-shadow:0 8px 30px rgba(0,0,0,.65);
+}
+
+.movie-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.movie-meta span{
+    padding:7px 12px;
+    border-radius:8px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+    color:#eee;
+    font-size:13px;
+    font-weight:700;
+}
+
+.movie-genres{
+    color:#ff6666;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.movie-overview{
+    color:rgba(255,255,255,.72);
+    font-size:16px;
+    line-height:1.75;
+    max-width:680px;
+    margin-bottom:28px;
+}
+
+.movie-back-btn{
+    position:absolute;
+    top:28px;
+    left:30px;
+    z-index:10;
+    border:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(12px);
+    color:#fff;
+    padding:11px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.25s;
+}
+
+.movie-back-btn:hover{
+    background:#ff3030;
+    border-color:#ff3030;
+    transform:translateX(-3px);
+}
+
+.trailer-btn{
+    border:0;
+    padding:14px 22px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#ff2020,#a80000);
+    color:#fff;
+    font-weight:900;
+    letter-spacing:.5px;
+    cursor:pointer;
+    box-shadow:0 12px 35px rgba(255,0,0,.25);
+    transition:.25s;
+}
+
+.trailer-btn:hover{
+    transform:translateY(-3px) scale(1.02);
+    box-shadow:0 18px 45px rgba(255,0,0,.35);
+}
+
+.movie-detail-loading,
+.movie-detail-error{
+    min-height:70vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    text-align:center;
+    gap:15px;
+}
+
+.movie-detail-error h2{
+    font-size:32px;
+    margin:0;
+}
+
+.loader{
+    width:42px;
+    height:42px;
+    border:3px solid rgba(255,255,255,.12);
+    border-top-color:#ff3030;
+    border-radius:50%;
+    animation:zoroxSpin .8s linear infinite;
+}
+
+@keyframes zoroxSpin{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes movieHeroIn{
+    from{
+        opacity:0;
+        transform:scale(1.03);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes posterFloat{
+    from{
+        opacity:0;
+        transform:translateX(-35px) scale(.95);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) scale(1);
+    }
+}
+
+@keyframes movieInfoIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:800px){
+
+    .movie-detail-hero{
+        min-height:calc(100vh - 70px);
+        padding:85px 20px 45px;
+        align-items:flex-end;
+        background-position:center top;
+    }
+
+    .movie-detail-content{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:24px;
+    }
+
+    .movie-detail-poster{
+        width:165px;
+        max-width:none;
+        border-radius:14px;
+    }
+
+    .movie-detail-info{
+        max-width:100%;
+    }
+
+    .movie-detail-info h1{
+        font-size:42px;
+        letter-spacing:-1px;
+    }
+
+    .movie-overview{
+        font-size:14px;
+        line-height:1.65;
+    }
+
+    .movie-back-btn{
+        top:18px;
+        left:18px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .movie-detail-poster{
+        width:140px;
+    }
+
+    .movie-detail-info h1{
+        font-size:34px;
+    }
+
+    .movie-meta span{
+        font-size:12px;
+    }
+
+    .trailer-btn{
+        width:100%;
+    }
+
+}
+
+
+/* =========================
+   ZOROX PREMIUM MOVIES
+========================= */
+
+.movie-app{
+    width:100%;
+    max-width:1400px;
+    margin:auto;
+    padding:30px 28px 70px;
+}
+
+.movie-hero-title{
+    min-height:250px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    padding:55px 10px 30px;
+    border-radius:30px;
+    margin-bottom:22px;
+    background:
+        radial-gradient(circle at 80% 30%,rgba(255,45,80,.18),transparent 35%),
+        radial-gradient(circle at 20% 80%,rgba(90,50,255,.13),transparent 35%);
+}
+
+.movie-kicker,
+#movieSectionKicker{
+    color:#ff3157;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.movie-hero-title h1{
+    margin:10px 0;
+    font-size:clamp(34px,5vw,68px);
+    line-height:.95;
+    letter-spacing:-2px;
+    font-weight:900;
+}
+
+.movie-hero-title p{
+    color:rgba(255,255,255,.58);
+    margin:14px 0 0;
+}
+
+.movie-search-box{
+    display:flex;
+    gap:10px;
+    margin:5px 0 20px;
+}
+
+.movie-search-box input{
+    flex:1;
+    min-width:0;
+    height:54px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:15px;
+    padding:0 18px;
+    background:rgba(255,255,255,.045);
+    color:white;
+    outline:none;
+}
+
+.movie-search-box input:focus{
+    border-color:rgba(255,49,87,.7);
+    box-shadow:0 0 25px rgba(255,49,87,.1);
+}
+
+.movie-search-box button{
+    border:0;
+    border-radius:15px;
+    padding:0 25px;
+    background:#ff3157;
+    color:white;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.movie-actions{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:3px 0 20px;
+    scrollbar-width:none;
+}
+
+.movie-actions::-webkit-scrollbar{
+    display:none;
+}
+
+.movie-action{
+    flex:0 0 auto;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.035);
+    color:rgba(255,255,255,.7);
+    padding:11px 17px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:.25s;
+    font-weight:700;
+}
+
+.movie-action:hover,
+.movie-action.active{
+    background:#ff3157;
+    border-color:#ff3157;
+    color:white;
+    transform:translateY(-2px);
+}
+
+.movie-section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin:18px 0 18px;
+}
+
+.movie-section-head h2{
+    margin:5px 0 0;
+    font-size:28px;
+}
+
+#movieResultCount{
+    color:rgba(255,255,255,.4);
+    font-size:13px;
+}
+
+.movie-premium-grid{
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:18px;
+}
+
+.premium-movie-card{
+    cursor:pointer;
+    animation:movieCardIn .55s both;
+    animation-delay:var(--movie-delay);
+    transition:transform .3s,filter .3s;
+}
+
+.premium-movie-card:hover{
+    transform:translateY(-8px);
+    filter:brightness(1.08);
+}
+
+.movie-poster-wrap{
+    position:relative;
+    aspect-ratio:2/3;
+    overflow:hidden;
+    border-radius:17px;
+    background:#111;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
+
+.movie-poster-wrap .poster{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .5s;
+}
+
+.premium-movie-card:hover .poster{
+    transform:scale(1.06);
+}
+
+.movie-card-overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.48);
+    opacity:0;
+    transition:.3s;
+}
+
+.movie-card-overlay span{
+    border:1px solid rgba(255,255,255,.6);
+    padding:9px 14px;
+    border-radius:999px;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.premium-movie-card:hover .movie-card-overlay{
+    opacity:1;
+}
+
+.movie-card-rating{
+    position:absolute;
+    top:10px;
+    right:10px;
+    padding:6px 9px;
+    border-radius:9px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(8px);
+    font-size:11px;
+    font-weight:800;
+}
+
+.movie-card-info{
+    padding:11px 3px 5px;
+}
+
+.movie-card-info h3{
+    margin:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:15px;
+}
+
+.movie-card-meta{
+    display:flex;
+    gap:7px;
+    margin-top:6px;
+    color:rgba(255,255,255,.4);
+    font-size:11px;
+}
+
+.movie-no-poster{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:60px;
+    font-weight:900;
+    color:#ff3157;
+}
+
+.movie-loading{
+    min-height:280px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    color:rgba(255,255,255,.5);
+    grid-column:1/-1;
+}
+
+.movie-detail-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.movie-list-btn{
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.06);
+    color:white;
+    padding:13px 20px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+@keyframes movieCardIn{
+    from{
+        opacity:0;
+        transform:translateY(18px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:1000px){
+    .movie-premium-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+}
+
+@media(max-width:700px){
+    .movie-app{
+        padding:15px 14px 50px;
+    }
+
+    .movie-hero-title{
+        min-height:210px;
+        padding:35px 5px 25px;
+    }
+
+    .movie-hero-title h1{
+        font-size:38px;
+    }
+
+    .movie-home-btn{
+        display:none;
+    }
+
+    .movie-premium-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:12px;
+    }
+
+    .movie-search-box button{
+        padding:0 17px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="grid"></div>
+
+<header>
+    <div class="brand" onclick="showPage('home')">
+        <div class="logo">Z</div>
+        <div class="brand-text">ZOROX <span>AI</span></div>
+    </div>
+
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('ai')">AI</button>
+        <button onclick="showPage('movies')">Movies</button>
+        <button onclick="showPage('music')">Music</button>
+    </nav>
+
+    <div class="header-actions">
+        <button class="small-btn" onclick="showPage('login')">Login</button>
+        <button class="small-btn red" onclick="showPage('register')">Register</button>
+    </div>
+</header>
+
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-inner">
+
+            <div class="badge">
+                <span class="dot"></span>
+                ZOROX INTELLIGENCE SYSTEM
+            </div>
+
+            <h1>
+                ENTER THE<br>
+                <span class="gradient">ZOROX ERA.</span>
+            </h1>
+
+            <p class="subtitle">
+                AI, entertainment and intelligent digital experiences
+                brought together inside one next-generation platform.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn red-btn" onclick="showPage('ai')">
+                    Meet ZOROX AI
+                </button>
+
+                <button class="btn dark-btn" onclick="showPage('movies')">
+                    🎬 Movies
+                </button>
+
+                <button class="btn dark-btn" onclick="showPage('music')">
+                    🎵 Music
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature">
+            <div class="feature-icon">◈</div>
+            <h3>Artificial Intelligence</h3>
+            <p>
+                Talk with ZOROX AI through the live intelligence API.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🎬</div>
+            <h3>Movies</h3>
+            <p>
+                Search real movie data through the connected movie API.
+            </p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🎵</div>
+            <h3>Music</h3>
+            <p>
+                Discover music through the connected music service.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI -->
+
+<section id="ai" class="page">
+
+    <div class="chat-page">
+
+        <div class="chat-heading">
+            <div class="z-big">Z</div>
+            <h2>ZOROX AI</h2>
+            <p>Your intelligent digital assistant.</p>
+        </div>
+
+        <div class="chat-box">
+
+            <div class="chat-top">
+
+                <div class="chat-brand">
+                    <div class="mini-z">Z</div>
+                    <div>
+                        <div class="chat-name">ZOROX AI</div>
+                        <div class="online">● LIVE AI</div>
+                    </div>
+                </div>
+
+                <button class="close" onclick="showPage('home')">×</button>
+
+            </div>
+
+            <div class="messages" id="messages">
+                <div class="message ai">
+                    Hello 👋 I'm <b>ZOROX AI</b>.<br><br>
+                    Ask me anything and I'll connect you to the live AI system.
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input
+                    id="chatInput"
+                    placeholder="Message ZOROX AI..."
+                    autocomplete="off"
+                >
+                <button class="send" onclick="sendMessage()">➤</button>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- MOVIES -->
+
+<section id="movies" class="page">
+
+    <div class="movie-app">
+
+        <div class="movie-hero-title">
+            <div>
+                <span class="movie-kicker">ZOROX CINEMA</span>
+                <h1>DISCOVER THE WORLD'S<br>BEST MOVIES</h1>
+                <p>Explore trending, popular and now playing movies.</p>
+            </div>
+
+            <button class="back movie-home-btn" onclick="showPage('home')">
+                ← Home
+            </button>
+        </div>
+
+        <div class="movie-search-box">
+            <input
+                id="movieSearch"
+                type="text"
+                placeholder="Search movies, titles..."
+                onkeydown="if(event.key==='Enter')searchMovies()"
+            >
+            <button onclick="searchMovies()">⌕ Search</button>
+        </div>
+
+        <div class="movie-actions">
+
+            <button class="movie-action active"
+                    onclick="movieAction(this,'trending')">
+                🔥 Trending
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'popular')">
+                ⭐ Popular
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'now-playing')">
+                🎬 Now Playing
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',28)">
+                💥 Action
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',35)">
+                😂 Comedy
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',18)">
+                🎭 Drama
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',27)">
+                👻 Horror
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',878)">
+                🚀 Sci-Fi
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',16)">
+                ✨ Animation
+            </button>
+
+            <button class="movie-action"
+                    onclick="movieAction(this,'genre',53)">
+                🔪 Thriller
+            </button>
+
+        </div>
+
+        <div class="movie-section-head">
+            <div>
+                <span id="movieSectionKicker">LIVE FROM TMDB</span>
+                <h2 id="movieSectionTitle">Trending Movies</h2>
+            </div>
+
+            <span id="movieResultCount"></span>
+        </div>
+
+        <div id="movieGrid" class="movie-grid movie-premium-grid">
+            <div class="empty">Loading movies...</div>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="movie-details" class="page">
+
+    <div id="movieDetails" class="movie-details-container">
+
+        <div class="movie-detail-loading">
+            <div class="loader"></div>
+            <p>Loading movie...</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- MUSIC -->
+
+<section id="music" class="page music-page">
+
+    <div class="media-page">
+
+        <div class="media-top">
+            <div class="media-title">
+                <h2>🎵 Music</h2>
+                <p>Discover music through ZOROX.</p>
+            </div>
+
+            <button class="back" onclick="showPage('home')">
+                ← Back
+            </button>
+        </div>
+
+        <div class="music-visual">
+
+            <div class="visualizer">
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+                <i class="bar"></i><i class="bar"></i>
+            </div>
+
+        </div>
+
+        <div class="search">
+            <input
+                id="musicSearch"
+                placeholder="Search artists, songs or music..."
+                onkeydown="if(event.key==='Enter')searchMusic()"
+            >
+            <button onclick="searchMusic()">Search</button>
+        </div>
+
+        <div class="categories">
+            <button class="category active">All</button>
+            <button class="category">Pop</button>
+            <button class="category">Hip-Hop</button>
+            <button class="category">Rock</button>
+            <button class="category">Electronic</button>
+            <button class="category">R&B</button>
+            <button class="category">Jazz</button>
+            <button class="category">Classical</button>
+        </div>
+
+        <div id="musicGrid" class="music-grid">
+            <div class="empty">
+                Search for music to load real results.
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOGIN -->
+
+<section id="login" class="page">
+
+    <div class="auth">
+
+        <div class="auth-box">
+
+            <div class="auth-logo">Z</div>
+
+            <h2>Welcome Back</h2>
+            <p>Sign in to your ZOROX account.</p>
+
+            <input id="loginEmail" type="email" placeholder="Email">
+            <input id="loginPassword" type="password" placeholder="Password">
+
+            <button onclick="loginUser()">Login</button>
+
+            <div class="auth-switch">
+                Don't have an account?
+                <button onclick="showPage('register')">Register</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REGISTER -->
+
+<section id="register" class="page">
+
+    <div class="auth">
+
+        <div class="auth-box">
+
+            <div class="auth-logo">Z</div>
+
+            <h2>Create Account</h2>
+            <p>Join the ZOROX platform.</p>
+
+            <input id="registerName" type="text" placeholder="Full name">
+            <input id="registerEmail" type="email" placeholder="Email">
+            <input id="registerPassword" type="password" placeholder="Password">
+
+            <button onclick="registerUser()">Create Account</button>
+
+            <div class="auth-switch">
+                Already have an account?
+                <button onclick="showPage('login')">Login</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    <strong>ZOROX AI</strong>
+    <br><br>
+    © 2026 WIKRAMASINGHE TECHNOLOGIES.
+</footer>
+
+
+<script>
+
+/* =========================
+   API BASE
+========================= */
+
+const API =
+      (location.hostname === "127.0.0.1" || location.hostname === "localhost")
+        ? "http://127.0.0.1:5000"
+        : "";
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(id){
+
+    document.querySelectorAll(".page")
+        .forEach(p => p.classList.remove("active"));
+
+    const page = document.getElementById(id);
+
+    if(page){
+        page.classList.add("active");
+        window.scrollTo({top:0,behavior:"smooth"});
+    }
+
+    if(id === "movies"){
+        loadTrendingMovies();
+    }
+}
+
+
+/* =========================
+   ZOROX CHAT
+========================= */
+
+async function sendMessage(){
+
+    const input = document.getElementById("chatInput");
+    const text = input.value.trim();
+
+    if(!text) return;
+
+    addMessage(text,"user");
+    input.value="";
+
+    const typing = document.createElement("div");
+    typing.className="message ai";
+    typing.id="typing";
+    typing.innerHTML="ZOROX is thinking...";
+    document.getElementById("messages").appendChild(typing);
+
+    scrollMessages();
+
+    try{
+
+        const response = await fetch(API + "/api/chat",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                message:text
+            })
+        });
+
+        const data = await response.json();
+
+        removeTyping();
+
+        if(data.reply){
+            addMessage(data.reply,"ai");
+        }else{
+            addMessage("ZOROX could not generate a response.","ai");
+        }
+
+    }catch(error){
+
+        removeTyping();
+
+        addMessage(
+            "Unable to connect to the ZOROX server.",
+            "ai"
+        );
+
+    }
+}
+
+
+function addMessage(text,type){
+
+    const messages=document.getElementById("messages");
+
+    const div=document.createElement("div");
+
+    div.className="message " + type;
+
+    div.textContent=text;
+
+    messages.appendChild(div);
+
+    scrollMessages();
+}
+
+
+function removeTyping(){
+
+    const typing=document.getElementById("typing");
+
+    if(typing) typing.remove();
+}
+
+
+function scrollMessages(){
+
+    const messages=document.getElementById("messages");
+
+    messages.scrollTop=messages.scrollHeight;
+}
+
+
+document.getElementById("chatInput")
+.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+        sendMessage();
+    }
+
+});
+
+
+/* =========================
+   ZOROX MOVIES SYSTEM
+========================= */
+
+const movieGenres = {
+    28: "Action",
+    35: "Comedy",
+    18: "Drama",
+    27: "Horror",
+    878: "Sci-Fi",
+    16: "Animation",
+    53: "Thriller"
+};
+
+function moviePoster(path){
+    return path
+        ? "https://image.tmdb.org/t/p/w500" + path
+        : "";
+}
+
+function movieYear(movie){
+    const date = movie.release_date || movie.first_air_date || "";
+    return date ? date.substring(0,4) : "—";
+}
+
+function movieAction(button, type, genreId){
+
+    document.querySelectorAll(".movie-action")
+        .forEach(b => b.classList.remove("active"));
+
+    if(button) button.classList.add("active");
+
+    if(type === "trending"){
+        loadTrendingMovies();
+        return;
+    }
+
+    if(type === "popular"){
+        loadMovieEndpoint("/api/movies/popular", "Popular Movies");
+        return;
+    }
+
+    if(type === "now-playing"){
+        loadMovieEndpoint("/api/movies/now-playing", "Now Playing");
+        return;
+    }
+
+    if(type === "genre"){
+        loadMovieEndpoint(
+            "/api/movies/genre/" + genreId,
+            movieGenres[genreId] || "Movies"
+        );
+    }
+}
+
+
+async function loadMovieEndpoint(endpoint, title){
+
+    const grid = document.getElementById("movieGrid");
+
+    grid.innerHTML = `
+        <div class="movie-loading">
+            <div class="loader"></div>
+            <span>Loading ${escapeHTML(title)}...</span>
+        </div>
+    `;
+
+    document.getElementById("movieSectionTitle").textContent = title;
+    document.getElementById("movieSectionKicker").textContent = "LIVE FROM TMDB";
+
+    try{
+
+        const response = await fetch(API + endpoint);
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.error || "Request failed");
+        }
+
+        const results = (data.results || [])
+            .filter(movie => movie.media_type === "movie" || !movie.media_type);
+
+        renderMovies(results);
+
+    }catch(error){
+
+        console.error(error);
+
+        grid.innerHTML = `
+            <div class="empty">
+                Unable to load movies right now.
+            </div>
+        `;
+    }
+}
+
+
+async function loadTrendingMovies(){
+
+    document.getElementById("movieSectionTitle").textContent =
+        "Trending Movies";
+
+    document.getElementById("movieSectionKicker").textContent =
+        "TRENDING NOW";
+
+    await loadMovieEndpoint(
+        "/api/movies/trending",
+        "Trending Movies"
+    );
+}
+
+
+async function searchMovies(){
+
+    const input = document.getElementById("movieSearch");
+    const query = input.value.trim();
+
+    if(!query){
+        input.focus();
+        return;
+    }
+
+    const grid = document.getElementById("movieGrid");
+
+    document.querySelectorAll(".movie-action")
+        .forEach(b => b.classList.remove("active"));
+
+    document.getElementById("movieSectionTitle").textContent =
+        "Search Results";
+
+    document.getElementById("movieSectionKicker").textContent =
+        "SEARCH";
+
+    grid.innerHTML = `
+        <div class="movie-loading">
+            <div class="loader"></div>
+            <span>Searching for ${escapeHTML(query)}...</span>
+        </div>
+    `;
+
+    try{
+
+        const response = await fetch(
+            API + "/api/movies/search?q=" +
+            encodeURIComponent(query)
+        );
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.error || "Search failed");
+        }
+
+        const results = (data.results || [])
+            .filter(movie => movie.media_type === "movie");
+
+        renderMovies(results);
+
+    }catch(error){
+
+        console.error(error);
+
+        grid.innerHTML = `
+            <div class="empty">
+                Movie search failed.
+            </div>
+        `;
+    }
+}
+
+
+function renderMovies(movies){
+
+    const grid = document.getElementById("movieGrid");
+
+    if(!movies.length){
+
+        document.getElementById("movieResultCount").textContent = "";
+
+        grid.innerHTML = `
+            <div class="empty">
+                No movies found.
+            </div>
+        `;
+
+        return;
+    }
+
+    document.getElementById("movieResultCount").textContent =
+        movies.length + " results";
+
+    grid.innerHTML = "";
+
+    movies.forEach((movie, index) => {
+
+        const poster = moviePoster(movie.poster_path);
+        const title = movie.title || "Unknown Movie";
+        const year = movieYear(movie);
+        const rating = movie.vote_average
+            ? Number(movie.vote_average).toFixed(1)
+            : "—";
+
+        const card = document.createElement("article");
+
+        card.className = "media-card movie-card premium-movie-card";
+
+        card.style.setProperty(
+            "--movie-delay",
+            Math.min(index * 0.045, 0.5) + "s"
+        );
+
+        card.onclick = () => openMovieDetails(movie.id);
+
+        card.innerHTML = `
+
+            <div class="movie-poster-wrap">
+
+                ${
+                    poster
+                    ? `<img
+                        class="poster"
+                        src="${poster}"
+                        alt="${escapeHTML(title)}"
+                        loading="lazy">`
+                    : `<div class="poster movie-no-poster">
+                        Z
+                       </div>`
+                }
+
+                <div class="movie-card-overlay">
+                    <span>VIEW DETAILS</span>
+                </div>
+
+                <span class="movie-card-rating">
+                    ★ ${rating}
+                </span>
+
+            </div>
+
+            <div class="card-info movie-card-info">
+
+                <h3>${escapeHTML(title)}</h3>
+
+                <div class="movie-card-meta">
+                    <span>${year}</span>
+                    <span>•</span>
+                    <span>TMDB</span>
+                </div>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+/* =========================
+   MOVIE DETAILS
+========================= */
+
+async function openMovieDetails(movieId){
+
+    if(!movieId) return;
+
+    showPage("movie-details");
+
+    const detailsPage =
+        document.getElementById("movieDetails");
+
+    detailsPage.innerHTML = `
+        <div class="movie-detail-loading">
+            <div class="loader"></div>
+            <p>Loading movie...</p>
+        </div>
+    `;
+
+    try{
+
+        const response = await fetch(
+            API + "/api/movies/" + movieId
+        );
+
+        const data = await response.json();
+
+        if(!response.ok || !data.success || !data.movie){
+            throw new Error(data.error || "Movie details unavailable");
+        }
+
+        renderMovieDetails(data.movie, data.trailer);
+
+    }catch(error){
+
+        console.error(error);
+
+        detailsPage.innerHTML = `
+            <div class="movie-detail-error">
+                <h2>Movie unavailable</h2>
+                <p>Unable to load movie details.</p>
+
+                <button
+                    class="primary-btn"
+                    onclick="showPage('movies')">
+                    ← Back to Movies
+                </button>
+            </div>
+        `;
+    }
+}
+
+
+function renderMovieDetails(movie, trailer){
+
+    const detailsPage =
+        document.getElementById("movieDetails");
+
+    const backdrop = movie.backdrop
+        ? "https://image.tmdb.org/t/p/original" + movie.backdrop
+        : "";
+
+    const poster = movie.poster
+        ? "https://image.tmdb.org/t/p/w500" + movie.poster
+        : "";
+
+    const year = movie.release_date
+        ? movie.release_date.substring(0,4)
+        : "—";
+
+    const rating = movie.vote_average
+        ? Number(movie.vote_average).toFixed(1)
+        : "—";
+
+    const genres = (movie.genres || [])
+        .map(g => `<span>${escapeHTML(g.name)}</span>`)
+        .join("");
+
+    detailsPage.innerHTML = `
+
+        <div
+            class="movie-detail-hero"
+            style="
+                background-image:
+                linear-gradient(
+                    90deg,
+                    rgba(4,4,8,.98) 0%,
+                    rgba(4,4,8,.88) 42%,
+                    rgba(4,4,8,.35) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    rgba(4,4,8,.98) 0%,
+                    transparent 65%
+                ),
+                url('${backdrop}')
+            "
+        >
+
+            <button
+                class="movie-back-btn"
+                onclick="showPage('movies')">
+                ← Back to Movies
+            </button>
+
+            <div class="movie-detail-content">
+
+                ${
+                    poster
+                    ? `<img
+                        class="movie-detail-poster"
+                        src="${poster}"
+                        alt="${escapeHTML(movie.title)}">`
+                    : ""
+                }
+
+                <div class="movie-detail-info">
+
+                    <span class="movie-detail-badge">
+                        ZOROX CINEMA
+                    </span>
+
+                    <h1>${escapeHTML(movie.title || "Movie")}</h1>
+
+                    <div class="movie-meta">
+
+                        <span>${year}</span>
+
+                        <span class="detail-rating">
+                            ★ ${rating}
+                        </span>
+
+                        ${
+                            movie.runtime
+                            ? `<span>${movie.runtime} min</span>`
+                            : ""
+                        }
+
+                    </div>
+
+                    <div class="movie-genres">
+                        ${genres}
+                    </div>
+
+                    <p class="movie-overview">
+                        ${escapeHTML(
+                            movie.overview ||
+                            "No overview available."
+                        )}
+                    </p>
+
+                    <div class="movie-detail-actions">
+
+                        ${
+                            trailer && trailer.url
+                            ? `
+                                <button
+                                    class="trailer-btn"
+                                    onclick="window.open(
+                                        '${trailer.url}',
+                                        '_blank'
+                                    )">
+                                    ▶ Watch Trailer
+                                </button>
+                              `
+                            : ""
+                        }
+
+                        <button
+                            class="movie-list-btn"
+                            onclick="toggleMovieSaved(${movie.id}, this)">
+                            ♡ My List
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* UI-only watchlist state for now.
+   MongoDB watchlist can be connected next. */
+
+function toggleMovieSaved(movieId, button){
+
+    const key = "zorox_watchlist";
+    let list = JSON.parse(localStorage.getItem(key) || "[]");
+
+    if(list.includes(movieId)){
+
+        list = list.filter(id => id !== movieId);
+        button.innerHTML = "♡ My List";
+
+    }else{
+
+        list.push(movieId);
+        button.innerHTML = "♥ Saved";
+
+    }
+
+    localStorage.setItem(key, JSON.stringify(list));
+}
+
+
+/* =========================
+   MUSIC API
+========================= */
+
+async function searchMusic(){
+
+    const query=
+        document.getElementById("musicSearch")
+        .value.trim();
+
+    if(!query) return;
+
+    const grid=document.getElementById("musicGrid");
+
+    grid.innerHTML=
+        '<div class="empty">Searching music...</div>';
+
+    try{
+
+        const response=await fetch(
+            API + "/api/music/search?q=" +
+            encodeURIComponent(query)
+        );
+
+        const data=await response.json();
+
+        renderMusic(
+            data.results || data.tracks || []
+        );
+
+    }catch(error){
+
+        grid.innerHTML=
+            '<div class="empty">Music search failed.</div>';
+
+    }
+}
+
+
+function renderMusic(tracks){
+
+    const grid=document.getElementById("musicGrid");
+
+    if(!tracks.length){
+
+        grid.innerHTML=
+            '<div class="empty">No music found.</div>';
+
+        return;
+    }
+
+    grid.innerHTML="";
+
+    tracks.forEach(track=>{
+
+        const image=
+            track.album_image ||
+            track.image ||
+            track.cover ||
+            "";
+
+        const title=
+            track.name ||
+            track.title ||
+            "Unknown";
+
+        const artist=
+            track.artist_name ||
+            track.artist ||
+            "Unknown artist";
+
+        const audio=
+            track.audio ||
+            track.audio_url ||
+            "";
+
+        const card=document.createElement("div");
+
+        card.className="media-card";
+
+        card.innerHTML=`
+
+            ${
+                image
+                ? `<img class="album"
+                    src="${image}"
+                    alt="${escapeHTML(title)}">`
+                : `<div class="album"></div>`
+            }
+
+            <div class="card-info">
+
+                <h3>${escapeHTML(title)}</h3>
+
+                <p>${escapeHTML(artist)}</p>
+
+                ${
+                    audio
+                    ? `<button class="play"
+                        onclick="playTrack('${escapeJS(audio)}')">
+                        ▶ Play
+                       </button>`
+                    : ""
+                }
+
+            </div>
+
+        `;
+
+        grid.appendChild(card);
+
+    });
+}
+
+
+function playTrack(url){
+
+    if(!url) return;
+
+    let player=document.getElementById("zoroxAudio");
+
+    if(!player){
+
+        player=document.createElement("audio");
+        player.id="zoroxAudio";
+        player.controls=true;
+
+        player.style.position="fixed";
+        player.style.left="15px";
+        player.style.right="15px";
+        player.style.bottom="15px";
+        player.style.zIndex="200";
+        player.style.width="calc(100% - 30px)";
+
+        document.body.appendChild(player);
+    }
+
+    player.src=url;
+    player.play().catch(()=>{});
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+async function loginUser(){
+
+    const email=
+        document.getElementById("loginEmail").value.trim();
+
+    const password=
+        document.getElementById("loginPassword").value;
+
+    if(!email || !password){
+
+        alert("Please enter your email and password.");
+
+        return;
+    }
+
+    try{
+
+        const response=await fetch(
+            API + "/api/login",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data=await response.json();
+
+        if(data.success){
+
+            localStorage.setItem(
+                "zorox_user",
+                JSON.stringify(data.user || data)
+            );
+
+            alert("Login successful!");
+
+            showPage("home");
+
+        }else{
+
+            alert(
+                data.message ||
+                data.error ||
+                "Login failed."
+            );
+
+        }
+
+    }catch(error){
+
+        alert("Unable to connect to ZOROX server.");
+
+    }
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+async function registerUser(){
+
+    const name=
+        document.getElementById("registerName").value.trim();
+
+    const email=
+        document.getElementById("registerEmail").value.trim();
+
+    const password=
+        document.getElementById("registerPassword").value;
+
+    if(!name || !email || !password){
+
+        alert("Please complete all fields.");
+
+        return;
+    }
+
+    try{
+
+        const response=await fetch(
+            API + "/api/register",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            }
+        );
+
+        const data=await response.json();
+
+        if(data.success){
+
+            alert("Account created successfully!");
+
+            showPage("login");
+
+        }else{
+
+            alert(
+                data.message ||
+                data.error ||
+                "Registration failed."
+            );
+
+        }
+
+    }catch(error){
+
+        alert("Unable to connect to ZOROX server.");
+
+    }
+}
+
+
+/* =========================
+   SECURITY HELPERS
+========================= */
+
+function escapeHTML(value){
+
+    return String(value || "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function escapeJS(value){
+
+    return String(value || "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,"&quot;");
+}
+
+</script>
+
+</body>
+</html>

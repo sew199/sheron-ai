@@ -2094,131 +2094,6 @@ header {
   from{opacity:.35}
   to{opacity:1}
 }
-
-
-<style id="zcu-feature-style">
-.zcu-feature{
-    max-width:1100px;
-    margin:0 auto 42px;
-    display:grid;
-    grid-template-columns:300px 1fr;
-    gap:34px;
-    padding:24px;
-    border:1px solid rgba(0,255,136,.16);
-    border-radius:28px;
-    background:
-      linear-gradient(135deg,rgba(0,255,136,.07),rgba(0,110,255,.06),rgba(255,35,70,.05)),
-      rgba(5,8,15,.82);
-    box-shadow:0 25px 80px rgba(0,0,0,.45),0 0 55px rgba(0,255,136,.08);
-    overflow:hidden;
-}
-
-.zcu-feature-poster{
-    aspect-ratio:2/3;
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid rgba(0,255,136,.35);
-    box-shadow:0 0 35px rgba(0,255,136,.18);
-}
-
-.zcu-feature-poster img{
-    width:100%;
-    height:100%;
-    display:block;
-    object-fit:cover;
-    transition:transform .5s ease;
-}
-
-.zcu-feature:hover .zcu-feature-poster img{
-    transform:scale(1.035);
-}
-
-.zcu-feature-content{
-    align-self:center;
-    padding:20px;
-}
-
-.zcu-kicker{
-    color:#62ffae;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:3px;
-    margin-bottom:14px;
-}
-
-.zcu-feature-content h1{
-    margin:0;
-    font-size:clamp(55px,9vw,105px);
-    line-height:.9;
-    font-weight:1000;
-    letter-spacing:-6px;
-    color:#fff;
-    text-shadow:0 0 25px rgba(0,255,136,.22);
-}
-
-.zcu-feature-content p{
-    color:#8eb7ff;
-    font-size:15px;
-    letter-spacing:2px;
-    margin:18px 0;
-}
-
-.zcu-feature-line{
-    width:90px;
-    height:3px;
-    background:linear-gradient(90deg,#00ff88,#287cff,#ff304f);
-    border-radius:10px;
-    margin-bottom:26px;
-}
-
-.zcu-play-main{
-    border:1px solid rgba(0,255,136,.45);
-    border-radius:13px;
-    padding:13px 24px;
-    background:rgba(0,255,136,.08);
-    color:#72ffb2;
-    font-weight:900;
-    letter-spacing:1px;
-    cursor:pointer;
-    transition:.25s ease;
-}
-
-.zcu-play-main:hover{
-    transform:translateY(-2px);
-    background:#00ff88;
-    color:#03100a;
-    box-shadow:0 0 30px rgba(0,255,136,.3);
-}
-
-@media(max-width:700px){
-    .zcu-feature{
-        grid-template-columns:145px 1fr;
-        gap:18px;
-        padding:15px;
-        border-radius:22px;
-    }
-
-    .zcu-feature-content{
-        padding:5px;
-    }
-
-    .zcu-feature-content h1{
-        font-size:48px;
-        letter-spacing:-3px;
-    }
-
-    .zcu-feature-content p{
-        font-size:11px;
-        margin:12px 0;
-    }
-
-    .zcu-play-main{
-        padding:10px 14px;
-        font-size:11px;
-    }
-}
-</style>
-
 </style>
 
 
@@ -2460,20 +2335,8 @@ body{
   box-shadow:0 0 14px #39aaff;
   animation:zxPulse 1.5s infinite;
 }
-.zx-v2-title{
-  margin:24px 0 18px;
-  font-size:clamp(48px,7vw,86px);
-  line-height:.94;
-  letter-spacing:-4px;
-  font-weight:800;
-  color:#fff;
-}
-.zx-v2-title span{
-  background:linear-gradient(100deg,#fff 15%,#68b7ff 45%,#a66cff 68%,#ff4568 95%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-}
+
+
 .zx-v2-sub{
   max-width:590px;
   color:#9ba8bf;
@@ -2605,7 +2468,7 @@ body{
   .zx-v2-actions{justify-content:center}
   .zx-v2-core-area{min-height:390px}
   .zx-v2-core{transform:scale(.78)}
-  .zx-v2-title{letter-spacing:-2px}
+  
 }
 </style>
 
@@ -2794,459 +2657,6 @@ body{
     }
 }
 </style>
-
-
-<style id="zorox-cartoon-universe">
-
-/* ==============================
-   ZOROX CARTOON UNIVERSE
-   DARK PREMIUM GREEN UI
-============================== */
-
-.zcu-section{
-    display:none;
-    min-height:100vh;
-    padding:90px 16px 70px;
-    position:relative;
-    overflow:hidden;
-    color:#fff;
-    background:
-        radial-gradient(circle at 50% 0%,rgba(0,255,120,.08),transparent 32%),
-        radial-gradient(circle at 0% 80%,rgba(0,180,80,.07),transparent 30%),
-        #010403;
-}
-
-.zcu-section::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(rgba(0,255,120,.018) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,255,120,.018) 1px,transparent 1px);
-    background-size:50px 50px;
-    mask-image:linear-gradient(to bottom,#000,transparent 95%);
-    pointer-events:none;
-}
-
-.zcu-wrap{
-    width:min(1250px,100%);
-    margin:auto;
-    position:relative;
-    z-index:2;
-}
-
-/* HEADER */
-
-.zcu-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:38px;
-}
-
-.zcu-brand{
-    color:#55ff9a;
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    text-shadow:0 0 18px rgba(0,255,120,.3);
-}
-
-.zcu-coins{
-    border:1px solid rgba(80,255,150,.28);
-    border-radius:14px;
-    padding:11px 17px;
-    background:rgba(0,255,120,.055);
-    color:#baffd2;
-    font-weight:800;
-    cursor:pointer;
-    transition:.3s;
-    box-shadow:0 0 22px rgba(0,255,120,.06);
-}
-
-.zcu-coins:hover{
-    transform:translateY(-3px);
-    background:rgba(0,255,120,.12);
-    border-color:rgba(80,255,150,.55);
-}
-
-/* HERO */
-
-.zcu-hero{
-    text-align:center;
-    margin-bottom:48px;
-}
-
-.zcu-badge{
-    display:inline-flex;
-    padding:8px 15px;
-    border-radius:999px;
-    border:1px solid rgba(70,255,150,.22);
-    background:rgba(0,255,120,.04);
-    color:#75ffb0;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:2.5px;
-}
-
-.zcu-title{
-    margin:20px 0 12px;
-    font-size:clamp(48px,8vw,92px);
-    line-height:.9;
-    letter-spacing:-5px;
-    font-weight:950;
-}
-
-.zcu-title span{
-    background:linear-gradient(
-        100deg,
-        #ffffff 0%,
-        #8affbd 30%,
-        #00ed72 55%,
-        #ffffff 80%
-    );
-    background-size:250% auto;
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    animation:zcuTitleShine 4s linear infinite;
-}
-
-.zcu-sub{
-    color:#6f8478;
-    font-size:14px;
-    letter-spacing:.5px;
-}
-
-/* GRID */
-
-.zcu-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-}
-
-/* CARD */
-
-.zcu-card{
-    position:relative;
-    overflow:hidden;
-    border-radius:21px;
-    background:
-        linear-gradient(145deg,
-        rgba(9,23,15,.96),
-        rgba(2,7,4,.98));
-    border:1px solid rgba(90,255,160,.10);
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.5),
-        inset 0 1px rgba(255,255,255,.025);
-    opacity:0;
-    transform:translateY(35px) scale(.94);
-    animation:zcuCardEnter .65s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.zcu-card:nth-child(1){animation-delay:.05s}
-.zcu-card:nth-child(2){animation-delay:.10s}
-.zcu-card:nth-child(3){animation-delay:.15s}
-.zcu-card:nth-child(4){animation-delay:.20s}
-.zcu-card:nth-child(5){animation-delay:.25s}
-.zcu-card:nth-child(6){animation-delay:.30s}
-.zcu-card:nth-child(7){animation-delay:.35s}
-.zcu-card:nth-child(8){animation-delay:.40s}
-.zcu-card:nth-child(9){animation-delay:.45s}
-.zcu-card:nth-child(10){animation-delay:.50s}
-.zcu-card:nth-child(11){animation-delay:.55s}
-.zcu-card:nth-child(12){animation-delay:.60s}
-.zcu-card:nth-child(13){animation-delay:.65s}
-.zcu-card:nth-child(14){animation-delay:.70s}
-.zcu-card:nth-child(15){animation-delay:.75s}
-.zcu-card:nth-child(16){animation-delay:.80s}
-.zcu-card:nth-child(17){animation-delay:.85s}
-.zcu-card:nth-child(18){animation-delay:.90s}
-.zcu-card:nth-child(19){animation-delay:.95s}
-.zcu-card:nth-child(20){animation-delay:1s}
-
-.zcu-card:hover{
-    transform:translateY(-9px) scale(1.015);
-    border-color:rgba(70,255,150,.42);
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.65),
-        0 0 35px rgba(0,255,120,.10);
-}
-
-/* POSTER */
-
-.zcu-poster{
-    height:285px;
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:
-        radial-gradient(circle at 50% 45%,
-        rgba(0,255,120,.22),
-        transparent 25%),
-        radial-gradient(circle at 30% 20%,
-        rgba(80,255,180,.07),
-        transparent 35%),
-        linear-gradient(145deg,#082918,#020905 70%);
-}
-
-/* poster scan */
-
-.zcu-poster::after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    height:2px;
-    top:-5px;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(100,255,170,.8),
-        transparent
-    );
-    box-shadow:0 0 15px #00ff78;
-    animation:zcuScan 3.2s linear infinite;
-}
-
-/* original sci-fi symbol */
-
-.zcu-poster-symbol{
-    width:125px;
-    height:125px;
-    border-radius:34px;
-    display:grid;
-    place-items:center;
-    position:relative;
-    color:#b9ffd4;
-    font-size:38px;
-    font-weight:950;
-    background:
-        radial-gradient(circle,
-        #0d7b43,
-        #06321d 48%,
-        #020b06 75%);
-    border:2px solid rgba(90,255,160,.45);
-    box-shadow:
-        0 0 25px rgba(0,255,120,.25),
-        inset 0 0 25px rgba(0,255,120,.08);
-    animation:zcuPosterFloat 3.4s ease-in-out infinite;
-}
-
-.zcu-poster-symbol::before{
-    content:"";
-    position:absolute;
-    inset:-15px;
-    border:1px solid rgba(70,255,150,.24);
-    border-radius:40px;
-    transform:rotate(25deg);
-    animation:zcuOrbit 5s linear infinite;
-}
-
-.zcu-poster-symbol::after{
-    content:"";
-    position:absolute;
-    inset:-27px;
-    border:1px solid rgba(70,255,150,.10);
-    border-radius:50%;
-    animation:zcuOrbit 7s linear infinite reverse;
-}
-
-/* card info */
-
-.zcu-info{
-    padding:16px;
-}
-
-.zcu-info h3{
-    margin:0 0 6px;
-    font-size:16px;
-    font-weight:800;
-}
-
-.zcu-info p{
-    margin:0 0 14px;
-    color:#64786c;
-    font-size:11px;
-}
-
-.zcu-play{
-    width:100%;
-    padding:12px;
-    border-radius:13px;
-    border:1px solid rgba(80,255,150,.28);
-    background:
-        linear-gradient(135deg,#08783d,#034522);
-    color:#fff;
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:.5px;
-    cursor:pointer;
-    transition:.3s;
-    box-shadow:0 7px 25px rgba(0,255,120,.08);
-}
-
-.zcu-play:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.2);
-    box-shadow:
-        0 0 28px rgba(0,255,120,.25),
-        0 10px 25px rgba(0,0,0,.35);
-}
-
-.zcu-back{
-    display:block;
-    margin:35px auto 0;
-    padding:11px 20px;
-    border-radius:13px;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.025);
-    color:#9baaa0;
-    cursor:pointer;
-}
-
-/* LOADING */
-
-.zcu-loading{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,5,3,.94);
-    backdrop-filter:blur(14px);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .45s ease, visibility .45s ease;
-    visibility:hidden;
-}
-
-.zcu-loading.show{
-    display:flex;
-    opacity:1;
-    pointer-events:auto;
-    visibility:visible;
-}
-
-.zcu-loading.hide{
-    opacity:0;
-    pointer-events:none;
-    visibility:hidden;
-}
-
-.zcu-loader{
-    text-align:center;
-}
-
-.zcu-loader-ring{
-    width:70px;
-    height:70px;
-    margin:auto;
-    border-radius:50%;
-    border:2px solid rgba(0,255,120,.12);
-    border-top-color:#00ff78;
-    border-right-color:#65ffac;
-    box-shadow:0 0 25px rgba(0,255,120,.18);
-    animation:zcuLoaderSpin 1s linear infinite;
-}
-
-.zcu-loader-text{
-    margin-top:18px;
-    color:#72ffad;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:3px;
-}
-
-/* ANIMATIONS */
-
-@keyframes zcuCardEnter{
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
-    }
-}
-
-@keyframes zcuTitleShine{
-    0%{background-position:0% center}
-    100%{background-position:250% center}
-}
-
-@keyframes zcuPosterFloat{
-    0%,100%{transform:translateY(0) rotate(0)}
-    50%{transform:translateY(-8px) rotate(2deg)}
-}
-
-@keyframes zcuOrbit{
-    to{transform:rotate(360deg)}
-}
-
-@keyframes zcuScan{
-    from{transform:translateY(0)}
-    to{transform:translateY(290px)}
-}
-
-@keyframes zcuLoaderSpin{
-    to{transform:rotate(360deg)}
-}
-
-@media(max-width:1000px){
-    .zcu-grid{
-        grid-template-columns:repeat(3,1fr);
-    }
-}
-
-@media(max-width:700px){
-    .zcu-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:13px;
-    }
-
-    .zcu-poster{
-        height:230px;
-    }
-
-    .zcu-title{
-        letter-spacing:-3px;
-    }
-}
-
-@media(max-width:470px){
-    .zcu-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .zcu-poster{
-        height:205px;
-    }
-
-    .zcu-poster-symbol{
-        width:90px;
-        height:90px;
-        font-size:28px;
-    }
-
-    .zcu-info{
-        padding:12px;
-    }
-
-    .zcu-info h3{
-        font-size:14px;
-    }
-
-    .zcu-top{
-        margin-bottom:28px;
-    }
-}
-
-</style>
-
-
 <style id="zorox-user-menu-style">
 
 .z-user-button{
@@ -3584,12 +2994,305 @@ body{
 }
 </style>
 
+
+<style id="zorox-main-premium">
+:root {
+    --zx-bg: #03050a;
+    --zx-panel: rgba(10, 14, 23, .78);
+    --zx-panel-2: rgba(14, 19, 30, .68);
+    --zx-line: rgba(140, 180, 255, .12);
+    --zx-text: #f5f8ff;
+    --zx-muted: #8995aa;
+    --zx-blue: #5aa9ff;
+    --zx-cyan: #65e6ff;
+    --zx-purple: #7564ff;
+}
+
+html {
+    background: var(--zx-bg) !important;
+}
+
+body {
+    background:
+        radial-gradient(circle at 50% -10%, rgba(70,130,255,.13), transparent 34%),
+        radial-gradient(circle at 100% 40%, rgba(90,80,255,.055), transparent 30%),
+        #03050a !important;
+    color: var(--zx-text) !important;
+}
+
+/* Premium glass navigation */
+.zx-clean-nav,
+nav,
+header {
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+}
+
+.zx-clean-nav {
+    border-color: var(--zx-line) !important;
+    background: rgba(3,5,10,.72) !important;
+}
+
+/* Main hero */
+.zx-v2-hero,
+.hero,
+#home {
+    position: relative;
+}
+
+.zx-v2-hero::before,
+.hero::before,
+#home::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(70,150,255,.105),
+        rgba(100,80,255,.035) 42%,
+        transparent 70%
+    );
+    filter: blur(18px);
+    pointer-events: none;
+    animation: zxAura 7s ease-in-out infinite;
+}
+
+/* Premium text hierarchy */
+.zx-v2-hero h1,
+.hero h1,
+#home h1 {
+    letter-spacing: -.045em !important;
+    text-shadow:
+        0 0 35px rgba(75,155,255,.10);
+}
+
+.zx-v2-hero p,
+.hero p,
+#home p {
+    color: #8e9bb0;
+}
+
+/* Main CTA */
+.zx-v2-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px !important;
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background .22s ease !important;
+}
+
+.zx-v2-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-110%);
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,255,.12),
+        transparent
+    );
+    transition: transform .55s ease;
+    pointer-events: none;
+}
+
+.zx-v2-btn:hover {
+    transform: translateY(-2px);
+}
+
+.zx-v2-btn:hover::after {
+    transform: translateX(110%);
+}
+
+/* Premium panels/cards */
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card {
+    background: linear-gradient(
+        145deg,
+        rgba(16,21,32,.82),
+        rgba(7,10,17,.78)
+    ) !important;
+    border: 1px solid var(--zx-line) !important;
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.24),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease !important;
+}
+
+.zx-v2-card:hover,
+.card:hover,
+.feature-card:hover,
+.glass-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(90,169,255,.22) !important;
+    box-shadow:
+        0 22px 65px rgba(0,0,0,.30),
+        0 0 35px rgba(70,140,255,.045) !important;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    background: rgba(8,12,20,.82) !important;
+    border-color: var(--zx-line) !important;
+    color: var(--zx-text) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: rgba(90,169,255,.38) !important;
+    box-shadow: 0 0 0 3px rgba(90,169,255,.06) !important;
+}
+
+/* Subtle premium glow */
+@keyframes zxAura {
+    0%,100% {
+        opacity: .65;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.055);
+    }
+}
+
+@keyframes zxFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#home > * {
+    animation: zxFadeUp .55s ease both;
+}
+
+#home > *:nth-child(2) { animation-delay: .05s; }
+#home > *:nth-child(3) { animation-delay: .10s; }
+#home > *:nth-child(4) { animation-delay: .15s; }
+#home > *:nth-child(5) { animation-delay: .20s; }
+
+/* Mobile performance */
+@media (max-width: 700px) {
+    .zx-v2-hero::before,
+    .hero::before,
+    #home::before {
+        width: 340px;
+        height: 340px;
+        filter: blur(12px);
+    }
+
+    .zx-v2-btn:hover,
+    .zx-v2-card:hover,
+    .card:hover,
+    .feature-card:hover,
+    .glass-card:hover {
+        transform: none;
+    }
+}
+
+/* Accessibility / low-power mode */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+
+<style id="zorox-title-single-source">
+h1.zx-v2-title {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #f5f8fc !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+    background: none !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+h1.zx-v2-title .zx-welcome-word {
+    display: inline-block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #f5f8fc !important;
+    background: none !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+    filter: none !important;
+    transform: translateY(0) !important;
+    animation: zoroxTitleIn .65s ease-out both !important;
+}
+
+h1.zx-v2-title .zx-welcome-word:nth-of-type(2) {
+    animation-delay: .08s !important;
+    margin-left: .25em !important;
+}
+
+h1.zx-v2-title .zx-brand-word {
+    display: inline-block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: #42b8ff !important;
+    background: none !important;
+    -webkit-text-fill-color: #42b8ff !important;
+    filter: none !important;
+    transform: translateY(0) !important;
+    animation: zoroxBrandIn .75s .16s ease-out both !important;
+}
+
+@keyframes zoroxTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoroxBrandIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+  <link rel="stylesheet" href="assets/zorox-cyber.css">
 </head>
 
 <body>
 <!-- ZOROX USER MENU START -->
 
-<button id="zUserButton" class="z-user-button" onclick="toggleUserMenu()">
+<button id="zUserButton" class="z-user-button" onclick="openZoroxProfile()">
   <span id="zUserAvatar">👤</span>
 </button>
 
@@ -3689,7 +3392,11 @@ body{
         </button>
 
         <div class="zx-nav-title">
-            ZOROX
+            <span class="zx-logo-mark" aria-hidden="true">
+                <span class="zx-logo-z"></span>
+                <span class="zx-logo-x"></span>
+            </span>
+            <span class="zx-logo-word">ZOROX</span>
         </div>
 
     </div>
@@ -3742,17 +3449,9 @@ body{
             <label>AI</label>
         </a>
 
-        <a href="movies.html"
-           onclick="closeZoroxSideMenu()">
-            <span>🎬</span>
-            <label>Movies</label>
-        </a>
+        
 
-        <a href="music.html"
-           onclick="closeZoroxSideMenu()">
-            <span>♫</span>
-            <label>Music</label>
-        </a>
+        
 
         <a href="#technology"
            onclick="closeZoroxSideMenu()">
@@ -3766,16 +3465,15 @@ body{
             <label>Downloads</label>
         </a>
 
-        <a href="#tiktok"
+        <a href="https://www.tiktok.com/@zorox_ai" target="_blank" rel="noopener noreferrer"
            onclick="closeZoroxSideMenu()">
             <span>♪</span>
             <label>TikTok</label>
         </a>
 
-        <a href="#buy-coins"
+        <a href="premium.html"
            onclick="closeZoroxSideMenu()"
            class="zx-side-coins">
-            <span>🪙</span>
             <label>Buy Coins</label>
         </a>
 
@@ -3819,13 +3517,11 @@ body{
 
         <a href="privacy.html"
            onclick="closeZoroxSideMenu()">
-            <span>🔒</span>
             Privacy Policy
         </a>
 
         <a href="terms.html"
            onclick="closeZoroxSideMenu()">
-            <span>📜</span>
             Terms of Service
         </a>
 
@@ -3867,8 +3563,9 @@ body{
       </div>
 
       <h1 class="zx-v2-title">
-        WELCOME TO<br>
-        <span>ZOROX.AI</span>
+        <span class="zx-welcome-word">WELCOME</span>
+        <span class="zx-welcome-word">TO</span><br>
+        <span class="zx-brand-word">ZOROX.AI</span>
       </h1>
 
       <p class="zx-v2-sub">
@@ -3879,18 +3576,25 @@ body{
 
       <div class="zx-v2-actions">
         <a href="javascript:void(0)" onclick="openAI()" class="zx-v2-btn zx-v2-primary">Start Chatting →</a>
-        <a href="music.html" class="zx-v2-btn zx-v2-secondary">Explore Music</a>
-        <a href="/movies.html" class="zx-v2-btn zx-v2-secondary">Explore Movies</a>
-        <a href="javascript:void(0)" onclick="openCartoonUniverse()" class="zx-v2-btn zx-v2-secondary zcu-main-btn">BEN 10</a>
-      </div>
+        
+        
+
+</div>
     </div>
 
     <div class="zx-v2-core-area">
-      <div class="zx-v2-core">
-        <div class="zx-v2-orbit"></div>
-        <div class="zx-v2-orbit two"></div>
-        <div class="zx-v2-liquid"></div>
-        <div class="zx-v2-label"><b>ZOROX.AI</b><br>INTELLIGENCE CORE</div>
+      <div class="zx-infinity-core" aria-label="ZOROX AI">
+
+        <div class="zx-infinity-orbit orbit-a"></div>
+        <div class="zx-infinity-orbit orbit-b"></div>
+
+        <div class="zx-infinity-ring">
+          <div class="zx-infinity-symbol">
+            <span class="zx-symbol-z">Z</span>
+            <span class="zx-symbol-x">X</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -4198,378 +3902,130 @@ body{
     </div>
 
 </section>
-
-
-
-<!-- =========================
-     ZOROX CARTOON UNIVERSE
-========================= -->
-
-
-<div id="zcuLoading" class="zcu-loading">
-    <div class="zcu-loader">
-        <div class="zcu-loader-ring"></div>
-        <div class="zcu-loader-text">LOADING CARTOON UNIVERSE</div>
-    </div>
-</div>
-
-<section id="cartoonUniverse" class="zcu-section">
-
-    <div class="zcu-wrap">
-
-        <div class="zcu-feature">
-    <div class="zcu-feature-poster">
-        <img src="zcu-poster.svg" alt="Ben 10 inspired alien universe poster">
-    </div>
-
-    <div class="zcu-feature-content">
-        <div class="zcu-kicker">ZOROX ORIGINAL UNIVERSE</div>
-        <h1>BEN 10</h1>
-        <p>Sinhala Dubbed</p>
-        <div class="zcu-feature-line"></div>
-        <button class="zcu-play-main" onclick="playCartoonDemo()">▶ PLAY NOW</button>
-    </div>
-</div>
-
-<div class="zcu-top">
-            <div class="zcu-brand">ZOROX CARTOON UNIVERSE</div>
-
-            <button class="zcu-coins" onclick="buyCoins()">
-                BUY COINS
-            </button>
-        </div>
-
-        <div class="zcu-hero">
-
-            <div class="zcu-badge">
-                CARTOON HUB • DEMO
-            </div>
-
-            <h1 class="zcu-title">
-                <span>BEN 10</span>
-            </h1>
-
-            <p class="zcu-sub">
-                Sinhala Dubbed Cartoon Collection
-            </p>
-
-        </div>
-
-        <div class="zcu-grid">
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">10</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Ben 10</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">01</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 01</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">02</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 02</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">03</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 03</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">04</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 04</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">05</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 05</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">06</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 06</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">07</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 07</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">08</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 08</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">09</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 09</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">10</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 10</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">11</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 11</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">12</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 12</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">13</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 13</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">14</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 14</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">15</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 15</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">16</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 16</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">17</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 17</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">18</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 18</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-<article class="zcu-card">
-    <div class="zcu-poster">
-        <div class="zcu-poster-symbol">19</div>
-    </div>
-
-    <div class="zcu-info">
-        <h3>Episode 19</h3>
-        <p>Sinhala Dubbed</p>
-
-        <button class="zcu-play" onclick="playCartoonDemo()">
-            ▶ PLAY
-        </button>
-    </div>
-</article>
-
-</div>
-
-        <button class="zcu-back" onclick="closeCartoonUniverse()">
-            ← Back to ZOROX
-        </button>
-
-    </div>
-
-</section>
-
-
 <!-- =========================
      FOOTER
 ========================= -->
+
+
+<style>
+.zorox-developer-info {
+    width: 100%;
+    margin: 35px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.developer-info-box {
+    max-width: 850px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid rgba(80, 150, 255, 0.25);
+    border-radius: 20px;
+    background: rgba(10, 18, 32, 0.78);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+}
+
+.developer-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: .7;
+    margin-bottom: 10px;
+}
+
+.developer-info-box h2 {
+    margin: 0 0 6px;
+    font-size: 28px;
+}
+
+.developer-info-box h2 span {
+    color: #58a6ff;
+}
+
+.developer-name {
+    font-size: 17px;
+    margin: 0 0 15px;
+    opacity: .9;
+}
+
+.developer-info-box p {
+    line-height: 1.7;
+}
+
+.developer-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.developer-details div {
+    padding: 15px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.035);
+}
+
+.developer-details small {
+    display: block;
+    opacity: .6;
+    margin-bottom: 5px;
+}
+
+.developer-details strong,
+.developer-details a {
+    color: inherit;
+    word-break: break-word;
+}
+
+.developer-details a {
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .developer-details {
+        grid-template-columns: 1fr;
+    }
+
+    .developer-info-box {
+        padding: 22px;
+    }
+
+    .developer-info-box h2 {
+        font-size: 24px;
+    }
+}
+</style>
+
+
+<section class="zorox-developer-info">
+    <div class="developer-info-box">
+        <div class="developer-label">ZOROX AI DEVELOPER</div>
+        <h2>Built by <span>AlphaX</span></h2>
+        <p class="developer-name">Sheron Elijah Wickramasinghe</p>
+        <p>
+            Founder & Developer of ZOROX AI under
+            <strong>WIKRAMASINGHE TECHNOLOGIES</strong>.
+        </p>
+
+        <div class="developer-details">
+            <div>
+                <small>Company</small>
+                <strong>WIKRAMASINGHE TECHNOLOGIES</strong>
+            </div>
+            <div>
+                <small>Country</small>
+                <strong>Sri Lanka 🇱🇰</strong>
+            </div>
+            <div>
+                <small>Email</small>
+                <a href="mailto:zoroxlives@gmail.com">zoroxlives@gmail.com</a>
+            </div>
+            <div>
+                <small>Contact</small>
+                <a href="tel:+94729203477">+94 729203477</a>
+            </div>
+        </div>
+    </div>
+</section>
 
 <footer>
 
@@ -4597,21 +4053,7 @@ body{
 ========================= */
 
 function openAI() {
-
-    document.getElementById("home").style.display = "none";
-
-    document.getElementById("aiSection").style.display = "block";
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-    setTimeout(() => {
-
-        document.getElementById("chatInput").focus();
-
-    }, 400);
+    window.location.href = "ai.html";
 }
 
 
@@ -4672,11 +4114,13 @@ async function sendMessage() {
 
     try {
 
+        const API_URL = "/api/chat";
+
+        console.log("ZOROX API:", API_URL);
+        console.log("ZOROX Origin:", window.location.origin);
+
         const response = await fetch(
-            (window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1")
-  ? "https://zoroz-ai.onrender.com/api/chat"
-  : "https://YOUR-BACKEND-URL/api/chat",
+            API_URL,
             {
                 method: "POST",
 
@@ -4946,61 +4390,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   }catch(e){}
 });
 </script>
-
-
-<script id="zorox-cartoon-js">
-function openCartoonUniverse(){
-    const home = document.getElementById("home");
-    const ai = document.getElementById("aiSection");
-    const cartoon = document.getElementById("cartoonUniverse");
-    const loader = document.getElementById("zcuLoading");
-
-    if(home) home.style.display = "none";
-    if(ai) ai.style.display = "none";
-    if(cartoon) {
-        cartoon.style.display = "block";
-        cartoon.style.visibility = "visible";
-        cartoon.style.opacity = "1";
-    }
-
-    if(loader){
-        loader.classList.remove("hide");
-        loader.classList.add("show");
-
-        setTimeout(() => {
-            loader.classList.remove("show");
-            loader.classList.add("hide");
-
-            setTimeout(() => {
-                loader.style.display = "none";
-            }, 450);
-        }, 650);
-    }
-
-    window.scrollTo({top:0, behavior:"smooth"});
-}
-
-function closeCartoonUniverse(){
-    const cartoon = document.getElementById("cartoonUniverse");
-    const home = document.getElementById("home");
-
-    if(cartoon) cartoon.style.display = "none";
-    if(home) home.style.display = "block";
-
-    window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function buyCoins(){
-    alert("🪙 Coin system is coming soon.");
-}
-
-function playCartoonDemo(){
-    alert("▶ Demo player\n\nThis is a sample UI only. Add licensed/authorized video content through the admin system.");
-}
-</script>
-
-
 <script id="zorox-user-menu-js">
+
+function openZoroxProfile(){
+  window.location.href = "profile.html";
+}
 
 function toggleUserMenu(){
   const panel = document.getElementById("zUserPanel");
@@ -5171,7 +4565,7 @@ function updateZoroxNavUser(){
 
     if(photo){
         avatar.innerHTML =
-            '<img src="benten.jpeg' +
+
             photo.replace(/"/g,"&quot;") +
             '" alt="User">';
     }else{
@@ -5222,14 +4616,1757 @@ document.addEventListener("keydown", function(e) {
 });
 </script>
 
+
+<style id="zorox-premium-theme-animation">
+/* ===== ZOROX PREMIUM DARK THEME ===== */
+
+body {
+    background:
+        radial-gradient(circle at 50% -15%, rgba(65,140,255,.12), transparent 32%),
+        radial-gradient(circle at 85% 55%, rgba(91,70,255,.055), transparent 30%),
+        #03050a !important;
+}
+
+/* Glass surfaces */
+.zx-clean-nav,
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card,
+section {
+    border-color: rgba(130,175,255,.11) !important;
+}
+
+/* Soft animated background light */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(50,145,255,.07),
+            transparent 28%
+        );
+    animation: zxAmbient 9s ease-in-out infinite alternate;
+}
+
+/* Word/text reveal */
+.zx-v2-hero h1,
+.hero h1,
+#home h1 {
+    animation: zxTitleReveal .8s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-hero h1 span,
+.hero h1 span,
+#home h1 span {
+    display: inline-block;
+    animation: zxWordReveal .65s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* Supporting text */
+.zx-v2-hero p,
+.hero p,
+#home p {
+    animation: zxTextReveal .7s .16s ease both;
+}
+
+/* Buttons */
+.zx-v2-btn {
+    animation: zxButtonReveal .65s .25s ease both;
+    box-shadow: 0 8px 30px rgba(40,120,255,.04);
+}
+
+.zx-v2-btn:hover {
+    box-shadow:
+        0 10px 35px rgba(50,135,255,.12),
+        0 0 22px rgba(70,150,255,.06);
+}
+
+/* Premium glass */
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,21,33,.78),
+            rgba(5,8,14,.72)
+        ) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.025),
+        0 20px 55px rgba(0,0,0,.20) !important;
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease !important;
+}
+
+.zx-v2-card:hover,
+.card:hover,
+.feature-card:hover,
+.glass-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(80,160,255,.20) !important;
+}
+
+/* Logo / brand glow */
+.zx-logo,
+.zx-brand,
+.logo,
+.brand {
+    text-shadow:
+        0 0 18px rgba(70,155,255,.12);
+}
+
+/* Animations */
+@keyframes zxAmbient {
+    from {
+        opacity: .55;
+        transform: scale(1);
+    }
+    to {
+        opacity: .9;
+        transform: scale(1.035);
+    }
+}
+
+@keyframes zxTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxWordReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxTextReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxButtonReveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile / low-power optimization */
+@media (max-width: 700px) {
+    body::before {
+        animation-duration: 12s;
+    }
+
+    .zx-v2-card:hover,
+    .card:hover,
+    .feature-card:hover,
+    .glass-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+<script>
+/* ===== ZOROX WORD-BY-WORD REVEAL ===== */
+
+(function () {
+    const selectors = [
+        ".zx-v2-hero h1",
+        ".hero h1",
+        "#home h1"
+    ];
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(title => {
+            if (title.dataset.zxAnimated) return;
+
+            const walker = document.createTreeWalker(
+                title,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const nodes = [];
+            let node;
+
+            while (node = walker.nextNode()) {
+                if (node.nodeValue.trim()) {
+                    nodes.push(node);
+                }
+            }
+
+            nodes.forEach(textNode => {
+                const fragment = document.createDocumentFragment();
+
+                textNode.nodeValue
+                    .trim()
+                    .split(/\s+/)
+                    .forEach((word, index) => {
+                        const span =
+                            document.createElement("span");
+
+                        span.textContent =
+                            word + " ";
+
+                        span.style.animationDelay =
+                            (index * 0.075) + "s";
+
+                        fragment.appendChild(span);
+                    });
+
+                textNode.parentNode.replaceChild(
+                    fragment,
+                    textNode
+                );
+            });
+
+            title.dataset.zxAnimated = "true";
+        });
+    });
+})();
+</script>
+
+
+<style id="zorox-exact-premium-theme">
+
+/* =========================================================
+   ZOROX — PREMIUM DARK AI THEME
+   Visual layer only — content/functions unchanged
+========================================================= */
+
+:root {
+    --zxb: #05070d;
+    --zxp: rgba(11, 16, 27, .72);
+    --zxl: rgba(126, 181, 255, .13);
+    --zxt: #f4f7ff;
+    --zxm: #8793a8;
+    --zxa: #58a6ff;
+    --zxc: #63ddff;
+}
+
+/* ---------- GLOBAL ---------- */
+
+html,
+body {
+    background: #05070d !important;
+    color: var(--zxt) !important;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(62, 137, 255, .12),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 65%,
+            rgba(91, 75, 255, .06),
+            transparent 28%
+        ),
+        #05070d !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.zx-main-header {
+    position: relative;
+    z-index: 100;
+}
+
+.zx-clean-nav {
+    background:
+        rgba(5, 8, 14, .68) !important;
+
+    border: 1px solid rgba(125, 180, 255, .11) !important;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, .20),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    backdrop-filter: blur(22px) saturate(135%);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+
+.zx-nav-title {
+    letter-spacing: .18em !important;
+    font-weight: 800 !important;
+    text-shadow:
+        0 0 22px rgba(75, 160, 255, .20);
+}
+
+/* ---------- HERO ---------- */
+
+.zx-v2-hero {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(50, 130, 255, .045),
+            transparent 45%
+        ) !important;
+}
+
+/* subtle animated atmosphere */
+
+.zx-v2-hero::before {
+    content: "";
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(65, 154, 255, .10),
+            rgba(78, 91, 255, .035) 42%,
+            transparent 70%
+        );
+
+    filter: blur(20px);
+    pointer-events: none;
+
+    animation:
+        zxHeroGlow 8s ease-in-out infinite alternate;
+}
+
+/* ---------- KICKER ---------- */
+
+.zx-v2-kicker {
+    color: #9db8d8 !important;
+
+    letter-spacing: .16em !important;
+
+    animation:
+        zxFadeUp .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-dot {
+    box-shadow:
+        0 0 12px rgba(80, 210, 255, .7) !important;
+
+    animation:
+        zxDotPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- MAIN TITLE ---------- */
+
+
+
+/* Animated ZOROX.AI word */
+
+
+/* ---------- SUBTITLE ---------- */
+
+.zx-v2-sub {
+    color: #8b98ad !important;
+
+    animation:
+        zxFadeUp .75s .28s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* ---------- CTA ---------- */
+
+.zx-v2-actions {
+    animation:
+        zxFadeUp .75s .40s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-btn {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 15px !important;
+
+    transition:
+        transform .24s ease,
+        box-shadow .24s ease,
+        border-color .24s ease !important;
+}
+
+.zx-v2-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #4d9dff,
+            #6570ff
+        ) !important;
+
+    border: 1px solid rgba(150, 210, 255, .25) !important;
+
+    box-shadow:
+        0 10px 35px rgba(45, 120, 255, .16),
+        inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.zx-v2-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 30%,
+            rgba(255,255,255,.20),
+            transparent 70%
+        );
+
+    transform: translateX(-130%);
+    transition: transform .65s ease;
+
+    pointer-events: none;
+}
+
+.zx-v2-primary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 45px rgba(45, 130, 255, .22),
+        0 0 28px rgba(65, 170, 255, .08);
+}
+
+.zx-v2-primary:hover::after {
+    transform: translateX(130%);
+}
+
+/* ---------- AI CORE ---------- */
+
+.zx-v2-core-area {
+    animation:
+        zxCoreEnter 1s .25s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-core {
+    filter:
+        drop-shadow(0 0 30px rgba(61, 157, 255, .10));
+
+    transform-origin: center;
+
+    animation:
+        zxCoreFloat 7s ease-in-out infinite;
+}
+
+.zx-v2-liquid {
+    box-shadow:
+        0 0 45px rgba(72, 163, 255, .18),
+        0 0 90px rgba(91, 87, 255, .08);
+}
+
+/* ---------- SERVICES ---------- */
+
+.services {
+    position: relative;
+}
+
+.section-title h2 {
+    color: #f1f5ff !important;
+
+    letter-spacing: -.035em !important;
+
+    animation:
+        zxFadeUp .7s ease both;
+}
+
+.section-title p {
+    color: #818da1 !important;
+}
+
+.cards {
+    position: relative;
+}
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 21, 33, .78),
+            rgba(7, 10, 17, .72)
+        ) !important;
+
+    border:
+        1px solid rgba(130, 180, 255, .11) !important;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-5px) !important;
+
+    border-color:
+        rgba(82, 166, 255, .24) !important;
+
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.30),
+        0 0 30px rgba(62, 145, 255, .055) !important;
+}
+
+.card .icon {
+    text-shadow:
+        0 0 20px rgba(75, 170, 255, .18);
+}
+
+.card h3 {
+    color: #edf3ff !important;
+}
+
+.card p {
+    color: #7f8ca2 !important;
+}
+
+/* ---------- SIDE MENU ---------- */
+
+.zx-side-menu {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9, 13, 22, .96),
+            rgba(4, 7, 13, .98)
+        ) !important;
+
+    border-right:
+        1px solid rgba(120, 175, 255, .12) !important;
+
+    box-shadow:
+        20px 0 70px rgba(0,0,0,.35) !important;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.zx-side-line {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(90,165,255,.16),
+            transparent
+        ) !important;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    transition:
+        background .22s ease,
+        color .22s ease,
+        transform .22s ease !important;
+}
+
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    background:
+        rgba(75, 150, 255, .07) !important;
+
+    transform: translateX(3px);
+}
+
+/* ---------- USER PANEL ---------- */
+
+.z-user-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12, 17, 28, .96),
+            rgba(4, 7, 13, .98)
+        ) !important;
+
+    border-color:
+        rgba(120, 175, 255, .13) !important;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45) !important;
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+/* ---------- LIGHTWEIGHT ANIMATION ---------- */
+
+@keyframes zxHeroGlow {
+    from {
+        opacity: .55;
+        transform: translateX(-50%) scale(1);
+    }
+
+    to {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.06);
+    }
+}
+
+@keyframes zxTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxCoreEnter {
+    from {
+        opacity: 0;
+        transform: scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zxCoreFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes zxDotPulse {
+    0%, 100% {
+        opacity: .65;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+    .zx-v2-hero::before {
+        width: 360px;
+        height: 360px;
+        filter: blur(14px);
+    }
+
+    .zx-v2-core {
+        animation-duration: 9s;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-final-blue-black-theme">
+
+/* =====================================================
+   ZOROX FINAL — BLACK / BLUE PREMIUM THEME
+   Visual styling only
+===================================================== */
+
+:root {
+    --zx-black: #020407;
+    --zx-black2: #050912;
+    --zx-blue: #238cff;
+    --zx-blue2: #54b7ff;
+    --zx-cyan: #72dcff;
+    --zx-white: #f5f9ff;
+    --zx-muted: #8290a5;
+    --zx-border: rgba(85, 165, 255, .14);
+}
+
+/* ---------- GLOBAL ---------- */
+
+html,
+body {
+    background: #020407 !important;
+    color: var(--zx-white) !important;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% -15%,
+            rgba(30, 125, 255, .12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 60%,
+            rgba(25, 100, 220, .045),
+            transparent 42%
+        ),
+        #020407 !important;
+}
+
+/* Remove purple feeling */
+[style*="#7564ff"],
+[style*="#7c5cff"],
+[style*="124,92,255"],
+[style*="91,75,255"] {
+    color: var(--zx-blue2) !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.zx-clean-nav {
+    background: rgba(2, 5, 9, .82) !important;
+    border-color: rgba(85, 165, 255, .14) !important;
+
+    box-shadow:
+        0 10px 45px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+
+.zx-nav-title {
+    color: #f5f9ff !important;
+    text-shadow:
+        0 0 20px rgba(50,155,255,.24);
+}
+
+/* ---------- HERO ---------- */
+
+.zx-v2-hero {
+    background:
+        radial-gradient(
+            circle at 50% 48%,
+            rgba(20, 120, 255, .055),
+            transparent 48%
+        ) !important;
+}
+
+.zx-v2-hero::before {
+    width: 600px;
+    height: 600px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(35, 140, 255, .12),
+            rgba(35, 140, 255, .025) 45%,
+            transparent 70%
+        );
+
+    filter: blur(18px);
+
+    animation:
+        zxBlueAtmosphere 7s ease-in-out infinite alternate;
+}
+
+/* ---------- KICKER ---------- */
+
+.zx-v2-kicker {
+    color: #91a9c5 !important;
+}
+
+.zx-v2-dot {
+    background: var(--zx-blue2) !important;
+
+    box-shadow:
+        0 0 8px rgba(70,190,255,.75),
+        0 0 22px rgba(40,140,255,.28) !important;
+
+    animation:
+        zxPulse 2s ease-in-out infinite;
+}
+
+/* ---------- TITLE ---------- */
+
+
+
+/* ZOROX.AI — blue instead of purple */
+
+
+
+/* ---------- SUBTITLE ---------- */
+
+.zx-v2-sub {
+    color: #8492a7 !important;
+
+    animation:
+        zxText .8s .25s ease both;
+}
+
+/* ---------- CTA ---------- */
+
+.zx-v2-actions {
+    animation:
+        zxText .8s .38s ease both;
+}
+
+.zx-v2-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #147cff,
+            #249fff
+        ) !important;
+
+    color: white !important;
+
+    border:
+        1px solid rgba(130,210,255,.25) !important;
+
+    box-shadow:
+        0 12px 35px rgba(20,125,255,.20),
+        inset 0 1px 0 rgba(255,255,255,.20) !important;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease !important;
+}
+
+.zx-v2-primary:hover {
+    transform: translateY(-3px) !important;
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 18px 48px rgba(20,135,255,.30),
+        0 0 28px rgba(45,160,255,.12) !important;
+}
+
+/* ---------- AI CORE ---------- */
+
+.zx-v2-core-area {
+    animation:
+        zxCore .9s .2s cubic-bezier(.16,1,.3,1) both;
+}
+
+.zx-v2-core {
+    filter:
+        drop-shadow(0 0 35px rgba(35,145,255,.16));
+
+    animation:
+        zxFloat 6s ease-in-out infinite;
+}
+
+.zx-v2-liquid {
+    box-shadow:
+        0 0 35px rgba(40,160,255,.25),
+        0 0 80px rgba(25,110,255,.10) !important;
+}
+
+/* ---------- CARDS ---------- */
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,16,27,.88),
+            rgba(3,7,13,.94)
+        ) !important;
+
+    border:
+        1px solid rgba(85,165,255,.12) !important;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-5px) !important;
+
+    border-color:
+        rgba(75,170,255,.28) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.48),
+        0 0 30px rgba(40,145,255,.08) !important;
+}
+
+.card .icon {
+    color: #63c5ff !important;
+
+    text-shadow:
+        0 0 18px rgba(50,165,255,.25);
+}
+
+.card h3 {
+    color: #edf5ff !important;
+}
+
+.card p {
+    color: #78879d !important;
+}
+
+/* ---------- SIDE MENU ---------- */
+
+.zx-side-menu {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(4,8,14,.98),
+            rgba(1,4,8,.99)
+        ) !important;
+
+    border-right:
+        1px solid rgba(75,160,255,.14) !important;
+
+    box-shadow:
+        20px 0 80px rgba(0,0,0,.55) !important;
+}
+
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    background:
+        rgba(35,135,255,.07) !important;
+
+    color: #75c9ff !important;
+}
+
+/* ---------- USER PANEL ---------- */
+
+.z-user-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,13,22,.98),
+            rgba(2,5,9,.99)
+        ) !important;
+
+    border-color:
+        rgba(75,160,255,.14) !important;
+
+    box-shadow:
+        0 25px 90px rgba(0,0,0,.58) !important;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes zxBlueAtmosphere {
+    from {
+        opacity: .45;
+        transform: translateX(-50%) scale(1);
+    }
+
+    to {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.055);
+    }
+}
+
+@keyframes zxTitle {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrand {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.96);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxText {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxCore {
+    from {
+        opacity: 0;
+        transform: scale(.90);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zxFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes zxPulse {
+    0%,100% {
+        opacity: .65;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.18);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+    .zx-v2-hero::before {
+        width: 350px;
+        height: 350px;
+        filter: blur(14px);
+    }
+
+    .zx-v2-core {
+        animation-duration: 8s;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-zx-logo-redesign">
+
+/* =====================================================
+   ZOROX — Z/X INTELLIGENCE MARK
+   Black + Electric Blue
+===================================================== */
+
+.zx-nav-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+/* ---------- Z/X MARK ---------- */
+
+.zx-logo-mark {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30,145,255,.14),
+            rgba(3,8,15,.96)
+        );
+
+    border: 1px solid rgba(75,180,255,.22);
+
+    box-shadow:
+        0 0 22px rgba(25,135,255,.13),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    overflow: hidden;
+
+    animation: zxMarkIn .8s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* Z */
+
+.zx-logo-z {
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    width: 20px;
+    height: 17px;
+
+    border-top: 2px solid #72d6ff;
+    border-bottom: 2px solid #238cff;
+
+    transform: skewX(-24deg);
+
+    filter:
+        drop-shadow(0 0 5px rgba(60,185,255,.65));
+
+    opacity: .95;
+}
+
+/* X */
+
+.zx-logo-x {
+    position: absolute;
+    left: 13px;
+    top: 6px;
+    width: 2px;
+    height: 22px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #55c8ff 18%,
+            #238cff 82%,
+            transparent
+        );
+
+    transform: rotate(38deg);
+
+    box-shadow:
+        0 0 8px rgba(55,180,255,.65);
+
+    animation: zxXDraw 1s .25s ease both;
+}
+
+.zx-logo-x::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 2px;
+    height: 22px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #238cff 20%,
+            #72ddff 80%,
+            transparent
+        );
+
+    transform: rotate(-76deg);
+
+    box-shadow:
+        0 0 8px rgba(35,140,255,.55);
+}
+
+/* ---------- WORDMARK ---------- */
+
+.zx-logo-word {
+    color: #f4f9ff !important;
+
+    letter-spacing: .16em;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 18px rgba(55,160,255,.16);
+
+    animation:
+        zxWordIn .75s .18s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ---------- SUBTLE INTELLIGENCE PULSE ---------- */
+
+.zx-logo-mark::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    right: 4px;
+    top: 4px;
+
+    border-radius: 50%;
+
+    background: #70dcff;
+
+    box-shadow:
+        0 0 7px #70dcff,
+        0 0 16px rgba(50,165,255,.75);
+
+    animation:
+        zxNodePulse 2.4s ease-in-out infinite;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes zxMarkIn {
+    from {
+        opacity: 0;
+        transform: scale(.72) rotate(-8deg);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxXDraw {
+    from {
+        opacity: 0;
+        transform: rotate(38deg) scaleY(0);
+        transform-origin: center;
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(38deg) scaleY(1);
+    }
+}
+
+@keyframes zxWordIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+        letter-spacing: .28em;
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        letter-spacing: .16em;
+        filter: blur(0);
+    }
+}
+
+@keyframes zxNodePulse {
+    0%, 100% {
+        opacity: .45;
+        transform: scale(.75);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+    .zx-logo-mark {
+        width: 31px;
+        height: 31px;
+    }
+
+    .zx-logo-word {
+        font-size: .92em;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .zx-logo-mark,
+    .zx-logo-x,
+    .zx-logo-word,
+    .zx-logo-mark::after {
+        animation: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-infinity-core">
+
+/* =====================================================
+   ZOROX INFINITY INTELLIGENCE CORE
+   No planet — Z + X identity with subtle JARVIS orbit
+===================================================== */
+
+.zx-infinity-core {
+    position: relative;
+
+    width: 190px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation:
+        zxInfinityEnter .9s .2s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ---------- SMALL Z/X CORE ---------- */
+
+.zx-infinity-ring {
+    position: relative;
+
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(30,145,255,.10),
+            rgba(2,6,12,.92) 65%,
+            rgba(2,4,8,.98)
+        );
+
+    border:
+        1px solid rgba(80,185,255,.28);
+
+    box-shadow:
+        0 0 18px rgba(35,145,255,.18),
+        0 0 55px rgba(25,115,255,.08),
+        inset 0 0 20px rgba(35,145,255,.08);
+
+    animation:
+        zxCoreBreath 4s ease-in-out infinite;
+}
+
+/* ---------- INFINITY SHAPE ---------- */
+
+.zx-infinity-symbol {
+    position: relative;
+
+    width: 53px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: rotate(-8deg);
+
+    filter:
+        drop-shadow(0 0 6px rgba(65,190,255,.7));
+}
+
+/* Two connected loops create the Z/X infinity identity */
+
+.zx-infinity-symbol::before,
+.zx-infinity-symbol::after {
+    content: "";
+
+    position: absolute;
+
+    width: 27px;
+    height: 19px;
+
+    border:
+        2px solid #48baff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px rgba(45,170,255,.55);
+}
+
+.zx-infinity-symbol::before {
+    left: 1px;
+    transform: rotate(28deg);
+}
+
+.zx-infinity-symbol::after {
+    right: 1px;
+    transform: rotate(-28deg);
+}
+
+/* Z */
+
+.zx-symbol-z,
+.zx-symbol-x {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    color: #f5fbff;
+
+    text-shadow:
+        0 0 8px rgba(75,195,255,.85);
+}
+
+.zx-symbol-z {
+    transform: translateX(-7px);
+}
+
+.zx-symbol-x {
+    color: #64d7ff;
+    transform: translateX(7px);
+}
+
+/* ---------- JARVIS ORBIT ---------- */
+
+.zx-infinity-orbit {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.orbit-a {
+    width: 138px;
+    height: 48px;
+
+    border:
+        1px solid rgba(66,180,255,.27);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(18deg);
+
+    box-shadow:
+        0 0 10px rgba(35,150,255,.08);
+
+    animation:
+        zxOrbitA 7s linear infinite;
+}
+
+.orbit-b {
+    width: 150px;
+    height: 58px;
+
+    border:
+        1px solid rgba(70,195,255,.13);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-28deg);
+
+    animation:
+        zxOrbitB 11s linear infinite reverse;
+}
+
+/* Orbit particles */
+
+.orbit-a::after,
+.orbit-b::after {
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #72ddff;
+
+    box-shadow:
+        0 0 7px #72ddff,
+        0 0 15px rgba(45,165,255,.65);
+}
+
+.orbit-a::after {
+    top: -2px;
+    left: 50%;
+}
+
+.orbit-b::after {
+    bottom: -2px;
+    left: 28%;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes zxInfinityEnter {
+    from {
+        opacity: 0;
+        transform: scale(.72);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxCoreBreath {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 18px rgba(35,145,255,.18),
+            0 0 55px rgba(25,115,255,.08),
+            inset 0 0 20px rgba(35,145,255,.08);
+    }
+
+    50% {
+        transform: scale(1.035);
+        box-shadow:
+            0 0 25px rgba(45,165,255,.25),
+            0 0 70px rgba(25,115,255,.12),
+            inset 0 0 25px rgba(35,145,255,.12);
+    }
+}
+
+@keyframes zxOrbitA {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(18deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(378deg);
+    }
+}
+
+@keyframes zxOrbitB {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(-28deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(-388deg);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+    .zx-infinity-core {
+        width: 160px;
+        height: 125px;
+    }
+
+    .zx-infinity-ring {
+        width: 68px;
+        height: 68px;
+    }
+
+    .orbit-a {
+        width: 120px;
+        height: 43px;
+    }
+
+    .orbit-b {
+        width: 130px;
+        height: 50px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zx-infinity-core,
+    .zx-infinity-ring,
+    .zx-infinity-orbit {
+        animation: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-title-clean-final">
+
+
+
+/* WELCOME + TO */
+
+
+
+
+/* ZOROX.AI */
+
+
+@keyframes zxWelcomeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandClean {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(.97);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandShimmer {
+    0%, 65%, 100% {
+        background-position: 0% 50%;
+    }
+
+    82% {
+        background-position: 100% 50%;
+    }
+}
+
+</style>
+
 </body>
 </html>
 
 <style>
-#zcu-loading {
-    pointer-events: none !important;
-}
-
 /* =====================================================
    ZOROX PREMIUM NAVIGATION UPGRADE
 ===================================================== */
@@ -5804,19 +6941,6 @@ document.addEventListener("keydown", function(e) {
 }
 
 </style>
-<script>
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        const loader = document.getElementById("zcu-loading");
-        if (loader) {
-            loader.style.display = "none";
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
-        }
-    }, 900);
-});
-</script>
-
 <style id="zx-clean-nav-fix">
 
 .zx-main-header{
@@ -5876,6 +7000,844 @@ window.addEventListener("load", () => {
 .zorox-logo,
 .zorox-brand-name{
     display:none !important;
+}
+
+</style>
+
+<style id="zorox-welcome-spacing-fix">
+
+
+.zx-v2-title > span {
+    white-space: nowrap !important;
+}
+</style>
+
+
+<style id="zorox-neon-premium-final">
+
+/* =====================================================
+   ZOROX — ULTRA DARK NEON PREMIUM
+===================================================== */
+
+html,
+body {
+    background: #010305 !important;
+}
+
+/* Deep black atmosphere */
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(15,85,150,.055),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #010204 0%,
+            #02050a 48%,
+            #010204 100%
+        ) !important;
+}
+
+/* Remove excessive glow / purple */
+
+body::before {
+    opacity: .18 !important;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(30,145,255,.10),
+            transparent 34%
+        ) !important;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.zx-v2-hero {
+    background: transparent !important;
+    min-height: 88vh;
+}
+
+.zx-v2-hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    width: 420px;
+    height: 120px;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(25,135,255,.08),
+            transparent 70%
+        );
+
+    filter: blur(22px);
+
+    pointer-events: none;
+
+    animation: zxFloorGlow 5s ease-in-out infinite;
+}
+
+/* =====================================================
+   Z/X INFINITY NEON CORE
+===================================================== */
+
+.zx-infinity-core {
+    filter:
+        drop-shadow(
+            0 0 12px rgba(40,160,255,.14)
+        );
+
+    animation:
+        zxNeonEntrance 1.1s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* Outer orbit */
+
+.zx-infinity-orbit {
+    border-color:
+        rgba(70,180,255,.20) !important;
+
+    box-shadow:
+        0 0 10px rgba(30,145,255,.06),
+        inset 0 0 8px rgba(30,145,255,.035);
+}
+
+/* Orbit light becomes the animated neon point */
+
+.orbit-a::after,
+.orbit-b::after {
+    width: 3px !important;
+    height: 3px !important;
+
+    background: #8ce5ff !important;
+
+    box-shadow:
+        0 0 5px #8ce5ff,
+        0 0 13px #38aaff,
+        0 0 26px rgba(35,140,255,.55) !important;
+}
+
+/* Core ring */
+
+.zx-infinity-ring {
+    background:
+        radial-gradient(
+            circle,
+            rgba(20,100,180,.075),
+            rgba(1,4,8,.98) 68%
+        ) !important;
+
+    border:
+        1px solid rgba(78,190,255,.30) !important;
+
+    box-shadow:
+        0 0 10px rgba(30,145,255,.16),
+        0 0 35px rgba(20,120,255,.08),
+        inset 0 0 18px rgba(25,145,255,.06) !important;
+}
+
+/* Infinity lines */
+
+.zx-infinity-symbol::before,
+.zx-infinity-symbol::after {
+    border-color:
+        #46bfff !important;
+
+    box-shadow:
+        0 0 4px #46bfff,
+        0 0 11px rgba(55,180,255,.72),
+        0 0 22px rgba(30,130,255,.28) !important;
+
+    animation:
+        zxInfinityGlow 3.5s ease-in-out infinite;
+}
+
+/* Logo letters */
+
+.zx-symbol-z,
+.zx-symbol-x {
+    color: #eaf8ff !important;
+
+    text-shadow:
+        0 0 5px rgba(110,215,255,.85),
+        0 0 14px rgba(40,155,255,.45) !important;
+}
+
+/* =====================================================
+   PREMIUM TEXT
+===================================================== */
+
+.zx-v2-kicker {
+    letter-spacing: .20em !important;
+    color: #71869d !important;
+}
+
+
+
+
+
+.zx-v2-sub {
+    color: #697a8e !important;
+}
+
+/* =====================================================
+   PREMIUM CTA
+===================================================== */
+
+.zx-v2-primary {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0875e8,
+            #159fff
+        ) !important;
+
+    border:
+        1px solid rgba(110,205,255,.28) !important;
+
+    box-shadow:
+        0 8px 30px rgba(10,110,220,.18),
+        0 0 20px rgba(30,145,255,.07),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+.zx-v2-primary::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -80%;
+
+    width: 45%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.22),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation:
+        zxButtonSweep 4.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   TECHNOLOGY SECTION
+===================================================== */
+
+.services {
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(3,10,18,.35)
+        ) !important;
+}
+
+.section-title h2 {
+    color: #eef6ff !important;
+}
+
+.section-title p {
+    color: #66778b !important;
+}
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(5,11,18,.82),
+            rgba(1,4,8,.96)
+        ) !important;
+
+    border:
+        1px solid rgba(70,160,230,.095) !important;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.48),
+        inset 0 1px 0 rgba(255,255,255,.018) !important;
+}
+
+.card:hover {
+    border-color:
+        rgba(65,170,245,.24) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.58),
+        0 0 30px rgba(30,130,230,.055) !important;
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes zxNeonEntrance {
+    from {
+        opacity: 0;
+        transform: scale(.75);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxInfinityGlow {
+    0%,100% {
+        opacity: .65;
+    }
+
+    50% {
+        opacity: 1;
+        filter:
+            drop-shadow(0 0 5px #46bfff)
+            drop-shadow(0 0 13px rgba(40,155,255,.7));
+    }
+}
+
+@keyframes zxPremiumWord {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBlueShimmer {
+    0%,65%,100% {
+        background-position: 0% 50%;
+    }
+
+    82% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes zxButtonSweep {
+    0%,55% {
+        left: -80%;
+    }
+
+    75%,100% {
+        left: 140%;
+    }
+}
+
+@keyframes zxFloorGlow {
+    0%,100% {
+        opacity: .35;
+        transform: translateX(-50%) scaleX(.9);
+    }
+
+    50% {
+        opacity: .7;
+        transform: translateX(-50%) scaleX(1.08);
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:700px) {
+
+    .zx-v2-hero {
+        min-height: 90vh;
+    }
+
+    .zx-v2-hero::after {
+        width: 280px;
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .zx-v2-title span,
+    .zx-infinity-core,
+    .zx-infinity-symbol::before,
+    .zx-infinity-symbol::after,
+    .zx-v2-primary::after,
+    .zx-v2-hero::after {
+        animation: none !important;
+    }
+}
+
+</style>
+
+<style id="zorox-title-final-fix">
+
+/* WELCOME TO */
+
+
+/* Only the original ZOROX.AI brand span */
+
+
+/* Animated WELCOME / TO words stay white */
+
+
+/* Keep the actual space between WELCOME and TO */
+
+
+</style>
+
+<style id="zorox-title-visible-fix">
+
+/* FINAL TITLE VISIBILITY RESET */
+
+.zx-v2-title,
+.zx-v2-title .zx-welcome-word,
+.zx-v2-title 
+
+/* WELCOME + TO */
+
+.zx-v2-title 
+
+/* ZOROX.AI */
+
+.zx-v2-title 
+
+/* Safe animations — final state is always visible */
+
+@keyframes zoroxWelcomeShow {
+    from {
+        opacity: .05;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoroxBrandShow {
+    from {
+        opacity: .05;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+
+<style id="zorox-title-size-final">
+h1.zx-v2-title {
+    font-size: clamp(2.6rem, 6vw, 4.8rem) !important;
+    line-height: 1.02 !important;
+}
+</style>
+
+<style id="zorox-hero-space-fix">
+
+.zx-v2-content {
+    grid-template-columns: minmax(0, .9fr) minmax(280px, .75fr) !important;
+    column-gap: 18px !important;
+}
+
+.zx-v2-core-area {
+    justify-content: flex-start !important;
+    transform: translateX(-18px);
+}
+
+@media (max-width: 900px) {
+    .zx-v2-content {
+        grid-template-columns: 1fr !important;
+        row-gap: 8px !important;
+    }
+
+    .zx-v2-core-area {
+        justify-content: center !important;
+        transform: none !important;
+    }
+}
+
+</style>
+
+<style id="zorox-dark-font-final">
+
+/* ===== ZOROX DARK PREMIUM TYPOGRAPHY ===== */
+
+body,
+button,
+input,
+textarea,
+select {
+    font-family:
+        "Inter",
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif !important;
+}
+
+/* Main background */
+body {
+    background:
+        radial-gradient(circle at 50% 0%,
+            rgba(0, 110, 190, .07),
+            transparent 35%),
+        #020508 !important;
+
+    color: #d7e3ed !important;
+}
+
+/* Hero heading */
+.zx-v2-title {
+    font-weight: 750 !important;
+    letter-spacing: -2.5px !important;
+    color: #e9f1f7 !important;
+}
+
+/* WELCOME + TO */
+.zx-v2-title .zx-welcome-word {
+    color: #dce6ed !important;
+    -webkit-text-fill-color: #dce6ed !important;
+}
+
+/* ZOROX.AI */
+.zx-v2-title .zx-brand-word {
+    color: #38b6ff !important;
+    -webkit-text-fill-color: #38b6ff !important;
+    text-shadow:
+        0 0 18px rgba(40,170,255,.18) !important;
+}
+
+/* Hero description */
+.zx-v2-sub {
+    color: #718391 !important;
+    font-weight: 400 !important;
+    letter-spacing: .1px !important;
+}
+
+/* Online status */
+.zx-v2-kicker {
+    color: #6e9bb7 !important;
+    letter-spacing: 1.8px !important;
+}
+
+/* Section headings */
+.section-title h2 {
+    color: #dce8ef !important;
+    font-weight: 700 !important;
+}
+
+.section-title p {
+    color: #657784 !important;
+}
+
+/* Cards */
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,18,25,.92),
+            rgba(3,9,14,.96)
+        ) !important;
+
+    border-color: rgba(70,150,200,.10) !important;
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.35) !important;
+}
+
+.card h3 {
+    color: #d7e4eb !important;
+}
+
+.card p {
+    color: #687985 !important;
+}
+
+.card .icon {
+    color: #39b7ff !important;
+}
+
+/* Navigation */
+.zx-logo-word {
+    color: #dce8ef !important;
+    font-weight: 750 !important;
+    letter-spacing: 2.5px !important;
+}
+
+.zx-side-menu {
+    background:
+        linear-gradient(
+            180deg,
+            #03080d 0%,
+            #020507 100%
+        ) !important;
+
+    border-right-color: rgba(50,160,220,.12) !important;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    color: #71818c !important;
+}
+
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    color: #39b7ff !important;
+}
+
+/* Buttons */
+.zx-v2-btn {
+    font-weight: 600 !important;
+    letter-spacing: .2px !important;
+}
+
+.zx-v2-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #087fc2,
+            #19a8ed
+        ) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        0 8px 28px rgba(0,145,220,.18) !important;
+}
+
+/* Remove excessive bright glow */
+.zx-v2-title,
+.zx-v2-sub,
+.section-title h2,
+.card,
+.zx-logo-word {
+    text-shadow: none !important;
+}
+
+/* Keep only subtle ZOROX blue glow */
+.zx-brand-word {
+    text-shadow:
+        0 0 14px rgba(40,170,255,.16) !important;
+}
+
+</style>
+
+<style id="zorox-nav-premium-buttons">
+
+/* ===== PREMIUM NAVIGATION ===== */
+
+.zx-side-links {
+    gap: 7px !important;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    gap: 13px !important;
+
+    min-height: 46px !important;
+    padding: 0 14px !important;
+
+    border: 1px solid transparent !important;
+    border-radius: 12px !important;
+
+    background: rgba(7,15,21,.45) !important;
+
+    color: #82929d !important;
+
+    font-size: 14px !important;
+    font-weight: 520 !important;
+    letter-spacing: .15px !important;
+
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease !important;
+}
+
+/* Icon container */
+.zx-side-links a > span,
+.zx-side-secondary a > span {
+    width: 28px !important;
+    height: 28px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex: 0 0 28px !important;
+
+    border-radius: 8px !important;
+
+    background: rgba(25,135,195,.07) !important;
+    border: 1px solid rgba(55,170,225,.08) !important;
+
+    color: #6d8797 !important;
+
+    font-size: 14px !important;
+    line-height: 1 !important;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease !important;
+}
+
+/* Hover */
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    color: #dcecf5 !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12,75,108,.25),
+            rgba(8,25,35,.55)
+        ) !important;
+
+    border-color: rgba(45,164,220,.20) !important;
+
+    transform: translateX(4px) !important;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25),
+        inset 2px 0 0 rgba(38,170,230,.65) !important;
+}
+
+.zx-side-links a:hover > span,
+.zx-side-secondary a:hover > span {
+    color: #39b8ff !important;
+
+    background: rgba(25,145,205,.12) !important;
+
+    border-color: rgba(50,175,230,.22) !important;
+
+    box-shadow:
+        0 0 14px rgba(30,165,230,.10) !important;
+}
+
+/* Active / selected feel */
+.zx-side-links a:active,
+.zx-side-secondary a:active {
+    transform: translateX(2px) scale(.985) !important;
+}
+
+/* Special Buy Coins button */
+.zx-side-links .zx-side-coins {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20,95,135,.18),
+            rgba(7,18,25,.55)
+        ) !important;
+
+    border-color: rgba(45,165,220,.13) !important;
+}
+
+.zx-side-links .zx-side-coins > span {
+    color: #45baff !important;
+}
+
+/* Admin button */
+.zx-side-links .zx-side-admin {
+    border-color: rgba(55,120,155,.08) !important;
+}
+
+/* Sign up button */
+.zx-side-links .zx-side-signup {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(15,85,120,.12),
+            rgba(7,15,21,.45)
+        ) !important;
+}
+
+/* Sidebar divider */
+.zx-side-line {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(50,160,215,.16),
+            transparent
+        ) !important;
+
+    height: 1px !important;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .zx-side-links a,
+    .zx-side-secondary a {
+        min-height: 48px !important;
+        border-radius: 13px !important;
+    }
+
+    .zx-side-links a:hover,
+    .zx-side-secondary a:hover {
+        transform: translateX(2px) !important;
+    }
+}
+
+</style>
+
+<style id="zorox-clean-nav-text">
+
+.zx-clean-nav-icon {
+    display: none !important;
+}
+
+.zx-side-links .zx-side-coins,
+.zx-side-secondary a {
+    gap: 0 !important;
+}
+
+</style>
+
+<style id="zorox-buy-coins-alignment-fix">
+
+.zx-side-links .zx-side-coins {
+    display: flex !important;
+    align-items: center !important;
+    gap: 13px !important;
+    padding-left: 14px !important;
+}
+
+.zx-side-links .zx-side-coins > label {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
 }
 
 </style>

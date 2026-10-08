@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOROX Profile</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;background:#05080d;color:#eef7ff;
+ font-family:Arial,sans-serif;
+ background-image:
+ radial-gradient(circle at 15% 10%,#07334a55,transparent 30%),
+ radial-gradient(circle at 85% 20%,#102b6650,transparent 30%);
+}
+.top{max-width:1050px;margin:auto;padding:22px 18px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:22px;font-weight:900;letter-spacing:2px}.logo span{color:#28caff}
+.back,.btn{
+ color:#b9d5e8;background:#09131d;border:1px solid #19394c;
+ border-radius:12px;padding:11px 15px;text-decoration:none;cursor:pointer
+}
+.wrap{max-width:1050px;margin:auto;padding:0 18px 50px}
+.hero,.card{
+ background:linear-gradient(145deg,#0b141e,#071018);
+ border:1px solid #173044;border-radius:22px;
+ box-shadow:0 15px 55px #0006
+}
+.hero{padding:28px}
+.head{display:flex;gap:18px;align-items:center}
+.avatar{
+ width:82px;height:82px;border-radius:24px;display:grid;place-items:center;
+ background:#0b2030;border:1px solid #24516a;color:#35d5ff;
+ font-size:32px;font-weight:900;overflow:hidden
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.name{font-size:28px;font-weight:900}
+.email{color:#8096a8;margin-top:6px;font-size:14px}
+.badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.badge{padding:6px 10px;border-radius:20px;background:#0b2030;border:1px solid #194a62;color:#75dfff;font-size:11px;font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.card{padding:20px}
+.label{font-size:11px;color:#718899;letter-spacing:1px;font-weight:bold}
+.value{font-size:27px;font-weight:900;margin-top:9px}
+.sub{font-size:12px;color:#718899;margin-top:5px}
+.sections{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.section{padding:20px}
+.section h2{font-size:17px;margin:0 0 12px}
+.row{padding:14px 0;border-top:1px solid #12232e;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.row:first-of-type{border-top:0}
+.title{font-weight:bold}.muted{font-size:12px;color:#718899;margin-top:4px}
+.edit{margin-top:14px;padding:20px}
+.form{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+input{width:100%;padding:13px;background:#050c13;color:white;border:1px solid #193647;border-radius:11px;outline:none}
+input:focus{border-color:#28caff}
+.save{width:100%;margin-top:12px;padding:13px;border:0;border-radius:11px;background:#18b9e8;color:#031018;font-weight:900;cursor:pointer}
+.status{margin-top:10px;color:#6bdcff;font-size:13px;min-height:18px}
+.danger{margin-top:14px;width:100%;background:#170b0e;color:#ff9fa8;border-color:#52242b}
+@media(max-width:700px){.grid,.sections{grid-template-columns:1fr}.form{grid-template-columns:1fr}.name{font-size:22px}.hero{padding:22px}}
+</style>
+</head>
+<body>
+
+<header class="top">
+ <div class="logo">ZOROX<span> AI</span></div>
+ <a class="back" href="index.html">← Main UI</a>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+ <div class="head">
+  <div class="avatar" id="avatar">Z</div>
+  <div>
+   <div class="name" id="username">Loading...</div>
+   <div class="email" id="email">Loading...</div>
+   <div class="badges">
+    <span class="badge" id="verified">ACCOUNT</span>
+    <span class="badge" id="plan">FREE PLAN</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<div class="grid">
+ <div class="card">
+  <div class="label">COIN BALANCE</div>
+  <div class="value" id="coins">0</div>
+  <div class="sub">ZOROX Coins</div>
+ </div>
+ <div class="card">
+  <div class="label">PLAN</div>
+  <div class="value" id="planValue">Free</div>
+  <div class="sub" id="planSub">Standard access</div>
+ </div>
+ <div class="card">
+  <div class="label">LOGIN COUNT</div>
+  <div class="value" id="logins">0</div>
+  <div class="sub">Account activity</div>
+ </div>
+</div>
+
+<div class="sections">
+
+<section class="card section">
+ <h2>Account</h2>
+ <div class="row"><div><div class="title">Username</div><div class="muted" id="username2">—</div></div></div>
+ <div class="row"><div><div class="title">Country</div><div class="muted" id="country">—</div></div></div>
+ <div class="row"><div><div class="title">Account Created</div><div class="muted" id="created">—</div></div></div>
+</section>
+
+<section class="card section">
+ <h2>ZOROX Features</h2>
+ <div class="row"><div><div class="title">AI Memory</div><div class="muted">Personal memory controls</div></div><button class="btn" onclick="soon()">Open</button></div>
+ <div class="row"><div><div class="title">My Projects</div><div class="muted">Saved projects</div></div><button class="btn" onclick="soon()">Open</button></div>
+ <div class="row"><div><div class="title">Security</div><div class="muted">Account security</div></div><button class="btn" onclick="soon()">Open</button></div>
+</section>
+
+</div>
+
+<section class="card edit">
+ <h2>Edit Profile</h2>
+ <div class="form">
+  <input id="editUsername" placeholder="Username">
+  <input id="editPhone" placeholder="Phone number">
+  <input id="editCountry" placeholder="Country">
+ </div>
+ <button class="save" onclick="saveProfile()">SAVE PROFILE</button>
+ <div class="status" id="status"></div>
+</section>
+
+<section class="card edit">
+ <button class="save danger" onclick="logout()">LOG OUT OF ZOROX</button>
+</section>
+
+</main>
+
+<script>
+let user=null;
+
+function getToken(){
+ return localStorage.getItem("zoroxToken") || "";
+}
+
+async function loadProfile(){
+
+ const t=getToken();
+
+ if(!t){
+  window.location.href="login.html";
+  return;
+ }
+
+ try{
+  const r=await fetch("/api/me",{
+   headers:{Authorization:"Bearer "+t}
+  });
+
+  const data=await r.json();
+
+  if(!r.ok || !data.user){
+   localStorage.removeItem("zoroxToken");
+   window.location.href="login.html";
+   return;
+  }
+
+  user=data.user;
+  render(user);
+
+ }catch(e){
+  document.getElementById("status").textContent="Unable to connect to ZOROX server.";
+ }
+}
+
+function render(u){
+
+ const name=u.username || "ZOROX USER";
+
+ document.getElementById("username").textContent=name;
+ document.getElementById("username2").textContent=name;
+ document.getElementById("email").textContent=u.email || "—";
+ document.getElementById("country").textContent=u.country || "—";
+ document.getElementById("coins").textContent=Number(u.coins||0).toLocaleString();
+ document.getElementById("logins").textContent=Number(u.login_count||0).toLocaleString();
+
+ const plus=Number(u.unlimited_coins||0)===1;
+
+ document.getElementById("plan").textContent=plus?"ZOROX PLUS":"FREE PLAN";
+ document.getElementById("planValue").textContent=plus?"Plus":"Free";
+ document.getElementById("planSub").textContent=plus?"Unlimited access":"Standard access";
+
+ document.getElementById("verified").textContent=
+  Number(u.verified||0)===1?"VERIFIED":"ACCOUNT";
+
+ document.getElementById("created").textContent=u.created_at||"—";
+
+ document.getElementById("editUsername").value=u.username||"";
+ document.getElementById("editPhone").value=u.phone||"";
+ document.getElementById("editCountry").value=u.country||"";
+
+ document.getElementById("avatar").textContent=name.charAt(0).toUpperCase();
+}
+
+async function saveProfile(){
+
+ const status=document.getElementById("status");
+
+ try{
+  const r=await fetch("/api/profile/update",{
+   method:"POST",
+   headers:{
+    "Content-Type":"application/json",
+    Authorization:"Bearer "+getToken()
+   },
+   body:JSON.stringify({
+    username:document.getElementById("editUsername").value.trim(),
+    phone:document.getElementById("editPhone").value.trim(),
+    country:document.getElementById("editCountry").value.trim()
+   })
+  });
+
+  const data=await r.json();
+
+  if(!r.ok){
+   status.textContent=data.error||"Update failed.";
+   return;
+  }
+
+  user=data.user;
+
+  localStorage.setItem("zorox_user",JSON.stringify({
+   id:user.id,
+   email:user.email,
+   username:user.username,
+   country:user.country
+  }));
+
+  render(user);
+  status.textContent="Profile updated successfully.";
+
+ }catch(e){
+  status.textContent="Unable to connect to ZOROX server.";
+ }
+}
+
+async function logout(){
+
+ try{
+  await fetch("/api/logout",{
+   method:"POST",
+   headers:{Authorization:"Bearer "+getToken()}
+  });
+ }catch(e){}
+
+ localStorage.removeItem("zoroxToken");
+ localStorage.removeItem("zorox_user");
+ localStorage.removeItem("zoroxUser");
+
+ window.location.href="login.html";
+}
+
+function soon(){
+ document.getElementById("status").textContent="This feature is coming soon.";
+}
+
+loadProfile();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WIKRAMASINGHE TECHNOLOGIES</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020409;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    left: -250px;
+    top: -250px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 220, 255, .14),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    right: -300px;
+    bottom: -300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(105, 60, 255, .15),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+/* =========================
+   GRID BACKGROUND
+========================= */
+
+.grid-bg {
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+
+    pointer-events: none;
+    z-index: -4;
+}
+
+/* =========================
+   FLOATING BUBBLES
+========================= */
+
+.bubble {
+    position: fixed;
+    border-radius: 50%;
+
+    background: rgba(0, 210, 255, .025);
+
+    border: 1px solid rgba(0, 220, 255, .10);
+
+    box-shadow:
+        inset 0 0 20px rgba(0,220,255,.03),
+        0 0 30px rgba(0,220,255,.03);
+
+    backdrop-filter: blur(4px);
+
+    animation: floating 9s infinite ease-in-out;
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+.b1 {
+    width: 110px;
+    height: 110px;
+    top: 15%;
+    left: 5%;
+}
+
+.b2 {
+    width: 45px;
+    height: 45px;
+    top: 60%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+.b3 {
+    width: 140px;
+    height: 140px;
+    top: 25%;
+    right: 5%;
+    animation-delay: 1s;
+}
+
+.b4 {
+    width: 60px;
+    height: 60px;
+    bottom: 15%;
+    right: 17%;
+    animation-delay: 3s;
+}
+
+.b5 {
+    width: 30px;
+    height: 30px;
+    top: 45%;
+    right: 30%;
+    animation-delay: 4s;
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+
+    width: 100%;
+
+    padding: 18px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(2,4,9,.72);
+
+    backdrop-filter: blur(25px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    z-index: 100;
+}
+
+/* LOGO */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    cursor: pointer;
+}
+
+.logo {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.30);
+}
+
+.brand-text {
+    font-size: 15px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.brand-text span {
+    color: #00dcff;
+}
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    position: relative;
+
+    color: #8f9aaa;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: #00dcff;
+
+    transition: .3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+
+    min-height: 86vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    position: relative;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+/* BADGE */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 18px;
+
+    border:
+        1px solid rgba(0,220,255,.20);
+
+    border-radius: 50px;
+
+    background:
+        rgba(0,220,255,.04);
+
+    color: #66eaff;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 28px;
+}
+
+.badge-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #00eaff;
+
+    box-shadow:
+        0 0 12px #00eaff;
+
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+}
+
+/* TITLE */
+
+h1 {
+
+    font-size:
+        clamp(50px, 10vw, 110px);
+
+    line-height: .90;
+
+    font-weight: 900;
+
+    letter-spacing: -6px;
+}
+
+.gradient {
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #00eaff,
+            #7d63ff
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+/* SUBTITLE */
+
+.subtitle {
+
+    max-width: 680px;
+
+    margin:
+        32px auto;
+
+    color: #8490a1;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+/* BUTTONS */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+
+    border: none;
+
+    padding:
+        15px 25px;
+
+    border-radius: 13px;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.primary {
+
+    color: #001016;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #73f4ff
+        );
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.18);
+}
+
+.secondary {
+
+    color: white;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+.btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.35);
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+
+    padding:
+        40px 7% 100px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+.section-title p {
+
+    color: #707b8b;
+
+    font-size: 14px;
+}
+
+.cards {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 20px;
+}
+
+.card {
+
+    padding: 30px;
+
+    min-height: 220px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.012)
+        );
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -60px;
+    right: -60px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,220,255,.15),
+            transparent 70%
+        );
+}
+
+.card:hover {
+
+    transform:
+        translateY(-9px);
+
+    border-color:
+        rgba(0,220,255,.28);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.icon {
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    color: #00eaff;
+
+    background:
+        rgba(0,220,255,.07);
+
+    border:
+        1px solid rgba(0,220,255,.13);
+
+    margin-bottom: 22px;
+}
+
+.card h3 {
+
+    font-size: 19px;
+
+    margin-bottom: 12px;
+}
+
+.card p {
+
+    color: #798596;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   AI SECTION
+========================= */
+
+#aiSection {
+
+    display: none;
+
+    min-height: 100vh;
+
+    padding:
+        40px 6% 80px;
+
+    position: relative;
+}
+
+.ai-container {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.ai-header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.ai-logo {
+
+    width: 70px;
+    height: 70px;
+
+    margin: auto auto 18px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #754dff
+        );
+
+    color: #020409;
+
+    box-shadow:
+        0 0 40px rgba(0,220,255,.25);
+}
+
+.ai-header h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.ai-header p {
+
+    color: #778293;
+
+    font-size: 14px;
+}
+
+/* STATUS */
+
+.ai-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 13px;
+
+    color: #68eaff;
+
+    font-size: 11px;
+}
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    background: #00eaff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px #00eaff;
+}
+
+/* CHAT */
+
+.chat-box {
+
+    height: 560px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 25px;
+
+    background:
+        rgba(7,10,17,.72);
+
+    backdrop-filter:
+        blur(25px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
+}
+
+.chat-top {
+
+    padding: 18px 22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.chat-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mini-logo {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 900;
+}
+
+.chat-name {
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.chat-online {
+
+    color: #5f6b7b;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+.close-ai {
+
+    border: none;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #9ba6b5;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: .2s;
+}
+
+.close-ai:hover {
+
+    background:
+        rgba(255,255,255,.10);
+
+    color: white;
+}
+
+/* MESSAGES */
+
+.messages {
+
+    flex: 1;
+
+    padding: 25px;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.message {
+
+    max-width: 78%;
+
+    padding:
+        13px 16px;
+
+    border-radius: 17px;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    animation:
+        messageIn .25s ease;
+}
+
+@keyframes messageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-message {
+
+    align-self: flex-start;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    color: #d8dee8;
+
+    border-bottom-left-radius: 5px;
+}
+
+.user-message {
+
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00cfe8,
+            #6450e8
+        );
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+/* TYPING */
+
+.typing {
+
+    display: flex;
+
+    gap: 4px;
+
+    padding: 4px;
+}
+
+.typing span {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #00dcff;
+
+    animation:
+        typing 1s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes typing {
+
+    0%,100% {
+        opacity: .25;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* CHAT INPUT */
+
+.chat-input-area {
+
+    padding: 15px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.chat-input {
+
+    flex: 1;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    padding:
+        14px 16px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+}
+
+.chat-input::placeholder {
+    color: #596576;
+}
+
+.send-btn {
+
+    width: 50px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #7354ff
+        );
+
+    color: #020409;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    transition: .2s;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   TECHNOLOGY
+========================= */
+
+#technology {
+
+    padding:
+        80px 7%;
+
+    text-align: center;
+}
+
+.tech-content {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.tech-content h2 {
+
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+.tech-content p {
+
+    color: #7b8798;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+#about {
+
+    padding:
+        80px 7%;
+
+    text-align: center;
+}
+
+.about-box {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    backdrop-filter: blur(15px);
+}
+
+.about-box h2 {
+
+    font-size: 36px;
+
+    margin-bottom: 18px;
+}
+
+.about-box p {
+
+    color: #7d8999;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 45px 20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    color: #515c6b;
+
+    font-size: 12px;
+}
+
+.footer-brand {
+
+    color: #00dcff;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+.creator {
+
+    margin-top: 9px;
+
+    color: #46515f;
+}
+
+.creator span {
+
+    color: #8b96a5;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 750px) {
+
+    header {
+
+        padding:
+            16px 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    h1 {
+
+        font-size:
+            clamp(48px, 16vw, 80px);
+
+        letter-spacing:
+            -4px;
+    }
+
+    .subtitle {
+
+        font-size: 14px;
+    }
+
+    .cards {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .hero {
+
+        min-height: 78vh;
+
+        padding:
+            60px 20px;
+    }
+
+    .chat-box {
+
+        height: 600px;
+    }
+
+    .message {
+
+        max-width: 88%;
+    }
+
+    .ai-header h2 {
+
+        font-size: 32px;
+    }
+
+    .about-box {
+
+        padding: 30px 20px;
+    }
+}
+
+
+/* =========================
+   ZOROX.AI MOBILE UPGRADE
+========================= */
+
+@media (max-width: 600px) {
+
+    .chat-top {
+        padding: 18px 16px !important;
+    }
+
+    .mini-logo {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+    }
+
+    .chat-name {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
+
+    .chat-online {
+        font-size: 12px !important;
+    }
+
+    .messages {
+        flex: 1 !important;
+        min-height: 0 !important;
+        padding: 18px 14px !important;
+        overflow-y: auto !important;
+    }
+
+    .message {
+        max-width: 88% !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+        padding: 13px 15px !important;
+    }
+
+    .chat-input-area {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .chat-input {
+        height: 52px !important;
+        font-size: 16px !important;
+        padding: 0 16px !important;
+        border-radius: 18px !important;
+    }
+
+    .send-btn {
+        width: 52px !important;
+        height: 52px !important;
+        min-width: 52px !important;
+        border-radius: 18px !important;
+        font-size: 20px !important;
+    }
+
+    .footer-brand {
+        letter-spacing: 3px !important;
+        font-weight: 800 !important;
+    }
+}
+
+
+/* =========================
+   WIKRAMASINGHE TECHNOLOGIES LOGO
+========================= */
+
+.mini-logo {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #00e5ff, #7c4dff) !important;
+    color: #ffffff !important;
+    border-radius: 15px !important;
+    font-size: 0 !important;
+    font-weight: 900 !important;
+    box-shadow:
+        0 0 18px rgba(0, 229, 255, 0.35),
+        0 0 28px rgba(124, 77, 255, 0.25) !important;
+}
+
+.mini-logo::after {
+    content: "Y";
+    font-size: 25px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.footer-brand {
+    font-weight: 900 !important;
+    letter-spacing: 4px !important;
+}
+
+
+.music-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.music-button:hover {
+    transform: none;
+}
+
+
+
+
+/* =========================
+   ZOROX PREMIUM CYBER UI
+========================= */
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,110,255,.14), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(255,20,55,.12), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(40,0,255,.10), transparent 35%),
+        #030407 !important;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 55px 55px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,115,255,.14),
+        rgba(255,20,55,.06) 38%,
+        transparent 70%);
+    filter: blur(25px);
+    animation: zoroxAmbient 7s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+header,
+main,
+section,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    background: rgba(3,4,7,.62) !important;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.hero {
+    min-height: 82vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center !important;
+    max-width: 900px !important;
+    animation: zoroxEnter 1s ease both;
+}
+
+.badge {
+    display: inline-flex !important;
+    padding: 9px 16px !important;
+    border: 1px solid rgba(0,150,255,.25) !important;
+    background: rgba(0,110,255,.07) !important;
+    box-shadow: 0 0 30px rgba(0,100,255,.10);
+    backdrop-filter: blur(15px);
+}
+
+.badge-dot {
+    box-shadow:
+        0 0 8px #ff1744,
+        0 0 18px rgba(255,23,68,.7) !important;
+    animation: zoroxPulse 1.8s infinite;
+}
+
+.hero h1 {
+    font-size: clamp(4rem, 10vw, 8.5rem) !important;
+    line-height: .88 !important;
+    letter-spacing: -5px !important;
+    text-shadow:
+        0 0 35px rgba(0,120,255,.12),
+        0 0 70px rgba(255,20,55,.07);
+}
+
+.hero h1 .gradient {
+    background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #5bbcff 38%,
+        #1677ff 62%,
+        #ff3158 100%
+    ) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    background-size: 220% auto;
+    animation: zoroxGradient 5s ease infinite;
+}
+
+.subtitle {
+    color: rgba(220,230,245,.68) !important;
+    max-width: 680px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.buttons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 13px !important;
+    flex-wrap: wrap !important;
+    margin-top: 32px !important;
+}
+
+.buttons .btn,
+.buttons .music-button {
+    min-width: 185px !important;
+    min-height: 54px !important;
+    padding: 15px 24px !important;
+    border-radius: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px;
+    transition: transform .3s ease, box-shadow .3s ease,
+                border-color .3s ease, background .3s ease !important;
+}
+
+.buttons .btn:hover,
+.buttons .music-button:hover {
+    transform: translateY(-4px) !important;
+}
+
+.buttons .btn.primary {
+    background: linear-gradient(
+        135deg,
+        #086cff,
+        #1558ff 55%,
+        #e91645
+    ) !important;
+    border: 1px solid rgba(100,180,255,.28) !important;
+    box-shadow:
+        0 10px 35px rgba(0,90,255,.22),
+        0 0 45px rgba(255,20,55,.07);
+}
+
+.buttons .btn.secondary,
+.buttons .music-button {
+    color: #eef5ff !important;
+    background: rgba(255,255,255,.045) !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05),
+        0 10px 30px rgba(0,0,0,.25);
+    backdrop-filter: blur(18px);
+}
+
+.buttons .music-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+}
+
+.buttons .music-button:hover {
+    border-color: rgba(0,145,255,.45) !important;
+    background: rgba(0,110,255,.09) !important;
+    box-shadow:
+        0 0 28px rgba(0,110,255,.14),
+        inset 0 1px rgba(255,255,255,.08);
+}
+
+/* Cyber floating light */
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    left: 8%;
+    top: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,120,255,.12),
+        transparent 68%);
+    filter: blur(12px);
+    animation: zoroxFloat 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: 6%;
+    bottom: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(255,20,55,.10),
+        transparent 68%);
+    filter: blur(15px);
+    animation: zoroxFloat 8s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes zoroxEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes zoroxGradient {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes zoroxAmbient {
+    from { transform: translate(-50%,-50%) scale(.85); opacity: .65; }
+    to { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+}
+
+@keyframes zoroxFloat {
+    0%,100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-25px) translateX(15px); }
+}
+
+@keyframes zoroxPulse {
+    0%,100% { opacity: .55; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        min-height: 78vh !important;
+        padding: 90px 18px 60px !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.3rem, 18vw, 5.5rem) !important;
+        letter-spacing: -3px !important;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons .btn,
+    .buttons .music-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* ===== ZOROX BRAND ===== */
+
+.zorox-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.zorox-logo {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 12px;
+    background:
+        linear-gradient(145deg, #0a7cff, #142cff 48%, #e91b48);
+    box-shadow:
+        0 0 18px rgba(0,115,255,.32),
+        0 0 28px rgba(235,25,70,.14);
+    overflow: hidden;
+}
+
+.zorox-logo::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 11px;
+    background: #05070b;
+}
+
+.zorox-logo span {
+    position: relative;
+    z-index: 2;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    text-shadow:
+        0 0 12px rgba(0,145,255,.8),
+        0 0 18px rgba(255,35,70,.35);
+}
+
+.zorox-brand-name {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    column-gap: 5px;
+    line-height: 1;
+}
+
+.zorox-brand-name strong {
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.zorox-brand-name small {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #ff3158;
+    font-weight: 800;
+}
+
+.zorox-brand-name em {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+    font-size: 7px;
+    letter-spacing: 1.7px;
+    color: rgba(190,205,225,.55);
+    font-style: normal;
+}
+
+.zorox-brand:hover .zorox-logo {
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow:
+        0 0 25px rgba(0,125,255,.5),
+        0 0 35px rgba(235,25,70,.22);
+}
+
+.zorox-logo {
+    transition: .3s ease;
+}
+
+@media (max-width: 600px) {
+    .zorox-brand-name strong {
+        font-size: 17px;
+    }
+
+    .zorox-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .zorox-brand-name em {
+        font-size: 6px;
+    }
+}
+
+
+/* ================= ZOROX PREMIUM CHAT UI ================= */
+.chat-box{
+    width:min(1100px,94vw)!important;
+    height:min(760px,78vh)!important;
+    min-height:600px!important;
+    margin:30px auto!important;
+    border:1px solid rgba(255,35,35,.45)!important;
+    border-radius:28px!important;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(255,25,25,.12),transparent 42%),
+        linear-gradient(145deg,rgba(20,5,8,.97),rgba(5,5,7,.98))!important;
+    box-shadow:
+        0 0 0 1px rgba(255,40,40,.08),
+        0 0 45px rgba(255,0,0,.18),
+        0 25px 80px rgba(0,0,0,.65)!important;
+    overflow:hidden!important;
+    position:relative!important;
+    isolation:isolate!important;
+}
+
+.chat-box::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:30px;
+    padding:2px;
+    background:linear-gradient(120deg,transparent 20%,rgba(255,30,30,.9),transparent 45%,rgba(255,70,70,.55),transparent 75%);
+    background-size:250% 250%;
+    animation:zoroxBorder 6s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+    z-index:5;
+}
+
+.chat-top{
+    min-height:86px!important;
+    padding:20px 26px!important;
+    background:linear-gradient(90deg,rgba(255,20,20,.11),rgba(0,0,0,.2),rgba(255,20,20,.07))!important;
+    border-bottom:1px solid rgba(255,40,40,.18)!important;
+    backdrop-filter:blur(18px)!important;
+}
+
+.chat-title{
+    gap:14px!important;
+}
+
+.chat-name{
+    font-size:20px!important;
+    font-weight:800!important;
+    letter-spacing:.8px!important;
+    text-shadow:0 0 18px rgba(255,35,35,.45)!important;
+}
+
+.chat-online{
+    color:#ff5555!important;
+    text-shadow:0 0 12px rgba(255,30,30,.7)!important;
+}
+
+.messages{
+    height:calc(100% - 160px)!important;
+    min-height:430px!important;
+    padding:30px!important;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(255,0,0,.045),transparent 28%),
+        radial-gradient(circle at 90% 80%,rgba(255,0,0,.035),transparent 30%),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.008) 0 1px,transparent 1px 5px)!important;
+    scroll-behavior:smooth!important;
+}
+
+.message{
+    max-width:min(78%,760px)!important;
+    padding:16px 19px!important;
+    margin:13px 0!important;
+    border-radius:18px!important;
+    font-size:15.5px!important;
+    line-height:1.65!important;
+    animation:zoroxMessage .35s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.ai-message{
+    background:linear-gradient(145deg,rgba(255,25,25,.10),rgba(255,255,255,.035))!important;
+    border:1px solid rgba(255,45,45,.18)!important;
+    box-shadow:0 8px 30px rgba(0,0,0,.25),0 0 25px rgba(255,0,0,.05)!important;
+}
+
+.user-message{
+    background:linear-gradient(145deg,#8f1018,#4d080e)!important;
+    border:1px solid rgba(255,80,80,.32)!important;
+    box-shadow:0 8px 28px rgba(120,0,0,.28)!important;
+}
+
+.chat-input-area{
+    min-height:88px!important;
+    padding:16px 20px!important;
+    gap:14px!important;
+    background:rgba(5,5,7,.92)!important;
+    border-top:1px solid rgba(255,40,40,.2)!important;
+    backdrop-filter:blur(20px)!important;
+}
+
+.chat-input{
+    height:58px!important;
+    flex:1!important;
+    padding:0 22px!important;
+    border-radius:18px!important;
+    background:rgba(255,255,255,.045)!important;
+    border:1px solid rgba(255,45,45,.25)!important;
+    color:#fff!important;
+    font-size:16px!important;
+    outline:none!important;
+    transition:.25s ease!important;
+    box-shadow:inset 0 0 20px rgba(0,0,0,.2)!important;
+}
+
+.chat-input:focus{
+    border-color:rgba(255,45,45,.75)!important;
+    box-shadow:0 0 0 3px rgba(255,30,30,.08),0 0 30px rgba(255,0,0,.13),inset 0 0 20px rgba(0,0,0,.25)!important;
+}
+
+.chat-input::placeholder{
+    color:rgba(255,255,255,.38)!important;
+}
+
+.send-btn{
+    width:62px!important;
+    height:58px!important;
+    min-width:62px!important;
+    border-radius:18px!important;
+    border:1px solid rgba(255,100,100,.35)!important;
+    background:linear-gradient(145deg,#ff202b,#970b13)!important;
+    color:#fff!important;
+    font-size:20px!important;
+    cursor:pointer!important;
+    box-shadow:0 0 24px rgba(255,20,30,.25),inset 0 1px rgba(255,255,255,.2)!important;
+    transition:.25s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.send-btn:hover{
+    transform:translateY(-3px) scale(1.04)!important;
+    box-shadow:0 0 35px rgba(255,20,30,.5),0 10px 30px rgba(0,0,0,.35)!important;
+}
+
+.send-btn:active{
+    transform:scale(.94)!important;
+}
+
+@keyframes zoroxBorder{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes zoroxMessage{
+    from{opacity:0;transform:translateY(10px) scale(.98)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:700px){
+    .chat-box{
+        width:96vw!important;
+        height:76vh!important;
+        min-height:500px!important;
+        border-radius:22px!important;
+    }
+    .chat-top{
+        padding:16px 18px!important;
+    }
+    .messages{
+        padding:18px 14px!important;
+        min-height:350px!important;
+    }
+    .message{
+        max-width:88%!important;
+        font-size:14.5px!important;
+    }
+    .chat-input-area{
+        padding:12px!important;
+        gap:9px!important;
+    }
+    .chat-input{
+        height:52px!important;
+        font-size:15px!important;
+        padding:0 16px!important;
+    }
+    .send-btn{
+        width:54px!important;
+        min-width:54px!important;
+        height:52px!important;
+    }
+}
+/* ================= END ZOROX PREMIUM CHAT UI ================= */
+
+
+/* === ZOROX JARVIS RESPONSE ANIMATION === */
+.zorox-thinking{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  margin:10px 0;
+  color:#ff334d;
+  font-family:monospace;
+  letter-spacing:2px;
+  font-size:12px;
+  animation:zoroxFade .8s ease-in-out infinite alternate;
+}
+
+.zorox-core{
+  width:18px;
+  height:18px;
+  border:2px solid #ff334d;
+  border-top-color:transparent;
+  border-radius:50%;
+  position:relative;
+  animation:zoroxSpin 1s linear infinite;
+  box-shadow:0 0 12px #ff334d;
+}
+
+.zorox-core:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:#fff;
+  border-radius:50%;
+  top:4px;
+  left:4px;
+  box-shadow:0 0 10px #ff334d;
+}
+
+.zorox-scan{
+  overflow:hidden;
+  position:relative;
+}
+
+.zorox-scan:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#ff334d,transparent);
+  box-shadow:0 0 12px #ff334d;
+  animation:zoroxScan 1.4s linear infinite;
+}
+
+.zorox-dots span{
+  display:inline-block;
+  animation:zoroxDot 1.2s infinite;
+}
+
+.zorox-dots span:nth-child(2){animation-delay:.2s}
+.zorox-dots span:nth-child(3){animation-delay:.4s}
+
+@keyframes zoroxSpin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxFade{
+  from{opacity:.45}
+  to{opacity:1}
+}
+
+@keyframes zoroxScan{
+  from{transform:translateY(-10px)}
+  to{transform:translateY(45px)}
+}
+
+@keyframes zoroxDot{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+
+
+/* ===== ZOROX JARVIS CORE ===== */
+.zorox-jarvis{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:170px;
+  margin:18px auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.zorox-orb{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  position:relative;
+  background:radial-gradient(circle,#fff 0%,#ff465c 12%,#9b0015 42%,#050505 72%);
+  box-shadow:0 0 20px #ff334d,0 0 55px rgba(255,35,60,.65),0 0 100px rgba(255,35,60,.3);
+  animation:zoroxPulse 1.5s ease-in-out infinite;
+  z-index:3;
+}
+
+.zorox-orb::before,
+.zorox-orb::after{
+  content:"";
+  position:absolute;
+  inset:-15px;
+  border:1px solid rgba(255,50,75,.8);
+  border-radius:50%;
+  box-shadow:0 0 20px rgba(255,40,60,.35);
+}
+
+.zorox-orb::before{
+  animation:zoroxRing 2.4s linear infinite;
+}
+
+.zorox-orb::after{
+  inset:-30px;
+  border-color:rgba(255,50,75,.35);
+  animation:zoroxRingReverse 3.2s linear infinite;
+}
+
+.zorox-energy{
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,transparent,#ff334d,transparent,#ff334d,transparent);
+  -webkit-mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  animation:zoroxEnergy 1.8s linear infinite;
+  opacity:.9;
+}
+
+.zorox-label{
+  position:absolute;
+  bottom:4px;
+  font:600 10px monospace;
+  letter-spacing:3px;
+  color:#ff5065;
+  text-shadow:0 0 10px #ff334d;
+  animation:zoroxLabel 1s ease-in-out infinite alternate;
+}
+
+@keyframes zoroxPulse{
+  0%,100%{transform:scale(.88);filter:brightness(.85)}
+  50%{transform:scale(1.08);filter:brightness(1.35)}
+}
+
+@keyframes zoroxRing{
+  from{transform:rotate(0deg) scale(.9)}
+  to{transform:rotate(360deg) scale(1.08)}
+}
+
+@keyframes zoroxRingReverse{
+  from{transform:rotate(360deg) scale(1.05)}
+  to{transform:rotate(0deg) scale(.88)}
+}
+
+@keyframes zoroxEnergy{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxLabel{
+  from{opacity:.35}
+  to{opacity:1}
+}
+</style>
+
+
+
+
+<style id="zorox-final-animation">
+.zorox-logo,
+.zorox-logo span,
+.zorox-logo small{
+    animation:none !important;
+}
+
+.zorox-logo{
+    display:flex !important;
+    align-items:baseline !important;
+    gap:2px !important;
+    animation:zoroxFullGlow 2.2s ease-in-out infinite !important;
+}
+
+.zorox-logo span{
+    font-size:1.35rem !important;
+    font-weight:900 !important;
+    background:linear-gradient(90deg,#fff,#4da3ff,#ff315c,#fff) !important;
+    background-size:300% auto !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+    animation:zoroxTextShine 2.5s linear infinite !important;
+}
+
+.zorox-logo small{
+    font-size:.72rem !important;
+    font-weight:400 !important;
+    color:#69aaff !important;
+    animation:zoroxAiGlow 1.8s ease-in-out infinite !important;
+}
+
+@keyframes zoroxTextShine{
+    0%{background-position:0% center}
+    100%{background-position:300% center}
+}
+
+@keyframes zoroxAiGlow{
+    0%,100%{opacity:.55;text-shadow:0 0 3px #348cff}
+    50%{opacity:1;text-shadow:0 0 18px #348cff,0 0 30px #348cff}
+}
+
+@keyframes zoroxFullGlow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.035)}
+}
+</style>
+
+
+<style id="zorox-premium-ai-core">
+/* ===== ZOROX PREMIUM AI CORE ===== */
+.zorox-ai-core-wrap{
+    width:180px;
+    height:180px;
+    margin:24px auto 30px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    filter:drop-shadow(0 0 25px rgba(60,150,255,.45));
+}
+
+.zorox-ai-core{
+    width:112px;
+    height:112px;
+    border-radius:50%;
+    position:relative;
+    background:
+        radial-gradient(circle at 35% 30%,
+        rgba(255,255,255,.95) 0 3%,
+        rgba(100,190,255,.9) 8%,
+        rgba(30,100,220,.75) 32%,
+        rgba(20,25,70,.9) 62%,
+        rgba(5,8,20,1) 100%);
+    box-shadow:
+        inset -18px -20px 35px rgba(0,0,0,.65),
+        inset 15px 10px 25px rgba(120,210,255,.45),
+        0 0 25px rgba(45,145,255,.65),
+        0 0 70px rgba(45,110,255,.3);
+    animation:zoroxCoreFloat 3s ease-in-out infinite;
+    overflow:hidden;
+}
+
+.zorox-ai-core::before,
+.zorox-ai-core::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    border:1px solid rgba(80,180,255,.45);
+    animation:zoroxRing 3s linear infinite;
+}
+
+.zorox-ai-core::after{
+    inset:-20px;
+    border-color:rgba(255,55,95,.25);
+    animation-duration:5s;
+    animation-direction:reverse;
+}
+
+.zorox-liquid{
+    position:absolute;
+    width:180%;
+    height:70%;
+    left:-40%;
+    bottom:-18%;
+    border-radius:48%;
+    background:linear-gradient(
+        90deg,
+        rgba(40,120,255,.15),
+        rgba(100,210,255,.8),
+        rgba(70,80,255,.25)
+    );
+    filter:blur(2px);
+    animation:zoroxLiquid 2.8s ease-in-out infinite;
+}
+
+.zorox-particle{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#8bd7ff;
+    box-shadow:0 0 12px #55baff;
+    animation:zoroxParticle 2.5s ease-in-out infinite;
+}
+
+.zorox-particle:nth-child(2){animation-delay:.4s;transform:translate(-55px,20px)}
+.zorox-particle:nth-child(3){animation-delay:.8s;transform:translate(55px,-15px)}
+.zorox-particle:nth-child(4){animation-delay:1.2s;transform:translate(-25px,-65px)}
+.zorox-particle:nth-child(5){animation-delay:1.6s;transform:translate(35px,55px)}
+
+.zorox-ai-label{
+    text-align:center;
+    font-size:.72rem;
+    letter-spacing:3px;
+    font-weight:600;
+    color:rgba(170,210,255,.8);
+    text-transform:uppercase;
+    margin-top:-10px;
+}
+
+@keyframes zoroxCoreFloat{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-7px) scale(1.025)}
+}
+
+@keyframes zoroxLiquid{
+    0%,100%{transform:translateY(8px) rotate(-3deg)}
+    50%{transform:translateY(-10px) rotate(4deg)}
+}
+
+@keyframes zoroxRing{
+    0%{transform:rotate(0deg) scale(.92);opacity:.2}
+    50%{opacity:.8}
+    100%{transform:rotate(360deg) scale(1.08);opacity:.15}
+}
+
+@keyframes zoroxParticle{
+    0%,100%{opacity:.25;transform:translateY(8px) scale(.7)}
+    50%{opacity:1;transform:translateY(-12px) scale(1.2)}
+}
+
+@media(max-width:600px){
+    .zorox-ai-core-wrap{
+        width:150px;
+        height:150px;
+    }
+    .zorox-ai-core{
+        width:95px;
+        height:95px;
+    }
+}
+</style>
+
+
+<style id="zorox-ui-v2">
+/* ===== ZOROX.AI PREMIUM UI V2 ===== */
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#03050b!important;
+  overflow-x:hidden;
+}
+.zx-v2-hero{
+  min-height:calc(100vh - 80px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:70px 20px 90px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(40,90,255,.13),transparent 28%),
+    radial-gradient(circle at 15% 75%,rgba(255,25,65,.10),transparent 30%),
+    radial-gradient(circle at 85% 25%,rgba(0,180,255,.09),transparent 30%);
+}
+.zx-v2-grid{
+  position:absolute;
+  inset:0;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(80,130,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(80,130,255,.12) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent);
+}
+.zx-v2-content{
+  position:relative;
+  z-index:3;
+  width:min(1150px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:50px;
+}
+.zx-v2-copy{text-align:left}
+.zx-v2-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 14px;
+  border:1px solid rgba(90,150,255,.25);
+  border-radius:999px;
+  background:rgba(10,18,35,.55);
+  backdrop-filter:blur(15px);
+  color:#a9c7ff;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.zx-v2-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#39aaff;
+  box-shadow:0 0 14px #39aaff;
+  animation:zxPulse 1.5s infinite;
+}
+.zx-v2-title{
+  margin:24px 0 18px;
+  font-size:clamp(48px,7vw,86px);
+  line-height:.94;
+  letter-spacing:-4px;
+  font-weight:800;
+  color:#fff;
+}
+.zx-v2-title span{
+  background:linear-gradient(100deg,#fff 15%,#68b7ff 45%,#a66cff 68%,#ff4568 95%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.zx-v2-sub{
+  max-width:590px;
+  color:#9ba8bf;
+  font-size:17px;
+  line-height:1.75;
+}
+.zx-v2-actions{
+  display:flex;
+  gap:13px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+.zx-v2-btn{
+  text-decoration:none;
+  border-radius:13px;
+  padding:13px 21px;
+  font-size:14px;
+  font-weight:650;
+  transition:.25s ease;
+}
+.zx-v2-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 10px 35px rgba(52,103,255,.25);
+}
+.zx-v2-secondary{
+  color:#dce7ff;
+  border:1px solid rgba(120,150,210,.22);
+  background:rgba(255,255,255,.045);
+  backdrop-filter:blur(14px);
+}
+.zx-v2-btn:hover{transform:translateY(-3px);filter:brightness(1.12)}
+
+.zx-v2-core-area{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:470px;
+}
+.zx-v2-core{
+  width:320px;height:320px;
+  position:relative;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  animation:zxFloat 5s ease-in-out infinite;
+}
+.zx-v2-core::before{
+  content:"";
+  position:absolute;
+  inset:-55px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(45,125,255,.16),transparent 65%);
+  filter:blur(10px);
+}
+.zx-v2-orbit{
+  position:absolute;
+  inset:-28px;
+  border:1px solid rgba(65,155,255,.35);
+  border-radius:50%;
+  transform:rotateX(68deg) rotateZ(20deg);
+  animation:zxOrbit 7s linear infinite;
+}
+.zx-v2-orbit.two{
+  inset:-48px;
+  border-color:rgba(255,65,95,.22);
+  transform:rotateX(68deg) rotateZ(-35deg);
+  animation-duration:10s;
+  animation-direction:reverse;
+}
+.zx-v2-orbit::after{
+  content:"";
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#65c5ff;
+  box-shadow:0 0 18px #65c5ff;
+  top:12%;left:12%;
+}
+.zx-v2-liquid{
+  width:210px;height:210px;
+  border-radius:46% 54% 52% 48%;
+  background:
+    radial-gradient(circle at 32% 25%,#dff6ff 0 2%,transparent 8%),
+    radial-gradient(circle at 58% 48%,rgba(255,80,125,.85),transparent 34%),
+    radial-gradient(circle at 42% 55%,#287dff 0 20%,#122d9b 48%,#05091c 78%);
+  box-shadow:
+    inset -25px -25px 55px rgba(0,0,0,.65),
+    inset 18px 15px 35px rgba(100,190,255,.25),
+    0 0 35px rgba(42,125,255,.65),
+    0 0 100px rgba(50,80,255,.3);
+  filter:saturate(1.15);
+  animation:zxLiquid 6s ease-in-out infinite;
+}
+.zx-v2-liquid::after{
+  content:"Z";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:rgba(255,255,255,.88);
+  font-size:58px;
+  font-weight:800;
+  letter-spacing:-5px;
+  text-shadow:0 0 25px rgba(100,190,255,.9);
+}
+.zx-v2-label{
+  position:absolute;
+  bottom:-65px;
+  text-align:center;
+  color:#71819d;
+  font-size:10px;
+  letter-spacing:3px;
+}
+.zx-v2-label b{color:#a9c7ff;font-weight:600}
+
+@keyframes zxFloat{50%{transform:translateY(-13px)}}
+@keyframes zxLiquid{
+  0%,100%{border-radius:46% 54% 52% 48%;transform:rotate(0deg) scale(1)}
+  50%{border-radius:54% 46% 45% 55%;transform:rotate(7deg) scale(1.035)}
+}
+@keyframes zxOrbit{to{transform:rotateX(68deg) rotateZ(380deg)}}
+@keyframes zxPulse{50%{opacity:.35;transform:scale(.65)}}
+
+@media(max-width:800px){
+  .zx-v2-content{grid-template-columns:1fr;gap:10px;text-align:center}
+  .zx-v2-copy{text-align:center}
+  .zx-v2-sub{margin:auto}
+  .zx-v2-actions{justify-content:center}
+  .zx-v2-core-area{min-height:390px}
+  .zx-v2-core{transform:scale(.78)}
+  .zx-v2-title{letter-spacing:-2px}
+}
+</style>
+
+
+<style id="zorox-auth-ui">
+.zx-auth-login,.zx-auth-signup{
+  border:0;border-radius:10px;padding:9px 15px;
+  font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+  transition:.25s ease;
+}
+.zx-auth-login{
+  color:#dce7ff;background:rgba(255,255,255,.05);
+  border:1px solid rgba(100,150,255,.22);
+}
+.zx-auth-signup{
+  color:#fff;background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 7px 25px rgba(55,100,255,.22);
+}
+.zx-auth-login:hover,.zx-auth-signup:hover{
+  transform:translateY(-2px);filter:brightness(1.12);
+}
+@media(max-width:800px){
+  .zx-auth-login,.zx-auth-signup{padding:7px 11px;font-size:12px}
+}
+</style>
+
+
+<style id="zorox-auth-force">
+.zorox-nav{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  flex-wrap:wrap !important;
+}
+.zx-auth-login,.zx-auth-signup{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  z-index:9999 !important;
+  align-items:center;
+  justify-content:center;
+  min-width:72px;
+  cursor:pointer;
+}
+.zx-auth-login{
+  color:#e8efff !important;
+  background:rgba(255,255,255,.07) !important;
+  border:1px solid rgba(100,160,255,.35) !important;
+}
+.zx-auth-signup{
+  color:#fff !important;
+  background:linear-gradient(135deg,#287dff,#684cff) !important;
+  border:1px solid rgba(120,170,255,.35) !important;
+}
+</style>
+
+
+<style id="zorox-chat-mobile-fix">
+/* ZOROX CHAT FINAL UI */
+.chat-box{
+    width:min(100%, 760px)!important;
+    height:clamp(520px,72vh,680px)!important;
+    margin:0 auto!important;
+    background:#080b10!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:22px!important;
+    overflow:hidden!important;
+    box-shadow:0 18px 55px rgba(0,0,0,.35)!important;
+}
+
+.chat-box::before{
+    display:none!important;
+}
+
+.chat-top{
+    min-height:68px!important;
+    background:#0b0f14!important;
+    border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+
+.messages{
+    background:#080b10!important;
+    padding:18px!important;
+    gap:12px!important;
+}
+
+.message{
+    max-width:min(82%,620px)!important;
+    color:#fff!important;
+    line-height:1.55!important;
+    font-size:14px!important;
+}
+
+.ai-message{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.07)!important;
+    border-radius:15px 15px 15px 5px!important;
+}
+
+.user-message{
+    background:#1a2028!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.06)!important;
+    border-radius:15px 15px 5px 15px!important;
+}
+
+.chat-input-area{
+    background:#090d12!important;
+    border-top:1px solid rgba(255,255,255,.07)!important;
+    padding:12px!important;
+}
+
+.chat-input{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:14px!important;
+}
+
+.chat-input:focus{
+    border-color:rgba(255,255,255,.2)!important;
+    box-shadow:none!important;
+}
+
+.chat-input::placeholder{
+    color:#707b86!important;
+}
+
+/* typing indicator */
+#typing{
+    width:max-content!important;
+    padding:11px 14px!important;
+}
+
+#typing .typing span{
+    display:inline-block!important;
+    width:6px!important;
+    height:6px!important;
+    margin:0 3px!important;
+    border-radius:50%!important;
+    background:#cbd5df!important;
+    animation:zoroxTyping 1.2s infinite ease-in-out!important;
+}
+
+#typing .typing span:nth-child(2){animation-delay:.15s!important}
+#typing .typing span:nth-child(3){animation-delay:.30s!important}
+
+@keyframes zoroxTyping{
+    0%,60%,100%{transform:translateY(0);opacity:.35}
+    30%{transform:translateY(-5px);opacity:1}
+}
+
+/* mobile */
+@media(max-width:600px){
+    .chat-box{
+        width:calc(100vw - 24px)!important;
+        height:calc(100dvh - 150px)!important;
+        min-height:450px!important;
+        max-height:680px!important;
+        border-radius:18px!important;
+    }
+
+    .messages{
+        padding:14px!important;
+    }
+
+    .message{
+        max-width:88%!important;
+        font-size:14px!important;
+    }
+
+    .chat-top{
+        min-height:60px!important;
+        padding:10px 14px!important;
+    }
+
+    .chat-input-area{
+        padding:9px!important;
+    }
+
+    .chat-input{
+        min-height:46px!important;
+        font-size:15px!important;
+    }
+}
+</style>
+<style id="zorox-user-menu-style">
+
+.z-user-button{
+  position:fixed;
+  right:48px;
+  top:22px;
+  z-index:99980;
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:1px solid rgba(70,120,255,.38);
+  background:rgba(7,10,18,.88);
+  backdrop-filter:blur(15px);
+  color:#fff;
+  font-size:19px;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(40,90,255,.15);
+  transition:.25s ease;
+}
+
+.z-user-button:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,50,75,.6);
+  box-shadow:0 0 30px rgba(255,45,70,.18);
+}
+
+.z-user-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  width:330px;
+  max-width:90vw;
+  height:100vh;
+  z-index:99999;
+  background:rgba(5,7,14,.97);
+  border-left:1px solid rgba(70,120,255,.22);
+  box-shadow:-25px 0 70px rgba(0,0,0,.55);
+  backdrop-filter:blur(25px);
+  transform:translateX(105%);
+  transition:.4s cubic-bezier(.2,.8,.2,1);
+  overflow-y:auto;
+}
+
+.z-user-panel.open{
+  transform:translateX(0);
+}
+
+.z-user-close{
+  position:absolute;
+  top:17px;
+  right:17px;
+  z-index:5;
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  font-size:23px;
+  cursor:pointer;
+}
+
+.z-user-cover{
+  height:125px;
+  background:
+    radial-gradient(circle at 20% 50%,rgba(30,100,255,.28),transparent 45%),
+    radial-gradient(circle at 80% 30%,rgba(255,35,65,.22),transparent 45%),
+    linear-gradient(135deg,#080b15,#11182b);
+}
+
+.z-user-profile{
+  text-align:center;
+  margin-top:-45px;
+  padding:0 22px 20px;
+}
+
+.z-user-photo-wrap{
+  position:relative;
+  width:92px;
+  height:92px;
+  margin:auto;
+}
+
+.z-user-photo{
+  width:92px;
+  height:92px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(70,130,255,.8);
+  background:#0b0f1a;
+  display:block;
+}
+
+.z-photo-edit{
+  position:absolute;
+  right:-2px;
+  bottom:2px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#1769ff;
+  color:#fff;
+  border:2px solid #080b12;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.z-user-name{
+  margin-top:13px;
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+}
+
+.z-user-email{
+  margin-top:5px;
+  color:#8090ad;
+  font-size:12px;
+  word-break:break-word;
+}
+
+.z-user-coins{
+  margin:5px 18px 20px;
+  padding:16px;
+  border-radius:17px;
+  border:1px solid rgba(255,50,70,.22);
+  background:linear-gradient(135deg,
+    rgba(25,75,180,.12),
+    rgba(255,35,60,.08));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.z-user-coins small{
+  display:block;
+  color:#8292b0;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.z-user-coins strong{
+  display:block;
+  margin-top:4px;
+  color:#fff;
+  font-size:27px;
+}
+
+.z-user-coins > span{
+  color:#5f91ff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.z-user-details{
+  padding:0 18px;
+}
+
+.z-detail{
+  padding:13px 4px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.z-detail span{
+  display:block;
+  color:#66748f;
+  font-size:8px;
+  letter-spacing:2px;
+  margin-bottom:5px;
+}
+
+.z-detail strong{
+  color:#e9edf7;
+  font-size:13px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.z-profile-action,
+.z-logout-action{
+  width:calc(100% - 36px);
+  margin:18px 18px 0;
+  padding:13px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+  transition:.25s;
+}
+
+.z-profile-action{
+  border:1px solid rgba(70,130,255,.35);
+  background:rgba(50,100,255,.08);
+  color:#70a0ff;
+}
+
+.z-profile-action:hover{
+  background:#1769ff;
+  color:#fff;
+}
+
+.z-logout-action{
+  margin-top:9px;
+  margin-bottom:25px;
+  border:1px solid rgba(255,45,70,.3);
+  background:rgba(255,35,55,.06);
+  color:#ff6578;
+}
+
+.z-logout-action:hover{
+  background:rgba(255,35,55,.16);
+}
+
+@media(max-width:600px){
+  .z-user-button{
+    right:52px;
+    top:16px;
+    width:39px;
+    height:39px;
+  }
+
+  .z-user-panel{
+    width:315px;
+  }
+}
+
+</style>
+
+
+<style id="zorox-nav-user-style">
+
+.zx-user-menu-btn{
+    width:38px;
+    height:38px;
+    min-width:38px;
+    padding:0;
+    margin-left:5px;
+    border-radius:50%;
+    border:1px solid rgba(90,130,255,.45);
+    background:rgba(8,12,23,.85);
+    color:#dce8ff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:17px;
+    transition:.25s ease;
+    box-shadow:0 0 18px rgba(45,100,255,.12);
+}
+
+.zx-user-menu-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,55,75,.65);
+    box-shadow:0 0 24px rgba(255,45,70,.18);
+}
+
+.zx-user-menu-btn.logged-in{
+    border-color:rgba(60,130,255,.8);
+}
+
+.zx-user-menu-btn.logged-in #zx-nav-avatar{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    overflow:hidden;
+    display:block;
+}
+
+.zx-user-menu-btn.logged-in #zx-nav-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+@media(max-width:700px){
+    .zx-user-menu-btn{
+        width:35px;
+        height:35px;
+        min-width:35px;
+    }
+}
+
+</style>
+
+
+<style id="zorox-navbar-final-fix">
+.zx-main-header{
+    position:relative !important;
+}
+
+.zx-brand-stack{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    width:max-content !important;
+}
+
+.zx-menu-toggle{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    margin-top:8px !important;
+    width:38px !important;
+    height:38px !important;
+    padding:7px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:5px !important;
+}
+
+.zx-menu-toggle span{
+    display:block !important;
+    width:22px !important;
+    height:2px !important;
+    border-radius:5px !important;
+}
+
+.zorox-nav{
+    display:none !important;
+}
+
+#zx-user-menu-btn,
+#zx-nav-avatar{
+    display:none !important;
+}
+</style>
+
+</head>
+
+<body>
+<!-- ZOROX USER MENU START -->
+
+<button id="zUserButton" class="z-user-button" onclick="toggleUserMenu()">
+  <span id="zUserAvatar">👤</span>
+</button>
+
+<div id="zUserPanel" class="z-user-panel">
+
+  <button class="z-user-close" onclick="toggleUserMenu()">×</button>
+
+  <div class="z-user-cover"></div>
+
+  <div class="z-user-profile">
+
+    <div class="z-user-photo-wrap">
+      <img id="zProfilePhoto"
+           class="z-user-photo"
+           src=""
+           alt="Profile">
+      <label for="zProfileUpload" class="z-photo-edit">+</label>
+      <input id="zProfileUpload"
+             type="file"
+             accept="image/*"
+             hidden
+             onchange="changeZoroxPhoto(event)">
+    </div>
+
+    <div id="zUserName" class="z-user-name">ZOROX USER</div>
+    <div id="zUserEmail" class="z-user-email">Not signed in</div>
+
+  </div>
+
+  <div class="z-user-coins">
+    <div>
+      <small>COIN BALANCE</small>
+      <strong id="zCoinBalance">0</strong>
+    </div>
+    <span>COINS</span>
+  </div>
+
+  <div class="z-user-details">
+
+    <div class="z-detail">
+      <span>NAME</span>
+      <strong id="zDetailName">Not added</strong>
+    </div>
+
+    <div class="z-detail">
+      <span>PHONE NUMBER</span>
+      <strong id="zDetailPhone">Not added</strong>
+    </div>
+
+    <div class="z-detail">
+      <span>EMAIL</span>
+      <strong id="zDetailEmail">Not added</strong>
+    </div>
+
+  </div>
+
+  <button class="z-profile-action" onclick="editZoroxProfile()">
+    EDIT PROFILE
+  </button>
+
+  <button class="z-logout-action" onclick="zoroxLogout()">
+    LOG OUT
+  </button>
+
+</div>
+
+<!-- END USER MENU -->
+
+<!-- ZOROX USER MENU END -->
+
+
+<div class="grid-bg"></div>
+
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+<div class="bubble b4"></div>
+<div class="bubble b5"></div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="zx-main-header">
+
+    <div class="zx-clean-nav">
+
+        <button
+            id="zx-menu-toggle"
+            class="zx-menu-toggle"
+            onclick="toggleZoroxSideMenu()"
+            aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="zx-nav-title">
+            ZOROX
+        </div>
+
+    </div>
+
+</header>
+
+<!-- =====================================================
+     ZOROX PREMIUM SIDE NAVIGATION
+===================================================== -->
+
+<div id="zx-menu-overlay"
+     class="zx-menu-overlay"
+     onclick="closeZoroxSideMenu()">
+</div>
+
+<aside id="zx-side-menu" class="zx-side-menu">
+
+    <div class="zx-side-top">
+
+        <div class="zx-side-brand">
+            <div class="zx-side-z">Z</div>
+
+            <div>
+                <strong>ZOROX</strong>
+                <small>AI</small>
+            </div>
+        </div>
+
+        <button
+            class="zx-side-close"
+            onclick="closeZoroxSideMenu()">
+            ×
+        </button>
+
+    </div>
+
+    <div class="zx-side-line"></div>
+
+    <nav class="zx-side-links">
+
+        <a href="#home"
+           onclick="closeZoroxSideMenu(); showHome()">
+            <span>⌂</span>
+            <label>Home</label>
+        </a>
+
+        <a href="#aiSection"
+           onclick="closeZoroxSideMenu(); openAI()">
+            <span>✦</span>
+            <label>AI</label>
+        </a>
+
+        
+
+        
+
+        <a href="#technology"
+           onclick="closeZoroxSideMenu()">
+            <span>⌘</span>
+            <label>Technology</label>
+        </a>
+
+        <a href="#downloads"
+           onclick="closeZoroxSideMenu()">
+            <span>↓</span>
+            <label>Downloads</label>
+        </a>
+
+        <a href="https://www.tiktok.com/@zorox_ai" target="_blank" rel="noopener noreferrer"
+           onclick="closeZoroxSideMenu()">
+            <span>♪</span>
+            <label>TikTok</label>
+        </a>
+
+        <a href="#buy-coins"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-coins">
+            <span>🪙</span>
+            <label>Buy Coins</label>
+        </a>
+
+        <a href="login.html"
+           onclick="closeZoroxSideMenu()">
+            <span>↪</span>
+            <label>Login</label>
+        </a>
+
+        <a href="admin.html"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-admin">
+            <span>⚙</span>
+            <label>Admin Login</label>
+        </a>
+
+        <a href="signup.html"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-signup">
+            <span>＋</span>
+            <label>Sign Up</label>
+        </a>
+
+        <a href="#profile"
+           onclick="closeZoroxSideMenu(); toggleUserMenu()">
+            <span>◉</span>
+            <label>Profile</label>
+        </a>
+
+    </nav>
+
+    <div class="zx-side-line"></div>
+
+    <div class="zx-side-secondary">
+
+        <a href="about.html"
+           onclick="closeZoroxSideMenu()">
+            <span>ⓘ</span>
+            About Us
+        </a>
+
+        <a href="privacy.html"
+           onclick="closeZoroxSideMenu()">
+            <span>🔒</span>
+            Privacy Policy
+        </a>
+
+        <a href="terms.html"
+           onclick="closeZoroxSideMenu()">
+            <span>📜</span>
+            Terms of Service
+        </a>
+
+        <a href="https://t.me/alpha_xx"
+           target="_blank"
+           rel="noopener noreferrer"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-contact">
+            <span>✈</span>
+            Contact Us
+        </a>
+
+    </div>
+
+    <div class="zx-side-footer">
+        <span>ZOROX AI</span>
+        <small>WIKRAMASINGHE TECHNOLOGIES</small>
+    </div>
+
+</aside>
+
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="home">
+
+
+<section class="zx-v2-hero" id="zx-v2-home">
+  <div class="zx-v2-grid"></div>
+
+  <div class="zx-v2-content">
+    <div class="zx-v2-copy">
+      <div class="zx-v2-kicker">
+        <i class="zx-v2-dot"></i>
+        ZOROX.AI ONLINE
+      </div>
+
+      <h1 class="zx-v2-title">
+        WELCOME TO<br>
+        <span>ZOROX.AI</span>
+      </h1>
+
+      <p class="zx-v2-sub">
+        Your next-generation AI workspace.
+        Chat, create, explore and discover intelligent
+        digital experiences powered by ZOROX.AI.
+      </p>
+
+      <div class="zx-v2-actions">
+        <a href="javascript:void(0)" onclick="openAI()" class="zx-v2-btn zx-v2-primary">Start Chatting →</a>
+        
+        
+
+</div>
+    </div>
+
+    <div class="zx-v2-core-area">
+      <div class="zx-v2-core">
+        <div class="zx-v2-orbit"></div>
+        <div class="zx-v2-orbit two"></div>
+        <div class="zx-v2-liquid"></div>
+        <div class="zx-v2-label"><b>ZOROX.AI</b><br>INTELLIGENCE CORE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SERVICES -->
+
+<section class="services">
+
+    <div class="section-title">
+
+        <h2>
+            Our Technology
+        </h2>
+
+        <p>
+            Building intelligent solutions for tomorrow.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◈
+            </div>
+
+            <h3>
+                Artificial Intelligence
+            </h3>
+
+            <p>
+                Intelligent systems designed to transform
+                ideas into powerful digital experiences.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ⌬
+            </div>
+
+            <h3>
+                Cyber Technology
+            </h3>
+
+            <p>
+                Modern security and infrastructure
+                technologies for the connected world.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◉
+            </div>
+
+            <h3>
+                Cloud & Network
+            </h3>
+
+            <p>
+                Scalable cloud and networking solutions
+                designed for modern businesses.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ⚡
+            </div>
+
+            <h3>
+                Digital Systems
+            </h3>
+
+            <p>
+                Modern software systems designed to
+                connect people, data and technology.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◇
+            </div>
+
+            <h3>
+                Future Computing
+            </h3>
+
+            <p>
+                Exploring emerging computing technologies
+                and intelligent digital infrastructure.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ∞
+            </div>
+
+            <h3>
+                Innovation
+            </h3>
+
+            <p>
+                Turning ambitious ideas into technology
+                built for the next generation.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- TECHNOLOGY -->
+
+<section id="technology">
+
+    <div class="tech-content">
+
+        <h2>
+            Technology Without Limits.
+        </h2>
+
+        <p>
+            WIKRAMASINGHE TECHNOLOGIES focuses on artificial intelligence,
+            cybersecurity, cloud infrastructure, networking and
+            next-generation digital systems.
+            Our vision is to build technology that makes complex
+            things simpler, faster and smarter.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="about-box">
+
+        <h2>
+            About WIKRAMASINGHE TECHNOLOGIES
+        </h2>
+
+        <p>
+            WIKRAMASINGHE TECHNOLOGIES is a technology concept focused on
+            creating intelligent digital products and services.
+            From AI assistants to cloud systems and cybersecurity,
+            the mission is simple — build useful technology for
+            the future.
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     ZOROX.AI
+========================= -->
+
+<section id="aiSection">
+
+    <div class="ai-container">
+
+
+        <div class="ai-header">
+
+            
+
+            <h2>
+                ZOROX.AI
+            </h2>
+
+            <p>
+                Your intelligent technology assistant.
+            </p>
+
+            <div class="ai-status">
+
+                <span class="status-dot"></span>
+
+                ONLINE
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-box">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-top">
+
+                <div class="chat-title">
+
+                    
+
+                    <div>
+
+                        <div class="chat-name">
+                            ZOROX.AI
+                        </div>
+
+                        <div class="chat-online">
+                            AI Assistant
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="close-ai"
+                    onclick="closeAI()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="message ai-message">
+
+                    Hello 👋 I'm <b>ZOROX.AI</b>.
+
+                    <br><br>
+
+                    I'm the AI assistant of
+                    <b>WIKRAMASINGHE TECHNOLOGIES</b>.
+                    Ask me anything about technology,
+                    AI, cybersecurity, cloud,
+                    networking or programming.
+
+                </div>
+
+            </div>
+
+
+            <!-- INPUT -->
+
+            <div class="chat-input-area">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    class="chat-input"
+                    placeholder="Message ZOROX.AI..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="send-btn"
+                    onclick="sendMessage()"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        WIKRAMASINGHE TECHNOLOGIES
+    </div>
+
+    <div>
+        © 2026 WIKRAMASINGHE TECHNOLOGIES.
+        All rights reserved.
+    </div>
+
+    <div class="creator">
+        Founded & Built by
+        <span>Sheron Elijah</span>
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   OPEN ZOROX.AI
+========================= */
+
+function openAI() {
+    window.location.href = "ai.html";
+}
+
+
+/* =========================
+   CLOSE AI
+========================= */
+
+function closeAI() {
+
+    document.getElementById("aiSection").style.display = "none";
+
+    document.getElementById("home").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function showHome() {
+
+    document.getElementById("aiSection").style.display = "none";
+
+    document.getElementById("home").style.display = "block";
+
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById("chatInput");
+
+    const text =
+        input.value.trim();
+
+    if (text === "") {
+        return;
+    }
+
+    addMessage(
+        text,
+        "user-message"
+    );
+
+    input.value = "";
+
+    showTyping();
+
+    try {
+
+        const response = await fetch(
+            (window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1")
+  ? "https://zoroz-ai.onrender.com/api/chat"
+  : "https://YOUR-BACKEND-URL/api/chat",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        removeTyping();
+
+        if (data.reply) {
+
+            addMessage(
+                data.reply,
+                "ai-message"
+            );
+
+        } else {
+
+            addMessage(
+                "Sorry, ZOROX.AI could not respond.",
+                "ai-message"
+            );
+        }
+
+    } catch (error) {
+
+        removeTyping();
+
+        addMessage(
+            "Backend connection error. Please make sure ZOROX.AI server is running.",
+            "ai-message"
+        );
+
+        console.error(error);
+    }
+}
+
+
+/* =========================
+   ADD MESSAGE
+========================= */
+
+function addMessage(
+    text,
+    className
+) {
+
+    const messages =
+        document.getElementById("messages");
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        "message " + className;
+
+
+    message.innerHTML =
+        text;
+
+
+    messages.appendChild(message);
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+}
+
+
+/* =========================
+   TYPING
+========================= */
+
+function showTyping() {
+    const messages = document.getElementById("messages");
+
+    if (!messages) return;
+
+    hideTyping();
+
+    const typing = document.createElement("div");
+
+    typing.id = "typing";
+    typing.className = "message ai-message";
+
+    typing.innerHTML = `
+        <div class="typing" aria-label="ZOROX is typing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+    messages.appendChild(typing);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function hideTyping() {
+    const typing = document.getElementById("typing");
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("typing");
+
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+
+/* =========================
+   DEMO AI RESPONSE
+========================= */
+
+function generateAIResponse(text) {
+
+    const lower =
+        text.toLowerCase();
+
+
+    let response =
+        "I'm ZOROX.AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
+
+
+    if (
+        lower.includes("hello") ||
+        lower.includes("hi") ||
+        lower.includes("hey")
+    ) {
+
+        response =
+            "Hello 👋 Welcome to WIKRAMASINGHE TECHNOLOGIES. I'm ZOROX.AI. How can I help you today?";
+
+    }
+
+
+    else if (
+        lower.includes("who are you") ||
+        lower.includes("what are you")
+    ) {
+
+        response =
+            "I'm ZOROX.AI, the intelligent assistant concept of WIKRAMASINGHE TECHNOLOGIES.";
+
+    }
+
+
+    else if (
+        lower.includes("ai") ||
+        lower.includes("artificial intelligence")
+    ) {
+
+        response =
+            "AI is technology that allows computer systems to perform tasks such as understanding language, recognizing patterns, generating content and assisting with decisions.";
+
+    }
+
+
+    else if (
+        lower.includes("cyber") ||
+        lower.includes("security")
+    ) {
+
+        response =
+            "Cybersecurity focuses on protecting systems, networks, applications and data from unauthorized access, attacks and other digital threats.";
+
+    }
+
+
+    else if (
+        lower.includes("cloud")
+    ) {
+
+        response =
+            "Cloud computing provides computing resources such as servers, storage, databases and applications through network-connected infrastructure.";
+
+    }
+
+
+    else if (
+        lower.includes("network")
+    ) {
+
+        response =
+            "Computer networking connects devices so they can communicate and share data and services.";
+
+    }
+
+
+    else if (
+        lower.includes("technology")
+    ) {
+
+        response =
+            "WIKRAMASINGHE TECHNOLOGIES is focused on AI, cybersecurity, cloud, networking and next-generation digital systems.";
+
+    }
+
+
+    addMessage(
+        response,
+        "ai-message"
+    );
+
+}
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+document
+    .getElementById("chatInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+<script id="zorox-welcome">
+document.addEventListener("DOMContentLoaded",()=>{
+  try{
+    const raw=localStorage.getItem("zorox_user");
+    if(!raw) return;
+
+    const user=JSON.parse(raw);
+    const name=user.username || "User";
+
+    const hero=document.querySelector(".zx-v2-copy");
+    if(hero && !document.getElementById("zxWelcome")){
+      const box=document.createElement("div");
+      box.id="zxWelcome";
+      box.style.cssText=
+        "margin-bottom:16px;color:#9fc4ff;font-size:14px;font-weight:600;letter-spacing:.3px;";
+      box.textContent="Welcome back, "+name+" 👋";
+      hero.prepend(box);
+    }
+  }catch(e){}
+});
+</script>
+<script id="zorox-user-menu-js">
+
+function toggleUserMenu(){
+  const panel = document.getElementById("zUserPanel");
+  if(panel) panel.classList.toggle("open");
+  loadZoroxUser();
+}
+
+function loadZoroxUser(){
+
+  let user = {};
+
+  try{
+    user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+  }catch(e){
+    user = {};
+  }
+
+  const name = user.name || localStorage.getItem("name") || "ZOROX USER";
+  const email = user.email || localStorage.getItem("email") || "Not signed in";
+  const phone = user.phone || localStorage.getItem("phone") || "Not added";
+  const coins = Number(user.coins ?? localStorage.getItem("coins") ?? 0);
+
+  document.getElementById("zUserName").textContent = name;
+  document.getElementById("zUserEmail").textContent = email;
+
+  document.getElementById("zDetailName").textContent = name;
+  document.getElementById("zDetailPhone").textContent = phone;
+  document.getElementById("zDetailEmail").textContent = email;
+  document.getElementById("zCoinBalance").textContent = coins;
+
+  const photo = user.photo || localStorage.getItem("zoroxProfilePhoto");
+
+  if(photo){
+    document.getElementById("zProfilePhoto").src = photo;
+    document.getElementById("zUserAvatar").textContent = "";
+  }else{
+    document.getElementById("zProfilePhoto").src =
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">' +
+        '<rect width="100%" height="100%" fill="#0b1020"/>' +
+        '<text x="50%" y="58%" text-anchor="middle" font-size="85" fill="#6d8cff">👤</text>' +
+        '</svg>'
+      );
+    document.getElementById("zUserAvatar").textContent = "👤";
+  }
+}
+
+function changeZoroxPhoto(event){
+
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    alert("Please select an image.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const photo = e.target.result;
+
+    localStorage.setItem("zoroxProfilePhoto", photo);
+
+    let user = {};
+
+    try{
+      user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+    }catch(e){
+      user = {};
+    }
+
+    user.photo = photo;
+
+    localStorage.setItem("zoroxUser", JSON.stringify(user));
+
+    loadZoroxUser();
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function editZoroxProfile(){
+
+  let user = {};
+
+  try{
+    user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+  }catch(e){
+    user = {};
+  }
+
+  const name = prompt("Enter your name:", user.name || "");
+  if(name === null) return;
+
+  const phone = prompt("Enter your phone number:", user.phone || "");
+  if(phone === null) return;
+
+  user.name = name.trim();
+  user.phone = phone.trim();
+
+  localStorage.setItem("zoroxUser", JSON.stringify(user));
+  localStorage.setItem("name", user.name);
+  localStorage.setItem("phone", user.phone);
+
+  loadZoroxUser();
+}
+
+function zoroxLogout(){
+
+  if(!confirm("Log out from ZOROX?")) return;
+
+  localStorage.removeItem("zoroxUser");
+  localStorage.removeItem("name");
+  localStorage.removeItem("phone");
+  localStorage.removeItem("email");
+  localStorage.removeItem("coins");
+  localStorage.removeItem("zoroxProfilePhoto");
+
+  window.location.href = "login.html";
+}
+
+document.addEventListener("DOMContentLoaded", loadZoroxUser);
+
+</script>
+
+
+<script id="zorox-nav-user-js">
+
+function updateZoroxNavUser(){
+
+    const btn = document.getElementById("zx-user-menu-btn");
+    const avatar = document.getElementById("zx-nav-avatar");
+
+    if(!btn || !avatar) return;
+
+    let user = {};
+
+    try{
+        user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+    }catch(e){
+        user = {};
+    }
+
+    const token =
+        localStorage.getItem("token") ||
+        localStorage.getItem("zoroxToken");
+
+    const logged =
+        !!token ||
+        !!user.email ||
+        !!localStorage.getItem("email");
+
+    if(!logged){
+        btn.classList.remove("logged-in");
+        avatar.textContent = "👤";
+        return;
+    }
+
+    const photo =
+        user.photo ||
+        localStorage.getItem("zoroxProfilePhoto");
+
+    btn.classList.add("logged-in");
+
+    if(photo){
+        avatar.innerHTML =
+
+            photo.replace(/"/g,"&quot;") +
+            '" alt="User">';
+    }else{
+        avatar.textContent = "👤";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateZoroxNavUser);
+
+window.addEventListener("storage", updateZoroxNavUser);
+
+</script>
+
+
+<script>
+/* =====================================================
+   ZOROX SIDE MENU CONTROLLER
+===================================================== */
+
+function toggleZoroxSideMenu() {
+    const menu = document.getElementById("zx-side-menu");
+    const overlay = document.getElementById("zx-menu-overlay");
+
+    if (!menu || !overlay) return;
+
+    const open = menu.classList.toggle("active");
+    overlay.classList.toggle("active", open);
+
+    document.body.style.overflow = open ? "hidden" : "";
+}
+
+function closeZoroxSideMenu() {
+    const menu = document.getElementById("zx-side-menu");
+    const overlay = document.getElementById("zx-menu-overlay");
+
+    if (!menu || !overlay) return;
+
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        closeZoroxSideMenu();
+    }
+});
+</script>
+
+</body>
+</html>
+
+<style>
+/* =====================================================
+   ZOROX PREMIUM NAVIGATION UPGRADE
+===================================================== */
+
+.zorox-nav {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0,220,255,.10);
+    border-radius: 18px;
+    background: rgba(7,12,22,.62);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.28),
+        inset 0 1px rgba(255,255,255,.035);
+}
+
+.zorox-nav > a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 11px;
+    border-radius: 11px;
+    color: #8f9aaa;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.zorox-nav > a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 2px;
+    border-radius: 10px;
+    background: #00dcff;
+    box-shadow: 0 0 10px rgba(0,220,255,.8);
+    transform: translateX(-50%);
+    transition: width .28s ease;
+}
+
+.zorox-nav > a:hover {
+    color: #fff;
+    background: rgba(0,220,255,.065);
+    transform: translateY(-1px);
+}
+
+.zorox-nav > a:hover::after {
+    width: 55%;
+}
+
+.zorox-nav .zx-coin-link {
+    color: #8fefff;
+    border: 1px solid rgba(0,220,255,.13);
+    background: rgba(0,220,255,.045);
+}
+
+.zorox-nav .zx-coin-link span {
+    display: inline-block;
+    transition: transform .3s ease;
+}
+
+.zorox-nav .zx-coin-link:hover span {
+    transform: rotate(15deg) scale(1.12);
+}
+
+.zx-nav-divider {
+    width: 1px;
+    height: 25px;
+    margin: 0 3px;
+    background: linear-gradient(
+        transparent,
+        rgba(0,220,255,.28),
+        transparent
+    );
+}
+
+.zorox-nav .zx-auth-login,
+.zorox-nav .zx-auth-signup {
+    border-radius: 11px;
+    padding: 9px 13px;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.zorox-nav .zx-auth-login {
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.035);
+}
+
+.zorox-nav .zx-auth-login:hover {
+    color: #fff;
+    border-color: rgba(0,220,255,.25);
+    background: rgba(0,220,255,.07);
+    transform: translateY(-1px);
+}
+
+.zorox-nav .zx-auth-signup {
+    color: #031018;
+    border: 1px solid #00dcff;
+    background: linear-gradient(135deg,#00dcff,#6ff5ff);
+    box-shadow: 0 0 18px rgba(0,220,255,.16);
+}
+
+.zorox-nav .zx-auth-signup:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 25px rgba(0,220,255,.32),
+        0 8px 20px rgba(0,0,0,.25);
+}
+
+.zorox-nav .zx-user-menu-btn {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    margin-left: 2px;
+    border: 1px solid rgba(0,220,255,.18);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 25%,
+        rgba(0,220,255,.18),
+        rgba(255,255,255,.035) 55%);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(0,220,255,.08);
+    transition: .3s ease;
+}
+
+.zorox-nav .zx-user-menu-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: rgba(0,220,255,.5);
+    box-shadow: 0 0 25px rgba(0,220,255,.22);
+}
+
+/* Mobile */
+@media (max-width: 1150px) {
+    .zorox-nav {
+        gap: 3px;
+    }
+
+    .zorox-nav > a {
+        padding: 9px 7px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .zorox-nav {
+        gap: 5px;
+        max-width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .zorox-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .zorox-nav > a {
+        flex-shrink: 0;
+    }
+
+    .zx-nav-divider {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .zorox-nav {
+        padding: 6px;
+        border-radius: 14px;
+        gap: 2px;
+    }
+
+    .zorox-nav > a {
+        padding: 8px 8px;
+        font-size: 11px;
+    }
+
+    .zorox-nav .zx-auth-login,
+    .zorox-nav .zx-auth-signup {
+        padding: 8px 9px;
+        font-size: 11px;
+    }
+
+    .zorox-nav .zx-user-menu-btn {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+/* =====================================================
+   ZOROX PREMIUM HAMBURGER + SIDE MENU
+===================================================== */
+
+.zx-main-header {
+    position: relative;
+    z-index: 1000;
+}
+
+.zx-menu-toggle {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 12px;
+    z-index: 1105;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border: 1px solid rgba(0,220,255,.18);
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,25,40,.92),
+            rgba(4,10,18,.88)
+        );
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.30),
+        0 0 20px rgba(0,220,255,.07),
+        inset 0 1px rgba(255,255,255,.05);
+
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.zx-menu-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0,220,255,.5);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.35),
+        0 0 28px rgba(0,220,255,.20);
+}
+
+.zx-menu-toggle span {
+    width: 21px;
+    height: 2px;
+    border-radius: 5px;
+    background: #00dcff;
+    box-shadow: 0 0 8px rgba(0,220,255,.5);
+    transition: .3s ease;
+}
+
+/* Overlay */
+
+.zx-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+
+    background: rgba(0,0,0,.58);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity .35s ease,
+                visibility .35s ease;
+}
+
+.zx-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Side menu */
+
+.zx-side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: min(340px, 88vw);
+    height: 100vh;
+
+    z-index: 1100;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 22px 18px;
+
+    background:
+        radial-gradient(
+            circle at 20% 5%,
+            rgba(0,220,255,.09),
+            transparent 30%
+        ),
+        linear-gradient(
+            155deg,
+            rgba(7,15,27,.98),
+            rgba(2,7,14,.99)
+        );
+
+    border-right: 1px solid rgba(0,220,255,.13);
+
+    box-shadow:
+        20px 0 70px rgba(0,0,0,.45),
+        0 0 50px rgba(0,220,255,.06);
+
+    transform: translateX(-105%);
+    transition:
+        transform .42s cubic-bezier(.22,.8,.25,1);
+
+    overflow-y: auto;
+}
+
+.zx-side-menu.active {
+    transform: translateX(0);
+}
+
+/* Side header */
+
+.zx-side-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 55px;
+}
+
+.zx-side-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.zx-side-z {
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    color: #031018;
+    font-size: 20px;
+    font-weight: 950;
+
+    background: linear-gradient(
+        135deg,
+        #00dcff,
+        #78f5ff
+    );
+
+    box-shadow:
+        0 0 25px rgba(0,220,255,.25);
+}
+
+.zx-side-brand strong {
+    color: #fff;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.zx-side-brand small {
+    color: #00dcff;
+    margin-left: 4px;
+    font-weight: 800;
+}
+
+.zx-side-close {
+    width: 39px;
+    height: 39px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.035);
+    color: #9aa7b8;
+
+    font-size: 27px;
+    line-height: 1;
+
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.zx-side-close:hover {
+    color: #fff;
+    border-color: rgba(0,220,255,.35);
+    background: rgba(0,220,255,.07);
+    transform: rotate(90deg);
+}
+
+.zx-side-line {
+    height: 1px;
+    margin: 18px 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0,220,255,.25),
+        rgba(255,255,255,.04),
+        transparent
+    );
+}
+
+/* Main links */
+
+.zx-side-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    text-decoration: none;
+}
+
+.zx-side-links a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-height: 47px;
+    padding: 0 13px;
+
+    border-radius: 13px;
+
+    color: #8997a9;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.zx-side-links a span {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.zx-side-links a label {
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.zx-side-links a:hover {
+    color: #fff;
+    background: rgba(0,220,255,.065);
+    transform: translateX(5px);
+}
+
+.zx-side-links a:hover span {
+    color: #00dcff;
+}
+
+.zx-side-coins {
+    color: #91efff !important;
+    background: rgba(0,220,255,.035);
+    border: 1px solid rgba(0,220,255,.08);
+}
+
+.zx-side-signup {
+    color: #00dcff !important;
+}
+
+/* Secondary */
+
+.zx-side-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.zx-side-secondary a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px 13px;
+
+    border-radius: 11px;
+
+    color: #738196;
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: .25s ease;
+}
+
+.zx-side-secondary a:hover {
+    color: #fff;
+    background: rgba(255,255,255,.035);
+    transform: translateX(4px);
+}
+
+.zx-side-secondary a span {
+    width: 22px;
+    text-align: center;
+}
+
+.zx-side-contact {
+    color: #67eaff !important;
+}
+
+/* Footer */
+
+.zx-side-footer {
+    margin-top: auto;
+    padding: 20px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.zx-side-footer span {
+    color: #00dcff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.zx-side-footer small {
+    color: #4e5b6c;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .zx-menu-toggle {
+        top: 100%;
+        left: 0;
+        right: auto;
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+    }
+
+    .zx-side-menu {
+        width: min(320px, 86vw);
+        padding: 18px 14px;
+    }
+
+}
+
+</style>
+<style id="zx-clean-nav-fix">
+
+.zx-main-header{
+    width:100%;
+    padding:12px 16px;
+    position:relative;
+    z-index:1200;
+}
+
+.zx-clean-nav{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:7px 12px;
+    border:1px solid rgba(0,220,255,.16);
+    border-radius:14px;
+    background:rgba(8,14,24,.72);
+    backdrop-filter:blur(14px);
+    box-shadow:0 0 22px rgba(0,210,255,.06);
+}
+
+.zx-menu-toggle{
+    position:relative !important;
+    inset:auto !important;
+    width:38px !important;
+    height:38px !important;
+    flex-shrink:0;
+    margin:0 !important;
+    padding:7px !important;
+    border:1px solid rgba(0,220,255,.2);
+    border-radius:10px;
+    background:rgba(0,220,255,.05);
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+}
+
+.zx-menu-toggle span{
+    width:21px !important;
+    height:2px !important;
+    border-radius:5px;
+}
+
+.zx-nav-title{
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.zorox-brand,
+.zorox-logo,
+.zorox-brand-name{
+    display:none !important;
+}
+
+</style>

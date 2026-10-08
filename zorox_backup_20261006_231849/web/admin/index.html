@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOROX AI — Admin</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#070a0f;color:#eaf7ff;
+ font-family:Inter,Arial,sans-serif
+}
+button{font:inherit}
+.hidden{display:none!important}
+
+#login{
+ min-height:100vh;display:flex;align-items:center;justify-content:center;
+ padding:20px;
+ background:radial-gradient(circle at top,#10202b,#070a0f 55%)
+}
+.login-card{
+ width:100%;max-width:420px;padding:35px;border:1px solid #1d303c;
+ border-radius:24px;background:#0c1118;box-shadow:0 25px 80px #0008
+}
+.logo{font-size:28px;font-weight:800;letter-spacing:2px}
+.logo span{color:#00eaff}
+.sub{color:#8295a3;margin:8px 0 28px}
+input{
+ width:100%;padding:14px;margin:7px 0;border-radius:12px;
+ border:1px solid #243744;background:#080d13;color:white;outline:none
+}
+input:focus{border-color:#00eaff}
+.primary{
+ width:100%;padding:14px;border:0;border-radius:12px;
+ background:#00c8e8;color:#001016;font-weight:800;cursor:pointer;margin-top:10px
+}
+.error{color:#ff6b7a;margin-top:12px;font-size:14px}
+
+#app{display:none;min-height:100vh}
+.sidebar{
+ position:fixed;left:0;top:0;bottom:0;width:235px;
+ background:#090e14;border-right:1px solid #182832;padding:22px 15px
+}
+.brand{padding:8px 10px 25px;font-size:21px;font-weight:800}
+.brand span{color:#00eaff}
+.nav button{
+ width:100%;padding:13px;margin:4px 0;text-align:left;
+ border:0;border-radius:11px;background:transparent;color:#8fa2ae;
+ cursor:pointer
+}
+.nav button:hover,.nav button.active{
+ background:#10232d;color:#00eaff
+}
+.logout{margin-top:25px!important;color:#ff7180!important}
+
+.main{margin-left:235px;padding:25px}
+.top{
+ display:flex;justify-content:space-between;align-items:center;
+ margin-bottom:25px
+}
+.status{
+ border:1px solid #174b3b;background:#0b211b;color:#51e5a6;
+ padding:8px 12px;border-radius:20px;font-size:13px
+}
+.page{display:none}
+.page.active{display:block}
+
+.cards{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px
+}
+.card{
+ padding:20px;border:1px solid #182a34;border-radius:18px;background:#0b1118
+}
+.card small{color:#758996}
+.value{font-size:28px;font-weight:800;margin-top:8px}
+
+.panel{
+ border:1px solid #182a34;border-radius:18px;background:#0b1118;
+ padding:20px;margin-bottom:20px;overflow:auto
+}
+.panel-head{
+ display:flex;justify-content:space-between;align-items:center;margin-bottom:15px
+}
+.action{
+ border:1px solid #25404d;background:#0d1820;color:#bdefff;
+ padding:9px 13px;border-radius:9px;cursor:pointer
+}
+.action:hover{border-color:#00eaff;color:#00eaff}
+
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{
+ text-align:left;padding:12px;border-bottom:1px solid #16242c;
+ font-size:13px
+}
+th{color:#6f8794}
+.log{
+ font-family:monospace;font-size:12px;color:#9fc0cc;
+ padding:7px 0;border-bottom:1px solid #14212a;
+ white-space:pre-wrap
+}
+.badge{
+ padding:4px 8px;border-radius:10px;font-size:11px;
+ background:#12351f;color:#6cf0a7
+}
+
+@media(max-width:800px){
+ .sidebar{position:relative;width:100%;height:auto}
+ .main{margin-left:0;padding:15px}
+ .cards{grid-template-columns:repeat(2,1fr)}
+ .nav{display:grid;grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+ <div class="login-card">
+  <div class="logo">ZOROX <span>AI</span></div>
+  <div class="sub">WIKRAMASINGHE TECHNOLOGIES · Administrator</div>
+
+  <input id="username" placeholder="Admin username" autocomplete="username">
+  <input id="password" type="password" placeholder="Admin password" autocomplete="current-password">
+
+  <button class="primary" onclick="login()">LOGIN TO ADMIN</button>
+  <div id="loginError" class="error"></div>
+ </div>
+</section>
+
+<!-- APP -->
+<section id="app">
+
+<aside class="sidebar">
+ <div class="brand">ZOROX <span>AI</span></div>
+
+ <div class="nav">
+  <button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+  <button onclick="showPage('users',this)">👥 Users</button>
+  <button onclick="showPage('usage',this)">🤖 AI Usage</button>
+  <button onclick="showPage('plans',this)">💳 Plans & Billing</button>
+  <button onclick="showPage('logs',this)">🖥️ Server Logs</button>
+  <button onclick="showPage('settings',this)">⚙️ Settings</button>
+  <button class="logout" onclick="logout()">🚪 Logout</button>
+ </div>
+</aside>
+
+<main class="main">
+
+ <div class="top">
+  <div>
+   <h1 id="title">Dashboard</h1>
+   <div style="color:#718693;font-size:13px">ZOROX AI Administration</div>
+  </div>
+  <div class="status">● SERVER ONLINE</div>
+ </div>
+
+ <!-- DASHBOARD -->
+ <section id="dashboard" class="page active">
+  <div class="cards">
+   <div class="card"><small>Total Users</small><div class="value" id="totalUsers">—</div></div>
+   <div class="card"><small>Online Users</small><div class="value" id="onlineUsers">—</div></div>
+   <div class="card"><small>AI Messages</small><div class="value" id="totalMessages">—</div></div>
+   <div class="card"><small>Database</small><div class="value" id="dbStatus">—</div></div>
+  </div>
+
+  <div class="panel">
+   <div class="panel-head">
+    <b>Recent Users</b>
+    <button class="action" onclick="loadDashboard()">↻ Refresh</button>
+   </div>
+   <div id="recentUsers">Loading...</div>
+  </div>
+ </section>
+
+ <!-- USERS -->
+ <section id="users" class="page">
+  <div class="panel">
+   <div class="panel-head">
+    <b>Registered Users</b>
+    <button class="action" onclick="loadDashboard()">↻ Refresh</button>
+   </div>
+   <div id="usersTable">Loading...</div>
+  </div>
+ </section>
+
+ <!-- USAGE -->
+ <section id="usage" class="page">
+  <div class="cards">
+   <div class="card"><small>Total AI Messages</small><div class="value" id="usageMessages">—</div></div>
+   <div class="card"><small>AI Status</small><div class="value" id="aiStatus">—</div></div>
+  </div>
+ </section>
+
+ <!-- PLANS -->
+ <section id="plans" class="page">
+  <div class="panel">
+   <h2>Plans & Billing</h2>
+   <p style="color:#8295a3">
+    Billing system is ready for integration. No payment data is modified from this panel.
+   </p>
+   <div class="card">
+    <b>Free Plan</b><br>
+    <small>Current application plan configuration</small>
+   </div>
+  </div>
+ </section>
+
+ <!-- LOGS -->
+ <section id="logs" class="page">
+  <div class="panel">
+   <div class="panel-head">
+    <b>Server Logs</b>
+    <button class="action" onclick="loadLogs()">↻ Refresh</button>
+   </div>
+   <div id="logBox">Loading...</div>
+  </div>
+ </section>
+
+ <!-- SETTINGS -->
+ <section id="settings" class="page">
+  <div class="panel">
+   <h2>System Settings</h2>
+   <p>Company: <b>WIKRAMASINGHE TECHNOLOGIES</b></p>
+   <p>AI: <b>ZOROX AI</b></p>
+   <p>Backend: <b>Flask</b></p>
+   <p>Database: <b>SQLite</b></p>
+  </div>
+ </section>
+
+</main>
+</section>
+
+<script>
+const API="https://zoroz-ai.onrender.com";
+let token=sessionStorage.getItem("zorox_admin_token");
+let dashboardData=null;
+
+function showPage(id,btn){
+ document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ if(btn) btn.classList.add("active");
+
+ const names={
+  dashboard:"Dashboard",
+  users:"Users",
+  usage:"AI Usage",
+  plans:"Plans & Billing",
+  logs:"Server Logs",
+  settings:"Settings"
+ };
+ document.getElementById("title").textContent=names[id];
+
+ if(id==="logs") loadLogs();
+ if(id==="users") renderUsers();
+}
+
+async function login(){
+ const username=document.getElementById("username").value.trim();
+ const password=document.getElementById("password").value;
+
+ document.getElementById("loginError").textContent="";
+
+ try{
+  const r=await fetch(API+"/api/admin/login",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({username,password})
+  });
+
+  const d=await r.json();
+
+  if(!r.ok) throw new Error(d.error||"Login failed");
+
+  sessionStorage.setItem("zorox_admin_token",d.token);
+  token=d.token;
+
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").style.display="block";
+
+  loadDashboard();
+ }catch(e){
+  document.getElementById("loginError").textContent=e.message;
+ }
+}
+
+async function adminFetch(path){
+ const r=await fetch(API+path,{
+  headers:{"X-Admin-Token":token}
+ });
+
+ if(r.status===401){
+  logout();
+  throw new Error("Admin session expired");
+ }
+
+ return r;
+}
+
+async function loadDashboard(){
+ try{
+  const r=await adminFetch("/api/admin/dashboard");
+  dashboardData=await r.json();
+
+  document.getElementById("totalUsers").textContent=dashboardData.stats.total_users;
+  document.getElementById("onlineUsers").textContent=dashboardData.stats.online_users;
+  document.getElementById("totalMessages").textContent=dashboardData.stats.total_messages;
+  document.getElementById("dbStatus").textContent=dashboardData.database;
+
+  document.getElementById("usageMessages").textContent=dashboardData.stats.total_messages;
+  document.getElementById("aiStatus").textContent=dashboardData.ai;
+
+  renderUsers();
+ }catch(e){
+  console.error(e);
+ }
+}
+
+function renderUsers(){
+ if(!dashboardData){
+  document.getElementById("usersTable").textContent="Loading...";
+  return;
+ }
+
+ const users=dashboardData.users||[];
+
+ if(!users.length){
+  document.getElementById("usersTable").textContent="No users found.";
+  document.getElementById("recentUsers").textContent="No users found.";
+  return;
+ }
+
+ const rows=users.map(u=>`
+ <tr>
+  <td>${esc(u.id)}</td>
+  <td>${esc(u.username||"—")}</td>
+  <td>${esc(u.email||"—")}</td>
+  <td>${esc(u.phone||"—")}</td>
+  <td>${esc(u.country||"—")}</td>
+  <td>${u.verified?'<span class="badge">Verified</span>':'—'}</td>
+  <td>${esc(u.last_seen||"—")}</td>
+ </tr>`).join("");
+
+ const table=`
+ <table>
+ <thead>
+ <tr>
+ <th>ID</th><th>Username</th><th>Email</th><th>Phone</th>
+ <th>Country</th><th>Verified</th><th>Last Seen</th>
+ </tr>
+ </thead>
+ <tbody>${rows}</tbody>
+ </table>`;
+
+ document.getElementById("usersTable").innerHTML=table;
+
+ document.getElementById("recentUsers").innerHTML=`
+ <table>
+ <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Created</th></tr></thead>
+ <tbody>
+ ${users.slice(0,8).map(u=>`
+ <tr>
+  <td>${esc(u.id)}</td>
+  <td>${esc(u.username||"—")}</td>
+  <td>${esc(u.email||"—")}</td>
+  <td>${esc(u.created_at||"—")}</td>
+ </tr>`).join("")}
+ </tbody>
+ </table>`;
+}
+
+async function loadLogs(){
+ const box=document.getElementById("logBox");
+ box.textContent="Loading...";
+
+ try{
+  const r=await adminFetch("/api/admin/logs");
+  const d=await r.json();
+
+  if(!d.logs || !d.logs.length){
+   box.textContent="No server logs available.";
+   return;
+  }
+
+  box.innerHTML=d.logs.map(x=>`<div class="log">${esc(x)}</div>`).join("");
+  box.scrollTop=box.scrollHeight;
+ }catch(e){
+  box.textContent=e.message;
+ }
+}
+
+function esc(v){
+ return String(v??"")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+}
+
+function logout(){
+ sessionStorage.removeItem("zorox_admin_token");
+ token=null;
+ location.reload();
+}
+
+if(token){
+ document.getElementById("login").style.display="none";
+ document.getElementById("app").style.display="block";
+ loadDashboard();
+}
+</script>
+
+</body>
+</html>

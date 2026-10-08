@@ -1,0 +1,406 @@
+:root{
+  --zx-bg:#03050a;
+  --zx-bg2:#060a12;
+  --zx-panel:rgba(8,13,23,.78);
+  --zx-panel2:rgba(12,19,32,.88);
+  --zx-border:rgba(82,170,255,.16);
+  --zx-border-hover:rgba(82,210,255,.42);
+  --zx-cyan:#54d9ff;
+  --zx-blue:#3478ff;
+  --zx-text:#edf7ff;
+  --zx-muted:#8fa5b8;
+  --zx-shadow:0 18px 55px rgba(0,0,0,.42);
+}
+
+html{
+  background:var(--zx-bg);
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(38,128,255,.12),transparent 30%),
+    radial-gradient(circle at 85% 20%,rgba(0,221,255,.08),transparent 28%),
+    radial-gradient(circle at 50% 100%,rgba(53,74,255,.08),transparent 34%),
+    linear-gradient(135deg,#02040a,#050914 52%,#02040a) !important;
+  color:var(--zx-text);
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(70,170,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(70,170,255,.055) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,black,transparent 90%);
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  width:360px;
+  height:360px;
+  right:-120px;
+  top:-120px;
+  pointer-events:none;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(53,190,255,.12),transparent 68%);
+  filter:blur(10px);
+  animation:zxAmbient 8s ease-in-out infinite alternate;
+  z-index:0;
+}
+
+@keyframes zxAmbient{
+  from{transform:translate3d(0,0,0) scale(1)}
+  to{transform:translate3d(-45px,35px,0) scale(1.18)}
+}
+
+button,
+a,
+input,
+select,
+textarea{
+  transition:
+    border-color .22s ease,
+    box-shadow .22s ease,
+    background .22s ease,
+    transform .22s ease,
+    color .22s ease,
+    opacity .22s ease;
+}
+
+button,
+.btn,
+.refresh,
+.top-btn,
+.buy,
+.coin-action,
+.search button,
+button[type="submit"]{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(82,190,255,.24) !important;
+  background:
+    linear-gradient(135deg,
+      rgba(21,43,70,.94),
+      rgba(8,17,31,.96)) !important;
+  color:#eaf8ff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.055),
+    0 8px 24px rgba(0,0,0,.28);
+}
+
+button:hover,
+.btn:hover,
+.refresh:hover,
+.top-btn:hover,
+.buy:hover,
+.coin-action:hover,
+.search button:hover,
+button[type="submit"]:hover{
+  transform:translateY(-2px);
+  border-color:var(--zx-border-hover) !important;
+  box-shadow:
+    0 0 0 1px rgba(65,190,255,.08),
+    0 0 24px rgba(35,155,255,.18),
+    0 12px 32px rgba(0,0,0,.38);
+}
+
+button:active,
+.btn:active,
+.refresh:active,
+.top-btn:active,
+.buy:active,
+.coin-action:active{
+  transform:translateY(0) scale(.985);
+}
+
+button::after,
+.btn::after,
+.buy::after,
+.coin-action::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:70%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.13),
+    transparent
+  );
+  transform:skewX(-20deg);
+  transition:left .55s ease;
+  pointer-events:none;
+}
+
+button:hover::after,
+.btn:hover::after,
+.buy:hover::after,
+.coin-action:hover::after{
+  left:150%;
+}
+
+input,
+select,
+textarea{
+  background:rgba(4,9,17,.84) !important;
+  color:var(--zx-text) !important;
+  border:1px solid rgba(103,155,205,.18) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  outline:none !important;
+  border-color:rgba(72,205,255,.58) !important;
+  box-shadow:
+    0 0 0 3px rgba(48,174,255,.08),
+    0 0 22px rgba(48,174,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+
+.card,
+.panel,
+.settings,
+.coin-manager-card,
+.stat,
+.modal,
+.profile-card,
+.workspace-card,
+.premium-card{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10,17,29,.88),
+      rgba(4,9,17,.78)
+    ) !important;
+  border-color:var(--zx-border) !important;
+  box-shadow:
+    var(--zx-shadow),
+    inset 0 1px 0 rgba(255,255,255,.025);
+  backdrop-filter:blur(18px);
+}
+
+.card:hover,
+.panel:hover,
+.profile-card:hover,
+.workspace-card:hover,
+.premium-card:hover{
+  border-color:var(--zx-border-hover) !important;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.48),
+    0 0 28px rgba(30,145,255,.07),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+table{
+  border-color:rgba(82,170,255,.12) !important;
+}
+
+th{
+  background:rgba(16,29,47,.9) !important;
+  color:#bfeaff !important;
+}
+
+td{
+  background:rgba(4,9,16,.55) !important;
+  border-color:rgba(82,170,255,.08) !important;
+}
+
+tr:hover td{
+  background:rgba(26,65,100,.16) !important;
+}
+
+a{
+  color:#8edfff;
+}
+
+a:hover{
+  color:#ffffff;
+  text-shadow:0 0 14px rgba(84,217,255,.28);
+}
+
+h1,h2,h3,h4{
+  text-shadow:0 0 22px rgba(61,174,255,.08);
+}
+
+.log-box,
+.log{
+  background:rgba(1,5,10,.82) !important;
+  border-color:rgba(82,170,255,.12) !important;
+}
+
+::-webkit-scrollbar{
+  width:8px;
+  height:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#02050a;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(#174f78,#247db0);
+  border-radius:999px;
+  border:2px solid #02050a;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(#248ec9,#4ed8ff);
+}
+
+::selection{
+  background:rgba(63,188,255,.24);
+  color:#fff;
+}
+
+@media (max-width:700px){
+  body::before{
+    background-size:34px 34px;
+    opacity:.12;
+  }
+
+  button,
+  .btn,
+  .refresh,
+  .top-btn,
+  .buy,
+  .coin-action{
+    min-height:44px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.001ms !important;
+  }
+}
+
+/* ===============================
+   ZOROX LIGHT GLASS NAVIGATION
+   =============================== */
+
+nav,
+.navbar,
+.navigation,
+header,
+.topbar,
+.sidebar,
+.side-nav,
+.z-sidebar,
+.zx-sidebar,
+.zx-nav,
+.nav-menu{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(17,30,48,.94),
+      rgba(10,21,36,.92)
+    ) !important;
+
+  border-color:rgba(91,190,255,.22) !important;
+
+  box-shadow:
+    0 10px 38px rgba(0,0,0,.34),
+    inset 0 1px 0 rgba(255,255,255,.055),
+    inset 0 -1px 0 rgba(67,170,255,.06);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+/* Navigation links */
+nav a,
+.navbar a,
+.navigation a,
+.sidebar a,
+.side-nav a,
+.z-sidebar a,
+.zx-sidebar a,
+.nav-menu a{
+  color:#b9d4e8 !important;
+  border-radius:10px;
+}
+
+/* Hover */
+nav a:hover,
+.navbar a:hover,
+.navigation a:hover,
+.sidebar a:hover,
+.side-nav a:hover,
+.z-sidebar a:hover,
+.zx-sidebar a:hover,
+.nav-menu a:hover{
+  color:#ffffff !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(48,170,255,.13),
+      rgba(48,110,255,.07)
+    ) !important;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(83,202,255,.12),
+    0 0 18px rgba(47,168,255,.08);
+
+  text-shadow:
+    0 0 12px rgba(91,213,255,.28);
+}
+
+/* Active navigation item */
+nav a.active,
+.navbar a.active,
+.navigation a.active,
+.sidebar a.active,
+.side-nav a.active,
+.z-sidebar a.active,
+.zx-sidebar a.active,
+.nav-menu a.active{
+  color:#eafaff !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(45,176,255,.20),
+      rgba(45,94,255,.11)
+    ) !important;
+
+  border:1px solid rgba(74,199,255,.24);
+
+  box-shadow:
+    0 0 22px rgba(42,172,255,.12),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+/* Mobile navigation */
+@media (max-width:700px){
+  nav,
+  .navbar,
+  .navigation,
+  header,
+  .topbar,
+  .sidebar,
+  .side-nav,
+  .z-sidebar,
+  .zx-sidebar,
+  .zx-nav,
+  .nav-menu{
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+}
+

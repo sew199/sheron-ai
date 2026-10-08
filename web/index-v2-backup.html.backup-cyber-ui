@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZOROX AI | WIKRAMASINGHE TECHNOLOGIES</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:#050507;
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(0,234,255,.10),transparent 28%),
+    radial-gradient(circle at 85% 30%,rgba(145,70,255,.12),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(255,40,100,.08),transparent 30%),
+    #050507;
+}
+
+.grid{
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:45px 45px;
+  mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+.orb{
+  position:fixed;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  filter:blur(70px);
+  opacity:.18;
+  z-index:-3;
+  animation:float 9s ease-in-out infinite;
+}
+.orb.one{background:#00eaff;left:-80px;top:15%}
+.orb.two{background:#9d4edd;right:-80px;top:50%;animation-delay:-3s}
+.orb.three{background:#ff315f;left:40%;bottom:-150px;animation-delay:-6s}
+
+@keyframes float{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(30px,-35px)}
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1100px,calc(100% - 24px));
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(10,10,14,.62);
+  backdrop-filter:blur(24px);
+  border-radius:24px;
+  z-index:100;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+}
+
+.logo{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#00eaff,#735cff);
+  color:#050507;
+  font-weight:900;
+  box-shadow:0 0 25px rgba(0,234,255,.3);
+}
+
+.brand span{
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1.5px;
+}
+
+.navlinks{
+  display:flex;
+  gap:5px;
+}
+
+.navlinks button{
+  border:0;
+  background:transparent;
+  color:#aaa;
+  padding:10px 13px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.navlinks button:hover{
+  color:#fff;
+  background:rgba(255,255,255,.07);
+}
+
+.auth{
+  display:flex;
+  gap:6px;
+}
+
+.auth button{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+  color:white;
+  padding:9px 13px;
+  border-radius:13px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.auth button:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.12);
+}
+
+/* PAGE */
+.page{
+  display:none;
+  min-height:100vh;
+  padding:120px 18px 60px;
+  animation:pageIn .45s ease;
+}
+
+.page.active{display:block}
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* MAIN */
+.hero{
+  max-width:1100px;
+  margin:auto;
+  min-height:calc(100vh - 150px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.eyebrow{
+  padding:7px 13px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  border-radius:50px;
+  color:#9da0aa;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:clamp(60px,13vw,145px);
+  line-height:.85;
+  letter-spacing:-7px;
+  background:linear-gradient(120deg,#fff,#8eefff 45%,#9d73ff);
+  -webkit-background-clip:text;
+  color:transparent;
+  text-shadow:0 0 60px rgba(0,234,255,.12);
+}
+
+.hero p{
+  max-width:560px;
+  color:#858792;
+  line-height:1.7;
+  margin:25px 0 35px;
+}
+
+.launch{
+  border:0;
+  padding:15px 25px;
+  border-radius:18px;
+  color:#030406;
+  font-weight:800;
+  background:linear-gradient(135deg,#fff,#b5f8ff);
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 0 35px rgba(0,234,255,.15);
+}
+
+.launch:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 15px 45px rgba(0,234,255,.2);
+}
+
+/* MAIN CARDS */
+.feature-grid{
+  width:min(850px,100%);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:55px;
+}
+
+.feature{
+  min-height:155px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:25px;
+  background:rgba(255,255,255,.035);
+  backdrop-filter:blur(18px);
+  text-align:left;
+  cursor:pointer;
+  transition:.4s;
+  position:relative;
+  overflow:hidden;
+}
+
+.feature:after{
+  content:"";
+  position:absolute;
+  width:100px;
+  height:100px;
+  right:-50px;
+  top:-50px;
+  border-radius:50%;
+  background:var(--glow);
+  filter:blur(35px);
+  opacity:.35;
+}
+
+.feature:hover{
+  transform:translateY(-8px);
+  border-color:rgba(255,255,255,.18);
+  background:rgba(255,255,255,.07);
+}
+
+.feature.ai{--glow:#00eaff}
+.feature.movie{--glow:#ff315f}
+.feature.music{--glow:#b65cff}
+
+.icon{
+  font-size:28px;
+  margin-bottom:25px;
+}
+
+.feature h3{font-size:17px}
+.feature p{
+  color:#777983;
+  font-size:12px;
+  margin-top:7px;
+}
+
+/* COMMON PAGE */
+.wrap{
+  width:min(1100px,100%);
+  margin:auto;
+}
+
+.page-title{
+  margin-bottom:30px;
+}
+
+.page-title small{
+  color:#777;
+  letter-spacing:2px;
+}
+
+.page-title h2{
+  font-size:clamp(40px,8vw,75px);
+  letter-spacing:-3px;
+  margin-top:8px;
+}
+
+/* AI */
+.ai-page{
+  background:
+    radial-gradient(circle at 50% 30%,rgba(0,234,255,.09),transparent 35%);
+}
+
+.ai-shell{
+  max-width:900px;
+  margin:auto;
+  border:1px solid rgba(0,234,255,.13);
+  border-radius:30px;
+  overflow:hidden;
+  background:rgba(5,10,14,.72);
+  box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.ai-top{
+  padding:18px 20px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.status{
+  color:#00eaff;
+  font-size:12px;
+}
+
+.chat{
+  height:480px;
+  padding:22px;
+  overflow-y:auto;
+}
+
+.msg{
+  max-width:75%;
+  padding:14px 17px;
+  border-radius:19px;
+  margin-bottom:12px;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.bot{
+  background:rgba(0,234,255,.06);
+  border:1px solid rgba(0,234,255,.1);
+}
+
+.user{
+  margin-left:auto;
+  background:rgba(255,255,255,.08);
+}
+
+.chat-input{
+  display:flex;
+  gap:8px;
+  padding:14px;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.chat-input input{
+  flex:1;
+  border:0;
+  outline:0;
+  background:rgba(255,255,255,.05);
+  color:white;
+  padding:15px;
+  border-radius:16px;
+}
+
+.chat-input button{
+  width:52px;
+  border:0;
+  border-radius:16px;
+  background:#00eaff;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* MOVIES */
+.movies-page{
+  background:
+    radial-gradient(circle at 15% 25%,rgba(255,25,55,.13),transparent 30%),
+    radial-gradient(circle at 85% 70%,rgba(20,70,255,.14),transparent 35%);
+}
+
+.movie-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.movie-card{
+  min-height:330px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+  position:relative;
+  background:
+    linear-gradient(180deg,rgba(255,40,70,.12),rgba(10,20,50,.8));
+  transition:.4s;
+}
+
+.movie-card:hover{
+  transform:translateY(-8px) scale(1.01);
+  border-color:rgba(255,50,90,.3);
+}
+
+.movie-art{
+  height:190px;
+  background:
+    radial-gradient(circle at 70% 30%,rgba(255,40,80,.7),transparent 18%),
+    radial-gradient(circle at 30% 60%,rgba(30,80,255,.6),transparent 25%),
+    linear-gradient(135deg,#090b18,#180914,#06102b);
+  display:grid;
+  place-items:center;
+  font-size:48px;
+  position:relative;
+}
+
+.movie-art:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.08),transparent);
+  animation:shine 4s infinite;
+}
+
+@keyframes shine{
+  0%{transform:translateX(-100%)}
+  50%,100%{transform:translateX(100%)}
+}
+
+.movie-info{padding:18px}
+.movie-info h3{font-size:18px}
+.movie-info p{
+  color:#858794;
+  font-size:12px;
+  margin-top:8px;
+}
+
+/* MUSIC */
+.music-page{
+  background:
+    radial-gradient(circle at 25% 20%,rgba(170,60,255,.16),transparent 32%),
+    radial-gradient(circle at 80% 70%,rgba(255,70,145,.13),transparent 35%);
+}
+
+.music-shell{
+  max-width:950px;
+  margin:auto;
+  border:1px solid rgba(210,100,255,.14);
+  background:rgba(18,8,25,.62);
+  backdrop-filter:blur(25px);
+  border-radius:32px;
+  padding:25px;
+}
+
+.music-visual{
+  height:280px;
+  border-radius:25px;
+  background:
+    radial-gradient(circle at center,rgba(180,60,255,.3),transparent 35%),
+    linear-gradient(135deg,#10081a,#190b20,#0b0712);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  overflow:hidden;
+}
+
+.bar{
+  width:7px;
+  height:40px;
+  border-radius:20px;
+  background:linear-gradient(#d46cff,#ff719d);
+  animation:music 1s ease-in-out infinite alternate;
+  box-shadow:0 0 15px rgba(220,80,255,.35);
+}
+
+.bar:nth-child(2){animation-delay:.1s}
+.bar:nth-child(3){animation-delay:.25s}
+.bar:nth-child(4){animation-delay:.4s}
+.bar:nth-child(5){animation-delay:.15s}
+.bar:nth-child(6){animation-delay:.35s}
+.bar:nth-child(7){animation-delay:.2s}
+.bar:nth-child(8){animation-delay:.5s}
+.bar:nth-child(9){animation-delay:.3s}
+
+@keyframes music{
+  from{height:25px}
+  to{height:150px}
+}
+
+.track{
+  padding:20px 4px 5px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.track h3{font-size:20px}
+.track p{color:#888;font-size:12px;margin-top:5px}
+
+.play{
+  width:55px;
+  height:55px;
+  border:0;
+  border-radius:50%;
+  background:linear-gradient(135deg,#b95cff,#ff649b);
+  color:white;
+  cursor:pointer;
+  box-shadow:0 0 30px rgba(210,70,255,.25);
+}
+
+/* TECH */
+.tech-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.tech{
+  padding:25px;
+  min-height:180px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  background:rgba(255,255,255,.035);
+  transition:.35s;
+}
+
+.tech:hover{
+  transform:translateY(-7px);
+  background:rgba(255,255,255,.06);
+}
+
+.tech-icon{font-size:30px;margin-bottom:25px}
+.tech p{color:#777;font-size:13px;line-height:1.6;margin-top:8px}
+
+/* LOGIN */
+.auth-page{
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+
+.auth-page.active{display:flex}
+
+.auth-box{
+  width:min(420px,100%);
+  padding:35px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:30px;
+  background:rgba(10,10,14,.68);
+  backdrop-filter:blur(25px);
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+}
+
+.auth-box h2{
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.auth-box p{
+  color:#777;
+  font-size:13px;
+  margin-bottom:25px;
+}
+
+.auth-box input{
+  width:100%;
+  margin-bottom:11px;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid rgba(255,255,255,.08);
+  outline:0;
+  background:rgba(255,255,255,.05);
+  color:#fff;
+}
+
+.auth-box button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:15px;
+  background:linear-gradient(135deg,#fff,#a9f7ff);
+  cursor:pointer;
+  font-weight:800;
+  margin-top:5px;
+}
+
+/* ABOUT */
+.about{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+}
+
+.about h2{
+  font-size:55px;
+  letter-spacing:-3px;
+}
+
+.about p{
+  color:#858792;
+  line-height:1.9;
+  margin-top:20px;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:35px 15px;
+  color:#555;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+/* MOBILE */
+@media(max-width:800px){
+  .navlinks{display:none}
+  .brand span{display:none}
+  .feature-grid,
+  .movie-grid,
+  .tech-grid{
+    grid-template-columns:1fr;
+  }
+
+  .feature{
+    min-height:130px;
+  }
+
+  .hero h1{
+    letter-spacing:-4px;
+  }
+
+  .movie-card{
+    min-height:300px;
+  }
+
+  .chat{
+    height:420px;
+  }
+
+  header{
+    border-radius:19px;
+  }
+
+  .auth button{
+    padding:8px 9px;
+    font-size:11px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="orb three"></div>
+
+<header>
+<div class="nav">
+
+<div class="brand" onclick="showPage('home')">
+<div class="logo">Z</div>
+<span>WIKRAMASINGHE TECHNOLOGIES</span>
+</div>
+
+<div class="navlinks">
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('ai')">AI</button>
+<button onclick="showPage('music')">Music</button>
+<button onclick="showPage('movies')">Movies</button>
+<button onclick="showPage('technology')">Technology</button>
+<button onclick="showPage('about')">About</button>
+</div>
+
+<div class="auth">
+<button onclick="showPage('login')">Login</button>
+<button onclick="showPage('register')">Register</button>
+</div>
+
+</div>
+</header>
+
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="eyebrow">WIKRAMASINGHE TECHNOLOGIES • FUTURE INTERFACE</div>
+
+<h1>ZOROX</h1>
+
+<p>
+An intelligent digital environment built for AI, entertainment,
+technology and the next generation of connected experiences.
+</p>
+
+<button class="launch" onclick="showPage('ai')">
+ENTER ZOROX →
+</button>
+
+<div class="feature-grid">
+
+<div class="feature ai" onclick="showPage('ai')">
+<div class="icon">◉</div>
+<h3>ZOROX AI</h3>
+<p>Chat with your intelligent AI assistant.</p>
+</div>
+
+<div class="feature movie" onclick="showPage('movies')">
+<div class="icon">▶</div>
+<h3>Movies</h3>
+<p>Discover a cinematic universe.</p>
+</div>
+
+<div class="feature music" onclick="showPage('music')">
+<div class="icon">♫</div>
+<h3>Music</h3>
+<p>Listen, discover and experience sound.</p>
+</div>
+
+</div>
+</div>
+
+<footer>
+ZOROX AI © 2026 • WIKRAMASINGHE TECHNOLOGIES
+</footer>
+
+</section>
+
+
+<!-- AI -->
+<section id="ai" class="page ai-page">
+
+<div class="wrap">
+
+<div class="page-title">
+<small>INTELLIGENCE SYSTEM</small>
+<h2>ZOROX AI</h2>
+</div>
+
+<div class="ai-shell">
+
+<div class="ai-top">
+<strong>ZOROX</strong>
+<span class="status">● ONLINE</span>
+</div>
+
+<div id="chat" class="chat">
+<div class="msg bot">
+Hello. I am ZOROX AI. How can I help you?
+</div>
+</div>
+
+<div class="chat-input">
+<input id="message" placeholder="Ask ZOROX anything..." onkeydown="if(event.key==='Enter')sendMessage()">
+<button onclick="sendMessage()">↑</button>
+</div>
+
+</div>
+</div>
+
+</section>
+
+
+<!-- MOVIES -->
+<section id="movies" class="page movies-page">
+
+<div class="wrap">
+
+<div class="page-title">
+<small>CINEMATIC EXPERIENCE</small>
+<h2>Movies</h2>
+</div>
+
+<div class="movie-grid">
+
+<div class="movie-card">
+<div class="movie-art">🎬</div>
+<div class="movie-info">
+<h3>Featured Cinema</h3>
+<p>Explore movies, stories and cinematic worlds.</p>
+</div>
+</div>
+
+<div class="movie-card">
+<div class="movie-art">⚡</div>
+<div class="movie-info">
+<h3>Action Universe</h3>
+<p>High energy. Powerful stories. Endless adventure.</p>
+</div>
+</div>
+
+<div class="movie-card">
+<div class="movie-art">🌌</div>
+<div class="movie-info">
+<h3>Future Worlds</h3>
+<p>Discover science fiction and futuristic cinema.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- MUSIC -->
+<section id="music" class="page music-page">
+
+<div class="wrap">
+
+<div class="page-title">
+<small>YOUR SOUNDSPACE</small>
+<h2>Music</h2>
+</div>
+
+<div class="music-shell">
+
+<div class="music-visual">
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
+</div>
+
+<div class="track">
+<div>
+<h3>ZOROX Soundspace</h3>
+<p>Ambient • Electronic • Future</p>
+</div>
+
+<button class="play" onclick="toggleMusic(this)">▶</button>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- TECHNOLOGY -->
+<section id="technology" class="page">
+
+<div class="wrap">
+
+<div class="page-title">
+<small>WIKRAMASINGHE TECHNOLOGIES</small>
+<h2>Technology</h2>
+</div>
+
+<div class="tech-grid">
+
+<div class="tech">
+<div class="tech-icon">🤖</div>
+<h3>Artificial Intelligence</h3>
+<p>Intelligent systems and next-generation AI experiences.</p>
+</div>
+
+<div class="tech">
+<div class="tech-icon">🌐</div>
+<h3>Networking</h3>
+<p>Modern networks, infrastructure and connected systems.</p>
+</div>
+
+<div class="tech">
+<div class="tech-icon">🛡️</div>
+<h3>Cybersecurity</h3>
+<p>Security-focused technology and digital protection.</p>
+</div>
+
+<div class="tech">
+<div class="tech-icon">☁️</div>
+<h3>Cloud</h3>
+<p>Cloud infrastructure and scalable digital services.</p>
+</div>
+
+<div class="tech">
+<div class="tech-icon">💻</div>
+<h3>Hardware</h3>
+<p>Computer hardware, systems and practical technology.</p>
+</div>
+
+<div class="tech">
+<div class="tech-icon">✦</div>
+<h3>Innovation</h3>
+<p>Building ideas into future digital experiences.</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about" class="page">
+
+<div class="about">
+
+<div class="eyebrow">ABOUT ZOROX</div>
+
+<h2>Built for the future.</h2>
+
+<p>
+ZOROX AI is a technology experience created under
+WIKRAMASINGHE TECHNOLOGIES, bringing artificial intelligence,
+entertainment and modern technology together in one digital environment.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- LOGIN -->
+<section id="login" class="page auth-page">
+
+<div class="auth-box">
+
+<h2>Welcome back.</h2>
+<p>Enter the ZOROX environment.</p>
+
+<input id="loginUser" placeholder="Username">
+<input id="loginPass" type="password" placeholder="Password">
+
+<button onclick="login()">ENTER ZOROX</button>
+
+</div>
+
+</section>
+
+
+<!-- REGISTER -->
+<section id="register" class="page auth-page">
+
+<div class="auth-box">
+
+<h2>Create account.</h2>
+<p>Join the ZOROX experience.</p>
+
+<input id="regUser" placeholder="Username">
+<input id="regEmail" placeholder="Email">
+<input id="regPass" type="password" placeholder="Password">
+
+<button onclick="register()">CREATE ACCOUNT</button>
+
+</div>
+
+</section>
+
+
+<script>
+
+const API="http://127.0.0.1:5000";
+
+function showPage(id){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+const page=document.getElementById(id);
+
+if(page){
+page.classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+}
+
+
+/* AI CHAT */
+
+async function sendMessage(){
+
+const input=document.getElementById("message");
+const chat=document.getElementById("chat");
+
+const message=input.value.trim();
+
+if(!message)return;
+
+chat.innerHTML+=`
+<div class="msg user">${escapeHTML(message)}</div>
+`;
+
+input.value="";
+
+chat.innerHTML+=`
+<div class="msg bot" id="typing">ZOROX is thinking...</div>
+`;
+
+chat.scrollTop=chat.scrollHeight;
+
+try{
+
+const response=await fetch(API+"/api/chat",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:message
+})
+});
+
+const data=await response.json();
+
+document.getElementById("typing").remove();
+
+chat.innerHTML+=`
+<div class="msg bot">${escapeHTML(data.reply || "No response.")}</div>
+`;
+
+}catch(error){
+
+document.getElementById("typing").remove();
+
+chat.innerHTML+=`
+<div class="msg bot">
+ZOROX backend is currently unavailable.
+Please make sure the Flask server is running.
+</div>
+`;
+
+}
+
+chat.scrollTop=chat.scrollHeight;
+
+}
+
+
+/* SECURITY FOR CHAT DISPLAY */
+
+function escapeHTML(text){
+
+return text
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* MUSIC */
+
+let playing=false;
+
+function toggleMusic(button){
+
+playing=!playing;
+
+button.textContent=playing?"Ⅱ":"▶";
+
+}
+
+
+/* DEMO REGISTER */
+
+function register(){
+
+const user=document.getElementById("regUser").value.trim();
+const email=document.getElementById("regEmail").value.trim();
+const pass=document.getElementById("regPass").value;
+
+if(!user || !email || !pass){
+
+alert("Please complete all fields.");
+
+return;
+
+}
+
+localStorage.setItem("zoroxUser",user);
+
+alert("Account created successfully.");
+
+showPage("login");
+
+}
+
+
+/* DEMO LOGIN */
+
+function login(){
+
+const user=document.getElementById("loginUser").value.trim();
+const pass=document.getElementById("loginPass").value;
+
+const saved=localStorage.getItem("zoroxUser");
+
+if(!user || !pass){
+
+alert("Please enter username and password.");
+
+return;
+
+}
+
+if(saved && user!==saved){
+
+alert("Username not found.");
+
+return;
+
+}
+
+alert("Welcome, "+user+"!");
+
+showPage("home");
+
+}
+
+
+/* KEYBOARD */
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape"){
+showPage("home");
+}
+
+});
+
+</script>
+
+</body>
+</html>

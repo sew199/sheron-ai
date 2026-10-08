@@ -341,6 +341,7 @@ input:focus{
  }
 }
 </style>
+  <link rel="stylesheet" href="assets/zorox-cyber.css">
 </head>
 
 <body>
@@ -364,9 +365,9 @@ input:focus{
    <div class="field">
     <input
       id="email"
-      type="email"
-      autocomplete="email"
-      placeholder="Email address"
+      type="text"
+      autocomplete="username"
+      placeholder="Email or username"
       required>
    </div>
 
@@ -444,7 +445,7 @@ async function login(){
  const btn=document.getElementById("loginBtn");
 
  if(!email || !password){
-  msg.textContent="Enter your email and password.";
+  msg.textContent="Enter your email/username and password.";
   return;
  }
 
@@ -473,6 +474,10 @@ async function login(){
     "zorox_user",
     JSON.stringify(data.user)
    );
+
+   if(data.token){
+    localStorage.setItem("zoroxToken", data.token);
+   }
 
    msg.textContent="Login successful. Opening ZOROX.AI...";
 

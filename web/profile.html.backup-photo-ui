@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOROX AI — Profile</title>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+  --bg:#03070b;
+  --panel:#071018;
+  --panel2:#09131d;
+  --line:#173244;
+  --text:#eef8ff;
+  --muted:#7890a1;
+  --cyan:#27c9ff;
+  --cyan2:#0e789e;
+  --green:#55e39b;
+  --danger:#ff6b78;
+}
+
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 10% 0%,#06364b66,transparent 28%),
+    radial-gradient(circle at 90% 10%,#14275b55,transparent 28%),
+    linear-gradient(#03070b,#050a10);
+}
+
+button,a,input{font:inherit}
+
+.top{
+  max-width:1120px;
+  margin:auto;
+  padding:20px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:950;
+  letter-spacing:2px;
+}
+.logo span{color:var(--cyan)}
+
+.back{
+  color:#c5d9e5;
+  text-decoration:none;
+  padding:10px 15px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#071018;
+}
+
+.wrap{
+  max-width:1120px;
+  margin:auto;
+  padding:10px 18px 60px;
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:28px;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:
+    linear-gradient(145deg,#0a151f,#050c13 70%);
+  box-shadow:0 20px 70px #0009;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  right:-100px;
+  top:-150px;
+  background:#17caff22;
+  filter:blur(50px);
+  border-radius:50%;
+}
+
+.profile-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.avatar-wrap{
+  position:relative;
+  width:92px;
+  height:92px;
+  flex:none;
+}
+
+.avatar{
+  width:92px;
+  height:92px;
+  border-radius:28px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:#081b27;
+  border:1px solid #1f526a;
+  color:var(--cyan);
+  font-size:35px;
+  font-weight:950;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.photo-btn{
+  position:absolute;
+  right:-7px;
+  bottom:-7px;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #286078;
+  background:#0b1822;
+  color:white;
+  cursor:pointer;
+}
+
+#photoInput{display:none}
+
+.name{
+  font-size:29px;
+  font-weight:950;
+  letter-spacing:-.5px;
+}
+
+.email{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:11px;
+}
+
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.8px;
+  border:1px solid #19465b;
+  background:#081923;
+  color:#72ddff;
+}
+
+.badge.verified{
+  color:var(--green);
+  border-color:#195b43;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin-top:15px;
+}
+
+.card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(145deg,var(--panel2),#050b11);
+  box-shadow:0 14px 45px #0007;
+}
+
+.stat{
+  padding:19px;
+}
+
+.label{
+  color:#6e8595;
+  font-size:10px;
+  letter-spacing:1.3px;
+  font-weight:900;
+}
+
+.value{
+  margin-top:8px;
+  font-size:25px;
+  font-weight:950;
+}
+
+.sub{
+  margin-top:4px;
+  color:#637b8b;
+  font-size:11px;
+}
+
+.premium{
+  margin-top:15px;
+  padding:21px;
+  border:1px solid #225b72;
+  border-radius:21px;
+  background:
+    linear-gradient(105deg,#071b27,#071018 65%);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+}
+
+.premium h2{
+  margin:0;
+  font-size:19px;
+}
+
+.premium p{
+  margin:6px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.buy{
+  border:0;
+  cursor:pointer;
+  padding:13px 20px;
+  border-radius:12px;
+  color:#021017;
+  font-weight:950;
+  background:linear-gradient(135deg,#30d6ff,#0fa4d2);
+  box-shadow:0 0 25px #13bfe733;
+  white-space:nowrap;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:15px;
+}
+
+.section{
+  padding:21px;
+}
+
+.section h2{
+  margin:0 0 12px;
+  font-size:17px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px 0;
+  border-top:1px solid #122530;
+}
+
+.row:first-of-type{border-top:0}
+
+.row-title{
+  font-weight:800;
+  font-size:14px;
+}
+
+.row-sub{
+  margin-top:4px;
+  color:#667e8e;
+  font-size:11px;
+}
+
+.action{
+  min-width:76px;
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid #1c3b4d;
+  background:#08121a;
+  color:#cce4ef;
+  cursor:pointer;
+}
+
+.edit{
+  margin-top:15px;
+  padding:21px;
+}
+
+.form{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border-radius:11px;
+  border:1px solid #193546;
+  background:#040a0f;
+  color:white;
+  outline:none;
+}
+
+input:focus{border-color:var(--cyan)}
+
+.save{
+  width:100%;
+  margin-top:11px;
+  padding:13px;
+  border:0;
+  border-radius:11px;
+  background:#18b9e8;
+  color:#021018;
+  font-weight:950;
+  cursor:pointer;
+}
+
+.status{
+  min-height:18px;
+  margin-top:10px;
+  font-size:12px;
+  color:#6bdcff;
+}
+
+.logout{
+  margin-top:15px;
+  padding:21px;
+}
+
+.logout button{
+  width:100%;
+  padding:13px;
+  border-radius:11px;
+  border:1px solid #54252d;
+  background:#160a0e;
+  color:#ff9da6;
+  font-weight:900;
+  cursor:pointer;
+}
+
+@media(max-width:800px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+}
+
+@media(max-width:520px){
+  .profile-head{align-items:flex-start}
+  .name{font-size:22px}
+  .avatar,.avatar-wrap{width:76px;height:76px}
+  .premium{align-items:stretch;flex-direction:column}
+  .buy{width:100%}
+  .stats{gap:9px}
+  .stat{padding:15px}
+  .value{font-size:21px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="logo">ZOROX<span> AI</span></div>
+  <a class="back" href="index.html">← Main UI</a>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+
+  <div class="profile-head">
+
+    <div class="avatar-wrap">
+      <div class="avatar" id="avatar">Z</div>
+
+      <button class="photo-btn"
+              type="button"
+              onclick="document.getElementById('photoInput').click()">
+        +
+      </button>
+
+      <input id="photoInput"
+             type="file"
+             accept="image/png,image/jpeg,image/webp">
+    </div>
+
+    <div>
+      <div class="name" id="username">Loading...</div>
+      <div class="email" id="email">Loading...</div>
+
+      <div class="badges">
+        <span class="badge verified" id="verified">ACCOUNT</span>
+        <span class="badge" id="plan">FREE PLAN</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="stats">
+
+  <div class="card stat">
+    <div class="label">COINS</div>
+    <div class="value" id="coins">0</div>
+    <div class="sub">ZOROX balance</div>
+  </div>
+
+  <div class="card stat">
+    <div class="label">PLAN</div>
+    <div class="value" id="planValue">Free</div>
+    <div class="sub" id="planSub">Standard access</div>
+  </div>
+
+  <div class="card stat">
+    <div class="label">LOGINS</div>
+    <div class="value" id="logins">0</div>
+    <div class="sub">Account activity</div>
+  </div>
+
+  <div class="card stat">
+    <div class="label">STATUS</div>
+    <div class="value">LIVE</div>
+    <div class="sub">Connected account</div>
+  </div>
+
+</section>
+
+<section class="premium">
+  <div>
+    <h2>ZOROX PREMIUM</h2>
+    <p>Unlock premium AI features, advanced tools and Plus access.</p>
+  </div>
+
+  <button class="buy" type="button" onclick="buyPremium()">
+    BUY PREMIUM
+  </button>
+</section>
+
+<section class="grid">
+
+  <section class="card section">
+    <h2>Account</h2>
+
+    <div class="row">
+      <div>
+        <div class="row-title">Username</div>
+        <div class="row-sub" id="username2">—</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="row-title">Phone</div>
+        <div class="row-sub" id="phone">—</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="row-title">Country</div>
+        <div class="row-sub" id="country">—</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="row-title">Created</div>
+        <div class="row-sub" id="created">—</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="card section">
+    <h2>ZOROX Workspace</h2>
+
+    <div class="row">
+      <div>
+        <div class="row-title">AI Memory</div>
+        <div class="row-sub">Personal AI memory</div>
+      </div>
+      <button class="action" type="button" onclick="featureSoon()">OPEN</button>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="row-title">My Projects</div>
+        <div class="row-sub">Your ZOROX projects</div>
+      </div>
+      <button class="action" type="button" onclick="featureSoon()">OPEN</button>
+    </div>
+
+    <div class="row">
+      <div>
+        <div class="row-title">Security</div>
+        <div class="row-sub">Account security</div>
+      </div>
+      <button class="action" type="button" onclick="featureSoon()">OPEN</button>
+    </div>
+
+  </section>
+
+</section>
+
+<section class="card edit">
+
+  <h2>Edit Profile</h2>
+
+  <div class="form">
+    <input id="editUsername" placeholder="Username">
+    <input id="editPhone" placeholder="Phone number">
+    <input id="editCountry" placeholder="Country">
+  </div>
+
+  <button class="save" type="button" onclick="saveProfile()">
+    SAVE PROFILE
+  </button>
+
+  <div class="status" id="status"></div>
+
+</section>
+
+<section class="card logout">
+  <button type="button" onclick="logout()">
+    LOG OUT OF ZOROX
+  </button>
+</section>
+
+</main>
+
+<script>
+let user = null;
+
+const token = () =>
+  localStorage.getItem("zoroxToken") || "";
+
+async function loadProfile(){
+
+  const t = token();
+
+  if(!t){
+    window.location.href = "login.html";
+    return;
+  }
+
+  try{
+
+    const response = await fetch("/api/me",{
+      method:"GET",
+      headers:{
+        "Authorization":"Bearer " + t,
+        "Accept":"application/json"
+      }
+    });
+
+    const data = await response.json();
+
+    if(response.status === 401){
+
+      localStorage.removeItem("zoroxToken");
+      window.location.href = "login.html";
+      return;
+    }
+
+    if(!response.ok || !data.user){
+      throw new Error(data.error || "Profile request failed");
+    }
+
+    user = data.user;
+    renderProfile(user);
+
+  }catch(error){
+
+    document.getElementById("status").textContent =
+      "Unable to load live profile data.";
+  }
+}
+
+function renderProfile(u){
+
+  const name = u.username || "ZOROX USER";
+
+  document.getElementById("username").textContent = name;
+  document.getElementById("username2").textContent = name;
+
+  document.getElementById("email").textContent =
+    u.email || "—";
+
+  document.getElementById("phone").textContent =
+    u.phone || "Not added";
+
+  document.getElementById("country").textContent =
+    u.country || "—";
+
+  document.getElementById("created").textContent =
+    u.created_at || "—";
+
+  document.getElementById("coins").textContent =
+    Number(u.coins || 0).toLocaleString();
+
+  document.getElementById("logins").textContent =
+    Number(u.login_count || 0).toLocaleString();
+
+  const plus =
+    Number(u.unlimited_coins || 0) === 1;
+
+  document.getElementById("plan").textContent =
+    plus ? "ZOROX PLUS" : "FREE PLAN";
+
+  document.getElementById("planValue").textContent =
+    plus ? "Plus" : "Free";
+
+  document.getElementById("planSub").textContent =
+    plus ? "Unlimited access" : "Standard access";
+
+  document.getElementById("verified").textContent =
+    Number(u.verified || 0) === 1
+      ? "VERIFIED"
+      : "ACCOUNT";
+
+  document.getElementById("editUsername").value =
+    u.username || "";
+
+  document.getElementById("editPhone").value =
+    u.phone || "";
+
+  document.getElementById("editCountry").value =
+    u.country || "";
+
+  const savedPhoto =
+    localStorage.getItem("zoroxProfilePhoto");
+
+  if(savedPhoto){
+
+    document.getElementById("avatar").innerHTML =
+      '<img src="' + savedPhoto + '" alt="Profile photo">';
+
+  }else{
+
+    document.getElementById("avatar").textContent =
+      name.charAt(0).toUpperCase();
+  }
+}
+
+document.getElementById("photoInput").addEventListener(
+  "change",
+  function(){
+
+    const file = this.files && this.files[0];
+
+    if(!file) return;
+
+    if(file.size > 3 * 1024 * 1024){
+
+      document.getElementById("status").textContent =
+        "Profile photo must be under 3MB.";
+
+      this.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+      localStorage.setItem(
+        "zoroxProfilePhoto",
+        reader.result
+      );
+
+      document.getElementById("avatar").innerHTML =
+        '<img src="' + reader.result + '" alt="Profile photo">';
+
+      document.getElementById("status").textContent =
+        "Profile photo updated.";
+    };
+
+    reader.readAsDataURL(file);
+  }
+);
+
+async function saveProfile(){
+
+  const status =
+    document.getElementById("status");
+
+  status.textContent = "Saving...";
+
+  try{
+
+    const response = await fetch(
+      "/api/profile/update",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "Authorization":"Bearer " + token()
+        },
+        body:JSON.stringify({
+          username:
+            document.getElementById("editUsername").value.trim(),
+
+          phone:
+            document.getElementById("editPhone").value.trim(),
+
+          country:
+            document.getElementById("editCountry").value.trim()
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if(response.status === 401){
+
+      localStorage.removeItem("zoroxToken");
+      window.location.href = "login.html";
+      return;
+    }
+
+    if(!response.ok){
+
+      status.textContent =
+        data.error || "Profile update failed.";
+
+      return;
+    }
+
+    user = data.user;
+
+    localStorage.setItem(
+      "zorox_user",
+      JSON.stringify({
+        id:user.id,
+        email:user.email,
+        username:user.username,
+        country:user.country
+      })
+    );
+
+    renderProfile(user);
+
+    status.textContent =
+      "Profile updated successfully.";
+
+  }catch(error){
+
+    status.textContent =
+      "Unable to update profile.";
+  }
+}
+
+function buyPremium(){
+  window.location.href = "premium.html";
+}
+
+function featureSoon(){
+
+  document.getElementById("status").textContent =
+    "This ZOROX feature is coming soon.";
+}
+
+async function logout(){
+
+  try{
+
+    await fetch("/api/logout",{
+      method:"POST",
+      headers:{
+        "Authorization":"Bearer " + token()
+      }
+    });
+
+  }catch(error){}
+
+  localStorage.removeItem("zoroxToken");
+  localStorage.removeItem("zorox_user");
+  localStorage.removeItem("zoroxUser");
+
+  window.location.href = "login.html";
+}
+
+loadProfile();
+</script>
+
+</body>
+</html>

@@ -2,6 +2,8 @@ import os
 import time
 import random
 import sqlite3
+import hashlib
+import secrets
 import logging
 import requests
 
@@ -19,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENV_FILE = os.path.join(BASE_DIR, ".env")
 DB_FILE = os.path.join(BASE_DIR, "zorox.db")
 
-load_dotenv(dotenv_path=ENV_FILE)
+load_dotenv(dotenv_path=ENV_FILE, override=True)
 
 CINESUBZ_API_URL = os.getenv("CINESUBZ_API_URL", "")
 CINESUBZ_SEARCH_API_URL = os.getenv("CINESUBZ_SEARCH_API_URL", "").strip()
@@ -204,6 +206,26 @@ def init_db():
         if column not in existing_columns:
             conn.execute(sql)
 
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS user_preferences (
+            user_id INTEGER PRIMARY KEY,
+            theme TEXT DEFAULT 'midnight',
+            accent TEXT DEFAULT 'cyan',
+            glow TEXT DEFAULT 'medium',
+            glass INTEGER DEFAULT 1,
+            background_fx INTEGER DEFAULT 1,
+            animations INTEGER DEFAULT 1,
+            layout TEXT DEFAULT 'comfortable',
+            font_size TEXT DEFAULT 'medium',
+            button_style TEXT DEFAULT 'cyber',
+            chat_style TEXT DEFAULT 'modern',
+            sidebar_style TEXT DEFAULT 'glass',
+            background_style TEXT DEFAULT 'grid',
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        )
+    """)
     conn.commit()
     conn.close()
 
@@ -352,14 +374,24 @@ def gemini_chat(history):
 # HOME
 # =========================================================
 
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS sessions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            token_hash TEXT NOT NULL UNIQUE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            expires_at TIMESTAMP NOT NULL,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        )
+    """)
+
 @app.get("/")
 def home():
-    return jsonify({
-        "status": "online",
-        "name": "ZOROX AI",
-        "company": "WIKRAMASINGHE TECHNOLOGIES",
-        "version": "2.0"
-    })
+    return send_from_directory(
+        os.path.join(BASE_DIR, "web"),
+        "index.html"
+    )
 
 
 # =========================================================
@@ -369,7 +401,25 @@ def frontend_home():
 
 @app.get("/app/<path:filename>")
 def frontend_files(filename):
-    return send_from_directory(os.path.join(os.path.dirname(os.path.dirname(__file__)), "web"), filename)
+    return send_from_directory(
+        os.path.join(BASE_DIR, "web"),
+        filename
+    )
+
+
+# Direct frontend files from the same Flask server
+@app.get("/<path:filename>")
+def frontend_root_files(filename):
+    if filename.startswith("api/"):
+        return jsonify({"error": "Not found"}), 404
+
+    web_dir = os.path.join(BASE_DIR, "web")
+    file_path = os.path.join(web_dir, filename)
+
+    if os.path.isfile(file_path):
+        return send_from_directory(web_dir, filename)
+
+    return jsonify({"error": "Not found"}), 404
 
 
 # REGISTER
@@ -463,6 +513,71 @@ def register():
         }), 500
 
 
+
+def hash_session_token(token):
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
+
+def create_user_session(user_id):
+    token = secrets.token_urlsafe(48)
+    token_hash = hash_session_token(token)
+
+    conn = get_db()
+    conn.execute(
+        """
+        INSERT INTO sessions (user_id, token_hash, expires_at)
+        VALUES (?, ?, datetime('now', '+30 days'))
+        """,
+        (user_id, token_hash)
+    )
+    conn.commit()
+    conn.close()
+
+    return token
+
+
+def get_authenticated_user():
+    auth = request.headers.get("Authorization", "")
+
+    if not auth.startswith("Bearer "):
+        return None
+
+    token = auth[7:].strip()
+
+    if not token:
+        return None
+
+    token_hash = hash_session_token(token)
+
+    conn = get_db()
+
+    user = conn.execute(
+        """
+        SELECT
+            u.id,
+            u.phone,
+            u.email,
+            u.username,
+            u.country,
+            u.verified,
+            u.created_at,
+            u.coins,
+            u.unlimited_coins,
+            u.login_count
+        FROM sessions s
+        JOIN users u ON u.id = s.user_id
+        WHERE s.token_hash = ?
+          AND datetime(s.expires_at) > datetime('now')
+        LIMIT 1
+        """,
+        (token_hash,)
+    ).fetchone()
+
+    conn.close()
+
+    return user
+
+
 # =========================================================
 # LOGIN
 # =========================================================
@@ -526,14 +641,330 @@ def login():
     conn.commit()
     conn.close()
 
+    token = create_user_session(user["id"])
+
     return jsonify({
         "message": "Login successful",
+        "token": token,
         "user": {
             "id": user["id"],
             "email": user["email"],
             "username": user["username"],
             "country": user["country"]
         }
+    })
+
+
+
+@app.get("/api/preferences")
+def get_preferences():
+    user = get_authenticated_user()
+
+    if not user:
+        return jsonify({"error": "Authentication required"}), 401
+
+    # Theme customization is a ZOROX Plus feature.
+    if not (user["unlimited_coins"] or 0):
+        return jsonify({
+            "error": "ZOROX Plus required",
+            "premium_plus": False
+        }), 403
+
+    conn = get_db()
+
+    row = conn.execute("""
+        SELECT theme, accent, glow, glass, background_fx,
+               animations, layout, font_size, button_style,
+               chat_style, sidebar_style, background_style
+        FROM user_preferences
+        WHERE user_id = ?
+    """, (user["id"],)).fetchone()
+
+    if not row:
+        conn.execute("""
+            INSERT INTO user_preferences
+            (user_id, theme, accent, glow, glass, background_fx,
+             animations, layout, font_size, button_style,
+             chat_style, sidebar_style, background_style)
+            VALUES (?, 'midnight', 'cyan', 'medium', 1, 1,
+                    1, 'comfortable', 'medium', 'cyber',
+                    'modern', 'glass', 'grid')
+        """, (user["id"],))
+        conn.commit()
+
+        row = conn.execute("""
+            SELECT theme, accent, glow, glass, background_fx,
+                   animations, layout, font_size, button_style,
+                   chat_style, sidebar_style, background_style
+            FROM user_preferences
+            WHERE user_id = ?
+        """, (user["id"],)).fetchone()
+
+    conn.close()
+
+    return jsonify({
+        "premium_plus": True,
+        "preferences": dict(row)
+    })
+
+
+@app.post("/api/preferences")
+def save_preferences():
+    user = get_authenticated_user()
+
+    if not user:
+        return jsonify({"error": "Authentication required"}), 401
+
+    # Never trust a client-side premium flag.
+    if not (user["unlimited_coins"] or 0):
+        return jsonify({
+            "error": "ZOROX Plus required",
+            "premium_plus": False
+        }), 403
+
+    data = request.get_json(silent=True) or {}
+
+    allowed = {
+        "theme": {"midnight", "cyber", "aurora", "obsidian", "neon"},
+        "accent": {"cyan", "blue", "violet", "green", "gold", "red"},
+        "glow": {"off", "low", "medium", "high"},
+        "layout": {"compact", "comfortable"},
+        "font_size": {"small", "medium", "large"},
+        "button_style": {"cyber", "glass", "solid"},
+        "chat_style": {"modern", "minimal", "bubble"},
+        "sidebar_style": {"glass", "solid", "minimal"},
+        "background_style": {"grid", "gradient", "plain", "particles"}
+    }
+
+    values = {}
+
+    for key, choices in allowed.items():
+        value = str(data.get(key, "")).strip().lower()
+
+        if value and value not in choices:
+            return jsonify({
+                "error": f"Invalid {key}"
+            }), 400
+
+        values[key] = value
+
+    def bool_value(key, default):
+        value = data.get(key, default)
+
+        if isinstance(value, bool):
+            return 1 if value else 0
+
+        if str(value).lower() in {"1", "true", "on", "yes"}:
+            return 1
+
+        if str(value).lower() in {"0", "false", "off", "no"}:
+            return 0
+
+        return default
+
+    glass = bool_value("glass", 1)
+    background_fx = bool_value("background_fx", 1)
+    animations = bool_value("animations", 1)
+
+    conn = get_db()
+
+    existing = conn.execute(
+        "SELECT user_id FROM user_preferences WHERE user_id = ?",
+        (user["id"],)
+    ).fetchone()
+
+    if existing:
+        conn.execute("""
+            UPDATE user_preferences
+            SET theme = ?,
+                accent = ?,
+                glow = ?,
+                glass = ?,
+                background_fx = ?,
+                animations = ?,
+                layout = ?,
+                font_size = ?,
+                button_style = ?,
+                chat_style = ?,
+                sidebar_style = ?,
+                background_style = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE user_id = ?
+        """, (
+            values["theme"] or "midnight",
+            values["accent"] or "cyan",
+            values["glow"] or "medium",
+            glass,
+            background_fx,
+            animations,
+            values["layout"] or "comfortable",
+            values["font_size"] or "medium",
+            values["button_style"] or "cyber",
+            values["chat_style"] or "modern",
+            values["sidebar_style"] or "glass",
+            values["background_style"] or "grid",
+            user["id"]
+        ))
+    else:
+        conn.execute("""
+            INSERT INTO user_preferences
+            (user_id, theme, accent, glow, glass, background_fx,
+             animations, layout, font_size, button_style,
+             chat_style, sidebar_style, background_style)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            user["id"],
+            values["theme"] or "midnight",
+            values["accent"] or "cyan",
+            values["glow"] or "medium",
+            glass,
+            background_fx,
+            animations,
+            values["layout"] or "comfortable",
+            values["font_size"] or "medium",
+            values["button_style"] or "cyber",
+            values["chat_style"] or "modern",
+            values["sidebar_style"] or "glass",
+            values["background_style"] or "grid"
+        ))
+
+    conn.commit()
+
+    row = conn.execute("""
+        SELECT theme, accent, glow, glass, background_fx,
+               animations, layout, font_size, button_style,
+               chat_style, sidebar_style, background_style
+        FROM user_preferences
+        WHERE user_id = ?
+    """, (user["id"],)).fetchone()
+
+    conn.close()
+
+    return jsonify({
+        "message": "Theme saved successfully",
+        "premium_plus": True,
+        "preferences": dict(row)
+    })
+
+@app.get("/api/me")
+def get_me():
+    user = get_authenticated_user()
+
+    if not user:
+        return jsonify({
+            "error": "Authentication required"
+        }), 401
+
+    return jsonify({
+        "user": {
+            "id": user["id"],
+            "phone": user["phone"],
+            "email": user["email"],
+            "username": user["username"],
+            "country": user["country"],
+            "verified": user["verified"],
+            "created_at": user["created_at"],
+            "coins": user["coins"] or 0,
+            "unlimited_coins": user["unlimited_coins"] or 0,
+            "login_count": user["login_count"] or 0
+        }
+    })
+
+
+@app.post("/api/profile/update")
+def update_profile():
+    user = get_authenticated_user()
+
+    if not user:
+        return jsonify({
+            "error": "Authentication required"
+        }), 401
+
+    data = request.get_json(silent=True) or {}
+
+    username = str(data.get("username", "")).strip()
+    phone = str(data.get("phone", "")).strip()
+    country = str(data.get("country", "")).strip()
+
+    if not username:
+        return jsonify({
+            "error": "Username is required"
+        }), 400
+
+    conn = get_db()
+
+    try:
+        conn.execute(
+            """
+            UPDATE users
+            SET username = ?, phone = ?, country = ?
+            WHERE id = ?
+            """,
+            (username, phone, country, user["id"])
+        )
+        conn.commit()
+
+        updated = conn.execute(
+            """
+            SELECT id, phone, email, username, country,
+                   verified, created_at, coins,
+                   unlimited_coins, login_count
+            FROM users
+            WHERE id = ?
+            """,
+            (user["id"],)
+        ).fetchone()
+
+        conn.close()
+
+        return jsonify({
+            "message": "Profile updated",
+            "user": dict(updated)
+        })
+
+    except sqlite3.IntegrityError:
+        conn.rollback()
+        conn.close()
+
+        return jsonify({
+            "error": "Username already exists"
+        }), 409
+
+    except Exception:
+        conn.rollback()
+        conn.close()
+
+        logger.exception("Profile update failed")
+
+        return jsonify({
+            "error": "Could not update profile"
+        }), 500
+
+
+@app.post("/api/logout")
+def logout():
+    auth = request.headers.get("Authorization", "")
+
+    if not auth.startswith("Bearer "):
+        return jsonify({
+            "message": "Logged out"
+        })
+
+    token = auth[7:].strip()
+
+    if token:
+        token_hash = hash_session_token(token)
+
+        conn = get_db()
+        conn.execute(
+            "DELETE FROM sessions WHERE token_hash = ?",
+            (token_hash,)
+        )
+        conn.commit()
+        conn.close()
+
+    return jsonify({
+        "message": "Logged out successfully"
     })
 
 
@@ -550,17 +981,47 @@ def admin_ping():
 # =========================================================
 
 from functools import wraps
+import sys
+from pathlib import Path
 
-ADMIN_TOKENS = set()
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from core.response import zorox_response_engine
+
+def hash_admin_token(token):
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
 
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        token = request.headers.get("X-Admin-Token", "")
-        if not token or token not in ADMIN_TOKENS:
+        token = request.headers.get("X-Admin-Token", "").strip()
+
+        if not token:
             return jsonify({"error": "Admin authentication required"}), 401
+
+        token_hash = hash_admin_token(token)
+
+        conn = get_db()
+        row = conn.execute(
+            """
+            SELECT id
+            FROM admin_sessions
+            WHERE token_hash = ?
+              AND datetime(expires_at) > datetime('now')
+            LIMIT 1
+            """,
+            (token_hash,)
+        ).fetchone()
+        conn.close()
+
+        if not row:
+            return jsonify({"error": "Admin authentication required"}), 401
+
         return fn(*args, **kwargs)
+
     return wrapper
 
 
@@ -577,8 +1038,32 @@ def admin_login():
         logger.warning("Failed admin login attempt")
         return jsonify({"error": "Invalid admin credentials"}), 401
 
-    token = __import__("secrets").token_urlsafe(32)
-    ADMIN_TOKENS.add(token)
+    token = secrets.token_urlsafe(32)
+    token_hash = hash_admin_token(token)
+
+    conn = get_db()
+
+    conn.execute(
+        "DELETE FROM admin_sessions WHERE datetime(expires_at) <= datetime('now')"
+    )
+
+    conn.execute(
+        """
+        INSERT INTO admin_sessions (token_hash, expires_at)
+        VALUES (?, datetime('now', '+24 hours'))
+        """,
+        (token_hash,)
+    )
+
+    conn.commit()
+    conn.close()
+
+    logger.info("Admin login successful")
+
+    return jsonify({
+        "message": "Admin login successful",
+        "token": token
+    })
 
     logger.info("Admin login successful")
     return jsonify({"message": "Admin login successful", "token": token})
@@ -611,7 +1096,8 @@ def admin_manage_coins():
             "UPDATE users SET unlimited_coins=1 WHERE id=?",
             (user["id"],)
         )
-        new_coins = user["coins"]
+        new_coins = user["coins"] or 0
+
     else:
         try:
             amount = int(data.get("coins", 0))
@@ -619,15 +1105,17 @@ def admin_manage_coins():
             conn.close()
             return jsonify({"error": "Coins must be a whole number"}), 400
 
-        if amount < 0:
+        if amount <= 0:
             conn.close()
-            return jsonify({"error": "Coins cannot be negative"}), 400
+            return jsonify({"error": "Coins must be greater than 0"}), 400
+
+        current_coins = user["coins"] or 0
+        new_coins = current_coins + amount
 
         conn.execute(
-            "UPDATE users SET coins=?, unlimited_coins=0 WHERE id=?",
-            (amount, user["id"])
+            "UPDATE users SET coins=? WHERE id=?",
+            (new_coins, user["id"])
         )
-        new_coins = amount
 
     conn.commit()
     conn.close()
@@ -818,34 +1306,24 @@ def chat():
         ).fetchall()
 
         # -------------------------
-        # Gemini first
+        # ZOROX INTERNAL BRAIN
         # -------------------------
 
-        reply = gemini_chat(history)
+        reply = zorox_response_engine.generate(
+            message,
+            user_id=data.get("user_id"),
+            history=history
+        )
 
-        if reply:
-            provider = "gemini"
-            fallback = False
+        if not reply:
+            return jsonify({
+                "error": "ZOROX internal response engine unavailable",
+                "message": "ZOROX Brain could not generate a response.",
+                "retryable": True
+            }), 503
 
-        else:
-            # -------------------------
-            # Groq fallback
-            # -------------------------
-
-            reply = groq_chat(
-                message,
-                history
-            )
-
-            if not reply:
-                return jsonify({
-                    "error": "AI providers temporarily unavailable",
-                    "message": "ZOROX AI is temporarily busy. Please try again shortly.",
-                    "retryable": True
-                }), 503
-
-            provider = "groq"
-            fallback = True
+        provider = "zorox_internal"
+        fallback = False
 
         conn.execute(
             """

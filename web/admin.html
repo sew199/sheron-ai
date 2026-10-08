@@ -461,7 +461,158 @@ td{
   padding:27px 22px;
  }
 }
+
+.plus-status{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ min-width:58px;
+ padding:5px 9px;
+ border-radius:999px;
+ font-size:10px;
+ font-weight:800;
+ letter-spacing:.6px;
+}
+
+.plus-on{
+ color:#7dd3fc;
+ background:rgba(14,165,233,.14);
+ border:1px solid rgba(14,165,233,.35);
+}
+
+.plus-off{
+ color:#94a3b8;
+ background:rgba(148,163,184,.08);
+ border:1px solid rgba(148,163,184,.18);
+}
+
 </style>
+
+<style>
+/* =========================================================
+   ZOROX PREMIUM COIN MANAGEMENT
+   ========================================================= */
+
+.coin-manager-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.coin-manager-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 90% 10%,
+        rgba(255, 193, 7, 0.10),
+        transparent 38%
+    );
+}
+
+.coin-manager-card .card-head {
+    position: relative;
+    z-index: 1;
+}
+
+.coin-manager-card .coin-subtitle {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+}
+
+.coin-form {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 12px;
+}
+
+.coin-field {
+    display: grid;
+    gap: 7px;
+}
+
+.coin-field label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .72;
+}
+
+.coin-field input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.035);
+    color: inherit;
+    border-radius: 12px;
+    padding: 13px 14px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.coin-field input:focus {
+    border-color: rgba(255,193,7,.65);
+    box-shadow: 0 0 0 3px rgba(255,193,7,.08);
+    background: rgba(255,255,255,.055);
+}
+
+.coin-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.coin-action {
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.coin-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0,0,0,.20);
+}
+
+.coin-add {
+    background: linear-gradient(135deg, #f6c453, #d99b18);
+    color: #17120a;
+    border-color: rgba(255,193,7,.45);
+}
+
+.coin-unlimited {
+    background: rgba(255,255,255,.045);
+    color: inherit;
+}
+
+.coin-unlimited:hover {
+    border-color: rgba(255,193,7,.40);
+}
+
+.coin-result {
+    min-height: 20px;
+    margin-top: 5px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.025);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .coin-actions {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+  <link rel="stylesheet" href="assets/zorox-cyber.css">
 </head>
 
 <body>
@@ -587,11 +738,12 @@ td{
          <th>ID</th>
          <th>Username</th>
          <th>Email</th>
-         <th>Country</th>
-         <th>IP</th>
+         <th>Coins</th>
+         <th>Plus</th>
          <th>Last Login</th>
          <th>Last Seen</th>
          <th>Logins</th>
+         <th>Action</th>
         </tr>
        </thead>
        <tbody id="userTable"></tbody>
@@ -647,50 +799,52 @@ td{
     </div>
 
 
-    <div class="card">
+    <div class="card coin-manager-card">
 
      <div class="card-head">
       <h3>🪙 Coin Management</h3>
      </div>
 
-     <p class="note">
-      Search a registered user by email and manage their ZOROX coin balance.
+     <p class="note coin-subtitle">
+      Search a registered user and manage their ZOROX coin balance.
      </p>
 
-     <label class="note">User Email</label>
-     <input
-      id="coinUserEmail"
-      type="email"
-      placeholder="user@gmail.com"
-      autocomplete="off"
-     >
+     <div class="coin-form">
 
-     <label class="note">Coins to Add</label>
-     <input
-      id="coinAmount"
-      type="number"
-      min="1"
-      step="1"
-      placeholder="10"
-     >
+      <div class="coin-field">
+       <label for="coinUserEmail">User Email</label>
+       <input
+        id="coinUserEmail"
+        type="email"
+        placeholder="user@gmail.com"
+        autocomplete="off"
+       >
+      </div>
 
-     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+      <div class="coin-field">
+       <label for="coinAmount">Coins to Add</label>
+       <input
+        id="coinAmount"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="10"
+       >
+      </div>
 
-      <button class="refresh" onclick="addUserCoins()">
-       ➕ ADD COINS
-      </button>
+      <div class="coin-actions">
+       <button class="coin-action coin-add" onclick="addUserCoins()">
+        ➕ Add Coins
+       </button>
 
-      <button class="refresh" onclick="enableUnlimitedCoins()">
-       ♾️ UNLIMITED
-      </button>
+       <button class="coin-action coin-unlimited" onclick="enableUnlimitedCoins()">
+        ♾️ Unlimited
+       </button>
+      </div>
+
+      <div id="coinManagerResult" class="coin-result"></div>
 
      </div>
-
-     <div
-      id="coinManagerResult"
-      class="note"
-      style="margin-top:15px;min-height:24px;"
-     ></div>
 
     </div>
 
@@ -851,36 +1005,54 @@ function renderUsers(users){
  const table=document.getElementById("userTable");
 
  if(!users.length){
-
   table.innerHTML=
-   `<tr><td colspan="8">No users found.</td></tr>`;
-
+   `<tr><td colspan="9">No users found.</td></tr>`;
   return;
  }
 
- table.innerHTML=users.map(u=>`
+ table.innerHTML=users.map(u=>{
 
-  <tr>
+  const coins=Number(u.coins || 0);
+  const plus=Number(u.unlimited_coins || 0) === 1;
 
-   <td>${escapeHtml(u.id)}</td>
+  return `
+   <tr>
 
-   <td>${escapeHtml(u.username)}</td>
+    <td>${escapeHtml(u.id)}</td>
 
-   <td>${escapeHtml(u.email)}</td>
+    <td>${escapeHtml(u.username)}</td>
 
-   <td>${escapeHtml(u.country || "-")}</td>
+    <td>${escapeHtml(u.email)}</td>
 
-   <td>${escapeHtml(u.last_ip || "-")}</td>
+    <td>
+     <strong>${coins}</strong>
+    </td>
 
-   <td>${escapeHtml(u.last_login || "-")}</td>
+    <td>
+     <span class="plus-status ${plus ? "plus-on" : "plus-off"}">
+      ${plus ? "PLUS" : "FREE"}
+     </span>
+    </td>
 
-   <td>${escapeHtml(u.last_seen || "-")}</td>
+    <td>${escapeHtml(u.last_login || "-")}</td>
 
-   <td>${escapeHtml(u.login_count || 0)}</td>
+    <td>${escapeHtml(u.last_seen || "-")}</td>
 
-  </tr>
+    <td>${escapeHtml(u.login_count || 0)}</td>
 
- `).join("");
+    <td>
+     <button
+      class="refresh"
+      type="button"
+      onclick='selectAdminUser(${JSON.stringify(u.email)})'>
+      SELECT
+     </button>
+    </td>
+
+   </tr>
+  `;
+
+ }).join("");
 
 }
 

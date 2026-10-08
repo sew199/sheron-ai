@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login — ZOROX.AI</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ min-height:100%;
+ font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ color:#fff;
+ background:#02040a;
+}
+
+body{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow-x:hidden;
+ position:relative;
+ padding:30px 16px;
+}
+
+/* Animated background */
+.bg{
+ position:fixed;
+ inset:0;
+ overflow:hidden;
+ pointer-events:none;
+ background:
+   radial-gradient(circle at 50% 20%,rgba(0,220,255,.12),transparent 32%),
+   radial-gradient(circle at 15% 85%,rgba(83,70,255,.10),transparent 30%),
+   radial-gradient(circle at 90% 70%,rgba(0,170,255,.08),transparent 30%);
+}
+
+.orb{
+ position:absolute;
+ border-radius:50%;
+ filter:blur(2px);
+ opacity:.45;
+ animation:float 9s ease-in-out infinite;
+}
+
+.orb.one{
+ width:180px;
+ height:180px;
+ background:rgba(0,210,255,.10);
+ top:8%;
+ left:5%;
+ box-shadow:0 0 90px rgba(0,210,255,.25);
+}
+
+.orb.two{
+ width:240px;
+ height:240px;
+ background:rgba(82,70,255,.08);
+ right:-80px;
+ bottom:8%;
+ box-shadow:0 0 110px rgba(82,70,255,.25);
+ animation-delay:-3s;
+}
+
+.orb.three{
+ width:120px;
+ height:120px;
+ background:rgba(0,255,210,.06);
+ left:45%;
+ bottom:3%;
+ box-shadow:0 0 70px rgba(0,255,210,.20);
+ animation-delay:-6s;
+}
+
+@keyframes float{
+ 0%,100%{transform:translate3d(0,0,0) scale(1)}
+ 50%{transform:translate3d(25px,-30px,0) scale(1.08)}
+}
+
+/* Main */
+.wrap{
+ width:100%;
+ display:flex;
+ justify-content:center;
+ position:relative;
+ z-index:2;
+}
+
+.card{
+ width:min(450px,100%);
+ padding:34px;
+ border-radius:28px;
+ background:linear-gradient(
+   145deg,
+   rgba(13,20,34,.88),
+   rgba(5,10,19,.78)
+ );
+ border:1px solid rgba(80,210,255,.18);
+ box-shadow:
+   0 30px 100px rgba(0,0,0,.65),
+   0 0 45px rgba(0,190,255,.05);
+ backdrop-filter:blur(24px);
+ -webkit-backdrop-filter:blur(24px);
+ animation:cardIn .7s ease both;
+}
+
+@keyframes cardIn{
+ from{
+   opacity:0;
+   transform:translateY(25px) scale(.97);
+ }
+ to{
+   opacity:1;
+   transform:translateY(0) scale(1);
+ }
+}
+
+.brand{
+ text-align:center;
+ margin-bottom:28px;
+}
+
+.logo{
+ font-size:34px;
+ font-weight:900;
+ letter-spacing:3px;
+ line-height:1;
+}
+
+.logo span{
+ color:#21d9ff;
+ text-shadow:0 0 22px rgba(33,217,255,.45);
+}
+
+.tag{
+ margin-top:11px;
+ color:#7f91aa;
+ font-size:14px;
+}
+
+.form{
+ margin-top:8px;
+}
+
+.field{
+ position:relative;
+ margin:12px 0;
+}
+
+input{
+ width:100%;
+ height:52px;
+ padding:0 15px;
+ border-radius:14px;
+ border:1px solid rgba(120,160,200,.16);
+ outline:none;
+ color:#fff;
+ background:rgba(3,8,17,.72);
+ transition:.25s ease;
+ font-size:14px;
+}
+
+input::placeholder{
+ color:#68788f;
+}
+
+input:focus{
+ border-color:rgba(30,215,255,.55);
+ box-shadow:0 0 0 3px rgba(30,215,255,.07),0 0 25px rgba(0,200,255,.08);
+ background:rgba(4,11,21,.9);
+}
+
+.password-wrap input{
+ padding-right:52px;
+}
+
+.eye{
+ position:absolute;
+ right:7px;
+ top:7px;
+ width:38px;
+ height:38px;
+ border:0;
+ border-radius:10px;
+ color:#8193aa;
+ background:transparent;
+ cursor:pointer;
+ font-size:16px;
+}
+
+.eye:hover{
+ color:#21d9ff;
+ background:rgba(33,217,255,.06);
+}
+
+/* Main button */
+.main-btn{
+ width:100%;
+ height:52px;
+ margin-top:16px;
+ border:0;
+ border-radius:14px;
+ color:#fff;
+ font-size:15px;
+ font-weight:800;
+ cursor:pointer;
+ background:linear-gradient(135deg,#08bfe9,#4c57ff);
+ box-shadow:0 12px 35px rgba(31,150,255,.18);
+ transition:.25s ease;
+ position:relative;
+ overflow:hidden;
+}
+
+.main-btn:hover{
+ transform:translateY(-2px);
+ box-shadow:0 16px 42px rgba(31,180,255,.28);
+}
+
+.main-btn:active{
+ transform:scale(.985);
+}
+
+.main-btn.loading{
+ opacity:.7;
+ pointer-events:none;
+}
+
+/* Divider */
+.divider{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ margin:23px 0 17px;
+ color:#52637b;
+ font-size:11px;
+ text-transform:uppercase;
+ letter-spacing:1.5px;
+}
+
+.divider:before,
+.divider:after{
+ content:"";
+ height:1px;
+ flex:1;
+ background:rgba(120,150,190,.12);
+}
+
+/* Social buttons */
+.social{
+ width:100%;
+ height:50px;
+ margin-top:10px;
+ border-radius:13px;
+ border:1px solid rgba(130,160,200,.14);
+ background:rgba(255,255,255,.035);
+ color:#dce7f4;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:12px;
+ font-weight:700;
+ cursor:pointer;
+ transition:.25s ease;
+}
+
+.social:hover{
+ background:rgba(255,255,255,.065);
+ border-color:rgba(33,217,255,.28);
+ transform:translateY(-1px);
+}
+
+.social-icon{
+ width:22px;
+ height:22px;
+ display:grid;
+ place-items:center;
+ font-size:17px;
+ font-weight:900;
+}
+
+.google .social-icon{
+ color:#fff;
+}
+
+.facebook .social-icon{
+ color:#4d9cff;
+}
+
+.bottom{
+ margin-top:25px;
+ text-align:center;
+ color:#71839c;
+ font-size:13px;
+ line-height:1.8;
+}
+
+.bottom a{
+ color:#35d9ff;
+ text-decoration:none;
+ font-weight:600;
+}
+
+.bottom a:hover{
+ text-decoration:underline;
+}
+
+.back{
+ display:inline-block;
+ margin-top:8px;
+ color:#71839c !important;
+ font-weight:500 !important;
+}
+
+.status{
+ min-height:20px;
+ margin-top:13px;
+ text-align:center;
+ color:#9eb1ca;
+ font-size:13px;
+}
+
+@media(max-width:480px){
+ body{
+   padding:18px 12px;
+ }
+
+ .card{
+   padding:27px 20px;
+   border-radius:23px;
+ }
+
+ .logo{
+   font-size:29px;
+ }
+
+ .tag{
+   font-size:13px;
+ }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+ <div class="orb one"></div>
+ <div class="orb two"></div>
+ <div class="orb three"></div>
+</div>
+
+<div class="wrap">
+ <main class="card">
+
+  <div class="brand">
+   <div class="logo">ZOROX<span>.AI</span></div>
+   <div class="tag">Welcome back to your intelligent workspace.</div>
+  </div>
+
+  <form class="form" onsubmit="login();return false;">
+
+   <div class="field">
+    <input
+      id="email"
+      type="text"
+      autocomplete="username"
+      placeholder="Email or username"
+      required>
+   </div>
+
+   <div class="field password-wrap">
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="Password"
+      required>
+
+    <button
+      type="button"
+      class="eye"
+      onclick="togglePassword()"
+      aria-label="Show password">◉</button>
+   </div>
+
+   <button id="loginBtn" class="main-btn" type="submit">
+    Sign In
+   </button>
+
+  </form>
+
+  <div class="status" id="msg"></div>
+
+  <div class="divider">
+   <span>or continue with</span>
+  </div>
+
+  <button class="social google" type="button" onclick="socialNotice('Google')">
+   <span class="social-icon">G</span>
+   Continue with Google
+  </button>
+
+  <button class="social facebook" type="button" onclick="socialNotice('Facebook')">
+   <span class="social-icon">f</span>
+   Continue with Facebook
+  </button>
+
+  <div class="bottom">
+   Don't have an account?
+   <a href="signup.html">Create an account</a>
+   <br>
+   <a class="back" href="index.html">← Back to ZOROX.AI</a>
+  </div>
+
+ </main>
+</div>
+
+<script>
+function togglePassword(){
+ const input=document.getElementById("password");
+ const eye=document.querySelector(".eye");
+
+ if(input.type==="password"){
+  input.type="text";
+  eye.textContent="◉";
+ }else{
+  input.type="password";
+  eye.textContent="◉";
+ }
+}
+
+function socialNotice(provider){
+ const msg=document.getElementById("msg");
+ msg.textContent=provider+" sign-in will be available soon.";
+}
+
+async function login(){
+
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ const msg=document.getElementById("msg");
+ const btn=document.getElementById("loginBtn");
+
+ if(!email || !password){
+  msg.textContent="Enter your email/username and password.";
+  return;
+ }
+
+ btn.classList.add("loading");
+ btn.textContent="Signing in...";
+ msg.textContent="";
+
+ try{
+
+  const r=await fetch("/api/login",{
+   method:"POST",
+   headers:{
+    "Content-Type":"application/json"
+   },
+   body:JSON.stringify({
+    identifier:email,
+    password:password
+   })
+  });
+
+  const data=await r.json();
+
+  if(r.ok && data.user){
+
+   localStorage.setItem(
+    "zorox_user",
+    JSON.stringify(data.user)
+   );
+
+   if(data.token){
+    localStorage.setItem("zoroxToken", data.token);
+   }
+
+   msg.textContent="Login successful. Opening ZOROX.AI...";
+
+   setTimeout(()=>{
+    window.location.href="./index.html";
+   },400);
+
+   return;
+  }
+
+  msg.textContent=data.message || data.error || "Login failed.";
+
+ }catch(e){
+
+  msg.textContent="Unable to connect to ZOROX server.";
+
+ }finally{
+
+  btn.classList.remove("loading");
+  btn.textContent="Sign In";
+
+ }
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WIKRAMASINGHE TECHNOLOGIES</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #020409;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    left: -250px;
+    top: -250px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0, 220, 255, .14),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 700px;
+    height: 700px;
+    right: -300px;
+    bottom: -300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(105, 60, 255, .15),
+            transparent 68%
+        );
+
+    pointer-events: none;
+    z-index: -5;
+}
+
+/* =========================
+   GRID BACKGROUND
+========================= */
+
+.grid-bg {
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 90%
+        );
+
+    pointer-events: none;
+    z-index: -4;
+}
+
+/* =========================
+   FLOATING BUBBLES
+========================= */
+
+.bubble {
+    position: fixed;
+    border-radius: 50%;
+
+    background: rgba(0, 210, 255, .025);
+
+    border: 1px solid rgba(0, 220, 255, .10);
+
+    box-shadow:
+        inset 0 0 20px rgba(0,220,255,.03),
+        0 0 30px rgba(0,220,255,.03);
+
+    backdrop-filter: blur(4px);
+
+    animation: floating 9s infinite ease-in-out;
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+.b1 {
+    width: 110px;
+    height: 110px;
+    top: 15%;
+    left: 5%;
+}
+
+.b2 {
+    width: 45px;
+    height: 45px;
+    top: 60%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+.b3 {
+    width: 140px;
+    height: 140px;
+    top: 25%;
+    right: 5%;
+    animation-delay: 1s;
+}
+
+.b4 {
+    width: 60px;
+    height: 60px;
+    bottom: 15%;
+    right: 17%;
+    animation-delay: 3s;
+}
+
+.b5 {
+    width: 30px;
+    height: 30px;
+    top: 45%;
+    right: 30%;
+    animation-delay: 4s;
+}
+
+@keyframes floating {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: sticky;
+    top: 0;
+
+    width: 100%;
+
+    padding: 18px 6%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(2,4,9,.72);
+
+    backdrop-filter: blur(25px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    z-index: 100;
+}
+
+/* LOGO */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    cursor: pointer;
+}
+
+.logo {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 13px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.30);
+}
+
+.brand-text {
+    font-size: 15px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+.brand-text span {
+    color: #00dcff;
+}
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav a {
+    position: relative;
+
+    color: #8f9aaa;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #fff;
+}
+
+nav a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -8px;
+
+    width: 0;
+    height: 2px;
+
+    background: #00dcff;
+
+    transition: .3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+
+    min-height: 86vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    position: relative;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+/* BADGE */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 18px;
+
+    border:
+        1px solid rgba(0,220,255,.20);
+
+    border-radius: 50px;
+
+    background:
+        rgba(0,220,255,.04);
+
+    color: #66eaff;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 28px;
+}
+
+.badge-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #00eaff;
+
+    box-shadow:
+        0 0 12px #00eaff;
+
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .3;
+    }
+}
+
+/* TITLE */
+
+h1 {
+
+    font-size:
+        clamp(50px, 10vw, 110px);
+
+    line-height: .90;
+
+    font-weight: 900;
+
+    letter-spacing: -6px;
+}
+
+.gradient {
+
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #00eaff,
+            #7d63ff
+        );
+
+    -webkit-background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+/* SUBTITLE */
+
+.subtitle {
+
+    max-width: 680px;
+
+    margin:
+        32px auto;
+
+    color: #8490a1;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+}
+
+/* BUTTONS */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+.btn {
+
+    border: none;
+
+    padding:
+        15px 25px;
+
+    border-radius: 13px;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.primary {
+
+    color: #001016;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00eaff,
+            #73f4ff
+        );
+
+    box-shadow:
+        0 0 30px rgba(0,220,255,.18);
+}
+
+.secondary {
+
+    color: white;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    background:
+        rgba(255,255,255,.04);
+}
+
+.btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.35);
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services {
+
+    padding:
+        40px 7% 100px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+.section-title h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 12px;
+}
+
+.section-title p {
+
+    color: #707b8b;
+
+    font-size: 14px;
+}
+
+.cards {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 20px;
+}
+
+.card {
+
+    padding: 30px;
+
+    min-height: 220px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.012)
+        );
+
+    backdrop-filter: blur(18px);
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -60px;
+    right: -60px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,220,255,.15),
+            transparent 70%
+        );
+}
+
+.card:hover {
+
+    transform:
+        translateY(-9px);
+
+    border-color:
+        rgba(0,220,255,.28);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.icon {
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    color: #00eaff;
+
+    background:
+        rgba(0,220,255,.07);
+
+    border:
+        1px solid rgba(0,220,255,.13);
+
+    margin-bottom: 22px;
+}
+
+.card h3 {
+
+    font-size: 19px;
+
+    margin-bottom: 12px;
+}
+
+.card p {
+
+    color: #798596;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+/* =========================
+   AI SECTION
+========================= */
+
+#aiSection {
+
+    display: none;
+
+    min-height: 100vh;
+
+    padding:
+        40px 6% 80px;
+
+    position: relative;
+}
+
+.ai-container {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.ai-header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+.ai-logo {
+
+    width: 70px;
+    height: 70px;
+
+    margin: auto auto 18px;
+
+    border-radius: 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #754dff
+        );
+
+    color: #020409;
+
+    box-shadow:
+        0 0 40px rgba(0,220,255,.25);
+}
+
+.ai-header h2 {
+
+    font-size: 38px;
+
+    margin-bottom: 8px;
+}
+
+.ai-header p {
+
+    color: #778293;
+
+    font-size: 14px;
+}
+
+/* STATUS */
+
+.ai-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 13px;
+
+    color: #68eaff;
+
+    font-size: 11px;
+}
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    background: #00eaff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px #00eaff;
+}
+
+/* CHAT */
+
+.chat-box {
+
+    height: 560px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 25px;
+
+    background:
+        rgba(7,10,17,.72);
+
+    backdrop-filter:
+        blur(25px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.35);
+}
+
+.chat-top {
+
+    padding: 18px 22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.chat-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.mini-logo {
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #654cff
+        );
+
+    color: #020409;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: 900;
+}
+
+.chat-name {
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+.chat-online {
+
+    color: #5f6b7b;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+.close-ai {
+
+    border: none;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #9ba6b5;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    transition: .2s;
+}
+
+.close-ai:hover {
+
+    background:
+        rgba(255,255,255,.10);
+
+    color: white;
+}
+
+/* MESSAGES */
+
+.messages {
+
+    flex: 1;
+
+    padding: 25px;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.message {
+
+    max-width: 78%;
+
+    padding:
+        13px 16px;
+
+    border-radius: 17px;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    animation:
+        messageIn .25s ease;
+}
+
+@keyframes messageIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ai-message {
+
+    align-self: flex-start;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    color: #d8dee8;
+
+    border-bottom-left-radius: 5px;
+}
+
+.user-message {
+
+    align-self: flex-end;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00cfe8,
+            #6450e8
+        );
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+/* TYPING */
+
+.typing {
+
+    display: flex;
+
+    gap: 4px;
+
+    padding: 4px;
+}
+
+.typing span {
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #00dcff;
+
+    animation:
+        typing 1s infinite;
+}
+
+.typing span:nth-child(2) {
+    animation-delay: .15s;
+}
+
+.typing span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes typing {
+
+    0%,100% {
+        opacity: .25;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* CHAT INPUT */
+
+.chat-input-area {
+
+    padding: 15px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.chat-input {
+
+    flex: 1;
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    padding:
+        14px 16px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+}
+
+.chat-input::placeholder {
+    color: #596576;
+}
+
+.send-btn {
+
+    width: 50px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00eaff,
+            #7354ff
+        );
+
+    color: #020409;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    transition: .2s;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   TECHNOLOGY
+========================= */
+
+#technology {
+
+    padding:
+        80px 7%;
+
+    text-align: center;
+}
+
+.tech-content {
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.tech-content h2 {
+
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+.tech-content p {
+
+    color: #7b8798;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+#about {
+
+    padding:
+        80px 7%;
+
+    text-align: center;
+}
+
+.about-box {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    backdrop-filter: blur(15px);
+}
+
+.about-box h2 {
+
+    font-size: 36px;
+
+    margin-bottom: 18px;
+}
+
+.about-box p {
+
+    color: #7d8999;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    text-align: center;
+
+    padding: 45px 20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    color: #515c6b;
+
+    font-size: 12px;
+}
+
+.footer-brand {
+
+    color: #00dcff;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+.creator {
+
+    margin-top: 9px;
+
+    color: #46515f;
+}
+
+.creator span {
+
+    color: #8b96a5;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 750px) {
+
+    header {
+
+        padding:
+            16px 5%;
+    }
+
+    nav {
+        display: none;
+    }
+
+    h1 {
+
+        font-size:
+            clamp(48px, 16vw, 80px);
+
+        letter-spacing:
+            -4px;
+    }
+
+    .subtitle {
+
+        font-size: 14px;
+    }
+
+    .cards {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .hero {
+
+        min-height: 78vh;
+
+        padding:
+            60px 20px;
+    }
+
+    .chat-box {
+
+        height: 600px;
+    }
+
+    .message {
+
+        max-width: 88%;
+    }
+
+    .ai-header h2 {
+
+        font-size: 32px;
+    }
+
+    .about-box {
+
+        padding: 30px 20px;
+    }
+}
+
+
+/* =========================
+   ZOROX.AI MOBILE UPGRADE
+========================= */
+
+@media (max-width: 600px) {
+
+    .chat-top {
+        padding: 18px 16px !important;
+    }
+
+    .mini-logo {
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 22px !important;
+    }
+
+    .chat-name {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+    }
+
+    .chat-online {
+        font-size: 12px !important;
+    }
+
+    .messages {
+        flex: 1 !important;
+        min-height: 0 !important;
+        padding: 18px 14px !important;
+        overflow-y: auto !important;
+    }
+
+    .message {
+        max-width: 88% !important;
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+        padding: 13px 15px !important;
+    }
+
+    .chat-input-area {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .chat-input {
+        height: 52px !important;
+        font-size: 16px !important;
+        padding: 0 16px !important;
+        border-radius: 18px !important;
+    }
+
+    .send-btn {
+        width: 52px !important;
+        height: 52px !important;
+        min-width: 52px !important;
+        border-radius: 18px !important;
+        font-size: 20px !important;
+    }
+
+    .footer-brand {
+        letter-spacing: 3px !important;
+        font-weight: 800 !important;
+    }
+}
+
+
+/* =========================
+   WIKRAMASINGHE TECHNOLOGIES LOGO
+========================= */
+
+.mini-logo {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #00e5ff, #7c4dff) !important;
+    color: #ffffff !important;
+    border-radius: 15px !important;
+    font-size: 0 !important;
+    font-weight: 900 !important;
+    box-shadow:
+        0 0 18px rgba(0, 229, 255, 0.35),
+        0 0 28px rgba(124, 77, 255, 0.25) !important;
+}
+
+.mini-logo::after {
+    content: "Y";
+    font-size: 25px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.footer-brand {
+    font-weight: 900 !important;
+    letter-spacing: 4px !important;
+}
+
+
+.music-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.music-button:hover {
+    transform: none;
+}
+
+
+
+
+/* =========================
+   ZOROX PREMIUM CYBER UI
+========================= */
+
+body {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(0,110,255,.14), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(255,20,55,.12), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(40,0,255,.10), transparent 35%),
+        #030407 !important;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 55px 55px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,115,255,.14),
+        rgba(255,20,55,.06) 38%,
+        transparent 70%);
+    filter: blur(25px);
+    animation: zoroxAmbient 7s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+}
+
+header,
+main,
+section,
+footer {
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    background: rgba(3,4,7,.62) !important;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.hero {
+    min-height: 82vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center !important;
+    max-width: 900px !important;
+    animation: zoroxEnter 1s ease both;
+}
+
+.badge {
+    display: inline-flex !important;
+    padding: 9px 16px !important;
+    border: 1px solid rgba(0,150,255,.25) !important;
+    background: rgba(0,110,255,.07) !important;
+    box-shadow: 0 0 30px rgba(0,100,255,.10);
+    backdrop-filter: blur(15px);
+}
+
+.badge-dot {
+    box-shadow:
+        0 0 8px #ff1744,
+        0 0 18px rgba(255,23,68,.7) !important;
+    animation: zoroxPulse 1.8s infinite;
+}
+
+.hero h1 {
+    font-size: clamp(4rem, 10vw, 8.5rem) !important;
+    line-height: .88 !important;
+    letter-spacing: -5px !important;
+    text-shadow:
+        0 0 35px rgba(0,120,255,.12),
+        0 0 70px rgba(255,20,55,.07);
+}
+
+.hero h1 .gradient {
+    background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #5bbcff 38%,
+        #1677ff 62%,
+        #ff3158 100%
+    ) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    background-size: 220% auto;
+    animation: zoroxGradient 5s ease infinite;
+}
+
+.subtitle {
+    color: rgba(220,230,245,.68) !important;
+    max-width: 680px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.buttons {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 13px !important;
+    flex-wrap: wrap !important;
+    margin-top: 32px !important;
+}
+
+.buttons .btn,
+.buttons .music-button {
+    min-width: 185px !important;
+    min-height: 54px !important;
+    padding: 15px 24px !important;
+    border-radius: 16px !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px;
+    transition: transform .3s ease, box-shadow .3s ease,
+                border-color .3s ease, background .3s ease !important;
+}
+
+.buttons .btn:hover,
+.buttons .music-button:hover {
+    transform: translateY(-4px) !important;
+}
+
+.buttons .btn.primary {
+    background: linear-gradient(
+        135deg,
+        #086cff,
+        #1558ff 55%,
+        #e91645
+    ) !important;
+    border: 1px solid rgba(100,180,255,.28) !important;
+    box-shadow:
+        0 10px 35px rgba(0,90,255,.22),
+        0 0 45px rgba(255,20,55,.07);
+}
+
+.buttons .btn.secondary,
+.buttons .music-button {
+    color: #eef5ff !important;
+    background: rgba(255,255,255,.045) !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05),
+        0 10px 30px rgba(0,0,0,.25);
+    backdrop-filter: blur(18px);
+}
+
+.buttons .music-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+}
+
+.buttons .music-button:hover {
+    border-color: rgba(0,145,255,.45) !important;
+    background: rgba(0,110,255,.09) !important;
+    box-shadow:
+        0 0 28px rgba(0,110,255,.14),
+        inset 0 1px rgba(255,255,255,.08);
+}
+
+/* Cyber floating light */
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    left: 8%;
+    top: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(0,120,255,.12),
+        transparent 68%);
+    filter: blur(12px);
+    animation: zoroxFloat 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: 6%;
+    bottom: 8%;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(255,20,55,.10),
+        transparent 68%);
+    filter: blur(15px);
+    animation: zoroxFloat 8s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+@keyframes zoroxEnter {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes zoroxGradient {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes zoroxAmbient {
+    from { transform: translate(-50%,-50%) scale(.85); opacity: .65; }
+    to { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+}
+
+@keyframes zoroxFloat {
+    0%,100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-25px) translateX(15px); }
+}
+
+@keyframes zoroxPulse {
+    0%,100% { opacity: .55; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+@media (max-width: 700px) {
+    .hero {
+        min-height: 78vh !important;
+        padding: 90px 18px 60px !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(3.3rem, 18vw, 5.5rem) !important;
+        letter-spacing: -3px !important;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons .btn,
+    .buttons .music-button {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+}
+
+
+/* ===== ZOROX BRAND ===== */
+
+.zorox-brand {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.zorox-logo {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-radius: 12px;
+    background:
+        linear-gradient(145deg, #0a7cff, #142cff 48%, #e91b48);
+    box-shadow:
+        0 0 18px rgba(0,115,255,.32),
+        0 0 28px rgba(235,25,70,.14);
+    overflow: hidden;
+}
+
+.zorox-logo::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 11px;
+    background: #05070b;
+}
+
+.zorox-logo span {
+    position: relative;
+    z-index: 2;
+    font-size: 22px;
+    font-weight: 900;
+    font-style: italic;
+    color: white;
+    text-shadow:
+        0 0 12px rgba(0,145,255,.8),
+        0 0 18px rgba(255,35,70,.35);
+}
+
+.zorox-brand-name {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    column-gap: 5px;
+    line-height: 1;
+}
+
+.zorox-brand-name strong {
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.zorox-brand-name small {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #ff3158;
+    font-weight: 800;
+}
+
+.zorox-brand-name em {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+    font-size: 7px;
+    letter-spacing: 1.7px;
+    color: rgba(190,205,225,.55);
+    font-style: normal;
+}
+
+.zorox-brand:hover .zorox-logo {
+    transform: rotate(-3deg) scale(1.05);
+    box-shadow:
+        0 0 25px rgba(0,125,255,.5),
+        0 0 35px rgba(235,25,70,.22);
+}
+
+.zorox-logo {
+    transition: .3s ease;
+}
+
+@media (max-width: 600px) {
+    .zorox-brand-name strong {
+        font-size: 17px;
+    }
+
+    .zorox-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .zorox-brand-name em {
+        font-size: 6px;
+    }
+}
+
+
+/* ================= ZOROX PREMIUM CHAT UI ================= */
+.chat-box{
+    width:min(1100px,94vw)!important;
+    height:min(760px,78vh)!important;
+    min-height:600px!important;
+    margin:30px auto!important;
+    border:1px solid rgba(255,35,35,.45)!important;
+    border-radius:28px!important;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(255,25,25,.12),transparent 42%),
+        linear-gradient(145deg,rgba(20,5,8,.97),rgba(5,5,7,.98))!important;
+    box-shadow:
+        0 0 0 1px rgba(255,40,40,.08),
+        0 0 45px rgba(255,0,0,.18),
+        0 25px 80px rgba(0,0,0,.65)!important;
+    overflow:hidden!important;
+    position:relative!important;
+    isolation:isolate!important;
+}
+
+.chat-box::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:30px;
+    padding:2px;
+    background:linear-gradient(120deg,transparent 20%,rgba(255,30,30,.9),transparent 45%,rgba(255,70,70,.55),transparent 75%);
+    background-size:250% 250%;
+    animation:zoroxBorder 6s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+    z-index:5;
+}
+
+.chat-top{
+    min-height:86px!important;
+    padding:20px 26px!important;
+    background:linear-gradient(90deg,rgba(255,20,20,.11),rgba(0,0,0,.2),rgba(255,20,20,.07))!important;
+    border-bottom:1px solid rgba(255,40,40,.18)!important;
+    backdrop-filter:blur(18px)!important;
+}
+
+.chat-title{
+    gap:14px!important;
+}
+
+.chat-name{
+    font-size:20px!important;
+    font-weight:800!important;
+    letter-spacing:.8px!important;
+    text-shadow:0 0 18px rgba(255,35,35,.45)!important;
+}
+
+.chat-online{
+    color:#ff5555!important;
+    text-shadow:0 0 12px rgba(255,30,30,.7)!important;
+}
+
+.messages{
+    height:calc(100% - 160px)!important;
+    min-height:430px!important;
+    padding:30px!important;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(255,0,0,.045),transparent 28%),
+        radial-gradient(circle at 90% 80%,rgba(255,0,0,.035),transparent 30%),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.008) 0 1px,transparent 1px 5px)!important;
+    scroll-behavior:smooth!important;
+}
+
+.message{
+    max-width:min(78%,760px)!important;
+    padding:16px 19px!important;
+    margin:13px 0!important;
+    border-radius:18px!important;
+    font-size:15.5px!important;
+    line-height:1.65!important;
+    animation:zoroxMessage .35s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.ai-message{
+    background:linear-gradient(145deg,rgba(255,25,25,.10),rgba(255,255,255,.035))!important;
+    border:1px solid rgba(255,45,45,.18)!important;
+    box-shadow:0 8px 30px rgba(0,0,0,.25),0 0 25px rgba(255,0,0,.05)!important;
+}
+
+.user-message{
+    background:linear-gradient(145deg,#8f1018,#4d080e)!important;
+    border:1px solid rgba(255,80,80,.32)!important;
+    box-shadow:0 8px 28px rgba(120,0,0,.28)!important;
+}
+
+.chat-input-area{
+    min-height:88px!important;
+    padding:16px 20px!important;
+    gap:14px!important;
+    background:rgba(5,5,7,.92)!important;
+    border-top:1px solid rgba(255,40,40,.2)!important;
+    backdrop-filter:blur(20px)!important;
+}
+
+.chat-input{
+    height:58px!important;
+    flex:1!important;
+    padding:0 22px!important;
+    border-radius:18px!important;
+    background:rgba(255,255,255,.045)!important;
+    border:1px solid rgba(255,45,45,.25)!important;
+    color:#fff!important;
+    font-size:16px!important;
+    outline:none!important;
+    transition:.25s ease!important;
+    box-shadow:inset 0 0 20px rgba(0,0,0,.2)!important;
+}
+
+.chat-input:focus{
+    border-color:rgba(255,45,45,.75)!important;
+    box-shadow:0 0 0 3px rgba(255,30,30,.08),0 0 30px rgba(255,0,0,.13),inset 0 0 20px rgba(0,0,0,.25)!important;
+}
+
+.chat-input::placeholder{
+    color:rgba(255,255,255,.38)!important;
+}
+
+.send-btn{
+    width:62px!important;
+    height:58px!important;
+    min-width:62px!important;
+    border-radius:18px!important;
+    border:1px solid rgba(255,100,100,.35)!important;
+    background:linear-gradient(145deg,#ff202b,#970b13)!important;
+    color:#fff!important;
+    font-size:20px!important;
+    cursor:pointer!important;
+    box-shadow:0 0 24px rgba(255,20,30,.25),inset 0 1px rgba(255,255,255,.2)!important;
+    transition:.25s cubic-bezier(.2,.8,.2,1)!important;
+}
+
+.send-btn:hover{
+    transform:translateY(-3px) scale(1.04)!important;
+    box-shadow:0 0 35px rgba(255,20,30,.5),0 10px 30px rgba(0,0,0,.35)!important;
+}
+
+.send-btn:active{
+    transform:scale(.94)!important;
+}
+
+@keyframes zoroxBorder{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes zoroxMessage{
+    from{opacity:0;transform:translateY(10px) scale(.98)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(max-width:700px){
+    .chat-box{
+        width:96vw!important;
+        height:76vh!important;
+        min-height:500px!important;
+        border-radius:22px!important;
+    }
+    .chat-top{
+        padding:16px 18px!important;
+    }
+    .messages{
+        padding:18px 14px!important;
+        min-height:350px!important;
+    }
+    .message{
+        max-width:88%!important;
+        font-size:14.5px!important;
+    }
+    .chat-input-area{
+        padding:12px!important;
+        gap:9px!important;
+    }
+    .chat-input{
+        height:52px!important;
+        font-size:15px!important;
+        padding:0 16px!important;
+    }
+    .send-btn{
+        width:54px!important;
+        min-width:54px!important;
+        height:52px!important;
+    }
+}
+/* ================= END ZOROX PREMIUM CHAT UI ================= */
+
+
+/* === ZOROX JARVIS RESPONSE ANIMATION === */
+.zorox-thinking{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  margin:10px 0;
+  color:#ff334d;
+  font-family:monospace;
+  letter-spacing:2px;
+  font-size:12px;
+  animation:zoroxFade .8s ease-in-out infinite alternate;
+}
+
+.zorox-core{
+  width:18px;
+  height:18px;
+  border:2px solid #ff334d;
+  border-top-color:transparent;
+  border-radius:50%;
+  position:relative;
+  animation:zoroxSpin 1s linear infinite;
+  box-shadow:0 0 12px #ff334d;
+}
+
+.zorox-core:after{
+  content:"";
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:#fff;
+  border-radius:50%;
+  top:4px;
+  left:4px;
+  box-shadow:0 0 10px #ff334d;
+}
+
+.zorox-scan{
+  overflow:hidden;
+  position:relative;
+}
+
+.zorox-scan:after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#ff334d,transparent);
+  box-shadow:0 0 12px #ff334d;
+  animation:zoroxScan 1.4s linear infinite;
+}
+
+.zorox-dots span{
+  display:inline-block;
+  animation:zoroxDot 1.2s infinite;
+}
+
+.zorox-dots span:nth-child(2){animation-delay:.2s}
+.zorox-dots span:nth-child(3){animation-delay:.4s}
+
+@keyframes zoroxSpin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxFade{
+  from{opacity:.45}
+  to{opacity:1}
+}
+
+@keyframes zoroxScan{
+  from{transform:translateY(-10px)}
+  to{transform:translateY(45px)}
+}
+
+@keyframes zoroxDot{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+
+
+/* ===== ZOROX JARVIS CORE ===== */
+.zorox-jarvis{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:170px;
+  margin:18px auto;
+  position:relative;
+  overflow:hidden;
+}
+
+.zorox-orb{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  position:relative;
+  background:radial-gradient(circle,#fff 0%,#ff465c 12%,#9b0015 42%,#050505 72%);
+  box-shadow:0 0 20px #ff334d,0 0 55px rgba(255,35,60,.65),0 0 100px rgba(255,35,60,.3);
+  animation:zoroxPulse 1.5s ease-in-out infinite;
+  z-index:3;
+}
+
+.zorox-orb::before,
+.zorox-orb::after{
+  content:"";
+  position:absolute;
+  inset:-15px;
+  border:1px solid rgba(255,50,75,.8);
+  border-radius:50%;
+  box-shadow:0 0 20px rgba(255,40,60,.35);
+}
+
+.zorox-orb::before{
+  animation:zoroxRing 2.4s linear infinite;
+}
+
+.zorox-orb::after{
+  inset:-30px;
+  border-color:rgba(255,50,75,.35);
+  animation:zoroxRingReverse 3.2s linear infinite;
+}
+
+.zorox-energy{
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:conic-gradient(from 0deg,transparent,#ff334d,transparent,#ff334d,transparent);
+  -webkit-mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  mask:radial-gradient(circle,transparent 57%,#000 59%,#000 61%,transparent 63%);
+  animation:zoroxEnergy 1.8s linear infinite;
+  opacity:.9;
+}
+
+.zorox-label{
+  position:absolute;
+  bottom:4px;
+  font:600 10px monospace;
+  letter-spacing:3px;
+  color:#ff5065;
+  text-shadow:0 0 10px #ff334d;
+  animation:zoroxLabel 1s ease-in-out infinite alternate;
+}
+
+@keyframes zoroxPulse{
+  0%,100%{transform:scale(.88);filter:brightness(.85)}
+  50%{transform:scale(1.08);filter:brightness(1.35)}
+}
+
+@keyframes zoroxRing{
+  from{transform:rotate(0deg) scale(.9)}
+  to{transform:rotate(360deg) scale(1.08)}
+}
+
+@keyframes zoroxRingReverse{
+  from{transform:rotate(360deg) scale(1.05)}
+  to{transform:rotate(0deg) scale(.88)}
+}
+
+@keyframes zoroxEnergy{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes zoroxLabel{
+  from{opacity:.35}
+  to{opacity:1}
+}
+</style>
+
+
+
+
+<style id="zorox-final-animation">
+.zorox-logo,
+.zorox-logo span,
+.zorox-logo small{
+    animation:none !important;
+}
+
+.zorox-logo{
+    display:flex !important;
+    align-items:baseline !important;
+    gap:2px !important;
+    animation:zoroxFullGlow 2.2s ease-in-out infinite !important;
+}
+
+.zorox-logo span{
+    font-size:1.35rem !important;
+    font-weight:900 !important;
+    background:linear-gradient(90deg,#fff,#4da3ff,#ff315c,#fff) !important;
+    background-size:300% auto !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+    animation:zoroxTextShine 2.5s linear infinite !important;
+}
+
+.zorox-logo small{
+    font-size:.72rem !important;
+    font-weight:400 !important;
+    color:#69aaff !important;
+    animation:zoroxAiGlow 1.8s ease-in-out infinite !important;
+}
+
+@keyframes zoroxTextShine{
+    0%{background-position:0% center}
+    100%{background-position:300% center}
+}
+
+@keyframes zoroxAiGlow{
+    0%,100%{opacity:.55;text-shadow:0 0 3px #348cff}
+    50%{opacity:1;text-shadow:0 0 18px #348cff,0 0 30px #348cff}
+}
+
+@keyframes zoroxFullGlow{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.035)}
+}
+</style>
+
+
+<style id="zorox-premium-ai-core">
+/* ===== ZOROX PREMIUM AI CORE ===== */
+.zorox-ai-core-wrap{
+    width:180px;
+    height:180px;
+    margin:24px auto 30px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    filter:drop-shadow(0 0 25px rgba(60,150,255,.45));
+}
+
+.zorox-ai-core{
+    width:112px;
+    height:112px;
+    border-radius:50%;
+    position:relative;
+    background:
+        radial-gradient(circle at 35% 30%,
+        rgba(255,255,255,.95) 0 3%,
+        rgba(100,190,255,.9) 8%,
+        rgba(30,100,220,.75) 32%,
+        rgba(20,25,70,.9) 62%,
+        rgba(5,8,20,1) 100%);
+    box-shadow:
+        inset -18px -20px 35px rgba(0,0,0,.65),
+        inset 15px 10px 25px rgba(120,210,255,.45),
+        0 0 25px rgba(45,145,255,.65),
+        0 0 70px rgba(45,110,255,.3);
+    animation:zoroxCoreFloat 3s ease-in-out infinite;
+    overflow:hidden;
+}
+
+.zorox-ai-core::before,
+.zorox-ai-core::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:50%;
+    border:1px solid rgba(80,180,255,.45);
+    animation:zoroxRing 3s linear infinite;
+}
+
+.zorox-ai-core::after{
+    inset:-20px;
+    border-color:rgba(255,55,95,.25);
+    animation-duration:5s;
+    animation-direction:reverse;
+}
+
+.zorox-liquid{
+    position:absolute;
+    width:180%;
+    height:70%;
+    left:-40%;
+    bottom:-18%;
+    border-radius:48%;
+    background:linear-gradient(
+        90deg,
+        rgba(40,120,255,.15),
+        rgba(100,210,255,.8),
+        rgba(70,80,255,.25)
+    );
+    filter:blur(2px);
+    animation:zoroxLiquid 2.8s ease-in-out infinite;
+}
+
+.zorox-particle{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#8bd7ff;
+    box-shadow:0 0 12px #55baff;
+    animation:zoroxParticle 2.5s ease-in-out infinite;
+}
+
+.zorox-particle:nth-child(2){animation-delay:.4s;transform:translate(-55px,20px)}
+.zorox-particle:nth-child(3){animation-delay:.8s;transform:translate(55px,-15px)}
+.zorox-particle:nth-child(4){animation-delay:1.2s;transform:translate(-25px,-65px)}
+.zorox-particle:nth-child(5){animation-delay:1.6s;transform:translate(35px,55px)}
+
+.zorox-ai-label{
+    text-align:center;
+    font-size:.72rem;
+    letter-spacing:3px;
+    font-weight:600;
+    color:rgba(170,210,255,.8);
+    text-transform:uppercase;
+    margin-top:-10px;
+}
+
+@keyframes zoroxCoreFloat{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-7px) scale(1.025)}
+}
+
+@keyframes zoroxLiquid{
+    0%,100%{transform:translateY(8px) rotate(-3deg)}
+    50%{transform:translateY(-10px) rotate(4deg)}
+}
+
+@keyframes zoroxRing{
+    0%{transform:rotate(0deg) scale(.92);opacity:.2}
+    50%{opacity:.8}
+    100%{transform:rotate(360deg) scale(1.08);opacity:.15}
+}
+
+@keyframes zoroxParticle{
+    0%,100%{opacity:.25;transform:translateY(8px) scale(.7)}
+    50%{opacity:1;transform:translateY(-12px) scale(1.2)}
+}
+
+@media(max-width:600px){
+    .zorox-ai-core-wrap{
+        width:150px;
+        height:150px;
+    }
+    .zorox-ai-core{
+        width:95px;
+        height:95px;
+    }
+}
+</style>
+
+
+<style id="zorox-ui-v2">
+/* ===== ZOROX.AI PREMIUM UI V2 ===== */
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#03050b!important;
+  overflow-x:hidden;
+}
+.zx-v2-hero{
+  min-height:calc(100vh - 80px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:70px 20px 90px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(40,90,255,.13),transparent 28%),
+    radial-gradient(circle at 15% 75%,rgba(255,25,65,.10),transparent 30%),
+    radial-gradient(circle at 85% 25%,rgba(0,180,255,.09),transparent 30%);
+}
+.zx-v2-grid{
+  position:absolute;
+  inset:0;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(80,130,255,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(80,130,255,.12) 1px,transparent 1px);
+  background-size:55px 55px;
+  mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent);
+}
+.zx-v2-content{
+  position:relative;
+  z-index:3;
+  width:min(1150px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:50px;
+}
+.zx-v2-copy{text-align:left}
+.zx-v2-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 14px;
+  border:1px solid rgba(90,150,255,.25);
+  border-radius:999px;
+  background:rgba(10,18,35,.55);
+  backdrop-filter:blur(15px);
+  color:#a9c7ff;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.zx-v2-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#39aaff;
+  box-shadow:0 0 14px #39aaff;
+  animation:zxPulse 1.5s infinite;
+}
+.zx-v2-title{
+  margin:24px 0 18px;
+  font-size:clamp(48px,7vw,86px);
+  line-height:.94;
+  letter-spacing:-4px;
+  font-weight:800;
+  color:#fff;
+}
+.zx-v2-title span{
+  background:linear-gradient(100deg,#fff 15%,#68b7ff 45%,#a66cff 68%,#ff4568 95%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.zx-v2-sub{
+  max-width:590px;
+  color:#9ba8bf;
+  font-size:17px;
+  line-height:1.75;
+}
+.zx-v2-actions{
+  display:flex;
+  gap:13px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+.zx-v2-btn{
+  text-decoration:none;
+  border-radius:13px;
+  padding:13px 21px;
+  font-size:14px;
+  font-weight:650;
+  transition:.25s ease;
+}
+.zx-v2-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 10px 35px rgba(52,103,255,.25);
+}
+.zx-v2-secondary{
+  color:#dce7ff;
+  border:1px solid rgba(120,150,210,.22);
+  background:rgba(255,255,255,.045);
+  backdrop-filter:blur(14px);
+}
+.zx-v2-btn:hover{transform:translateY(-3px);filter:brightness(1.12)}
+
+.zx-v2-core-area{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:470px;
+}
+.zx-v2-core{
+  width:320px;height:320px;
+  position:relative;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  animation:zxFloat 5s ease-in-out infinite;
+}
+.zx-v2-core::before{
+  content:"";
+  position:absolute;
+  inset:-55px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(45,125,255,.16),transparent 65%);
+  filter:blur(10px);
+}
+.zx-v2-orbit{
+  position:absolute;
+  inset:-28px;
+  border:1px solid rgba(65,155,255,.35);
+  border-radius:50%;
+  transform:rotateX(68deg) rotateZ(20deg);
+  animation:zxOrbit 7s linear infinite;
+}
+.zx-v2-orbit.two{
+  inset:-48px;
+  border-color:rgba(255,65,95,.22);
+  transform:rotateX(68deg) rotateZ(-35deg);
+  animation-duration:10s;
+  animation-direction:reverse;
+}
+.zx-v2-orbit::after{
+  content:"";
+  position:absolute;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#65c5ff;
+  box-shadow:0 0 18px #65c5ff;
+  top:12%;left:12%;
+}
+.zx-v2-liquid{
+  width:210px;height:210px;
+  border-radius:46% 54% 52% 48%;
+  background:
+    radial-gradient(circle at 32% 25%,#dff6ff 0 2%,transparent 8%),
+    radial-gradient(circle at 58% 48%,rgba(255,80,125,.85),transparent 34%),
+    radial-gradient(circle at 42% 55%,#287dff 0 20%,#122d9b 48%,#05091c 78%);
+  box-shadow:
+    inset -25px -25px 55px rgba(0,0,0,.65),
+    inset 18px 15px 35px rgba(100,190,255,.25),
+    0 0 35px rgba(42,125,255,.65),
+    0 0 100px rgba(50,80,255,.3);
+  filter:saturate(1.15);
+  animation:zxLiquid 6s ease-in-out infinite;
+}
+.zx-v2-liquid::after{
+  content:"Z";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:rgba(255,255,255,.88);
+  font-size:58px;
+  font-weight:800;
+  letter-spacing:-5px;
+  text-shadow:0 0 25px rgba(100,190,255,.9);
+}
+.zx-v2-label{
+  position:absolute;
+  bottom:-65px;
+  text-align:center;
+  color:#71819d;
+  font-size:10px;
+  letter-spacing:3px;
+}
+.zx-v2-label b{color:#a9c7ff;font-weight:600}
+
+@keyframes zxFloat{50%{transform:translateY(-13px)}}
+@keyframes zxLiquid{
+  0%,100%{border-radius:46% 54% 52% 48%;transform:rotate(0deg) scale(1)}
+  50%{border-radius:54% 46% 45% 55%;transform:rotate(7deg) scale(1.035)}
+}
+@keyframes zxOrbit{to{transform:rotateX(68deg) rotateZ(380deg)}}
+@keyframes zxPulse{50%{opacity:.35;transform:scale(.65)}}
+
+@media(max-width:800px){
+  .zx-v2-content{grid-template-columns:1fr;gap:10px;text-align:center}
+  .zx-v2-copy{text-align:center}
+  .zx-v2-sub{margin:auto}
+  .zx-v2-actions{justify-content:center}
+  .zx-v2-core-area{min-height:390px}
+  .zx-v2-core{transform:scale(.78)}
+  .zx-v2-title{letter-spacing:-2px}
+}
+</style>
+
+
+<style id="zorox-auth-ui">
+.zx-auth-login,.zx-auth-signup{
+  border:0;border-radius:10px;padding:9px 15px;
+  font:inherit;font-size:13px;font-weight:650;cursor:pointer;
+  transition:.25s ease;
+}
+.zx-auth-login{
+  color:#dce7ff;background:rgba(255,255,255,.05);
+  border:1px solid rgba(100,150,255,.22);
+}
+.zx-auth-signup{
+  color:#fff;background:linear-gradient(135deg,#287dff,#684cff);
+  box-shadow:0 7px 25px rgba(55,100,255,.22);
+}
+.zx-auth-login:hover,.zx-auth-signup:hover{
+  transform:translateY(-2px);filter:brightness(1.12);
+}
+@media(max-width:800px){
+  .zx-auth-login,.zx-auth-signup{padding:7px 11px;font-size:12px}
+}
+</style>
+
+
+<style id="zorox-auth-force">
+.zorox-nav{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  flex-wrap:wrap !important;
+}
+.zx-auth-login,.zx-auth-signup{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:relative !important;
+  z-index:9999 !important;
+  align-items:center;
+  justify-content:center;
+  min-width:72px;
+  cursor:pointer;
+}
+.zx-auth-login{
+  color:#e8efff !important;
+  background:rgba(255,255,255,.07) !important;
+  border:1px solid rgba(100,160,255,.35) !important;
+}
+.zx-auth-signup{
+  color:#fff !important;
+  background:linear-gradient(135deg,#287dff,#684cff) !important;
+  border:1px solid rgba(120,170,255,.35) !important;
+}
+</style>
+
+
+<style id="zorox-chat-mobile-fix">
+/* ZOROX CHAT FINAL UI */
+.chat-box{
+    width:min(100%, 760px)!important;
+    height:clamp(520px,72vh,680px)!important;
+    margin:0 auto!important;
+    background:#080b10!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:22px!important;
+    overflow:hidden!important;
+    box-shadow:0 18px 55px rgba(0,0,0,.35)!important;
+}
+
+.chat-box::before{
+    display:none!important;
+}
+
+.chat-top{
+    min-height:68px!important;
+    background:#0b0f14!important;
+    border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+
+.messages{
+    background:#080b10!important;
+    padding:18px!important;
+    gap:12px!important;
+}
+
+.message{
+    max-width:min(82%,620px)!important;
+    color:#fff!important;
+    line-height:1.55!important;
+    font-size:14px!important;
+}
+
+.ai-message{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.07)!important;
+    border-radius:15px 15px 15px 5px!important;
+}
+
+.user-message{
+    background:#1a2028!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.06)!important;
+    border-radius:15px 15px 5px 15px!important;
+}
+
+.chat-input-area{
+    background:#090d12!important;
+    border-top:1px solid rgba(255,255,255,.07)!important;
+    padding:12px!important;
+}
+
+.chat-input{
+    background:#11161d!important;
+    color:#fff!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:14px!important;
+}
+
+.chat-input:focus{
+    border-color:rgba(255,255,255,.2)!important;
+    box-shadow:none!important;
+}
+
+.chat-input::placeholder{
+    color:#707b86!important;
+}
+
+/* typing indicator */
+#typing{
+    width:max-content!important;
+    padding:11px 14px!important;
+}
+
+#typing .typing span{
+    display:inline-block!important;
+    width:6px!important;
+    height:6px!important;
+    margin:0 3px!important;
+    border-radius:50%!important;
+    background:#cbd5df!important;
+    animation:zoroxTyping 1.2s infinite ease-in-out!important;
+}
+
+#typing .typing span:nth-child(2){animation-delay:.15s!important}
+#typing .typing span:nth-child(3){animation-delay:.30s!important}
+
+@keyframes zoroxTyping{
+    0%,60%,100%{transform:translateY(0);opacity:.35}
+    30%{transform:translateY(-5px);opacity:1}
+}
+
+/* mobile */
+@media(max-width:600px){
+    .chat-box{
+        width:calc(100vw - 24px)!important;
+        height:calc(100dvh - 150px)!important;
+        min-height:450px!important;
+        max-height:680px!important;
+        border-radius:18px!important;
+    }
+
+    .messages{
+        padding:14px!important;
+    }
+
+    .message{
+        max-width:88%!important;
+        font-size:14px!important;
+    }
+
+    .chat-top{
+        min-height:60px!important;
+        padding:10px 14px!important;
+    }
+
+    .chat-input-area{
+        padding:9px!important;
+    }
+
+    .chat-input{
+        min-height:46px!important;
+        font-size:15px!important;
+    }
+}
+</style>
+<style id="zorox-user-menu-style">
+
+.z-user-button{
+  position:fixed;
+  right:48px;
+  top:22px;
+  z-index:99980;
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  border:1px solid rgba(70,120,255,.38);
+  background:rgba(7,10,18,.88);
+  backdrop-filter:blur(15px);
+  color:#fff;
+  font-size:19px;
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(40,90,255,.15);
+  transition:.25s ease;
+}
+
+.z-user-button:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,50,75,.6);
+  box-shadow:0 0 30px rgba(255,45,70,.18);
+}
+
+.z-user-panel{
+  position:fixed;
+  top:0;
+  right:0;
+  width:330px;
+  max-width:90vw;
+  height:100vh;
+  z-index:99999;
+  background:rgba(5,7,14,.97);
+  border-left:1px solid rgba(70,120,255,.22);
+  box-shadow:-25px 0 70px rgba(0,0,0,.55);
+  backdrop-filter:blur(25px);
+  transform:translateX(105%);
+  transition:.4s cubic-bezier(.2,.8,.2,1);
+  overflow-y:auto;
+}
+
+.z-user-panel.open{
+  transform:translateX(0);
+}
+
+.z-user-close{
+  position:absolute;
+  top:17px;
+  right:17px;
+  z-index:5;
+  width:34px;
+  height:34px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  font-size:23px;
+  cursor:pointer;
+}
+
+.z-user-cover{
+  height:125px;
+  background:
+    radial-gradient(circle at 20% 50%,rgba(30,100,255,.28),transparent 45%),
+    radial-gradient(circle at 80% 30%,rgba(255,35,65,.22),transparent 45%),
+    linear-gradient(135deg,#080b15,#11182b);
+}
+
+.z-user-profile{
+  text-align:center;
+  margin-top:-45px;
+  padding:0 22px 20px;
+}
+
+.z-user-photo-wrap{
+  position:relative;
+  width:92px;
+  height:92px;
+  margin:auto;
+}
+
+.z-user-photo{
+  width:92px;
+  height:92px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(70,130,255,.8);
+  background:#0b0f1a;
+  display:block;
+}
+
+.z-photo-edit{
+  position:absolute;
+  right:-2px;
+  bottom:2px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#1769ff;
+  color:#fff;
+  border:2px solid #080b12;
+  cursor:pointer;
+  font-size:20px;
+}
+
+.z-user-name{
+  margin-top:13px;
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+}
+
+.z-user-email{
+  margin-top:5px;
+  color:#8090ad;
+  font-size:12px;
+  word-break:break-word;
+}
+
+.z-user-coins{
+  margin:5px 18px 20px;
+  padding:16px;
+  border-radius:17px;
+  border:1px solid rgba(255,50,70,.22);
+  background:linear-gradient(135deg,
+    rgba(25,75,180,.12),
+    rgba(255,35,60,.08));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.z-user-coins small{
+  display:block;
+  color:#8292b0;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.z-user-coins strong{
+  display:block;
+  margin-top:4px;
+  color:#fff;
+  font-size:27px;
+}
+
+.z-user-coins > span{
+  color:#5f91ff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.z-user-details{
+  padding:0 18px;
+}
+
+.z-detail{
+  padding:13px 4px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.z-detail span{
+  display:block;
+  color:#66748f;
+  font-size:8px;
+  letter-spacing:2px;
+  margin-bottom:5px;
+}
+
+.z-detail strong{
+  color:#e9edf7;
+  font-size:13px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.z-profile-action,
+.z-logout-action{
+  width:calc(100% - 36px);
+  margin:18px 18px 0;
+  padding:13px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+  transition:.25s;
+}
+
+.z-profile-action{
+  border:1px solid rgba(70,130,255,.35);
+  background:rgba(50,100,255,.08);
+  color:#70a0ff;
+}
+
+.z-profile-action:hover{
+  background:#1769ff;
+  color:#fff;
+}
+
+.z-logout-action{
+  margin-top:9px;
+  margin-bottom:25px;
+  border:1px solid rgba(255,45,70,.3);
+  background:rgba(255,35,55,.06);
+  color:#ff6578;
+}
+
+.z-logout-action:hover{
+  background:rgba(255,35,55,.16);
+}
+
+@media(max-width:600px){
+  .z-user-button{
+    right:52px;
+    top:16px;
+    width:39px;
+    height:39px;
+  }
+
+  .z-user-panel{
+    width:315px;
+  }
+}
+
+</style>
+
+
+<style id="zorox-nav-user-style">
+
+.zx-user-menu-btn{
+    width:38px;
+    height:38px;
+    min-width:38px;
+    padding:0;
+    margin-left:5px;
+    border-radius:50%;
+    border:1px solid rgba(90,130,255,.45);
+    background:rgba(8,12,23,.85);
+    color:#dce8ff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:17px;
+    transition:.25s ease;
+    box-shadow:0 0 18px rgba(45,100,255,.12);
+}
+
+.zx-user-menu-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,55,75,.65);
+    box-shadow:0 0 24px rgba(255,45,70,.18);
+}
+
+.zx-user-menu-btn.logged-in{
+    border-color:rgba(60,130,255,.8);
+}
+
+.zx-user-menu-btn.logged-in #zx-nav-avatar{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    overflow:hidden;
+    display:block;
+}
+
+.zx-user-menu-btn.logged-in #zx-nav-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+@media(max-width:700px){
+    .zx-user-menu-btn{
+        width:35px;
+        height:35px;
+        min-width:35px;
+    }
+}
+
+</style>
+
+
+<style id="zorox-navbar-final-fix">
+.zx-main-header{
+    position:relative !important;
+}
+
+.zx-brand-stack{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    width:max-content !important;
+}
+
+.zx-menu-toggle{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    bottom:auto !important;
+    margin-top:8px !important;
+    width:38px !important;
+    height:38px !important;
+    padding:7px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:center !important;
+    align-items:center !important;
+    gap:5px !important;
+}
+
+.zx-menu-toggle span{
+    display:block !important;
+    width:22px !important;
+    height:2px !important;
+    border-radius:5px !important;
+}
+
+.zorox-nav{
+    display:none !important;
+}
+
+#zx-user-menu-btn,
+#zx-nav-avatar{
+    display:none !important;
+}
+</style>
+
+
+<style id="zorox-main-premium">
+:root {
+    --zx-bg: #03050a;
+    --zx-panel: rgba(10, 14, 23, .78);
+    --zx-panel-2: rgba(14, 19, 30, .68);
+    --zx-line: rgba(140, 180, 255, .12);
+    --zx-text: #f5f8ff;
+    --zx-muted: #8995aa;
+    --zx-blue: #5aa9ff;
+    --zx-cyan: #65e6ff;
+    --zx-purple: #7564ff;
+}
+
+html {
+    background: var(--zx-bg) !important;
+}
+
+body {
+    background:
+        radial-gradient(circle at 50% -10%, rgba(70,130,255,.13), transparent 34%),
+        radial-gradient(circle at 100% 40%, rgba(90,80,255,.055), transparent 30%),
+        #03050a !important;
+    color: var(--zx-text) !important;
+}
+
+/* Premium glass navigation */
+.zx-clean-nav,
+nav,
+header {
+    backdrop-filter: blur(20px) saturate(130%);
+    -webkit-backdrop-filter: blur(20px) saturate(130%);
+}
+
+.zx-clean-nav {
+    border-color: var(--zx-line) !important;
+    background: rgba(3,5,10,.72) !important;
+}
+
+/* Main hero */
+.zx-v2-hero,
+.hero,
+#home {
+    position: relative;
+}
+
+.zx-v2-hero::before,
+.hero::before,
+#home::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(70,150,255,.105),
+        rgba(100,80,255,.035) 42%,
+        transparent 70%
+    );
+    filter: blur(18px);
+    pointer-events: none;
+    animation: zxAura 7s ease-in-out infinite;
+}
+
+/* Premium text hierarchy */
+.zx-v2-hero h1,
+.hero h1,
+#home h1 {
+    letter-spacing: -.045em !important;
+    text-shadow:
+        0 0 35px rgba(75,155,255,.10);
+}
+
+.zx-v2-hero p,
+.hero p,
+#home p {
+    color: #8e9bb0;
+}
+
+/* Main CTA */
+.zx-v2-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px !important;
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background .22s ease !important;
+}
+
+.zx-v2-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-110%);
+    background: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,255,.12),
+        transparent
+    );
+    transition: transform .55s ease;
+    pointer-events: none;
+}
+
+.zx-v2-btn:hover {
+    transform: translateY(-2px);
+}
+
+.zx-v2-btn:hover::after {
+    transform: translateX(110%);
+}
+
+/* Premium panels/cards */
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card {
+    background: linear-gradient(
+        145deg,
+        rgba(16,21,32,.82),
+        rgba(7,10,17,.78)
+    ) !important;
+    border: 1px solid var(--zx-line) !important;
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.24),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease !important;
+}
+
+.zx-v2-card:hover,
+.card:hover,
+.feature-card:hover,
+.glass-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(90,169,255,.22) !important;
+    box-shadow:
+        0 22px 65px rgba(0,0,0,.30),
+        0 0 35px rgba(70,140,255,.045) !important;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    background: rgba(8,12,20,.82) !important;
+    border-color: var(--zx-line) !important;
+    color: var(--zx-text) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: rgba(90,169,255,.38) !important;
+    box-shadow: 0 0 0 3px rgba(90,169,255,.06) !important;
+}
+
+/* Subtle premium glow */
+@keyframes zxAura {
+    0%,100% {
+        opacity: .65;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.055);
+    }
+}
+
+@keyframes zxFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#home > * {
+    animation: zxFadeUp .55s ease both;
+}
+
+#home > *:nth-child(2) { animation-delay: .05s; }
+#home > *:nth-child(3) { animation-delay: .10s; }
+#home > *:nth-child(4) { animation-delay: .15s; }
+#home > *:nth-child(5) { animation-delay: .20s; }
+
+/* Mobile performance */
+@media (max-width: 700px) {
+    .zx-v2-hero::before,
+    .hero::before,
+    #home::before {
+        width: 340px;
+        height: 340px;
+        filter: blur(12px);
+    }
+
+    .zx-v2-btn:hover,
+    .zx-v2-card:hover,
+    .card:hover,
+    .feature-card:hover,
+    .glass-card:hover {
+        transform: none;
+    }
+}
+
+/* Accessibility / low-power mode */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+</head>
+
+<body>
+<!-- ZOROX USER MENU START -->
+
+<button id="zUserButton" class="z-user-button" onclick="toggleUserMenu()">
+  <span id="zUserAvatar">👤</span>
+</button>
+
+<div id="zUserPanel" class="z-user-panel">
+
+  <button class="z-user-close" onclick="toggleUserMenu()">×</button>
+
+  <div class="z-user-cover"></div>
+
+  <div class="z-user-profile">
+
+    <div class="z-user-photo-wrap">
+      <img id="zProfilePhoto"
+           class="z-user-photo"
+           src=""
+           alt="Profile">
+      <label for="zProfileUpload" class="z-photo-edit">+</label>
+      <input id="zProfileUpload"
+             type="file"
+             accept="image/*"
+             hidden
+             onchange="changeZoroxPhoto(event)">
+    </div>
+
+    <div id="zUserName" class="z-user-name">ZOROX USER</div>
+    <div id="zUserEmail" class="z-user-email">Not signed in</div>
+
+  </div>
+
+  <div class="z-user-coins">
+    <div>
+      <small>COIN BALANCE</small>
+      <strong id="zCoinBalance">0</strong>
+    </div>
+    <span>COINS</span>
+  </div>
+
+  <div class="z-user-details">
+
+    <div class="z-detail">
+      <span>NAME</span>
+      <strong id="zDetailName">Not added</strong>
+    </div>
+
+    <div class="z-detail">
+      <span>PHONE NUMBER</span>
+      <strong id="zDetailPhone">Not added</strong>
+    </div>
+
+    <div class="z-detail">
+      <span>EMAIL</span>
+      <strong id="zDetailEmail">Not added</strong>
+    </div>
+
+  </div>
+
+  <button class="z-profile-action" onclick="editZoroxProfile()">
+    EDIT PROFILE
+  </button>
+
+  <button class="z-logout-action" onclick="zoroxLogout()">
+    LOG OUT
+  </button>
+
+</div>
+
+<!-- END USER MENU -->
+
+<!-- ZOROX USER MENU END -->
+
+
+<div class="grid-bg"></div>
+
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+<div class="bubble b4"></div>
+<div class="bubble b5"></div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="zx-main-header">
+
+    <div class="zx-clean-nav">
+
+        <button
+            id="zx-menu-toggle"
+            class="zx-menu-toggle"
+            onclick="toggleZoroxSideMenu()"
+            aria-label="Open navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="zx-nav-title">
+            <span class="zx-logo-mark" aria-hidden="true">
+                <span class="zx-logo-z"></span>
+                <span class="zx-logo-x"></span>
+            </span>
+            <span class="zx-logo-word">ZOROX</span>
+        </div>
+
+    </div>
+
+</header>
+
+<!-- =====================================================
+     ZOROX PREMIUM SIDE NAVIGATION
+===================================================== -->
+
+<div id="zx-menu-overlay"
+     class="zx-menu-overlay"
+     onclick="closeZoroxSideMenu()">
+</div>
+
+<aside id="zx-side-menu" class="zx-side-menu">
+
+    <div class="zx-side-top">
+
+        <div class="zx-side-brand">
+            <div class="zx-side-z">Z</div>
+
+            <div>
+                <strong>ZOROX</strong>
+                <small>AI</small>
+            </div>
+        </div>
+
+        <button
+            class="zx-side-close"
+            onclick="closeZoroxSideMenu()">
+            ×
+        </button>
+
+    </div>
+
+    <div class="zx-side-line"></div>
+
+    <nav class="zx-side-links">
+
+        <a href="#home"
+           onclick="closeZoroxSideMenu(); showHome()">
+            <span>⌂</span>
+            <label>Home</label>
+        </a>
+
+        <a href="#aiSection"
+           onclick="closeZoroxSideMenu(); openAI()">
+            <span>✦</span>
+            <label>AI</label>
+        </a>
+
+        
+
+        
+
+        <a href="#technology"
+           onclick="closeZoroxSideMenu()">
+            <span>⌘</span>
+            <label>Technology</label>
+        </a>
+
+        <a href="#downloads"
+           onclick="closeZoroxSideMenu()">
+            <span>↓</span>
+            <label>Downloads</label>
+        </a>
+
+        <a href="https://www.tiktok.com/@zorox_ai" target="_blank" rel="noopener noreferrer"
+           onclick="closeZoroxSideMenu()">
+            <span>♪</span>
+            <label>TikTok</label>
+        </a>
+
+        <a href="#buy-coins"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-coins">
+            <span>🪙</span>
+            <label>Buy Coins</label>
+        </a>
+
+        <a href="login.html"
+           onclick="closeZoroxSideMenu()">
+            <span>↪</span>
+            <label>Login</label>
+        </a>
+
+        <a href="admin.html"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-admin">
+            <span>⚙</span>
+            <label>Admin Login</label>
+        </a>
+
+        <a href="signup.html"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-signup">
+            <span>＋</span>
+            <label>Sign Up</label>
+        </a>
+
+        <a href="#profile"
+           onclick="closeZoroxSideMenu(); toggleUserMenu()">
+            <span>◉</span>
+            <label>Profile</label>
+        </a>
+
+    </nav>
+
+    <div class="zx-side-line"></div>
+
+    <div class="zx-side-secondary">
+
+        <a href="about.html"
+           onclick="closeZoroxSideMenu()">
+            <span>ⓘ</span>
+            About Us
+        </a>
+
+        <a href="privacy.html"
+           onclick="closeZoroxSideMenu()">
+            <span>🔒</span>
+            Privacy Policy
+        </a>
+
+        <a href="terms.html"
+           onclick="closeZoroxSideMenu()">
+            <span>📜</span>
+            Terms of Service
+        </a>
+
+        <a href="https://t.me/alpha_xx"
+           target="_blank"
+           rel="noopener noreferrer"
+           onclick="closeZoroxSideMenu()"
+           class="zx-side-contact">
+            <span>✈</span>
+            Contact Us
+        </a>
+
+    </div>
+
+    <div class="zx-side-footer">
+        <span>ZOROX AI</span>
+        <small>WIKRAMASINGHE TECHNOLOGIES</small>
+    </div>
+
+</aside>
+
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<main id="home">
+
+
+<section class="zx-v2-hero" id="zx-v2-home">
+  <div class="zx-v2-grid"></div>
+
+  <div class="zx-v2-content">
+    <div class="zx-v2-copy">
+      <div class="zx-v2-kicker">
+        <i class="zx-v2-dot"></i>
+        ZOROX.AI ONLINE
+      </div>
+
+      <h1 class="zx-v2-title">
+        <span class="zx-welcome-word">WELCOME</span>
+        <span class="zx-welcome-word">TO</span><br>
+        <span class="zx-brand-word">ZOROX.AI</span>
+      </h1>
+
+      <p class="zx-v2-sub">
+        Your next-generation AI workspace.
+        Chat, create, explore and discover intelligent
+        digital experiences powered by ZOROX.AI.
+      </p>
+
+      <div class="zx-v2-actions">
+        <a href="javascript:void(0)" onclick="openAI()" class="zx-v2-btn zx-v2-primary">Start Chatting →</a>
+        
+        
+
+</div>
+    </div>
+
+    <div class="zx-v2-core-area">
+      <div class="zx-infinity-core" aria-label="ZOROX AI">
+
+        <div class="zx-infinity-orbit orbit-a"></div>
+        <div class="zx-infinity-orbit orbit-b"></div>
+
+        <div class="zx-infinity-ring">
+          <div class="zx-infinity-symbol">
+            <span class="zx-symbol-z">Z</span>
+            <span class="zx-symbol-x">X</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SERVICES -->
+
+<section class="services">
+
+    <div class="section-title">
+
+        <h2>
+            Our Technology
+        </h2>
+
+        <p>
+            Building intelligent solutions for tomorrow.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◈
+            </div>
+
+            <h3>
+                Artificial Intelligence
+            </h3>
+
+            <p>
+                Intelligent systems designed to transform
+                ideas into powerful digital experiences.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ⌬
+            </div>
+
+            <h3>
+                Cyber Technology
+            </h3>
+
+            <p>
+                Modern security and infrastructure
+                technologies for the connected world.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◉
+            </div>
+
+            <h3>
+                Cloud & Network
+            </h3>
+
+            <p>
+                Scalable cloud and networking solutions
+                designed for modern businesses.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ⚡
+            </div>
+
+            <h3>
+                Digital Systems
+            </h3>
+
+            <p>
+                Modern software systems designed to
+                connect people, data and technology.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ◇
+            </div>
+
+            <h3>
+                Future Computing
+            </h3>
+
+            <p>
+                Exploring emerging computing technologies
+                and intelligent digital infrastructure.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">
+                ∞
+            </div>
+
+            <h3>
+                Innovation
+            </h3>
+
+            <p>
+                Turning ambitious ideas into technology
+                built for the next generation.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- TECHNOLOGY -->
+
+<section id="technology">
+
+    <div class="tech-content">
+
+        <h2>
+            Technology Without Limits.
+        </h2>
+
+        <p>
+            WIKRAMASINGHE TECHNOLOGIES focuses on artificial intelligence,
+            cybersecurity, cloud infrastructure, networking and
+            next-generation digital systems.
+            Our vision is to build technology that makes complex
+            things simpler, faster and smarter.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="about-box">
+
+        <h2>
+            About WIKRAMASINGHE TECHNOLOGIES
+        </h2>
+
+        <p>
+            WIKRAMASINGHE TECHNOLOGIES is a technology concept focused on
+            creating intelligent digital products and services.
+            From AI assistants to cloud systems and cybersecurity,
+            the mission is simple — build useful technology for
+            the future.
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     ZOROX.AI
+========================= -->
+
+<section id="aiSection">
+
+    <div class="ai-container">
+
+
+        <div class="ai-header">
+
+            
+
+            <h2>
+                ZOROX.AI
+            </h2>
+
+            <p>
+                Your intelligent technology assistant.
+            </p>
+
+            <div class="ai-status">
+
+                <span class="status-dot"></span>
+
+                ONLINE
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-box">
+
+
+            <!-- CHAT HEADER -->
+
+            <div class="chat-top">
+
+                <div class="chat-title">
+
+                    
+
+                    <div>
+
+                        <div class="chat-name">
+                            ZOROX.AI
+                        </div>
+
+                        <div class="chat-online">
+                            AI Assistant
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="close-ai"
+                    onclick="closeAI()"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGES -->
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="message ai-message">
+
+                    Hello 👋 I'm <b>ZOROX.AI</b>.
+
+                    <br><br>
+
+                    I'm the AI assistant of
+                    <b>WIKRAMASINGHE TECHNOLOGIES</b>.
+                    Ask me anything about technology,
+                    AI, cybersecurity, cloud,
+                    networking or programming.
+
+                </div>
+
+            </div>
+
+
+            <!-- INPUT -->
+
+            <div class="chat-input-area">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    class="chat-input"
+                    placeholder="Message ZOROX.AI..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="send-btn"
+                    onclick="sendMessage()"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        WIKRAMASINGHE TECHNOLOGIES
+    </div>
+
+    <div>
+        © 2026 WIKRAMASINGHE TECHNOLOGIES.
+        All rights reserved.
+    </div>
+
+    <div class="creator">
+        Founded & Built by
+        <span>Sheron Elijah</span>
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   OPEN ZOROX.AI
+========================= */
+
+function openAI() {
+    window.location.href = "ai.html";
+}
+
+
+/* =========================
+   CLOSE AI
+========================= */
+
+function closeAI() {
+
+    document.getElementById("aiSection").style.display = "none";
+
+    document.getElementById("home").style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function showHome() {
+
+    document.getElementById("aiSection").style.display = "none";
+
+    document.getElementById("home").style.display = "block";
+
+}
+
+
+/* =========================
+   SEND MESSAGE
+========================= */
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById("chatInput");
+
+    const text =
+        input.value.trim();
+
+    if (text === "") {
+        return;
+    }
+
+    addMessage(
+        text,
+        "user-message"
+    );
+
+    input.value = "";
+
+    showTyping();
+
+    try {
+
+        const response = await fetch(
+            (window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1")
+  ? "https://zoroz-ai.onrender.com/api/chat"
+  : "https://YOUR-BACKEND-URL/api/chat",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: text
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        removeTyping();
+
+        if (data.reply) {
+
+            addMessage(
+                data.reply,
+                "ai-message"
+            );
+
+        } else {
+
+            addMessage(
+                "Sorry, ZOROX.AI could not respond.",
+                "ai-message"
+            );
+        }
+
+    } catch (error) {
+
+        removeTyping();
+
+        addMessage(
+            "Backend connection error. Please make sure ZOROX.AI server is running.",
+            "ai-message"
+        );
+
+        console.error(error);
+    }
+}
+
+
+/* =========================
+   ADD MESSAGE
+========================= */
+
+function addMessage(
+    text,
+    className
+) {
+
+    const messages =
+        document.getElementById("messages");
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        "message " + className;
+
+
+    message.innerHTML =
+        text;
+
+
+    messages.appendChild(message);
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+}
+
+
+/* =========================
+   TYPING
+========================= */
+
+function showTyping() {
+    const messages = document.getElementById("messages");
+
+    if (!messages) return;
+
+    hideTyping();
+
+    const typing = document.createElement("div");
+
+    typing.id = "typing";
+    typing.className = "message ai-message";
+
+    typing.innerHTML = `
+        <div class="typing" aria-label="ZOROX is typing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+    messages.appendChild(typing);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function hideTyping() {
+    const typing = document.getElementById("typing");
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("typing");
+
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+
+/* =========================
+   DEMO AI RESPONSE
+========================= */
+
+function generateAIResponse(text) {
+
+    const lower =
+        text.toLowerCase();
+
+
+    let response =
+        "I'm ZOROX.AI. I can help you explore AI, technology, cybersecurity, cloud, networking and programming.";
+
+
+    if (
+        lower.includes("hello") ||
+        lower.includes("hi") ||
+        lower.includes("hey")
+    ) {
+
+        response =
+            "Hello 👋 Welcome to WIKRAMASINGHE TECHNOLOGIES. I'm ZOROX.AI. How can I help you today?";
+
+    }
+
+
+    else if (
+        lower.includes("who are you") ||
+        lower.includes("what are you")
+    ) {
+
+        response =
+            "I'm ZOROX.AI, the intelligent assistant concept of WIKRAMASINGHE TECHNOLOGIES.";
+
+    }
+
+
+    else if (
+        lower.includes("ai") ||
+        lower.includes("artificial intelligence")
+    ) {
+
+        response =
+            "AI is technology that allows computer systems to perform tasks such as understanding language, recognizing patterns, generating content and assisting with decisions.";
+
+    }
+
+
+    else if (
+        lower.includes("cyber") ||
+        lower.includes("security")
+    ) {
+
+        response =
+            "Cybersecurity focuses on protecting systems, networks, applications and data from unauthorized access, attacks and other digital threats.";
+
+    }
+
+
+    else if (
+        lower.includes("cloud")
+    ) {
+
+        response =
+            "Cloud computing provides computing resources such as servers, storage, databases and applications through network-connected infrastructure.";
+
+    }
+
+
+    else if (
+        lower.includes("network")
+    ) {
+
+        response =
+            "Computer networking connects devices so they can communicate and share data and services.";
+
+    }
+
+
+    else if (
+        lower.includes("technology")
+    ) {
+
+        response =
+            "WIKRAMASINGHE TECHNOLOGIES is focused on AI, cybersecurity, cloud, networking and next-generation digital systems.";
+
+    }
+
+
+    addMessage(
+        response,
+        "ai-message"
+    );
+
+}
+
+
+/* =========================
+   ENTER KEY
+========================= */
+
+document
+    .getElementById("chatInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                sendMessage();
+
+            }
+
+        }
+    );
+
+</script>
+
+
+<script id="zorox-welcome">
+document.addEventListener("DOMContentLoaded",()=>{
+  try{
+    const raw=localStorage.getItem("zorox_user");
+    if(!raw) return;
+
+    const user=JSON.parse(raw);
+    const name=user.username || "User";
+
+    const hero=document.querySelector(".zx-v2-copy");
+    if(hero && !document.getElementById("zxWelcome")){
+      const box=document.createElement("div");
+      box.id="zxWelcome";
+      box.style.cssText=
+        "margin-bottom:16px;color:#9fc4ff;font-size:14px;font-weight:600;letter-spacing:.3px;";
+      box.textContent="Welcome back, "+name+" 👋";
+      hero.prepend(box);
+    }
+  }catch(e){}
+});
+</script>
+<script id="zorox-user-menu-js">
+
+function toggleUserMenu(){
+  const panel = document.getElementById("zUserPanel");
+  if(panel) panel.classList.toggle("open");
+  loadZoroxUser();
+}
+
+function loadZoroxUser(){
+
+  let user = {};
+
+  try{
+    user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+  }catch(e){
+    user = {};
+  }
+
+  const name = user.name || localStorage.getItem("name") || "ZOROX USER";
+  const email = user.email || localStorage.getItem("email") || "Not signed in";
+  const phone = user.phone || localStorage.getItem("phone") || "Not added";
+  const coins = Number(user.coins ?? localStorage.getItem("coins") ?? 0);
+
+  document.getElementById("zUserName").textContent = name;
+  document.getElementById("zUserEmail").textContent = email;
+
+  document.getElementById("zDetailName").textContent = name;
+  document.getElementById("zDetailPhone").textContent = phone;
+  document.getElementById("zDetailEmail").textContent = email;
+  document.getElementById("zCoinBalance").textContent = coins;
+
+  const photo = user.photo || localStorage.getItem("zoroxProfilePhoto");
+
+  if(photo){
+    document.getElementById("zProfilePhoto").src = photo;
+    document.getElementById("zUserAvatar").textContent = "";
+  }else{
+    document.getElementById("zProfilePhoto").src =
+      "data:image/svg+xml;charset=UTF-8," +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">' +
+        '<rect width="100%" height="100%" fill="#0b1020"/>' +
+        '<text x="50%" y="58%" text-anchor="middle" font-size="85" fill="#6d8cff">👤</text>' +
+        '</svg>'
+      );
+    document.getElementById("zUserAvatar").textContent = "👤";
+  }
+}
+
+function changeZoroxPhoto(event){
+
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  if(!file.type.startsWith("image/")){
+    alert("Please select an image.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const photo = e.target.result;
+
+    localStorage.setItem("zoroxProfilePhoto", photo);
+
+    let user = {};
+
+    try{
+      user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+    }catch(e){
+      user = {};
+    }
+
+    user.photo = photo;
+
+    localStorage.setItem("zoroxUser", JSON.stringify(user));
+
+    loadZoroxUser();
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function editZoroxProfile(){
+
+  let user = {};
+
+  try{
+    user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+  }catch(e){
+    user = {};
+  }
+
+  const name = prompt("Enter your name:", user.name || "");
+  if(name === null) return;
+
+  const phone = prompt("Enter your phone number:", user.phone || "");
+  if(phone === null) return;
+
+  user.name = name.trim();
+  user.phone = phone.trim();
+
+  localStorage.setItem("zoroxUser", JSON.stringify(user));
+  localStorage.setItem("name", user.name);
+  localStorage.setItem("phone", user.phone);
+
+  loadZoroxUser();
+}
+
+function zoroxLogout(){
+
+  if(!confirm("Log out from ZOROX?")) return;
+
+  localStorage.removeItem("zoroxUser");
+  localStorage.removeItem("name");
+  localStorage.removeItem("phone");
+  localStorage.removeItem("email");
+  localStorage.removeItem("coins");
+  localStorage.removeItem("zoroxProfilePhoto");
+
+  window.location.href = "login.html";
+}
+
+document.addEventListener("DOMContentLoaded", loadZoroxUser);
+
+</script>
+
+
+<script id="zorox-nav-user-js">
+
+function updateZoroxNavUser(){
+
+    const btn = document.getElementById("zx-user-menu-btn");
+    const avatar = document.getElementById("zx-nav-avatar");
+
+    if(!btn || !avatar) return;
+
+    let user = {};
+
+    try{
+        user = JSON.parse(localStorage.getItem("zoroxUser") || "{}");
+    }catch(e){
+        user = {};
+    }
+
+    const token =
+        localStorage.getItem("token") ||
+        localStorage.getItem("zoroxToken");
+
+    const logged =
+        !!token ||
+        !!user.email ||
+        !!localStorage.getItem("email");
+
+    if(!logged){
+        btn.classList.remove("logged-in");
+        avatar.textContent = "👤";
+        return;
+    }
+
+    const photo =
+        user.photo ||
+        localStorage.getItem("zoroxProfilePhoto");
+
+    btn.classList.add("logged-in");
+
+    if(photo){
+        avatar.innerHTML =
+
+            photo.replace(/"/g,"&quot;") +
+            '" alt="User">';
+    }else{
+        avatar.textContent = "👤";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", updateZoroxNavUser);
+
+window.addEventListener("storage", updateZoroxNavUser);
+
+</script>
+
+
+<script>
+/* =====================================================
+   ZOROX SIDE MENU CONTROLLER
+===================================================== */
+
+function toggleZoroxSideMenu() {
+    const menu = document.getElementById("zx-side-menu");
+    const overlay = document.getElementById("zx-menu-overlay");
+
+    if (!menu || !overlay) return;
+
+    const open = menu.classList.toggle("active");
+    overlay.classList.toggle("active", open);
+
+    document.body.style.overflow = open ? "hidden" : "";
+}
+
+function closeZoroxSideMenu() {
+    const menu = document.getElementById("zx-side-menu");
+    const overlay = document.getElementById("zx-menu-overlay");
+
+    if (!menu || !overlay) return;
+
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        closeZoroxSideMenu();
+    }
+});
+</script>
+
+
+<style id="zorox-premium-theme-animation">
+/* ===== ZOROX PREMIUM DARK THEME ===== */
+
+body {
+    background:
+        radial-gradient(circle at 50% -15%, rgba(65,140,255,.12), transparent 32%),
+        radial-gradient(circle at 85% 55%, rgba(91,70,255,.055), transparent 30%),
+        #03050a !important;
+}
+
+/* Glass surfaces */
+.zx-clean-nav,
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card,
+section {
+    border-color: rgba(130,175,255,.11) !important;
+}
+
+/* Soft animated background light */
+body::before {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(50,145,255,.07),
+            transparent 28%
+        );
+    animation: zxAmbient 9s ease-in-out infinite alternate;
+}
+
+/* Word/text reveal */
+.zx-v2-hero h1,
+.hero h1,
+#home h1 {
+    animation: zxTitleReveal .8s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-hero h1 span,
+.hero h1 span,
+#home h1 span {
+    display: inline-block;
+    animation: zxWordReveal .65s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* Supporting text */
+.zx-v2-hero p,
+.hero p,
+#home p {
+    animation: zxTextReveal .7s .16s ease both;
+}
+
+/* Buttons */
+.zx-v2-btn {
+    animation: zxButtonReveal .65s .25s ease both;
+    box-shadow: 0 8px 30px rgba(40,120,255,.04);
+}
+
+.zx-v2-btn:hover {
+    box-shadow:
+        0 10px 35px rgba(50,135,255,.12),
+        0 0 22px rgba(70,150,255,.06);
+}
+
+/* Premium glass */
+.zx-v2-card,
+.card,
+.feature-card,
+.glass-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,21,33,.78),
+            rgba(5,8,14,.72)
+        ) !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.025),
+        0 20px 55px rgba(0,0,0,.20) !important;
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease !important;
+}
+
+.zx-v2-card:hover,
+.card:hover,
+.feature-card:hover,
+.glass-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(80,160,255,.20) !important;
+}
+
+/* Logo / brand glow */
+.zx-logo,
+.zx-brand,
+.logo,
+.brand {
+    text-shadow:
+        0 0 18px rgba(70,155,255,.12);
+}
+
+/* Animations */
+@keyframes zxAmbient {
+    from {
+        opacity: .55;
+        transform: scale(1);
+    }
+    to {
+        opacity: .9;
+        transform: scale(1.035);
+    }
+}
+
+@keyframes zxTitleReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxWordReveal {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxTextReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxButtonReveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Mobile / low-power optimization */
+@media (max-width: 700px) {
+    body::before {
+        animation-duration: 12s;
+    }
+
+    .zx-v2-card:hover,
+    .card:hover,
+    .feature-card:hover,
+    .glass-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+<script>
+/* ===== ZOROX WORD-BY-WORD REVEAL ===== */
+
+(function () {
+    const selectors = [
+        ".zx-v2-hero h1",
+        ".hero h1",
+        "#home h1"
+    ];
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(title => {
+            if (title.dataset.zxAnimated) return;
+
+            const walker = document.createTreeWalker(
+                title,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const nodes = [];
+            let node;
+
+            while (node = walker.nextNode()) {
+                if (node.nodeValue.trim()) {
+                    nodes.push(node);
+                }
+            }
+
+            nodes.forEach(textNode => {
+                const fragment = document.createDocumentFragment();
+
+                textNode.nodeValue
+                    .trim()
+                    .split(/\s+/)
+                    .forEach((word, index) => {
+                        const span =
+                            document.createElement("span");
+
+                        span.textContent =
+                            word + " ";
+
+                        span.style.animationDelay =
+                            (index * 0.075) + "s";
+
+                        fragment.appendChild(span);
+                    });
+
+                textNode.parentNode.replaceChild(
+                    fragment,
+                    textNode
+                );
+            });
+
+            title.dataset.zxAnimated = "true";
+        });
+    });
+})();
+</script>
+
+
+<style id="zorox-exact-premium-theme">
+
+/* =========================================================
+   ZOROX — PREMIUM DARK AI THEME
+   Visual layer only — content/functions unchanged
+========================================================= */
+
+:root {
+    --zxb: #05070d;
+    --zxp: rgba(11, 16, 27, .72);
+    --zxl: rgba(126, 181, 255, .13);
+    --zxt: #f4f7ff;
+    --zxm: #8793a8;
+    --zxa: #58a6ff;
+    --zxc: #63ddff;
+}
+
+/* ---------- GLOBAL ---------- */
+
+html,
+body {
+    background: #05070d !important;
+    color: var(--zxt) !important;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(62, 137, 255, .12),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 65%,
+            rgba(91, 75, 255, .06),
+            transparent 28%
+        ),
+        #05070d !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.zx-main-header {
+    position: relative;
+    z-index: 100;
+}
+
+.zx-clean-nav {
+    background:
+        rgba(5, 8, 14, .68) !important;
+
+    border: 1px solid rgba(125, 180, 255, .11) !important;
+
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, .20),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    backdrop-filter: blur(22px) saturate(135%);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+
+.zx-nav-title {
+    letter-spacing: .18em !important;
+    font-weight: 800 !important;
+    text-shadow:
+        0 0 22px rgba(75, 160, 255, .20);
+}
+
+/* ---------- HERO ---------- */
+
+.zx-v2-hero {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(50, 130, 255, .045),
+            transparent 45%
+        ) !important;
+}
+
+/* subtle animated atmosphere */
+
+.zx-v2-hero::before {
+    content: "";
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(65, 154, 255, .10),
+            rgba(78, 91, 255, .035) 42%,
+            transparent 70%
+        );
+
+    filter: blur(20px);
+    pointer-events: none;
+
+    animation:
+        zxHeroGlow 8s ease-in-out infinite alternate;
+}
+
+/* ---------- KICKER ---------- */
+
+.zx-v2-kicker {
+    color: #9db8d8 !important;
+
+    letter-spacing: .16em !important;
+
+    animation:
+        zxFadeUp .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-dot {
+    box-shadow:
+        0 0 12px rgba(80, 210, 255, .7) !important;
+
+    animation:
+        zxDotPulse 2.2s ease-in-out infinite;
+}
+
+/* ---------- MAIN TITLE ---------- */
+
+.zx-v2-title {
+    color: #f5f8ff !important;
+
+    letter-spacing: -.055em !important;
+
+    text-shadow:
+        0 0 40px rgba(74, 154, 255, .08);
+
+    animation:
+        zxTitleIn .85s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* Animated ZOROX.AI word */
+.zx-v2-title span {
+    display: inline-block;
+    white-space: nowrap;
+
+    background:
+        linear-gradient(
+            100deg,
+            #f4f7ff 0%,
+            #8ccaff 48%,
+            #69e4ff 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: none;
+
+    animation:
+        zxBrandReveal .9s .16s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* ---------- SUBTITLE ---------- */
+
+.zx-v2-sub {
+    color: #8b98ad !important;
+
+    animation:
+        zxFadeUp .75s .28s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* ---------- CTA ---------- */
+
+.zx-v2-actions {
+    animation:
+        zxFadeUp .75s .40s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-btn {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 15px !important;
+
+    transition:
+        transform .24s ease,
+        box-shadow .24s ease,
+        border-color .24s ease !important;
+}
+
+.zx-v2-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #4d9dff,
+            #6570ff
+        ) !important;
+
+    border: 1px solid rgba(150, 210, 255, .25) !important;
+
+    box-shadow:
+        0 10px 35px rgba(45, 120, 255, .16),
+        inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.zx-v2-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 30%,
+            rgba(255,255,255,.20),
+            transparent 70%
+        );
+
+    transform: translateX(-130%);
+    transition: transform .65s ease;
+
+    pointer-events: none;
+}
+
+.zx-v2-primary:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 45px rgba(45, 130, 255, .22),
+        0 0 28px rgba(65, 170, 255, .08);
+}
+
+.zx-v2-primary:hover::after {
+    transform: translateX(130%);
+}
+
+/* ---------- AI CORE ---------- */
+
+.zx-v2-core-area {
+    animation:
+        zxCoreEnter 1s .25s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.zx-v2-core {
+    filter:
+        drop-shadow(0 0 30px rgba(61, 157, 255, .10));
+
+    transform-origin: center;
+
+    animation:
+        zxCoreFloat 7s ease-in-out infinite;
+}
+
+.zx-v2-liquid {
+    box-shadow:
+        0 0 45px rgba(72, 163, 255, .18),
+        0 0 90px rgba(91, 87, 255, .08);
+}
+
+/* ---------- SERVICES ---------- */
+
+.services {
+    position: relative;
+}
+
+.section-title h2 {
+    color: #f1f5ff !important;
+
+    letter-spacing: -.035em !important;
+
+    animation:
+        zxFadeUp .7s ease both;
+}
+
+.section-title p {
+    color: #818da1 !important;
+}
+
+.cards {
+    position: relative;
+}
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 21, 33, .78),
+            rgba(7, 10, 17, .72)
+        ) !important;
+
+    border:
+        1px solid rgba(130, 180, 255, .11) !important;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    transition:
+        transform .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-5px) !important;
+
+    border-color:
+        rgba(82, 166, 255, .24) !important;
+
+    box-shadow:
+        0 25px 65px rgba(0,0,0,.30),
+        0 0 30px rgba(62, 145, 255, .055) !important;
+}
+
+.card .icon {
+    text-shadow:
+        0 0 20px rgba(75, 170, 255, .18);
+}
+
+.card h3 {
+    color: #edf3ff !important;
+}
+
+.card p {
+    color: #7f8ca2 !important;
+}
+
+/* ---------- SIDE MENU ---------- */
+
+.zx-side-menu {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9, 13, 22, .96),
+            rgba(4, 7, 13, .98)
+        ) !important;
+
+    border-right:
+        1px solid rgba(120, 175, 255, .12) !important;
+
+    box-shadow:
+        20px 0 70px rgba(0,0,0,.35) !important;
+
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+}
+
+.zx-side-line {
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(90,165,255,.16),
+            transparent
+        ) !important;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    transition:
+        background .22s ease,
+        color .22s ease,
+        transform .22s ease !important;
+}
+
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    background:
+        rgba(75, 150, 255, .07) !important;
+
+    transform: translateX(3px);
+}
+
+/* ---------- USER PANEL ---------- */
+
+.z-user-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12, 17, 28, .96),
+            rgba(4, 7, 13, .98)
+        ) !important;
+
+    border-color:
+        rgba(120, 175, 255, .13) !important;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.45) !important;
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+/* ---------- LIGHTWEIGHT ANIMATION ---------- */
+
+@keyframes zxHeroGlow {
+    from {
+        opacity: .55;
+        transform: translateX(-50%) scale(1);
+    }
+
+    to {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.06);
+    }
+}
+
+@keyframes zxTitleIn {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandReveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxCoreEnter {
+    from {
+        opacity: 0;
+        transform: scale(.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zxCoreFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes zxDotPulse {
+    0%, 100% {
+        opacity: .65;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+    .zx-v2-hero::before {
+        width: 360px;
+        height: 360px;
+        filter: blur(14px);
+    }
+
+    .zx-v2-core {
+        animation-duration: 9s;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-final-blue-black-theme">
+
+/* =====================================================
+   ZOROX FINAL — BLACK / BLUE PREMIUM THEME
+   Visual styling only
+===================================================== */
+
+:root {
+    --zx-black: #020407;
+    --zx-black2: #050912;
+    --zx-blue: #238cff;
+    --zx-blue2: #54b7ff;
+    --zx-cyan: #72dcff;
+    --zx-white: #f5f9ff;
+    --zx-muted: #8290a5;
+    --zx-border: rgba(85, 165, 255, .14);
+}
+
+/* ---------- GLOBAL ---------- */
+
+html,
+body {
+    background: #020407 !important;
+    color: var(--zx-white) !important;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% -15%,
+            rgba(30, 125, 255, .12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 60%,
+            rgba(25, 100, 220, .045),
+            transparent 42%
+        ),
+        #020407 !important;
+}
+
+/* Remove purple feeling */
+[style*="#7564ff"],
+[style*="#7c5cff"],
+[style*="124,92,255"],
+[style*="91,75,255"] {
+    color: var(--zx-blue2) !important;
+}
+
+/* ---------- HEADER ---------- */
+
+.zx-clean-nav {
+    background: rgba(2, 5, 9, .82) !important;
+    border-color: rgba(85, 165, 255, .14) !important;
+
+    box-shadow:
+        0 10px 45px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+
+.zx-nav-title {
+    color: #f5f9ff !important;
+    text-shadow:
+        0 0 20px rgba(50,155,255,.24);
+}
+
+/* ---------- HERO ---------- */
+
+.zx-v2-hero {
+    background:
+        radial-gradient(
+            circle at 50% 48%,
+            rgba(20, 120, 255, .055),
+            transparent 48%
+        ) !important;
+}
+
+.zx-v2-hero::before {
+    width: 600px;
+    height: 600px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(35, 140, 255, .12),
+            rgba(35, 140, 255, .025) 45%,
+            transparent 70%
+        );
+
+    filter: blur(18px);
+
+    animation:
+        zxBlueAtmosphere 7s ease-in-out infinite alternate;
+}
+
+/* ---------- KICKER ---------- */
+
+.zx-v2-kicker {
+    color: #91a9c5 !important;
+}
+
+.zx-v2-dot {
+    background: var(--zx-blue2) !important;
+
+    box-shadow:
+        0 0 8px rgba(70,190,255,.75),
+        0 0 22px rgba(40,140,255,.28) !important;
+
+    animation:
+        zxPulse 2s ease-in-out infinite;
+}
+
+/* ---------- TITLE ---------- */
+
+.zx-v2-title {
+    color: #f7faff !important;
+
+    text-shadow:
+        0 0 45px rgba(45,145,255,.10);
+
+    animation:
+        zxTitle 1s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ZOROX.AI — blue instead of purple */
+
+.zx-v2-title span {
+    display: inline-block !important;
+    white-space: nowrap !important;
+
+    background:
+        linear-gradient(
+            100deg,
+            #ffffff 0%,
+            #73baff 48%,
+            #61ddff 100%
+        ) !important;
+
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+
+    animation:
+        zxBrand 1.05s .12s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ---------- SUBTITLE ---------- */
+
+.zx-v2-sub {
+    color: #8492a7 !important;
+
+    animation:
+        zxText .8s .25s ease both;
+}
+
+/* ---------- CTA ---------- */
+
+.zx-v2-actions {
+    animation:
+        zxText .8s .38s ease both;
+}
+
+.zx-v2-primary {
+    background:
+        linear-gradient(
+            135deg,
+            #147cff,
+            #249fff
+        ) !important;
+
+    color: white !important;
+
+    border:
+        1px solid rgba(130,210,255,.25) !important;
+
+    box-shadow:
+        0 12px 35px rgba(20,125,255,.20),
+        inset 0 1px 0 rgba(255,255,255,.20) !important;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease !important;
+}
+
+.zx-v2-primary:hover {
+    transform: translateY(-3px) !important;
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 18px 48px rgba(20,135,255,.30),
+        0 0 28px rgba(45,160,255,.12) !important;
+}
+
+/* ---------- AI CORE ---------- */
+
+.zx-v2-core-area {
+    animation:
+        zxCore .9s .2s cubic-bezier(.16,1,.3,1) both;
+}
+
+.zx-v2-core {
+    filter:
+        drop-shadow(0 0 35px rgba(35,145,255,.16));
+
+    animation:
+        zxFloat 6s ease-in-out infinite;
+}
+
+.zx-v2-liquid {
+    box-shadow:
+        0 0 35px rgba(40,160,255,.25),
+        0 0 80px rgba(25,110,255,.10) !important;
+}
+
+/* ---------- CARDS ---------- */
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(9,16,27,.88),
+            rgba(3,7,13,.94)
+        ) !important;
+
+    border:
+        1px solid rgba(85,165,255,.12) !important;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.38),
+        inset 0 1px 0 rgba(255,255,255,.025) !important;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-5px) !important;
+
+    border-color:
+        rgba(75,170,255,.28) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.48),
+        0 0 30px rgba(40,145,255,.08) !important;
+}
+
+.card .icon {
+    color: #63c5ff !important;
+
+    text-shadow:
+        0 0 18px rgba(50,165,255,.25);
+}
+
+.card h3 {
+    color: #edf5ff !important;
+}
+
+.card p {
+    color: #78879d !important;
+}
+
+/* ---------- SIDE MENU ---------- */
+
+.zx-side-menu {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(4,8,14,.98),
+            rgba(1,4,8,.99)
+        ) !important;
+
+    border-right:
+        1px solid rgba(75,160,255,.14) !important;
+
+    box-shadow:
+        20px 0 80px rgba(0,0,0,.55) !important;
+}
+
+.zx-side-links a:hover,
+.zx-side-secondary a:hover {
+    background:
+        rgba(35,135,255,.07) !important;
+
+    color: #75c9ff !important;
+}
+
+/* ---------- USER PANEL ---------- */
+
+.z-user-panel {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(7,13,22,.98),
+            rgba(2,5,9,.99)
+        ) !important;
+
+    border-color:
+        rgba(75,160,255,.14) !important;
+
+    box-shadow:
+        0 25px 90px rgba(0,0,0,.58) !important;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes zxBlueAtmosphere {
+    from {
+        opacity: .45;
+        transform: translateX(-50%) scale(1);
+    }
+
+    to {
+        opacity: .95;
+        transform: translateX(-50%) scale(1.055);
+    }
+}
+
+@keyframes zxTitle {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrand {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.96);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxText {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zxCore {
+    from {
+        opacity: 0;
+        transform: scale(.90);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zxFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes zxPulse {
+    0%,100% {
+        opacity: .65;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.18);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+
+    .zx-v2-hero::before {
+        width: 350px;
+        height: 350px;
+        filter: blur(14px);
+    }
+
+    .zx-v2-core {
+        animation-duration: 8s;
+    }
+
+    .card:hover {
+        transform: none !important;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-zx-logo-redesign">
+
+/* =====================================================
+   ZOROX — Z/X INTELLIGENCE MARK
+   Black + Electric Blue
+===================================================== */
+
+.zx-nav-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+/* ---------- Z/X MARK ---------- */
+
+.zx-logo-mark {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30,145,255,.14),
+            rgba(3,8,15,.96)
+        );
+
+    border: 1px solid rgba(75,180,255,.22);
+
+    box-shadow:
+        0 0 22px rgba(25,135,255,.13),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    overflow: hidden;
+
+    animation: zxMarkIn .8s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* Z */
+
+.zx-logo-z {
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    width: 20px;
+    height: 17px;
+
+    border-top: 2px solid #72d6ff;
+    border-bottom: 2px solid #238cff;
+
+    transform: skewX(-24deg);
+
+    filter:
+        drop-shadow(0 0 5px rgba(60,185,255,.65));
+
+    opacity: .95;
+}
+
+/* X */
+
+.zx-logo-x {
+    position: absolute;
+    left: 13px;
+    top: 6px;
+    width: 2px;
+    height: 22px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #55c8ff 18%,
+            #238cff 82%,
+            transparent
+        );
+
+    transform: rotate(38deg);
+
+    box-shadow:
+        0 0 8px rgba(55,180,255,.65);
+
+    animation: zxXDraw 1s .25s ease both;
+}
+
+.zx-logo-x::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 2px;
+    height: 22px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #238cff 20%,
+            #72ddff 80%,
+            transparent
+        );
+
+    transform: rotate(-76deg);
+
+    box-shadow:
+        0 0 8px rgba(35,140,255,.55);
+}
+
+/* ---------- WORDMARK ---------- */
+
+.zx-logo-word {
+    color: #f4f9ff !important;
+
+    letter-spacing: .16em;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 0 18px rgba(55,160,255,.16);
+
+    animation:
+        zxWordIn .75s .18s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ---------- SUBTLE INTELLIGENCE PULSE ---------- */
+
+.zx-logo-mark::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    right: 4px;
+    top: 4px;
+
+    border-radius: 50%;
+
+    background: #70dcff;
+
+    box-shadow:
+        0 0 7px #70dcff,
+        0 0 16px rgba(50,165,255,.75);
+
+    animation:
+        zxNodePulse 2.4s ease-in-out infinite;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes zxMarkIn {
+    from {
+        opacity: 0;
+        transform: scale(.72) rotate(-8deg);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxXDraw {
+    from {
+        opacity: 0;
+        transform: rotate(38deg) scaleY(0);
+        transform-origin: center;
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(38deg) scaleY(1);
+    }
+}
+
+@keyframes zxWordIn {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+        letter-spacing: .28em;
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        letter-spacing: .16em;
+        filter: blur(0);
+    }
+}
+
+@keyframes zxNodePulse {
+    0%, 100% {
+        opacity: .45;
+        transform: scale(.75);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+    .zx-logo-mark {
+        width: 31px;
+        height: 31px;
+    }
+
+    .zx-logo-word {
+        font-size: .92em;
+    }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .zx-logo-mark,
+    .zx-logo-x,
+    .zx-logo-word,
+    .zx-logo-mark::after {
+        animation: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-infinity-core">
+
+/* =====================================================
+   ZOROX INFINITY INTELLIGENCE CORE
+   No planet — Z + X identity with subtle JARVIS orbit
+===================================================== */
+
+.zx-infinity-core {
+    position: relative;
+
+    width: 190px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation:
+        zxInfinityEnter .9s .2s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* ---------- SMALL Z/X CORE ---------- */
+
+.zx-infinity-ring {
+    position: relative;
+
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(30,145,255,.10),
+            rgba(2,6,12,.92) 65%,
+            rgba(2,4,8,.98)
+        );
+
+    border:
+        1px solid rgba(80,185,255,.28);
+
+    box-shadow:
+        0 0 18px rgba(35,145,255,.18),
+        0 0 55px rgba(25,115,255,.08),
+        inset 0 0 20px rgba(35,145,255,.08);
+
+    animation:
+        zxCoreBreath 4s ease-in-out infinite;
+}
+
+/* ---------- INFINITY SHAPE ---------- */
+
+.zx-infinity-symbol {
+    position: relative;
+
+    width: 53px;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform: rotate(-8deg);
+
+    filter:
+        drop-shadow(0 0 6px rgba(65,190,255,.7));
+}
+
+/* Two connected loops create the Z/X infinity identity */
+
+.zx-infinity-symbol::before,
+.zx-infinity-symbol::after {
+    content: "";
+
+    position: absolute;
+
+    width: 27px;
+    height: 19px;
+
+    border:
+        2px solid #48baff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px rgba(45,170,255,.55);
+}
+
+.zx-infinity-symbol::before {
+    left: 1px;
+    transform: rotate(28deg);
+}
+
+.zx-infinity-symbol::after {
+    right: 1px;
+    transform: rotate(-28deg);
+}
+
+/* Z */
+
+.zx-symbol-z,
+.zx-symbol-x {
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    color: #f5fbff;
+
+    text-shadow:
+        0 0 8px rgba(75,195,255,.85);
+}
+
+.zx-symbol-z {
+    transform: translateX(-7px);
+}
+
+.zx-symbol-x {
+    color: #64d7ff;
+    transform: translateX(7px);
+}
+
+/* ---------- JARVIS ORBIT ---------- */
+
+.zx-infinity-orbit {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.orbit-a {
+    width: 138px;
+    height: 48px;
+
+    border:
+        1px solid rgba(66,180,255,.27);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(18deg);
+
+    box-shadow:
+        0 0 10px rgba(35,150,255,.08);
+
+    animation:
+        zxOrbitA 7s linear infinite;
+}
+
+.orbit-b {
+    width: 150px;
+    height: 58px;
+
+    border:
+        1px solid rgba(70,195,255,.13);
+
+    transform:
+        translate(-50%, -50%)
+        rotate(-28deg);
+
+    animation:
+        zxOrbitB 11s linear infinite reverse;
+}
+
+/* Orbit particles */
+
+.orbit-a::after,
+.orbit-b::after {
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #72ddff;
+
+    box-shadow:
+        0 0 7px #72ddff,
+        0 0 15px rgba(45,165,255,.65);
+}
+
+.orbit-a::after {
+    top: -2px;
+    left: 50%;
+}
+
+.orbit-b::after {
+    bottom: -2px;
+    left: 28%;
+}
+
+/* ---------- ANIMATION ---------- */
+
+@keyframes zxInfinityEnter {
+    from {
+        opacity: 0;
+        transform: scale(.72);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxCoreBreath {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 18px rgba(35,145,255,.18),
+            0 0 55px rgba(25,115,255,.08),
+            inset 0 0 20px rgba(35,145,255,.08);
+    }
+
+    50% {
+        transform: scale(1.035);
+        box-shadow:
+            0 0 25px rgba(45,165,255,.25),
+            0 0 70px rgba(25,115,255,.12),
+            inset 0 0 25px rgba(35,145,255,.12);
+    }
+}
+
+@keyframes zxOrbitA {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(18deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(378deg);
+    }
+}
+
+@keyframes zxOrbitB {
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(-28deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(-388deg);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 700px) {
+    .zx-infinity-core {
+        width: 160px;
+        height: 125px;
+    }
+
+    .zx-infinity-ring {
+        width: 68px;
+        height: 68px;
+    }
+
+    .orbit-a {
+        width: 120px;
+        height: 43px;
+    }
+
+    .orbit-b {
+        width: 130px;
+        height: 50px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zx-infinity-core,
+    .zx-infinity-ring,
+    .zx-infinity-orbit {
+        animation: none !important;
+    }
+}
+
+</style>
+
+
+<style id="zorox-title-clean-final">
+
+.zx-v2-title {
+    color: #f5f8fc !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+}
+
+/* WELCOME + TO */
+.zx-welcome-word {
+    display: inline-block !important;
+    color: #f5f8fc !important;
+    background: none !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+    margin-right: .28em !important;
+    white-space: nowrap !important;
+
+    animation:
+        zxWelcomeIn .75s cubic-bezier(.16,1,.3,1) both;
+}
+
+.zx-welcome-word:nth-child(2) {
+    animation-delay: .08s;
+}
+
+/* ZOROX.AI */
+.zx-brand-word {
+    display: inline-block !important;
+    white-space: nowrap !important;
+
+    background:
+        linear-gradient(
+            105deg,
+            #ffffff 0%,
+            #9edbff 42%,
+            #36adff 72%,
+            #7ce2ff 100%
+        ) !important;
+
+    background-size: 220% 100% !important;
+
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+
+    animation:
+        zxBrandClean 1s .18s cubic-bezier(.16,1,.3,1) both,
+        zxBrandShimmer 6s 1.4s ease-in-out infinite !important;
+}
+
+@keyframes zxWelcomeIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandClean {
+    from {
+        opacity: 0;
+        transform: translateY(22px) scale(.97);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBrandShimmer {
+    0%, 65%, 100% {
+        background-position: 0% 50%;
+    }
+
+    82% {
+        background-position: 100% 50%;
+    }
+}
+
+</style>
+
+</body>
+</html>
+
+<style>
+/* =====================================================
+   ZOROX PREMIUM NAVIGATION UPGRADE
+===================================================== */
+
+.zorox-nav {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0,220,255,.10);
+    border-radius: 18px;
+    background: rgba(7,12,22,.62);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.28),
+        inset 0 1px rgba(255,255,255,.035);
+}
+
+.zorox-nav > a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 11px;
+    border-radius: 11px;
+    color: #8f9aaa;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.zorox-nav > a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 2px;
+    border-radius: 10px;
+    background: #00dcff;
+    box-shadow: 0 0 10px rgba(0,220,255,.8);
+    transform: translateX(-50%);
+    transition: width .28s ease;
+}
+
+.zorox-nav > a:hover {
+    color: #fff;
+    background: rgba(0,220,255,.065);
+    transform: translateY(-1px);
+}
+
+.zorox-nav > a:hover::after {
+    width: 55%;
+}
+
+.zorox-nav .zx-coin-link {
+    color: #8fefff;
+    border: 1px solid rgba(0,220,255,.13);
+    background: rgba(0,220,255,.045);
+}
+
+.zorox-nav .zx-coin-link span {
+    display: inline-block;
+    transition: transform .3s ease;
+}
+
+.zorox-nav .zx-coin-link:hover span {
+    transform: rotate(15deg) scale(1.12);
+}
+
+.zx-nav-divider {
+    width: 1px;
+    height: 25px;
+    margin: 0 3px;
+    background: linear-gradient(
+        transparent,
+        rgba(0,220,255,.28),
+        transparent
+    );
+}
+
+.zorox-nav .zx-auth-login,
+.zorox-nav .zx-auth-signup {
+    border-radius: 11px;
+    padding: 9px 13px;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.zorox-nav .zx-auth-login {
+    color: #cbd5e1;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.035);
+}
+
+.zorox-nav .zx-auth-login:hover {
+    color: #fff;
+    border-color: rgba(0,220,255,.25);
+    background: rgba(0,220,255,.07);
+    transform: translateY(-1px);
+}
+
+.zorox-nav .zx-auth-signup {
+    color: #031018;
+    border: 1px solid #00dcff;
+    background: linear-gradient(135deg,#00dcff,#6ff5ff);
+    box-shadow: 0 0 18px rgba(0,220,255,.16);
+}
+
+.zorox-nav .zx-auth-signup:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 25px rgba(0,220,255,.32),
+        0 8px 20px rgba(0,0,0,.25);
+}
+
+.zorox-nav .zx-user-menu-btn {
+    width: 39px;
+    height: 39px;
+    display: grid;
+    place-items: center;
+    margin-left: 2px;
+    border: 1px solid rgba(0,220,255,.18);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 25%,
+        rgba(0,220,255,.18),
+        rgba(255,255,255,.035) 55%);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(0,220,255,.08);
+    transition: .3s ease;
+}
+
+.zorox-nav .zx-user-menu-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    border-color: rgba(0,220,255,.5);
+    box-shadow: 0 0 25px rgba(0,220,255,.22);
+}
+
+/* Mobile */
+@media (max-width: 1150px) {
+    .zorox-nav {
+        gap: 3px;
+    }
+
+    .zorox-nav > a {
+        padding: 9px 7px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .zorox-nav {
+        gap: 5px;
+        max-width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .zorox-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .zorox-nav > a {
+        flex-shrink: 0;
+    }
+
+    .zx-nav-divider {
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .zorox-nav {
+        padding: 6px;
+        border-radius: 14px;
+        gap: 2px;
+    }
+
+    .zorox-nav > a {
+        padding: 8px 8px;
+        font-size: 11px;
+    }
+
+    .zorox-nav .zx-auth-login,
+    .zorox-nav .zx-auth-signup {
+        padding: 8px 9px;
+        font-size: 11px;
+    }
+
+    .zorox-nav .zx-user-menu-btn {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+/* =====================================================
+   ZOROX PREMIUM HAMBURGER + SIDE MENU
+===================================================== */
+
+.zx-main-header {
+    position: relative;
+    z-index: 1000;
+}
+
+.zx-menu-toggle {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 12px;
+    z-index: 1105;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border: 1px solid rgba(0,220,255,.18);
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,25,40,.92),
+            rgba(4,10,18,.88)
+        );
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.30),
+        0 0 20px rgba(0,220,255,.07),
+        inset 0 1px rgba(255,255,255,.05);
+
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.zx-menu-toggle:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0,220,255,.5);
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.35),
+        0 0 28px rgba(0,220,255,.20);
+}
+
+.zx-menu-toggle span {
+    width: 21px;
+    height: 2px;
+    border-radius: 5px;
+    background: #00dcff;
+    box-shadow: 0 0 8px rgba(0,220,255,.5);
+    transition: .3s ease;
+}
+
+/* Overlay */
+
+.zx-menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+
+    background: rgba(0,0,0,.58);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity .35s ease,
+                visibility .35s ease;
+}
+
+.zx-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Side menu */
+
+.zx-side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: min(340px, 88vw);
+    height: 100vh;
+
+    z-index: 1100;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 22px 18px;
+
+    background:
+        radial-gradient(
+            circle at 20% 5%,
+            rgba(0,220,255,.09),
+            transparent 30%
+        ),
+        linear-gradient(
+            155deg,
+            rgba(7,15,27,.98),
+            rgba(2,7,14,.99)
+        );
+
+    border-right: 1px solid rgba(0,220,255,.13);
+
+    box-shadow:
+        20px 0 70px rgba(0,0,0,.45),
+        0 0 50px rgba(0,220,255,.06);
+
+    transform: translateX(-105%);
+    transition:
+        transform .42s cubic-bezier(.22,.8,.25,1);
+
+    overflow-y: auto;
+}
+
+.zx-side-menu.active {
+    transform: translateX(0);
+}
+
+/* Side header */
+
+.zx-side-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 55px;
+}
+
+.zx-side-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.zx-side-z {
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    color: #031018;
+    font-size: 20px;
+    font-weight: 950;
+
+    background: linear-gradient(
+        135deg,
+        #00dcff,
+        #78f5ff
+    );
+
+    box-shadow:
+        0 0 25px rgba(0,220,255,.25);
+}
+
+.zx-side-brand strong {
+    color: #fff;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.zx-side-brand small {
+    color: #00dcff;
+    margin-left: 4px;
+    font-weight: 800;
+}
+
+.zx-side-close {
+    width: 39px;
+    height: 39px;
+
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.035);
+    color: #9aa7b8;
+
+    font-size: 27px;
+    line-height: 1;
+
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.zx-side-close:hover {
+    color: #fff;
+    border-color: rgba(0,220,255,.35);
+    background: rgba(0,220,255,.07);
+    transform: rotate(90deg);
+}
+
+.zx-side-line {
+    height: 1px;
+    margin: 18px 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0,220,255,.25),
+        rgba(255,255,255,.04),
+        transparent
+    );
+}
+
+/* Main links */
+
+.zx-side-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.zx-side-links a,
+.zx-side-secondary a {
+    text-decoration: none;
+}
+
+.zx-side-links a {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-height: 47px;
+    padding: 0 13px;
+
+    border-radius: 13px;
+
+    color: #8997a9;
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.zx-side-links a span {
+    width: 24px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.zx-side-links a label {
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.zx-side-links a:hover {
+    color: #fff;
+    background: rgba(0,220,255,.065);
+    transform: translateX(5px);
+}
+
+.zx-side-links a:hover span {
+    color: #00dcff;
+}
+
+.zx-side-coins {
+    color: #91efff !important;
+    background: rgba(0,220,255,.035);
+    border: 1px solid rgba(0,220,255,.08);
+}
+
+.zx-side-signup {
+    color: #00dcff !important;
+}
+
+/* Secondary */
+
+.zx-side-secondary {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.zx-side-secondary a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px 13px;
+
+    border-radius: 11px;
+
+    color: #738196;
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: .25s ease;
+}
+
+.zx-side-secondary a:hover {
+    color: #fff;
+    background: rgba(255,255,255,.035);
+    transform: translateX(4px);
+}
+
+.zx-side-secondary a span {
+    width: 22px;
+    text-align: center;
+}
+
+.zx-side-contact {
+    color: #67eaff !important;
+}
+
+/* Footer */
+
+.zx-side-footer {
+    margin-top: auto;
+    padding: 20px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.zx-side-footer span {
+    color: #00dcff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.zx-side-footer small {
+    color: #4e5b6c;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .zx-menu-toggle {
+        top: 100%;
+        left: 0;
+        right: auto;
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+    }
+
+    .zx-side-menu {
+        width: min(320px, 86vw);
+        padding: 18px 14px;
+    }
+
+}
+
+</style>
+<style id="zx-clean-nav-fix">
+
+.zx-main-header{
+    width:100%;
+    padding:12px 16px;
+    position:relative;
+    z-index:1200;
+}
+
+.zx-clean-nav{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:7px 12px;
+    border:1px solid rgba(0,220,255,.16);
+    border-radius:14px;
+    background:rgba(8,14,24,.72);
+    backdrop-filter:blur(14px);
+    box-shadow:0 0 22px rgba(0,210,255,.06);
+}
+
+.zx-menu-toggle{
+    position:relative !important;
+    inset:auto !important;
+    width:38px !important;
+    height:38px !important;
+    flex-shrink:0;
+    margin:0 !important;
+    padding:7px !important;
+    border:1px solid rgba(0,220,255,.2);
+    border-radius:10px;
+    background:rgba(0,220,255,.05);
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+}
+
+.zx-menu-toggle span{
+    width:21px !important;
+    height:2px !important;
+    border-radius:5px;
+}
+
+.zx-nav-title{
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.zorox-brand,
+.zorox-logo,
+.zorox-brand-name{
+    display:none !important;
+}
+
+</style>
+
+<style id="zorox-welcome-spacing-fix">
+.zx-v2-title > span:not(:last-child) {
+    margin-right: 0.28em !important;
+}
+
+.zx-v2-title > span {
+    white-space: nowrap !important;
+}
+</style>
+
+
+<style id="zorox-neon-premium-final">
+
+/* =====================================================
+   ZOROX — ULTRA DARK NEON PREMIUM
+===================================================== */
+
+html,
+body {
+    background: #010305 !important;
+}
+
+/* Deep black atmosphere */
+
+body {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(15,85,150,.055),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #010204 0%,
+            #02050a 48%,
+            #010204 100%
+        ) !important;
+}
+
+/* Remove excessive glow / purple */
+
+body::before {
+    opacity: .18 !important;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(30,145,255,.10),
+            transparent 34%
+        ) !important;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.zx-v2-hero {
+    background: transparent !important;
+    min-height: 88vh;
+}
+
+.zx-v2-hero::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    width: 420px;
+    height: 120px;
+
+    transform: translateX(-50%);
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(25,135,255,.08),
+            transparent 70%
+        );
+
+    filter: blur(22px);
+
+    pointer-events: none;
+
+    animation: zxFloorGlow 5s ease-in-out infinite;
+}
+
+/* =====================================================
+   Z/X INFINITY NEON CORE
+===================================================== */
+
+.zx-infinity-core {
+    filter:
+        drop-shadow(
+            0 0 12px rgba(40,160,255,.14)
+        );
+
+    animation:
+        zxNeonEntrance 1.1s cubic-bezier(.16,1,.3,1) both;
+}
+
+/* Outer orbit */
+
+.zx-infinity-orbit {
+    border-color:
+        rgba(70,180,255,.20) !important;
+
+    box-shadow:
+        0 0 10px rgba(30,145,255,.06),
+        inset 0 0 8px rgba(30,145,255,.035);
+}
+
+/* Orbit light becomes the animated neon point */
+
+.orbit-a::after,
+.orbit-b::after {
+    width: 3px !important;
+    height: 3px !important;
+
+    background: #8ce5ff !important;
+
+    box-shadow:
+        0 0 5px #8ce5ff,
+        0 0 13px #38aaff,
+        0 0 26px rgba(35,140,255,.55) !important;
+}
+
+/* Core ring */
+
+.zx-infinity-ring {
+    background:
+        radial-gradient(
+            circle,
+            rgba(20,100,180,.075),
+            rgba(1,4,8,.98) 68%
+        ) !important;
+
+    border:
+        1px solid rgba(78,190,255,.30) !important;
+
+    box-shadow:
+        0 0 10px rgba(30,145,255,.16),
+        0 0 35px rgba(20,120,255,.08),
+        inset 0 0 18px rgba(25,145,255,.06) !important;
+}
+
+/* Infinity lines */
+
+.zx-infinity-symbol::before,
+.zx-infinity-symbol::after {
+    border-color:
+        #46bfff !important;
+
+    box-shadow:
+        0 0 4px #46bfff,
+        0 0 11px rgba(55,180,255,.72),
+        0 0 22px rgba(30,130,255,.28) !important;
+
+    animation:
+        zxInfinityGlow 3.5s ease-in-out infinite;
+}
+
+/* Logo letters */
+
+.zx-symbol-z,
+.zx-symbol-x {
+    color: #eaf8ff !important;
+
+    text-shadow:
+        0 0 5px rgba(110,215,255,.85),
+        0 0 14px rgba(40,155,255,.45) !important;
+}
+
+/* =====================================================
+   PREMIUM TEXT
+===================================================== */
+
+.zx-v2-kicker {
+    letter-spacing: .20em !important;
+    color: #71869d !important;
+}
+
+.zx-v2-title {
+    color: #f4f8fc !important;
+
+    text-shadow:
+        0 0 40px rgba(35,135,255,.055) !important;
+}
+
+.zx-v2-title span {
+    background:
+        linear-gradient(
+            105deg,
+            #f8fbff 0%,
+            #a8dfff 42%,
+            #42b8ff 72%,
+            #80e1ff 100%
+        ) !important;
+
+    background-size: 220% 100% !important;
+
+    animation:
+        zxPremiumWord 1s .1s cubic-bezier(.16,1,.3,1) both,
+        zxBlueShimmer 6s 1.2s ease-in-out infinite !important;
+}
+
+.zx-v2-sub {
+    color: #697a8e !important;
+}
+
+/* =====================================================
+   PREMIUM CTA
+===================================================== */
+
+.zx-v2-primary {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0875e8,
+            #159fff
+        ) !important;
+
+    border:
+        1px solid rgba(110,205,255,.28) !important;
+
+    box-shadow:
+        0 8px 30px rgba(10,110,220,.18),
+        0 0 20px rgba(30,145,255,.07),
+        inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+.zx-v2-primary::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -80%;
+
+    width: 45%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.22),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    animation:
+        zxButtonSweep 4.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   TECHNOLOGY SECTION
+===================================================== */
+
+.services {
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(3,10,18,.35)
+        ) !important;
+}
+
+.section-title h2 {
+    color: #eef6ff !important;
+}
+
+.section-title p {
+    color: #66778b !important;
+}
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(5,11,18,.82),
+            rgba(1,4,8,.96)
+        ) !important;
+
+    border:
+        1px solid rgba(70,160,230,.095) !important;
+
+    box-shadow:
+        0 18px 55px rgba(0,0,0,.48),
+        inset 0 1px 0 rgba(255,255,255,.018) !important;
+}
+
+.card:hover {
+    border-color:
+        rgba(65,170,245,.24) !important;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.58),
+        0 0 30px rgba(30,130,230,.055) !important;
+}
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes zxNeonEntrance {
+    from {
+        opacity: 0;
+        transform: scale(.75);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxInfinityGlow {
+    0%,100% {
+        opacity: .65;
+    }
+
+    50% {
+        opacity: 1;
+        filter:
+            drop-shadow(0 0 5px #46bfff)
+            drop-shadow(0 0 13px rgba(40,155,255,.7));
+    }
+}
+
+@keyframes zxPremiumWord {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes zxBlueShimmer {
+    0%,65%,100% {
+        background-position: 0% 50%;
+    }
+
+    82% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes zxButtonSweep {
+    0%,55% {
+        left: -80%;
+    }
+
+    75%,100% {
+        left: 140%;
+    }
+}
+
+@keyframes zxFloorGlow {
+    0%,100% {
+        opacity: .35;
+        transform: translateX(-50%) scaleX(.9);
+    }
+
+    50% {
+        opacity: .7;
+        transform: translateX(-50%) scaleX(1.08);
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:700px) {
+
+    .zx-v2-hero {
+        min-height: 90vh;
+    }
+
+    .zx-v2-hero::after {
+        width: 280px;
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .zx-v2-title span,
+    .zx-infinity-core,
+    .zx-infinity-symbol::before,
+    .zx-infinity-symbol::after,
+    .zx-v2-primary::after,
+    .zx-v2-hero::after {
+        animation: none !important;
+    }
+}
+
+</style>
+
+<style id="zorox-title-final-fix">
+
+/* WELCOME TO */
+.zx-v2-title {
+    color: #f5f8fc !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+}
+
+/* Only the original ZOROX.AI brand span */
+.zx-v2-title > span:last-child {
+    background:
+        linear-gradient(
+            105deg,
+            #ffffff 0%,
+            #a9ddff 45%,
+            #35adff 75%,
+            #78e0ff 100%
+        ) !important;
+
+    background-size: 220% 100% !important;
+
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+
+    animation:
+        zxPremiumWord 1s .1s cubic-bezier(.16,1,.3,1) both,
+        zxBlueShimmer 6s 1.2s ease-in-out infinite !important;
+}
+
+/* Animated WELCOME / TO words stay white */
+.zx-v2-title > span:not(:last-child) {
+    color: #f5f8fc !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: #f5f8fc !important;
+
+    text-shadow:
+        0 0 25px rgba(255,255,255,.035);
+}
+
+/* Keep the actual space between WELCOME and TO */
+.zx-v2-title > span:not(:last-child) {
+    margin-right: .28em !important;
+}
+
+</style>
+
+<style id="zorox-title-visible-fix">
+
+/* FINAL TITLE VISIBILITY RESET */
+
+.zx-v2-title,
+.zx-v2-title .zx-welcome-word,
+.zx-v2-title .zx-brand-word {
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+}
+
+/* WELCOME + TO */
+
+.zx-v2-title .zx-welcome-word {
+    display: inline-block !important;
+
+    color: #f5f8fc !important;
+    background: none !important;
+
+    -webkit-text-fill-color: #f5f8fc !important;
+
+    margin-right: .28em !important;
+
+    animation:
+        zoroxWelcomeShow .7s ease-out both !important;
+}
+
+/* ZOROX.AI */
+
+.zx-v2-title .zx-brand-word {
+    display: inline-block !important;
+    white-space: nowrap !important;
+
+    background:
+        linear-gradient(
+            105deg,
+            #ffffff,
+            #8bd5ff,
+            #299cff
+        ) !important;
+
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+
+    animation:
+        zoroxBrandShow .8s .12s ease-out both !important;
+}
+
+/* Safe animations — final state is always visible */
+
+@keyframes zoroxWelcomeShow {
+    from {
+        opacity: .05;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoroxBrandShow {
+    from {
+        opacity: .05;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>

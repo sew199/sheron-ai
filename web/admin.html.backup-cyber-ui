@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZOROX • Admin Control Center</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+ margin:0;
+ min-height:100%;
+ font-family:Inter,Arial,sans-serif;
+ background:#03050a;
+ color:#fff;
+}
+
+body{
+ overflow-x:hidden;
+}
+
+body:before,
+body:after{
+ content:"";
+ position:fixed;
+ width:420px;
+ height:420px;
+ border-radius:50%;
+ filter:blur(110px);
+ opacity:.18;
+ pointer-events:none;
+}
+
+body:before{
+ background:#00d9ff;
+ top:-180px;
+ left:-140px;
+}
+
+body:after{
+ background:#7c3cff;
+ right:-180px;
+ bottom:-180px;
+}
+
+button,input{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.hidden{
+ display:none!important;
+}
+
+/* LOGIN */
+
+#loginScreen{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:22px;
+ position:relative;
+}
+
+.login-card{
+ width:100%;
+ max-width:430px;
+ padding:34px;
+ border:1px solid rgba(255,255,255,.09);
+ border-radius:26px;
+ background:rgba(8,12,20,.78);
+ backdrop-filter:blur(24px);
+ box-shadow:
+ 0 30px 100px rgba(0,0,0,.55),
+ 0 0 45px rgba(0,217,255,.08);
+ animation:cardIn .7s ease;
+}
+
+@keyframes cardIn{
+ from{
+  opacity:0;
+  transform:translateY(25px) scale(.97);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
+}
+
+.brand{
+ text-align:center;
+ margin-bottom:30px;
+}
+
+.brand-logo{
+ width:66px;
+ height:66px;
+ margin:auto;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:20px;
+ background:linear-gradient(135deg,#00d9ff,#6845ff);
+ box-shadow:0 0 35px rgba(0,217,255,.25);
+ font-size:27px;
+ font-weight:900;
+}
+
+.brand h1{
+ margin:18px 0 5px;
+ font-size:25px;
+ letter-spacing:4px;
+}
+
+.brand p{
+ margin:0;
+ color:#7f8da3;
+ font-size:12px;
+ letter-spacing:2px;
+}
+
+.field{
+ margin-bottom:16px;
+}
+
+.field label{
+ display:block;
+ margin:0 0 8px 3px;
+ color:#9ba8bb;
+ font-size:12px;
+}
+
+.input-wrap{
+ position:relative;
+}
+
+.input-wrap input{
+ width:100%;
+ height:52px;
+ padding:0 48px 0 16px;
+ border-radius:14px;
+ border:1px solid #1d2939;
+ outline:none;
+ color:#fff;
+ background:#070b12;
+ transition:.25s;
+}
+
+.input-wrap input:focus{
+ border-color:#00d9ff;
+ box-shadow:0 0 0 3px rgba(0,217,255,.08);
+}
+
+.show-pass{
+ position:absolute;
+ right:10px;
+ top:8px;
+ width:36px;
+ height:36px;
+ border:0;
+ border-radius:10px;
+ background:transparent;
+ color:#7e8ca1;
+}
+
+.login-btn{
+ width:100%;
+ height:53px;
+ margin-top:8px;
+ border:0;
+ border-radius:15px;
+ color:#001015;
+ font-weight:900;
+ letter-spacing:1px;
+ background:linear-gradient(100deg,#00e1ff,#65f3ff);
+ box-shadow:0 12px 30px rgba(0,217,255,.18);
+ transition:.25s;
+}
+
+.login-btn:hover{
+ transform:translateY(-2px);
+ box-shadow:0 16px 38px rgba(0,217,255,.28);
+}
+
+.login-btn:disabled{
+ opacity:.6;
+ cursor:not-allowed;
+}
+
+.login-status{
+ min-height:20px;
+ margin-top:14px;
+ text-align:center;
+ color:#ff6b7a;
+ font-size:13px;
+}
+
+/* DASHBOARD */
+
+#dashboard{
+ min-height:100vh;
+}
+
+.topbar{
+ position:sticky;
+ top:0;
+ z-index:100;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:15px 22px;
+ border-bottom:1px solid rgba(255,255,255,.07);
+ background:rgba(3,5,10,.78);
+ backdrop-filter:blur(18px);
+}
+
+.top-brand{
+ font-weight:900;
+ letter-spacing:3px;
+}
+
+.top-brand span{
+ color:#00d9ff;
+}
+
+.top-actions{
+ display:flex;
+ gap:9px;
+}
+
+.top-btn{
+ border:1px solid #1b2a3d;
+ border-radius:11px;
+ padding:9px 13px;
+ color:#cbd5e1;
+ background:#080d15;
+}
+
+.top-btn:hover{
+ border-color:#00d9ff;
+ color:#fff;
+}
+
+.danger{
+ color:#ff7180;
+}
+
+.container{
+ width:min(1400px,100%);
+ margin:auto;
+ padding:25px;
+}
+
+.welcome{
+ margin-bottom:22px;
+}
+
+.welcome h2{
+ margin:0;
+ font-size:25px;
+}
+
+.welcome p{
+ color:#78879b;
+ margin:7px 0 0;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:14px;
+ margin-bottom:20px;
+}
+
+.stat{
+ padding:20px;
+ border:1px solid rgba(255,255,255,.07);
+ border-radius:18px;
+ background:rgba(9,14,23,.72);
+ box-shadow:0 15px 45px rgba(0,0,0,.18);
+}
+
+.stat small{
+ color:#758399;
+}
+
+.stat strong{
+ display:block;
+ margin-top:8px;
+ font-size:27px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1.35fr .65fr;
+ gap:18px;
+}
+
+.card{
+ padding:20px;
+ border:1px solid rgba(255,255,255,.07);
+ border-radius:20px;
+ background:rgba(9,14,23,.72);
+ backdrop-filter:blur(14px);
+ margin-bottom:18px;
+}
+
+.card-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:16px;
+}
+
+.card h3{
+ margin:0;
+ font-size:16px;
+}
+
+.refresh{
+ border:1px solid #203047;
+ border-radius:10px;
+ padding:8px 12px;
+ color:#b9c5d6;
+ background:#070c13;
+}
+
+.table-wrap{
+ overflow:auto;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:850px;
+}
+
+th,td{
+ padding:12px 10px;
+ text-align:left;
+ border-bottom:1px solid rgba(255,255,255,.055);
+ font-size:12px;
+ white-space:nowrap;
+}
+
+th{
+ color:#718096;
+ font-weight:600;
+}
+
+td{
+ color:#cbd5e1;
+}
+
+.status-dot{
+ display:inline-block;
+ width:7px;
+ height:7px;
+ margin-right:6px;
+ border-radius:50%;
+ background:#22c55e;
+ box-shadow:0 0 10px #22c55e;
+}
+
+.log-box{
+ max-height:370px;
+ overflow:auto;
+ font-family:monospace;
+}
+
+.log{
+ padding:10px 0;
+ border-bottom:1px solid rgba(255,255,255,.05);
+ font-size:11px;
+ color:#91a0b5;
+}
+
+.log b{
+ color:#00d9ff;
+}
+
+.search{
+ display:flex;
+ gap:9px;
+}
+
+.search input{
+ flex:1;
+ min-width:0;
+ height:43px;
+ border-radius:11px;
+ border:1px solid #1c2a3b;
+ background:#060a11;
+ color:#fff;
+ padding:0 13px;
+ outline:none;
+}
+
+.search button,
+.action-btn{
+ border:0;
+ border-radius:11px;
+ padding:0 15px;
+ color:#001015;
+ background:#00d9ff;
+ font-weight:800;
+}
+
+.settings input{
+ width:100%;
+ height:45px;
+ margin:6px 0 12px;
+ padding:0 12px;
+ border-radius:11px;
+ border:1px solid #1d2939;
+ background:#060a11;
+ color:#fff;
+ outline:none;
+}
+
+.settings button{
+ width:100%;
+ height:45px;
+ margin-bottom:10px;
+ border:1px solid #24354b;
+ border-radius:11px;
+ background:#0a1019;
+ color:#dce5f0;
+}
+
+.settings button:hover{
+ border-color:#00d9ff;
+}
+
+.note{
+ color:#6f7e92;
+ font-size:11px;
+ line-height:1.6;
+}
+
+@media(max-width:850px){
+ .grid{
+  grid-template-columns:1fr;
+ }
+
+ .container{
+  padding:16px;
+ }
+
+ .topbar{
+  padding:13px 15px;
+ }
+
+ .login-card{
+  padding:27px 22px;
+ }
+}
+
+.plus-status{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ min-width:58px;
+ padding:5px 9px;
+ border-radius:999px;
+ font-size:10px;
+ font-weight:800;
+ letter-spacing:.6px;
+}
+
+.plus-on{
+ color:#7dd3fc;
+ background:rgba(14,165,233,.14);
+ border:1px solid rgba(14,165,233,.35);
+}
+
+.plus-off{
+ color:#94a3b8;
+ background:rgba(148,163,184,.08);
+ border:1px solid rgba(148,163,184,.18);
+}
+
+</style>
+
+<style>
+/* =========================================================
+   ZOROX PREMIUM COIN MANAGEMENT
+   ========================================================= */
+
+.coin-manager-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.coin-manager-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+        circle at 90% 10%,
+        rgba(255, 193, 7, 0.10),
+        transparent 38%
+    );
+}
+
+.coin-manager-card .card-head {
+    position: relative;
+    z-index: 1;
+}
+
+.coin-manager-card .coin-subtitle {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
+}
+
+.coin-form {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 12px;
+}
+
+.coin-field {
+    display: grid;
+    gap: 7px;
+}
+
+.coin-field label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .72;
+}
+
+.coin-field input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.035);
+    color: inherit;
+    border-radius: 12px;
+    padding: 13px 14px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.coin-field input:focus {
+    border-color: rgba(255,193,7,.65);
+    box-shadow: 0 0 0 3px rgba(255,193,7,.08);
+    background: rgba(255,255,255,.055);
+}
+
+.coin-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.coin-action {
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.coin-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0,0,0,.20);
+}
+
+.coin-add {
+    background: linear-gradient(135deg, #f6c453, #d99b18);
+    color: #17120a;
+    border-color: rgba(255,193,7,.45);
+}
+
+.coin-unlimited {
+    background: rgba(255,255,255,.045);
+    color: inherit;
+}
+
+.coin-unlimited:hover {
+    border-color: rgba(255,193,7,.40);
+}
+
+.coin-result {
+    min-height: 20px;
+    margin-top: 5px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.025);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .coin-actions {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<section id="loginScreen">
+
+ <div class="login-card">
+
+  <div class="brand">
+   <div class="brand-logo">Z</div>
+   <h1>ZOROX</h1>
+   <p>ADMIN CONTROL CENTER</p>
+  </div>
+
+  <div class="field">
+   <label>ADMIN USERNAME</label>
+   <div class="input-wrap">
+    <input id="username" autocomplete="username" placeholder="Enter admin username">
+   </div>
+  </div>
+
+  <div class="field">
+   <label>ADMIN PASSWORD</label>
+   <div class="input-wrap">
+    <input id="password" type="password" autocomplete="current-password" placeholder="Enter admin password">
+    <button class="show-pass" onclick="togglePassword()">◉</button>
+   </div>
+  </div>
+
+  <button id="loginBtn" class="login-btn" onclick="adminLogin()">
+   SIGN IN TO CONTROL CENTER
+  </button>
+
+  <div id="loginStatus" class="login-status"></div>
+
+ </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="hidden">
+
+ <header class="topbar">
+  <div class="top-brand">
+   ZOROX <span>ADMIN</span>
+  </div>
+
+  <div class="top-actions">
+   <button class="top-btn" onclick="loadDashboard()">↻ Refresh</button>
+   <button class="top-btn danger" onclick="logout()">Logout</button>
+  </div>
+ </header>
+
+ <main class="container">
+
+  <div class="welcome">
+   <h2>Control Center</h2>
+   <p>Monitor users, traffic, services and server activity.</p>
+  </div>
+
+
+  <div class="stats">
+
+   <div class="stat">
+    <small>TOTAL USERS</small>
+    <strong id="users">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>ONLINE USERS</small>
+    <strong id="online">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>SITE VIEWS</small>
+    <strong id="views">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>MESSAGES</small>
+    <strong id="messages">0</strong>
+   </div>
+
+   <div class="stat">
+    <small>SERVER</small>
+    <strong id="server">—</strong>
+   </div>
+
+   <div class="stat">
+    <small>DATABASE</small>
+    <strong id="database">—</strong>
+   </div>
+
+  </div>
+
+
+  <div class="grid">
+
+   <div>
+
+    <div class="card">
+
+     <div class="card-head">
+      <h3>👥 User Monitoring</h3>
+      <button class="refresh" onclick="loadDashboard()">Refresh</button>
+     </div>
+
+     <div class="search">
+      <input id="userSearch" placeholder="Search email or username...">
+      <button onclick="searchUser()">Search</button>
+     </div>
+
+     <br>
+
+     <div class="table-wrap">
+      <table>
+       <thead>
+        <tr>
+         <th>ID</th>
+         <th>Username</th>
+         <th>Email</th>
+         <th>Coins</th>
+         <th>Plus</th>
+         <th>Last Login</th>
+         <th>Last Seen</th>
+         <th>Logins</th>
+         <th>Action</th>
+        </tr>
+       </thead>
+       <tbody id="userTable"></tbody>
+      </table>
+     </div>
+
+    </div>
+
+
+    <div class="card">
+
+     <div class="card-head">
+      <h3>📜 Server Logs</h3>
+      <button class="refresh" onclick="loadLogs()">Refresh Logs</button>
+     </div>
+
+     <div id="logs" class="log-box">
+      <div class="log">Waiting for server logs...</div>
+     </div>
+
+    </div>
+
+   </div>
+
+
+   <div>
+
+    <div class="card settings">
+
+     <div class="card-head">
+      <h3>⚙️ Admin Security</h3>
+     </div>
+
+     <label class="note">New admin username</label>
+     <input id="newAdminUsername" placeholder="New username">
+
+     <button onclick="changeAdminUsername()">
+      Change Admin Username
+     </button>
+
+     <label class="note">New admin password</label>
+     <input id="newAdminPassword" type="password" placeholder="New password">
+
+     <button onclick="changeAdminPassword()">
+      Change Admin Password
+     </button>
+
+     <p class="note">
+      Admin credential changes will be protected by the existing admin session.
+      Passwords are never displayed in the dashboard or server logs.
+     </p>
+
+    </div>
+
+
+    <div class="card coin-manager-card">
+
+     <div class="card-head">
+      <h3>🪙 Coin Management</h3>
+     </div>
+
+     <p class="note coin-subtitle">
+      Search a registered user and manage their ZOROX coin balance.
+     </p>
+
+     <div class="coin-form">
+
+      <div class="coin-field">
+       <label for="coinUserEmail">User Email</label>
+       <input
+        id="coinUserEmail"
+        type="email"
+        placeholder="user@gmail.com"
+        autocomplete="off"
+       >
+      </div>
+
+      <div class="coin-field">
+       <label for="coinAmount">Coins to Add</label>
+       <input
+        id="coinAmount"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="10"
+       >
+      </div>
+
+      <div class="coin-actions">
+       <button class="coin-action coin-add" onclick="addUserCoins()">
+        ➕ Add Coins
+       </button>
+
+       <button class="coin-action coin-unlimited" onclick="enableUnlimitedCoins()">
+        ♾️ Unlimited
+       </button>
+      </div>
+
+      <div id="coinManagerResult" class="coin-result"></div>
+
+     </div>
+
+    </div>
+
+
+    <div class="card">
+
+     <div class="card-head">
+      <h3>🛡️ Security Status</h3>
+     </div>
+
+     <p class="note">
+      IP addresses are shown for security monitoring. High request rates,
+      repeated failed logins and unusual traffic should be reviewed together;
+      an IP address alone does not prove an attack.
+     </p>
+
+     <p>
+      <span class="status-dot"></span>
+      Monitoring active
+     </p>
+
+    </div>
+
+   </div>
+
+  </div>
+
+ </main>
+
+</section>
+
+
+<script>
+
+const API="https://zoroz-ai.onrender.com";
+
+function togglePassword(){
+ const input=document.getElementById("password");
+ input.type=input.type==="password" ? "text" : "password";
+}
+
+async function adminLogin(){
+
+ const username=document.getElementById("username").value.trim();
+ const password=document.getElementById("password").value;
+
+ const status=document.getElementById("loginStatus");
+ const btn=document.getElementById("loginBtn");
+
+ if(!username || !password){
+  status.textContent="Enter your admin credentials.";
+  return;
+ }
+
+ btn.disabled=true;
+ btn.textContent="AUTHENTICATING...";
+ status.textContent="";
+
+ try{
+
+  const r=await fetch(API+"/api/admin/login",{
+   method:"POST",
+   headers:{
+    "Content-Type":"application/json"
+   },
+   body:JSON.stringify({
+    username,
+    password
+   })
+  });
+
+  const d=await r.json();
+
+  if(!r.ok){
+   throw new Error(d.error || "Admin authentication failed");
+  }
+
+  sessionStorage.setItem("adminToken",d.token);
+
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+
+  await loadDashboard();
+  await loadLogs();
+
+ }catch(e){
+
+  status.textContent=e.message;
+
+ }finally{
+
+  btn.disabled=false;
+  btn.textContent="SIGN IN TO CONTROL CENTER";
+
+ }
+
+}
+
+
+async function loadDashboard(){
+
+ const token=sessionStorage.getItem("adminToken");
+
+ if(!token){
+  showLogin();
+  return;
+ }
+
+ try{
+
+  const r=await fetch(API+"/api/admin/dashboard",{
+   headers:{
+    "X-Admin-Token":token
+   }
+  });
+
+  if(!r.ok){
+   logout();
+   return;
+  }
+
+  const d=await r.json();
+
+  document.getElementById("users").textContent=
+   d.stats?.total_users ?? 0;
+
+  document.getElementById("online").textContent=
+   d.stats?.online_users ?? 0;
+
+  document.getElementById("messages").textContent=
+   d.stats?.total_messages ?? 0;
+
+  document.getElementById("views").textContent=
+   d.stats?.site_views ?? 0;
+
+  document.getElementById("server").textContent=
+   d.server ?? "—";
+
+  document.getElementById("database").textContent=
+   d.database ?? "—";
+
+
+  const users=d.users || [];
+
+  renderUsers(users);
+
+ }catch(e){
+
+  console.error(e);
+
+ }
+
+}
+
+
+function renderUsers(users){
+
+ const table=document.getElementById("userTable");
+
+ if(!users.length){
+  table.innerHTML=
+   `<tr><td colspan="9">No users found.</td></tr>`;
+  return;
+ }
+
+ table.innerHTML=users.map(u=>{
+
+  const coins=Number(u.coins || 0);
+  const plus=Number(u.unlimited_coins || 0) === 1;
+
+  return `
+   <tr>
+
+    <td>${escapeHtml(u.id)}</td>
+
+    <td>${escapeHtml(u.username)}</td>
+
+    <td>${escapeHtml(u.email)}</td>
+
+    <td>
+     <strong>${coins}</strong>
+    </td>
+
+    <td>
+     <span class="plus-status ${plus ? "plus-on" : "plus-off"}">
+      ${plus ? "PLUS" : "FREE"}
+     </span>
+    </td>
+
+    <td>${escapeHtml(u.last_login || "-")}</td>
+
+    <td>${escapeHtml(u.last_seen || "-")}</td>
+
+    <td>${escapeHtml(u.login_count || 0)}</td>
+
+    <td>
+     <button
+      class="refresh"
+      type="button"
+      onclick='selectAdminUser(${JSON.stringify(u.email)})'>
+      SELECT
+     </button>
+    </td>
+
+   </tr>
+  `;
+
+ }).join("");
+
+}
+
+
+async function loadLogs(){
+
+ const token=sessionStorage.getItem("adminToken");
+
+ if(!token)return;
+
+ const box=document.getElementById("logs");
+
+ try{
+
+  const r=await fetch(API+"/api/admin/logs",{
+   headers:{
+    "X-Admin-Token":token
+   }
+  });
+
+  if(!r.ok){
+   box.innerHTML='<div class="log">Unable to load logs.</div>';
+   return;
+  }
+
+  const d=await r.json();
+
+  const logs=d.logs || d || [];
+
+  if(!Array.isArray(logs) || !logs.length){
+
+   box.innerHTML=
+    '<div class="log">No server logs available.</div>';
+
+   return;
+  }
+
+  box.innerHTML=logs.map(log=>`
+
+   <div class="log">
+    <b>${escapeHtml(log.timestamp || log.time || "")}</b>
+    &nbsp; ${escapeHtml(log.ip || "-")}
+    &nbsp; ${escapeHtml(log.method || "")}
+    &nbsp; ${escapeHtml(log.path || log.endpoint || "")}
+    &nbsp; ${escapeHtml(String(log.status || ""))}
+   </div>
+
+  `).join("");
+
+ }catch(e){
+
+  box.innerHTML=
+   '<div class="log">Log service unavailable.</div>';
+
+ }
+
+}
+
+
+function searchUser(){
+
+ const q=document.getElementById("userSearch").value
+  .trim()
+  .toLowerCase();
+
+ const rows=document.querySelectorAll("#userTable tr");
+
+ rows.forEach(row=>{
+
+  row.style.display=
+   !q || row.textContent.toLowerCase().includes(q)
+   ? ""
+   : "none";
+
+ });
+
+}
+
+
+async function changeAdminUsername(){
+
+ const value=document.getElementById("newAdminUsername").value.trim();
+
+ if(!value){
+  alert("Enter a new admin username.");
+  return;
+ }
+
+ alert(
+  "The secure backend endpoint for changing the admin username must be connected before this action can modify your production credentials."
+ );
+
+}
+
+
+async function changeAdminPassword(){
+
+ const value=document.getElementById("newAdminPassword").value;
+
+ if(value.length < 8){
+  alert("New password must contain at least 8 characters.");
+  return;
+ }
+
+ alert(
+  "The secure backend endpoint for changing the admin password must be connected before this action can modify your production credentials."
+ );
+
+}
+
+
+function logout(){
+
+ sessionStorage.removeItem("adminToken");
+ showLogin();
+
+}
+
+
+function showLogin(){
+
+ document.getElementById("dashboard").classList.add("hidden");
+ document.getElementById("loginScreen").classList.remove("hidden");
+
+}
+
+
+function escapeHtml(value){
+
+ return String(value ?? "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+}
+
+
+document.addEventListener("keydown",e=>{
+
+ if(e.key==="Enter" &&
+    !document.getElementById("loginScreen").classList.contains("hidden")){
+
+  adminLogin();
+
+ }
+
+});
+
+
+if(sessionStorage.getItem("adminToken")){
+
+ document.getElementById("loginScreen").classList.add("hidden");
+ document.getElementById("dashboard").classList.remove("hidden");
+
+ loadDashboard();
+ loadLogs();
+
+}
+
+</script>
+
+
+<script>
+async function adminCoinRequest(payload) {
+    const token =
+        localStorage.getItem("adminToken") ||
+        sessionStorage.getItem("adminToken") ||
+        localStorage.getItem("admin_token") ||
+        sessionStorage.getItem("admin_token");
+
+    const result = document.getElementById("coinManagerResult");
+
+    if (!token) {
+        result.textContent = "❌ Admin session not found. Please login again.";
+        return null;
+    }
+
+    result.textContent = "⏳ Updating coin balance...";
+
+    try {
+        const response = await fetch("/api/admin/coins", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Admin-Token": token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            result.textContent =
+                "❌ " + (data.error || "Coin update failed.");
+            return null;
+        }
+
+        result.textContent =
+            "✅ " + (data.message || "Coin update successful.") +
+            " | " + data.email +
+            " | Balance: " + data.coins;
+
+        return data;
+
+    } catch (error) {
+        console.error("Coin management error:", error);
+        result.textContent =
+            "❌ Could not connect to the ZOROX server.";
+        return null;
+    }
+}
+
+async function addUserCoins() {
+    const email =
+        document.getElementById("coinUserEmail").value.trim().toLowerCase();
+
+    const amount =
+        Number(document.getElementById("coinAmount").value);
+
+    if (!email) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter the user's email.";
+        return;
+    }
+
+    if (!Number.isInteger(amount) || amount <= 0) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter a valid whole number of coins.";
+        return;
+    }
+
+    await adminCoinRequest({
+        email: email,
+        coins: amount
+    });
+}
+
+async function enableUnlimitedCoins() {
+    const email =
+        document.getElementById("coinUserEmail").value.trim().toLowerCase();
+
+    if (!email) {
+        document.getElementById("coinManagerResult").textContent =
+            "❌ Enter the user's email.";
+        return;
+    }
+
+    await adminCoinRequest({
+        email: email,
+        unlimited: true
+    });
+}
+</script>
+
+</body>
+</html>

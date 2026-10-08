@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               viewport-fit=cover">
+
+<title>ZOROX AI</title>
+
+<style>
+:root {
+    --bg: #05070c;
+    --panel: rgba(12, 17, 28, 0.82);
+    --border: rgba(120, 170, 255, 0.14);
+    --text: #f4f7ff;
+    --muted: #8994a8;
+    --accent: #4da3ff;
+    --accent2: #7c5cff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+body {
+    min-height: 100dvh;
+}
+
+.ai-page {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(
+            circle at 50% 15%,
+            rgba(77, 163, 255, 0.10),
+            transparent 34%
+        ),
+        linear-gradient(
+            180deg,
+            #070a11 0%,
+            #04060b 100%
+        );
+}
+
+/* subtle lightweight glow */
+.ai-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(124, 92, 255, 0.07),
+            transparent 28%
+        );
+}
+
+/* HEADER */
+
+.ai-header {
+    height: 72px;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5, 7, 12, 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.ai-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ai-back {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.035);
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.ai-back:active {
+    transform: scale(.94);
+}
+
+.ai-logo {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.ai-subtitle {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .14em;
+}
+
+/* CHAT */
+
+.chat-area {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 34px 18px 120px;
+    scroll-behavior: smooth;
+}
+
+.chat-inner {
+    width: min(900px, 100%);
+    margin: auto;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    min-height: 55vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: enter .45s ease both;
+}
+
+.zorox-orb {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #8bc8ff,
+            var(--accent2) 55%,
+            #11172a
+        );
+    box-shadow:
+        0 0 45px rgba(77, 163, 255, .18);
+}
+
+.empty-title {
+    margin: 0;
+    font-size: clamp(28px, 6vw, 48px);
+    letter-spacing: -.035em;
+}
+
+.empty-text {
+    margin: 10px auto 26px;
+    max-width: 520px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+}
+
+.quick-action {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(255,255,255,.035);
+    color: #cbd4e5;
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        border-color .2s ease;
+}
+
+.quick-action:active {
+    transform: scale(.96);
+}
+
+/* MESSAGES */
+
+.message {
+    display: flex;
+    margin: 14px 0;
+    animation: messageIn .25s ease both;
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message-bubble {
+    max-width: min(720px, 86%);
+    padding: 13px 16px;
+    border-radius: 18px;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.message.user .message-bubble {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(77,163,255,.18),
+            rgba(124,92,255,.16)
+        );
+    border: 1px solid rgba(100,160,255,.18);
+}
+
+.message.ai .message-bubble {
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border);
+}
+
+/* COMPOSER */
+
+.composer-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding:
+        12px
+        max(14px, env(safe-area-inset-right))
+        max(16px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(4,6,11,.92) 30%
+        );
+}
+
+.composer {
+    width: min(900px, 100%);
+    margin: auto;
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+    padding: 9px;
+    border: 1px solid rgba(120,170,255,.18);
+    border-radius: 20px;
+    background: rgba(12,17,28,.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 50px rgba(0,0,0,.35);
+}
+
+.composer textarea {
+    flex: 1;
+    min-width: 0;
+    max-height: 130px;
+    resize: none;
+    border: 0;
+    outline: 0;
+    padding: 11px 9px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    line-height: 1.45;
+}
+
+.composer textarea::placeholder {
+    color: #69758a;
+}
+
+.send-btn {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    border: 0;
+    border-radius: 14px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition:
+        transform .2s ease,
+        opacity .2s ease;
+}
+
+.send-btn:active {
+    transform: scale(.93);
+}
+
+.send-btn:disabled {
+    opacity: .45;
+    cursor: default;
+}
+
+/* ANIMATION */
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes messageIn {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .ai-header {
+        height: 64px;
+        min-height: 64px;
+        padding: 0 14px;
+    }
+
+    .ai-logo {
+        font-size: 16px;
+    }
+
+    .chat-area {
+        padding:
+            24px
+            12px
+            112px;
+    }
+
+    .empty-state {
+        min-height: 58vh;
+    }
+
+    .zorox-orb {
+        width: 64px;
+        height: 64px;
+        font-size: 25px;
+    }
+
+    .message-bubble {
+        max-width: 91%;
+    }
+
+    .composer {
+        border-radius: 18px;
+    }
+}
+</style>
+  <link rel="stylesheet" href="assets/zorox-cyber.css">
+</head>
+
+<body>
+
+<div class="ai-page">
+
+    <header class="ai-header">
+
+        <div class="ai-brand">
+
+            <button
+                class="ai-back"
+                onclick="goHome()"
+                aria-label="Back">
+                ←
+            </button>
+
+            <div>
+                <div class="ai-logo">ZOROX</div>
+                <div class="ai-subtitle">
+                    AI INTELLIGENCE WORKSPACE
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+    <main id="chatArea" class="chat-area">
+
+        <div class="chat-inner">
+
+            <section id="emptyState" class="empty-state">
+
+                <div>
+
+                    <div class="zorox-orb">✦</div>
+
+                    <h1 class="empty-title">
+                        ZOROX AI
+                    </h1>
+
+                    <p class="empty-text">
+                        Think. Learn. Reason. Create.
+                        <br>
+                        Your intelligent workspace.
+                    </p>
+
+                    <div class="quick-actions">
+
+                        <button
+                            class="quick-action"
+                            onclick="usePrompt('Explain something to me')">
+                            Explain
+                        </button>
+
+                        <button
+                            class="quick-action"
+                            onclick="usePrompt('Help me write code')">
+                            Code
+                        </button>
+
+                        <button
+                            class="quick-action"
+                            onclick="usePrompt('Help me solve this problem')">
+                            Solve
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div id="messages"></div>
+
+        </div>
+
+    </main>
+
+    <div class="composer-wrap">
+
+        <form
+            class="composer"
+            onsubmit="sendMessage(event)">
+
+            <textarea
+                id="chatInput"
+                rows="1"
+                placeholder="Message ZOROX AI..."
+                autocomplete="off"></textarea>
+
+            <button
+                id="sendBtn"
+                class="send-btn"
+                type="submit"
+                aria-label="Send">
+                ➤
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const API_URL =
+    "/api/chat";
+
+const input =
+    document.getElementById("chatInput");
+
+const messages =
+    document.getElementById("messages");
+
+const emptyState =
+    document.getElementById("emptyState");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+function goHome() {
+    window.location.href = "index.html";
+}
+
+function usePrompt(text) {
+    input.value = text;
+    input.focus();
+    autoResize();
+}
+
+function autoResize() {
+    input.style.height = "auto";
+    input.style.height =
+        Math.min(input.scrollHeight, 130) + "px";
+}
+
+input.addEventListener("input", autoResize);
+
+input.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey
+    ) {
+        event.preventDefault();
+        document.querySelector(".composer").requestSubmit();
+    }
+
+});
+
+function addMessage(text, type) {
+
+    emptyState.style.display = "none";
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className =
+        "message " + type;
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "message-bubble";
+
+    bubble.textContent = text;
+
+    wrapper.appendChild(bubble);
+    messages.appendChild(wrapper);
+
+    document.getElementById("chatArea").scrollTop =
+        document.getElementById("chatArea").scrollHeight;
+}
+
+function addTyping() {
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.className = "message ai";
+    wrapper.id = "typing";
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className = "message-bubble";
+    bubble.textContent = "ZOROX is thinking...";
+
+    wrapper.appendChild(bubble);
+    messages.appendChild(wrapper);
+
+    document.getElementById("chatArea").scrollTop =
+        document.getElementById("chatArea").scrollHeight;
+}
+
+function removeTyping() {
+
+    const typing =
+        document.getElementById("typing");
+
+    if (typing) {
+        typing.remove();
+    }
+}
+
+async function sendMessage(event) {
+
+    event.preventDefault();
+
+    const text =
+        input.value.trim();
+
+    if (!text || sendBtn.disabled) {
+        return;
+    }
+
+    addMessage(text, "user");
+
+    input.value = "";
+    autoResize();
+
+    sendBtn.disabled = true;
+    addTyping();
+
+    try {
+
+        const response =
+            await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+                    message: text
+                })
+            });
+
+        const data =
+            await response.json();
+
+        removeTyping();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error ||
+                "ZOROX request failed"
+            );
+        }
+
+        addMessage(
+            data.reply ||
+            data.response ||
+            "No response received.",
+            "ai"
+        );
+
+    } catch (error) {
+
+        removeTyping();
+
+        addMessage(
+            "ZOROX connection error: " +
+            error.message,
+            "ai"
+        );
+
+    } finally {
+
+        sendBtn.disabled = false;
+        input.focus();
+
+    }
+}
+
+window.addEventListener(
+    "load",
+    () => input.focus()
+);
+
+</script>
+
+
+<style>
+.zorox-developer-info {
+    width: 100%;
+    margin: 35px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.developer-info-box {
+    max-width: 850px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid rgba(80, 150, 255, 0.25);
+    border-radius: 20px;
+    background: rgba(10, 18, 32, 0.78);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.25);
+}
+
+.developer-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: .7;
+    margin-bottom: 10px;
+}
+
+.developer-info-box h2 {
+    margin: 0 0 6px;
+    font-size: 28px;
+}
+
+.developer-info-box h2 span {
+    color: #58a6ff;
+}
+
+.developer-name {
+    font-size: 17px;
+    margin: 0 0 15px;
+    opacity: .9;
+}
+
+.developer-info-box p {
+    line-height: 1.7;
+}
+
+.developer-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.developer-details div {
+    padding: 15px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.035);
+}
+
+.developer-details small {
+    display: block;
+    opacity: .6;
+    margin-bottom: 5px;
+}
+
+.developer-details strong,
+.developer-details a {
+    color: inherit;
+    word-break: break-word;
+}
+
+.developer-details a {
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .developer-details {
+        grid-template-columns: 1fr;
+    }
+
+    .developer-info-box {
+        padding: 22px;
+    }
+
+    .developer-info-box h2 {
+        font-size: 24px;
+    }
+}
+</style>
+
+
+<section class="zorox-developer-info">
+    <div class="developer-info-box">
+        <div class="developer-label">ZOROX AI DEVELOPER</div>
+        <h2>Built by <span>AlphaX</span></h2>
+        <p class="developer-name">Sheron Elijah Wickramasinghe</p>
+        <p>
+            Founder & Developer of ZOROX AI under
+            <strong>WIKRAMASINGHE TECHNOLOGIES</strong>.
+        </p>
+
+        <div class="developer-details">
+            <div>
+                <small>Company</small>
+                <strong>WIKRAMASINGHE TECHNOLOGIES</strong>
+            </div>
+            <div>
+                <small>Country</small>
+                <strong>Sri Lanka 🇱🇰</strong>
+            </div>
+            <div>
+                <small>Email</small>
+                <a href="mailto:zoroxlives@gmail.com">zoroxlives@gmail.com</a>
+            </div>
+            <div>
+                <small>Contact</small>
+                <a href="tel:+94729203477">+94 729203477</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

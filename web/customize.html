@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOROX Plus — Theme Studio</title>
+
+<style>
+:root{
+  --bg:#03060a;
+  --panel:rgba(10,16,25,.82);
+  --border:rgba(0,229,255,.16);
+  --text:#f5f9ff;
+  --muted:#8492a6;
+  --accent:#00e5ff;
+  --glow:0.35;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 20% 10%,rgba(0,229,255,.12),transparent 30%),
+    radial-gradient(circle at 80% 90%,rgba(83,70,229,.10),transparent 30%),
+    var(--bg);
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+.wrap{
+  width:min(980px,calc(100% - 28px));
+  margin:0 auto;
+  padding:28px 0 50px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:24px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:3px;
+}
+
+.plus{
+  color:var(--accent);
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:4px;
+}
+
+.back{
+  color:var(--muted);
+  text-decoration:none;
+  border:1px solid var(--border);
+  padding:10px 14px;
+  border-radius:12px;
+}
+
+h1{
+  font-size:clamp(28px,6vw,48px);
+  margin:0 0 8px;
+}
+
+.subtitle{
+  color:var(--muted);
+  margin:0 0 25px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  backdrop-filter:blur(18px);
+}
+
+.card h2{
+  margin:0 0 17px;
+  font-size:15px;
+  letter-spacing:1px;
+}
+
+.control{
+  margin-bottom:16px;
+}
+
+.control:last-child{margin-bottom:0}
+
+label{
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+select{
+  width:100%;
+  min-height:46px;
+  padding:0 13px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:#080d14;
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+}
+
+.colors{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+
+.color{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:2px solid transparent;
+  cursor:pointer;
+}
+
+.color.active{
+  border-color:white;
+  box-shadow:0 0 18px currentColor;
+}
+
+.cyan{background:#00e5ff;color:#00e5ff}
+.blue{background:#3b82f6;color:#3b82f6}
+.violet{background:#8b5cf6;color:#8b5cf6}
+.green{background:#22c55e;color:#22c55e}
+.gold{background:#f5b942;color:#f5b942}
+.red{background:#ef4444;color:#ef4444}
+
+.switch{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.switch:last-child{border-bottom:0}
+
+.switch span{
+  font-size:13px;
+}
+
+input[type=checkbox]{
+  width:20px;
+  height:20px;
+  accent-color:var(--accent);
+}
+
+.preview{
+  min-height:250px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.preview-box{
+  width:100%;
+  max-width:470px;
+  border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 0 calc(45px * var(--glow)) color-mix(in srgb,var(--accent) 30%,transparent);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+}
+
+.preview-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 18px var(--accent);
+}
+
+.preview-title{
+  font-weight:800;
+}
+
+.preview-text{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.preview-btn{
+  margin-top:20px;
+  width:100%;
+  padding:13px;
+  border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);
+  border-radius:12px;
+  color:var(--text);
+  background:color-mix(in srgb,var(--accent) 13%,transparent);
+}
+
+.actions{
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+}
+
+button{
+  font:inherit;
+  cursor:pointer;
+}
+
+.save{
+  flex:1;
+  min-height:50px;
+  border:0;
+  border-radius:14px;
+  color:#001015;
+  background:var(--accent);
+  font-weight:900;
+  box-shadow:0 0 25px color-mix(in srgb,var(--accent) 30%,transparent);
+}
+
+.reset{
+  padding:0 20px;
+  border-radius:14px;
+  color:var(--text);
+  background:#0a1018;
+  border:1px solid var(--border);
+}
+
+.status{
+  margin-top:13px;
+  min-height:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.lock{
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hidden{display:none}
+
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+  .top{align-items:flex-start}
+}
+</style>
+  <link rel="stylesheet" href="assets/zorox-cyber.css">
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="logo">ZOROX</div>
+      <div class="plus">PLUS THEME STUDIO</div>
+    </div>
+    <a class="back" href="profile.html">Profile</a>
+  </div>
+
+  <section id="locked" class="card lock hidden">
+    <h1>Theme Studio Locked</h1>
+    <p class="subtitle">
+      Custom UI themes are available exclusively for ZOROX Plus.
+    </p>
+    <a class="back" href="premium.html">VIEW PLUS</a>
+  </section>
+
+  <main id="studio" class="hidden">
+
+    <h1>Customize ZOROX</h1>
+    <p class="subtitle">
+      Build your own ZOROX interface. Changes preview instantly.
+    </p>
+
+    <div class="grid">
+
+      <section class="card">
+        <h2>APPEARANCE</h2>
+
+        <div class="control">
+          <label>Theme</label>
+          <select id="theme">
+            <option value="midnight">Midnight</option>
+            <option value="cyber">Cyber</option>
+            <option value="aurora">Aurora</option>
+            <option value="obsidian">Obsidian</option>
+            <option value="neon">Neon</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Accent Color</label>
+          <div class="colors">
+            <button type="button" class="color cyan" data-color="cyan"></button>
+            <button type="button" class="color blue" data-color="blue"></button>
+            <button type="button" class="color violet" data-color="violet"></button>
+            <button type="button" class="color green" data-color="green"></button>
+            <button type="button" class="color gold" data-color="gold"></button>
+            <button type="button" class="color red" data-color="red"></button>
+          </div>
+        </div>
+
+        <div class="control">
+          <label>Glow</label>
+          <select id="glow">
+            <option value="off">Off</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Background</label>
+          <select id="background_style">
+            <option value="grid">Cyber Grid</option>
+            <option value="gradient">Gradient</option>
+            <option value="plain">Plain</option>
+            <option value="particles">Particles</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>INTERFACE</h2>
+
+        <div class="switch">
+          <span>Glass UI</span>
+          <input id="glass" type="checkbox">
+        </div>
+
+        <div class="switch">
+          <span>Background FX</span>
+          <input id="background_fx" type="checkbox">
+        </div>
+
+        <div class="switch">
+          <span>Animations</span>
+          <input id="animations" type="checkbox">
+        </div>
+
+        <div class="control" style="margin-top:16px">
+          <label>Layout</label>
+          <select id="layout">
+            <option value="compact">Compact</option>
+            <option value="comfortable">Comfortable</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Font Size</label>
+          <select id="font_size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>STYLE</h2>
+
+        <div class="control">
+          <label>Button Style</label>
+          <select id="button_style">
+            <option value="cyber">Cyber</option>
+            <option value="glass">Glass</option>
+            <option value="solid">Solid</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Chat Style</label>
+          <select id="chat_style">
+            <option value="modern">Modern</option>
+            <option value="minimal">Minimal</option>
+            <option value="bubble">Bubble</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label>Sidebar Style</label>
+          <select id="sidebar_style">
+            <option value="glass">Glass</option>
+            <option value="solid">Solid</option>
+            <option value="minimal">Minimal</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card preview">
+        <div class="preview-box">
+          <div class="preview-head">
+            <div class="dot"></div>
+            <div class="preview-title">ZOROX LIVE PREVIEW</div>
+          </div>
+          <div class="preview-text">
+            This preview changes instantly as you customize your Premium Plus interface.
+          </div>
+          <div class="preview-btn">ZOROX PREMIUM ACTION</div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="actions">
+      <button id="save" class="save" type="button">SAVE THEME</button>
+      <button id="reset" class="reset" type="button">RESET</button>
+    </div>
+
+    <div id="status" class="status"></div>
+
+  </main>
+</div>
+
+<script>
+const token = localStorage.getItem("zoroxToken");
+
+const $ = id => document.getElementById(id);
+
+const accentMap = {
+  cyan:"#00e5ff",
+  blue:"#3b82f6",
+  violet:"#8b5cf6",
+  green:"#22c55e",
+  gold:"#f5b942",
+  red:"#ef4444"
+};
+
+const glowMap = {
+  off:"0",
+  low:"0.18",
+  medium:"0.35",
+  high:"0.65"
+};
+
+let prefs = {
+  theme:"midnight",
+  accent:"cyan",
+  glow:"medium",
+  glass:1,
+  background_fx:1,
+  animations:1,
+  layout:"comfortable",
+  font_size:"medium",
+  button_style:"cyber",
+  chat_style:"modern",
+  sidebar_style:"glass",
+  background_style:"grid"
+};
+
+function applyPreview(){
+  document.documentElement.style.setProperty(
+    "--accent",
+    accentMap[prefs.accent] || accentMap.cyan
+  );
+
+  document.documentElement.style.setProperty(
+    "--glow",
+    glowMap[prefs.glow] ?? "0.35"
+  );
+
+  const backgrounds = {
+    grid:
+      "radial-gradient(circle at 20% 10%,rgba(0,229,255,.12),transparent 30%),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),#03060a",
+    gradient:
+      "radial-gradient(circle at 20% 20%,rgba(0,229,255,.18),transparent 35%),radial-gradient(circle at 80% 80%,rgba(139,92,246,.18),transparent 35%),#03060a",
+    plain:"#03060a",
+    particles:
+      "radial-gradient(circle at 20% 20%,rgba(0,229,255,.16),transparent 2%),radial-gradient(circle at 70% 60%,rgba(139,92,246,.12),transparent 2%),#03060a"
+  };
+
+  document.body.style.background = backgrounds[prefs.background_style] || backgrounds.grid;
+
+  document.documentElement.style.fontSize =
+    prefs.font_size === "small" ? "14px" :
+    prefs.font_size === "large" ? "17px" : "16px";
+
+  document.body.style.animation =
+    prefs.animations ? "" : "none";
+
+  document.querySelectorAll(".color").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.color === prefs.accent
+    );
+  });
+}
+
+function syncControls(){
+  $("theme").value = prefs.theme;
+  $("glow").value = prefs.glow;
+  $("background_style").value = prefs.background_style;
+  $("glass").checked = !!prefs.glass;
+  $("background_fx").checked = !!prefs.background_fx;
+  $("animations").checked = !!prefs.animations;
+  $("layout").value = prefs.layout;
+  $("font_size").value = prefs.font_size;
+  $("button_style").value = prefs.button_style;
+  $("chat_style").value = prefs.chat_style;
+  $("sidebar_style").value = prefs.sidebar_style;
+}
+
+function readControls(){
+  prefs.theme = $("theme").value;
+  prefs.glow = $("glow").value;
+  prefs.background_style = $("background_style").value;
+  prefs.glass = $("glass").checked ? 1 : 0;
+  prefs.background_fx = $("background_fx").checked ? 1 : 0;
+  prefs.animations = $("animations").checked ? 1 : 0;
+  prefs.layout = $("layout").value;
+  prefs.font_size = $("font_size").value;
+  prefs.button_style = $("button_style").value;
+  prefs.chat_style = $("chat_style").value;
+  prefs.sidebar_style = $("sidebar_style").value;
+
+  applyPreview();
+}
+
+async function loadPreferences(){
+  if(!token){
+    $("locked").classList.remove("hidden");
+    return;
+  }
+
+  try{
+    const response = await fetch("/api/preferences",{
+      headers:{
+        "Authorization":"Bearer " + token,
+        "Accept":"application/json"
+      }
+    });
+
+    if(response.status === 403){
+      $("locked").classList.remove("hidden");
+      return;
+    }
+
+    if(response.status === 401){
+      localStorage.removeItem("zoroxToken");
+      localStorage.removeItem("zorox_user");
+      window.location.href = "login.html";
+      return;
+    }
+
+    if(!response.ok) throw new Error("Could not load preferences");
+
+    const data = await response.json();
+
+    if(data.preferences){
+      prefs = {...prefs,...data.preferences};
+    }
+
+    syncControls();
+    applyPreview();
+
+    $("studio").classList.remove("hidden");
+
+  }catch(error){
+    $("locked").classList.remove("hidden");
+    $("locked").querySelector("p").textContent =
+      "Could not connect to the ZOROX server.";
+  }
+}
+
+document.querySelectorAll(".color").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    prefs.accent = btn.dataset.color;
+    applyPreview();
+  });
+});
+
+[
+  "theme",
+  "glow",
+  "background_style",
+  "glass",
+  "background_fx",
+  "animations",
+  "layout",
+  "font_size",
+  "button_style",
+  "chat_style",
+  "sidebar_style"
+].forEach(id=>{
+  $(id).addEventListener("change",readControls);
+});
+
+$("save").addEventListener("click",async()=>{
+  readControls();
+
+  $("save").disabled = true;
+  $("save").textContent = "SAVING...";
+
+  try{
+    const response = await fetch("/api/preferences",{
+      method:"POST",
+      headers:{
+        "Authorization":"Bearer " + token,
+        "Content-Type":"application/json",
+        "Accept":"application/json"
+      },
+      body:JSON.stringify(prefs)
+    });
+
+    const data = await response.json();
+
+    if(response.status === 403){
+      $("status").textContent = "ZOROX Plus is required.";
+      return;
+    }
+
+    if(!response.ok){
+      throw new Error(data.error || "Save failed");
+    }
+
+    $("status").textContent =
+      "Theme saved successfully to your ZOROX account.";
+
+  }catch(error){
+    $("status").textContent =
+      error.message || "Could not save theme.";
+  }finally{
+    $("save").disabled = false;
+    $("save").textContent = "SAVE THEME";
+  }
+});
+
+$("reset").addEventListener("click",()=>{
+  prefs = {
+    theme:"midnight",
+    accent:"cyan",
+    glow:"medium",
+    glass:1,
+    background_fx:1,
+    animations:1,
+    layout:"comfortable",
+    font_size:"medium",
+    button_style:"cyber",
+    chat_style:"modern",
+    sidebar_style:"glass",
+    background_style:"grid"
+  };
+
+  syncControls();
+  applyPreview();
+  $("status").textContent = "Preview reset. Save to apply it to your account.";
+});
+
+loadPreferences();
+</script>
+
+</body>
+</html>
